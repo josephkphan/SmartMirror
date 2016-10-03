@@ -12,7 +12,7 @@ from PIL import Image, ImageTk
 
 ip = '<IP>'
 country_code = 'us'
-weather_api_token = '<TOKEN>'
+weather_api_token = '58017729f3ec5ddf03d2d7a4063cad85'
 
 
 # maps open weather icons to
