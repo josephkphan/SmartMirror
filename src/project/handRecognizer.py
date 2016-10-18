@@ -3,8 +3,13 @@ import numpy as np
 import math
 
 cap = cv2.VideoCapture(0) # access camera feed
+
+fgbg = cv2.createBackgroundSubtractorMOG2() #for background reduction
+
 while (cap.isOpened()): # main loop
     ret, img = cap.read() #gets frame of camera feed
+    fgmask = fgbg.apply(img)
+    cv2.imshow('fgmask', fgmask)
     cv2.rectangle(img, (300, 300), (100, 100), (0, 255, 0), 0) # draw the rectangle to show detection box
     crop_img = img[100:300, 100:300] # crop frame range
     grey = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY) # turns image into greyscale
