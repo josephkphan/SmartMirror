@@ -2,21 +2,31 @@ import cv2
 import numpy as np
 import math
 
+
 cap = cv2.VideoCapture(0) # access camera feed
 
-fgbg = cv2.createBackgroundSubtractorMOG2() #for background reduction
+#fgbg = cv2.createBackgroundSubtractorMOG2() #for background reduction
 
 while (cap.isOpened()): # main loop
     ret, img = cap.read() #gets frame of camera feed
-    fgmask = fgbg.apply(img)
-    cv2.imshow('fgmask', fgmask)
+    img = cv2.flip (img,1)
+    #fgmask = fgbg.apply(img)
+    #cv2.imshow('fgmask', fgmask)
     cv2.rectangle(img, (300, 300), (100, 100), (0, 255, 0), 0) # draw the rectangle to show detection box
     crop_img = img[100:300, 100:300] # crop frame range
     grey = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY) # turns image into greyscale
     value = (35, 35) # value for blur
     blurred = cv2.GaussianBlur(grey, value, 6)  # removes noise from image
+
+    #USED FOR LIGHT BACKGROUND
     _, thresh1 = cv2.threshold(blurred, 180, 255, # turns into black and white
                                cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+
+    # USED FOR DARK BACKGROUND
+    #_,thresh1 = cv2.threshold(blurred, 180, 255,  # turns into black and white
+    #                        cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+
     cv2.imshow('Thresholded', thresh1) # display black and white threshold to screen
 
     (version, _, _) = cv2.__version__.split('.') # parse to get opencv version
@@ -44,6 +54,8 @@ while (cap.isOpened()): # main loop
 
     cv2.circle(img, (x+100 + w/2, 100 + y ), 5, (0, 255, 0), -1) # draw circle for cursor
 
+    cursor = (1000, 1000)
+
     for i in range(defects.shape[0]): # do the math to find number of fingers
         s, e, f, d = defects[i, 0]
         start = tuple(cnt[s][0])
@@ -63,6 +75,11 @@ while (cap.isOpened()): # main loop
         cv2.circle(img, (end[0] + 100, end[1] + 100), 5, (0, 255, 0), -1)
         #cv2.circle(img, (start[0] + 100, start[1] + 100), 5, (0, 255, 0), -1)
         # cv2.circle(crop_img,far,5,[0,0,255],-1)
+        if cursor[1] > start[1]:
+            cursor = start;
+        if cursor[1] > end[1]:
+            cursor = end;
+    cv2.circle(img, (cursor[0] + 100, cursor[1] + 100), 5, (255, 0, 0), -1)
     if count_defects == 1:
         cv2.putText(img, "1", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, 2) # 1 finger action
     elif count_defects == 2:
