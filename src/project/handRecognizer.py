@@ -14,7 +14,7 @@ while (cap.isOpened()): # main loop
     crop_img = img[100:300, 100:300] # crop frame range
     grey = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY) # turns image into greyscale
     value = (35, 35) # value for blur
-    blurred = cv2.GaussianBlur(grey, value, 4)  # removes noise from image
+    blurred = cv2.GaussianBlur(grey, value, 6)  # removes noise from image
     _, thresh1 = cv2.threshold(blurred, 180, 255, # turns into black and white
                                cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
     cv2.imshow('Thresholded', thresh1) # display black and white threshold to screen
@@ -41,6 +41,7 @@ while (cap.isOpened()): # main loop
     count_defects = 0
     cv2.drawContours(thresh1, contours, -1, (0, 255, 0), 3)
 
+
     cv2.circle(img, (x+100 + w/2, 100 + y ), 5, (0, 255, 0), -1) # draw circle for cursor
 
     for i in range(defects.shape[0]): # do the math to find number of fingers
@@ -52,11 +53,15 @@ while (cap.isOpened()): # main loop
         b = math.sqrt((far[0] - start[0]) ** 2 + (far[1] - start[1]) ** 2)
         c = math.sqrt((end[0] - far[0]) ** 2 + (end[1] - far[1]) ** 2)
         angle = math.acos((b ** 2 + c ** 2 - a ** 2) / (2 * b * c)) * 57
-        if angle <= 90:
+        if angle <= 110:
             count_defects += 1
             cv2.circle(crop_img, far, 1, [0, 255, 0], -1)
         # dist = cv2.pointPolygonTest(cnt,far,True)
         cv2.line(crop_img, start, end, [255,0,0], 2)
+        #cv2.circle(img, end, 5, (0, 255, 0), -1)
+        #cv2.circle(img, start, 5, (0, 255, 0), -1)
+        cv2.circle(img, (end[0] + 100, end[1] + 100), 5, (0, 255, 0), -1)
+        #cv2.circle(img, (start[0] + 100, start[1] + 100), 5, (0, 255, 0), -1)
         # cv2.circle(crop_img,far,5,[0,0,255],-1)
     if count_defects == 1:
         cv2.putText(img, "1", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, 2) # 1 finger action
