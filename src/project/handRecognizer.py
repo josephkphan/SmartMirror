@@ -4,16 +4,25 @@ import math
 
 
 cap = cv2.VideoCapture(0) # access camera feed
+box_selected = 0;
+box_hit_count = 0;
 
 #fgbg = cv2.createBackgroundSubtractorMOG2() #for background reduction
 
 while (cap.isOpened()): # main loop
     ret, img = cap.read() #gets frame of camera feed
     img = cv2.flip (img,1)
+    img = img[0:500, 600:1300]
     #fgmask = fgbg.apply(img)
     #cv2.imshow('fgmask', fgmask)
-    cv2.rectangle(img, (300, 300), (100, 100), (0, 255, 0), 0) # draw the rectangle to show detection box
-    crop_img = img[100:300, 100:300] # crop frame range
+    x_start = 300
+    y_start = 100
+    cv2.rectangle(img, (x_start+300, y_start+300), (x_start, y_start), (0, 255, 0), 0) # draw the full rectangle to show detection box
+    cv2.rectangle(img, (x_start+100, y_start), (x_start+200, y_start+100), (0, 255, 0), 0) # draw the grid in the rectangle
+    cv2.rectangle(img, (x_start, y_start+100), (x_start+100, y_start+200), (0, 255, 0), 0) # draw the grid in the rectangle
+    cv2.rectangle(img, (x_start+200, y_start+100), (x_start+300, y_start+200), (0, 255, 0), 0) # draw the grid in the rectangle
+    cv2.rectangle(img, (x_start+100, y_start+200), (x_start+200, y_start+300), (0, 255, 0), 0) # draw the grid in the rectangle
+    crop_img = img[y_start:y_start+300, x_start:x_start+300] # crop frame range
     grey = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY) # turns image into greyscale
     value = (35, 35) # value for blur
     blurred = cv2.GaussianBlur(grey, value, 6)  # removes noise from image
@@ -72,24 +81,41 @@ while (cap.isOpened()): # main loop
         cv2.line(crop_img, start, end, [255,0,0], 2)
         #cv2.circle(img, end, 5, (0, 255, 0), -1)
         #cv2.circle(img, start, 5, (0, 255, 0), -1)
-        cv2.circle(img, (end[0] + 100, end[1] + 100), 5, (0, 255, 0), -1)
+        cv2.circle(img, (end[0] + x_start, end[1] + y_start), 5, (0, 255, 0), -1)
         #cv2.circle(img, (start[0] + 100, start[1] + 100), 5, (0, 255, 0), -1)
         # cv2.circle(crop_img,far,5,[0,0,255],-1)
         if cursor[1] > start[1]:
             cursor = start;
         if cursor[1] > end[1]:
             cursor = end;
-    cv2.circle(img, (cursor[0] + 100, cursor[1] + 100), 5, (255, 0, 0), -1)
-    if count_defects == 1:
-        cv2.putText(img, "1", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, 2) # 1 finger action
-    elif count_defects == 2:
-        cv2.putText(img, "2", (5, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, 2) # 2 finger action
-    elif count_defects == 3:
-        cv2.putText(img, "3", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, 2) # 3 finger action
-    elif count_defects == 4:
-        cv2.putText(img, "4", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, 2) # 4 finger action
+    cv2.circle(img, (cursor[0] + x_start, cursor[1] + y_start), 5, (255, 0, 0), -1)
+    cv2.putText(img, "x: " + str(cursor[0]) + " y: " + str(cursor[1]), (150, 100), cv2.FONT_HERSHEY_SIMPLEX, 2, 2)  # 1 finger action
+
+    # detect which box the cursor is in
+    if cursor[0] > 2 and cursor[0] < 100 and cursor[1] > 2 and cursor[1] < 100: # box 1
+        if box_selected == 1:
+            box_hit_count += 1;
+            cv2.putText(img, "hit count: " + str(box_hit_count), (0, 200), cv2.FONT_HERSHEY_SIMPLEX, 1, 2)
+            if box_hit_count > 50:
+                print "Selected 1"
+                box_hit_count = 0
+        cv2.putText(img, "Cursor in box 1", (150, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, 2)
+        box_selected = 1
+    elif cursor[0] > 100 and cursor[0] < 200 and cursor[1] > 2 and cursor[1] < 100:
+        cv2.putText(img, "Cursor in box 2", (150, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, 2)
     else:
-        cv2.putText(img, "5", (50, 50), \
+        cv2.putText(img, "Outside", (150, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, 2)
+
+    if count_defects == 1:
+        cv2.putText(img, "2", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, 2) # 1 finger action
+    elif count_defects == 2:
+        cv2.putText(img, "3", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, 2) # 2 finger action
+    elif count_defects == 3:
+        cv2.putText(img, "4", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, 2) # 3 finger action
+    elif count_defects == 4:
+        cv2.putText(img, "5", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, 2) # 4 finger action
+    else:
+        cv2.putText(img, "1", (50, 50), \
                     cv2.FONT_HERSHEY_SIMPLEX, 2, 2) # 5 finger action
     # cv2.imshow('drawing', drawing)
     # cv2.imshow('end', crop_img)
@@ -101,3 +127,13 @@ while (cap.isOpened()): # main loop
     k = cv2.waitKey(10)
     if k == 27: # Esc key breaks out of program
         break # break out of program
+
+def hit_counter(box_no):
+    if box_selected == box_no:
+        box_hit_count += 1;
+        cv2.putText(img, "hit count: " + str(box_hit_count), (0, 200), cv2.FONT_HERSHEY_SIMPLEX, 1, 2)
+        if box_hit_count > 50:
+            print "Selected " + str(box_no)
+            box_hit_count = 0
+    cv2.putText(img, "Cursor in box 1", (150, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, 2)
+    box_selected = 1
