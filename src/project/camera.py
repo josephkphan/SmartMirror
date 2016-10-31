@@ -14,12 +14,13 @@ class Camera:
         self.bool_light = bool_light
         self.cursor = (1000, 1000)
         self.ret, self.img = self.cap.read()  # gets frame of camera feed
+        self.img = cv2.flip(self.img, 1)
         cv2.rectangle(self.img, (300, 300), (100, 100), (0, 255, 0), 0)  # draw the rectangle to show detection
         self.crop_img = self.img[100:300, 100:300]  # crop frame range
         self.grey = cv2.cvtColor(self.crop_img, cv2.COLOR_BGR2GRAY)  # turns image into greyscale
         self.value = (35, 35)  # value for blur
         self.blurred = cv2.GaussianBlur(self.grey, self.value, 6)  # removes noise from image
-        if bool_light:  # Means background is white
+        if self.bool_light:  # Means background is white
             _, self.thresh1 = cv2.threshold(self.blurred, 180, 255,  # Inverse Threshold
                                             cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
         else:
@@ -95,16 +96,16 @@ class Camera:
     # ------------------------------------------------ UPDATE ------------------------------------------------#
 
     # Description:
-    def update_values(self, bool_light):
-        self.bool_light = bool_light
+    def update_values(self):
         self.cursor = (1000, 1000)
         self.ret, self.img = self.cap.read()                            # gets frame of camera feed
+        self.img = cv2.flip(self.img, 1)
         cv2.rectangle(self.img, (300, 300), (100, 100), (0, 255, 0), 0)  # draw the rectangle to show detection
         self.crop_img = self.img[100:300, 100:300]                      # crop frame range
         self.grey = cv2.cvtColor(self.crop_img, cv2.COLOR_BGR2GRAY)     # turns image into greyscale
         self.value = (35, 35)                                           # value for blur
         self.blurred = cv2.GaussianBlur(self.grey, self.value, 6)       # removes noise from image
-        if bool_light:                                                   # Means background is white
+        if self.bool_light:                                                   # Means background is white
             _, self.thresh1 = cv2.threshold(self.blurred, 180, 255,     # Inverse Threshold
                                        cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
         else:
