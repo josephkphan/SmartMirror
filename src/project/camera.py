@@ -54,7 +54,7 @@ class Camera:
         self.count_defects = 0
         cv2.drawContours(self.thresh1, self.contours, -1, (0, 255, 0), 3)
 
-        cv2.circle(self.img, (self.x + 100 + self.w / 2, 100 + self.y), 5, (0, 255, 0), -1)  # draw circle for cursor
+        #cv2.circle(self.img, (self.x + 100 + self.w / 2, 100 + self.y), 5, (0, 255, 0), -1)  # draw circle for cursor
 
         for i in range(self.defects.shape[0]):  # do the math to find number of fingers
             s, e, f, d = self.defects[i, 0]
@@ -90,7 +90,7 @@ class Camera:
             cv2.putText(self.img, "5", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, 2)  # 5 finger action)
         cv2.imshow('Gesture', self.img)  # full frame with excess camera feed
         self.all_img = np.hstack((self.drawing, self.crop_img))
-        cv2.circle(self.all_img, (self.x + 0 + self.w / 2, self.y), 5, (0, 255, 0), -1)
+        #cv2.circle(self.all_img, (self.x + 0 + self.w / 2, self.y), 5, (0, 255, 0), -1)
         cv2.imshow('Contours', self.all_img)  # contours and frame feed - side by side
 
     # ------------------------------------------------ UPDATE ------------------------------------------------#
@@ -138,7 +138,7 @@ class Camera:
         self.count_defects = 0
         cv2.drawContours(self.thresh1, self.contours, -1, (0, 255, 0), 3)
 
-        cv2.circle(self.img, (self.x + 100 + self.w / 2, 100 + self.y), 5, (0, 255, 0), -1)  # draw circle for cursor
+        #cv2.circle(self.img, (self.x + 100 + self.w / 2, 100 + self.y), 5, (0, 255, 0), -1)  # draw circle for cursor
 
         for i in range(self.defects.shape[0]):  # do the math to find number of fingers
             s, e, f, d = self.defects[i, 0]
@@ -154,7 +154,6 @@ class Camera:
                 cv2.circle(self.crop_img, self.far, 1, [0, 255, 0], -1)
             cv2.line(self.crop_img, self.start, self.end, [255, 0, 0], 2)
             cv2.circle(self.img, (self.end[0] + 100, self.end[1] + 100), 5, (0, 255, 0), -1)
-
             if self.cursor[1] > self.start[1]:
                 self.cursor = self.start
             if self.cursor[1] > self.end[1]:
@@ -174,7 +173,8 @@ class Camera:
             cv2.putText(self.img, "5", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, 2)  # 5 finger action)
         cv2.imshow('Gesture', self.img)                                 # full frame with excess camera feed
         self.all_img = np.hstack((self.drawing, self.crop_img))
-        cv2.circle(self.all_img, (self.x + 0 + self.w / 2, self.y), 5, (0, 255, 0), -1)
+        #cv2.circle(self.all_img, (self.x + 0 + self.w / 2, self.y), 5, (0, 255, 0), -1)
+        cv2.circle(self.all_img, (self.cursor[0] , self.cursor[1]), 5, (0, 255, 0), -1)
         cv2.imshow('Contours', self.all_img)                            # contours and frame feed - side by side
 
     # ------------------------------------------------ DISPLAY ------------------------------------------------#
