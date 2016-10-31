@@ -83,8 +83,7 @@ while (cap.isOpened()): # main loop
     if count_defects == 1:
         cv2.putText(img, "1", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, 2) # 1 finger action
     elif count_defects == 2:
-        str = "2"
-        cv2.putText(img, str, (5, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, 2) # 2 finger action
+        cv2.putText(img, "2", (5, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, 2) # 2 finger action
     elif count_defects == 3:
         cv2.putText(img, "3", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, 2) # 3 finger action
     elif count_defects == 4:
