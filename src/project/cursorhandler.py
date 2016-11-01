@@ -1,5 +1,5 @@
 
-class CursorHandker:
+class CursorHandler:
 
     def __init__(self):
         self.counter = 0;
