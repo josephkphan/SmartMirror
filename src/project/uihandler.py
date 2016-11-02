@@ -256,6 +256,16 @@ class UIManager:
     def __init__(self):
         self.weather, self.clock, self.news = None, None, None
         self.tk = Tk()
+        self.tk2 = Tk()
+        self.canvas = Canvas(self.tk2, width=300, height=300, background='black')
+        self.circle_coord = (0,0)
+        self.circle_diameter = 10       #todo scale the cursor to match screen size
+        # self.cursor = self.canvas.create_oval(self.circle_coord[0], self.circle_coord[1],
+        #                                       self.circle_coord[0] + self.circle_diameter,
+        #                                       self.circle_coord[1] + self.circle_diameter
+        #                                       , fill="blue", outline="#DDD", width=4)
+        self.cursor = self.canvas.create_oval(0,0,50,50,fill="blue", outline="#DDD", width=4)
+        self.canvas.pack()
         self.tk.configure(background='black')
         self.topFrame = Frame(self.tk, background='black')
         self.bottomFrame = Frame(self.tk, background='black')
@@ -318,7 +328,18 @@ class UIManager:
         self.tk.attributes("-fullscreen", False)
         return "break"
 
-    def update(self):
+    def update(self, cursor):
+        # print "X Coord: "  + str(cursor[0]) + "  |  Y Coord: " + str(cursor[1])
+        diff_x = cursor[0] - self.circle_coord[0]
+        diff_y = cursor[1] - self.circle_coord[1]
+        print "diff X = " + str(diff_x) + "  |  diff y = " + str(diff_y)
+        self.canvas.move(self.cursor, diff_x, diff_y)
+        # self.canvas.move(self.cursor, cursor[0], cursor[1])
+        self.circle_coord = cursor
+        #self.canvas.update()
+        #self.canvas.update_idletasks()
         self.tk.update_idletasks()
         self.tk.update()
+        self.tk2.update_idletasks()
+        self.tk2.update()
 
