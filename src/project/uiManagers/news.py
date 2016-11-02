@@ -55,3 +55,10 @@ class News(Frame):
             print "Error: %s. Cannot get news." % e
 
         self.after(600000, self.get_headlines)
+
+    def change_color_to_yellow(self):
+        self.newsLbl.config(foreground="yellow")
+        # todo figure how to change headlines to yellow
+
+    def change_color_to_white(self):
+        self.newsLbl.config(foreground="white")

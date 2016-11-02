@@ -1,11 +1,14 @@
 from news import *
 from weather import *
-
+from cursorhandler import *
 from src.project.uiManagers.clock import *
 
 
 class UIManager:
     def __init__(self):
+        self.counter = 0;
+        self.zone = None
+        self.cursor_handler = CursorHandler();
         self.weather, self.clock, self.news = None, None, None
         self.tk = Tk()
         self.tk2 = Tk()
@@ -17,6 +20,8 @@ class UIManager:
         #                                       self.circle_coord[1] + self.circle_diameter
         #                                       , fill="blue", outline="#DDD", width=4)
         self.cursor = self.canvas.create_oval(0,0,50,50,fill="blue", outline="#DDD", width=4)
+        self.line1 = self.canvas.create_line((150,0), (150,300), fill = "green",)
+        self.line2 = self.canvas.create_line((0, 150), (300, 150), fill="green", )
         self.canvas.pack()
         self.tk.configure(background='black')
         self.topFrame = Frame(self.tk, background='black')
@@ -81,6 +86,14 @@ class UIManager:
         return "break"
 
     def update(self, cursor):
+        if self.counter > 50:
+            self.weather.change_color_to_yellow()
+            self.news.change_color_to_yellow()
+            self.clock.change_color_to_yellow()
+            self.counter= -500
+        self.counter += 1;
+        self.update_zone(cursor)
+        # print str(self.counter)
         # print "X Coord: "  + str(cursor[0]) + "  |  Y Coord: " + str(cursor[1])
         diff_x = cursor[0] - self.circle_coord[0]
         diff_y = cursor[1] - self.circle_coord[1]
@@ -95,3 +108,17 @@ class UIManager:
         self.tk2.update_idletasks()
         self.tk2.update()
 
+    def update_zone(self, cursor):
+        self.zone = self.cursor_handler.update_cursor(cursor)
+        if self.zone == 1:
+            self.weather.change_color_to_yellow()
+            self.news.change_color_to_white()
+            self.clock.change_color_to_white()
+        elif self.zone == 2:
+            self.weather.change_color_to_white()
+            self.news.change_color_to_yellow()
+            self.clock.change_color_to_white()
+        elif self.zone == 3:
+            self.weather.change_color_to_white()
+            self.news.change_color_to_white()
+            self.clock.change_color_to_yellow()

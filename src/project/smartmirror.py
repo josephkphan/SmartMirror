@@ -1,14 +1,12 @@
 from hardwareManagers.camera import *
 from hardwareManagers.powerswitch import *
 from hardwareManagers.ultrasoundhandler import *
-from cursorManager.cursorhandler import *
 from uiManagers.uihandler import *
 
 bool_light = True
 ultra_sound_handler = UltraSoundHandler()
 power_switch = PowerSwitch()
 camera = Camera(bool_light)
-cursor_handler = CursorHandler()
 ui_manager = UIManager()
 
 counter = 0

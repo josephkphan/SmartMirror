@@ -47,7 +47,7 @@ class Weather(Frame):
             location_req_url = "http://freegeoip.net/json/%s" % self.get_ip()
             # print "Location req url : " + location_req_url
 
-            r = requests.get(location_req_url, timeout = 1)
+            r = requests.get(location_req_url, timeout=.5)
 
             location_obj = json.loads(r.text)
 
@@ -110,6 +110,18 @@ class Weather(Frame):
             print "Error: %s. Cannot get weather." % e
 
         self.after(600000, self.get_weather)
+
+    def change_color_to_yellow(self):
+        self.temperatureLbl.config(foreground="yellow")
+        self.currentlyLbl.config(foreground="yellow")
+        self.forecastLbl.config(foreground="yellow")
+        self.locationLbl.config(foreground="yellow")
+
+    def change_color_to_white(self):
+        self.temperatureLbl.config(foreground="white")
+        self.currentlyLbl.config(foreground="white")
+        self.forecastLbl.config(foreground="white")
+        self.locationLbl.config(foreground="white")
 
     @staticmethod
     def convert_kelvin_to_fahrenheit(kelvin_temp):

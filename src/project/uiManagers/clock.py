@@ -37,3 +37,13 @@ class Clock(Frame):
         # to update the time display as needed
         # could use >200 ms, but display gets jerky
         self.timeLbl.after(200, self.tick)
+
+    def change_color_to_yellow(self):
+        self.dateLbl.config(foreground="yellow")
+        self.timeLbl.config(foreground="yellow")
+        self.dayOWLbl.config(foreground="yellow")
+
+    def change_color_to_white(self):
+        self.dateLbl.config(foreground="white")
+        self.timeLbl.config(foreground="white")
+        self.dayOWLbl.config(foreground="white")
