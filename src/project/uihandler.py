@@ -8,6 +8,7 @@ import requests
 import json
 import traceback
 import feedparser
+import os
 from PIL import Image, ImageTk
 
 ip = '<IP>'
@@ -105,11 +106,16 @@ class Weather(Frame):
         try:
             # get location
             location_req_url = "http://freegeoip.net/json/%s" % self.get_ip()
-            r = requests.get(location_req_url)
+            print "Location req url : " + location_req_url
+
+            r = requests.get(location_req_url, timeout = 1)
+
             location_obj = json.loads(r.text)
 
             lat = location_obj['latitude']
             lon = location_obj['longitude']
+
+            print "Lat : " + str(lat) + "  |  Lon : " + str(lon)
 
             location2 = "%s, %s" % (location_obj['city'], location_obj['region_code'])
 
@@ -128,6 +134,8 @@ class Weather(Frame):
 
             if icon_id in icon_lookup:
                 icon2 = icon_lookup[icon_id]
+
+            print icon2
 
             if icon2 is not None:
                 if self.icon != icon2:
@@ -207,7 +215,10 @@ class NewsHeadline(Frame):
     def __init__(self, parent, event_name=""):
         Frame.__init__(self, parent, bg='black')
 
-        image = Image.open("assets/newspaper.png")
+        cwd = os.getcwd()
+        print cwd
+        image = Image.open(cwd + "/assets/newspaper.png")
+
         image = image.resize((25, 25), Image.ANTIALIAS)
         image = image.convert('RGB')
         photo = ImageTk.PhotoImage(image)
@@ -309,7 +320,9 @@ class UIManager:
         self.news.pack_forget()
 
     def start_weather(self):
+        print "Checkpooint1"
         self.weather = Weather(self.topFrame)
+        print "Checkpoint"
         self.weather.pack(side=LEFT, anchor=N, padx=100, pady=60)
 
     def end_weather(self):
@@ -329,10 +342,10 @@ class UIManager:
         return "break"
 
     def update(self, cursor):
-        # print "X Coord: "  + str(cursor[0]) + "  |  Y Coord: " + str(cursor[1])
+        print "X Coord: "  + str(cursor[0]) + "  |  Y Coord: " + str(cursor[1])
         diff_x = cursor[0] - self.circle_coord[0]
         diff_y = cursor[1] - self.circle_coord[1]
-        print "diff X = " + str(diff_x) + "  |  diff y = " + str(diff_y)
+        #print "diff X = " + str(diff_x) + "  |  diff y = " + str(diff_y)
         self.canvas.move(self.cursor, diff_x, diff_y)
         # self.canvas.move(self.cursor, cursor[0], cursor[1])
         self.circle_coord = cursor
