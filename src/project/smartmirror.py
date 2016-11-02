@@ -1,12 +1,8 @@
-from camera import *
-from ultrasoundhandler import *
-from uihandler import *
-from powerswitch import *
-from cursorhandler import *
-
-import cv2
-import numpy as np
-import math
+from hardwareManagers.camera import *
+from hardwareManagers.powerswitch import *
+from hardwareManagers.ultrasoundhandler import *
+from cursorManager.cursorhandler import *
+from uiManagers.uihandler import *
 
 bool_light = True
 ultra_sound_handler = UltraSoundHandler()
