@@ -46,8 +46,10 @@ class Weather(Frame):
             # get location
             location_req_url = "http://freegeoip.net/json/%s" % self.get_ip()
             # print "Location req url : " + location_req_url
+            print location_req_url
 
-            r = requests.get(location_req_url, timeout=.5)
+            r = requests.get(location_req_url, timeout=.2)  # todo is point 2 long enough??
+            print r
 
             location_obj = json.loads(r.text)
 
