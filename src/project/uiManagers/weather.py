@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 
 import src.project.resources.lookup
 
-import src.project.resources.var
+from src.project.resources.var import *
 
 
 class Weather(Frame):
@@ -48,7 +48,7 @@ class Weather(Frame):
             # print "Location req url : " + location_req_url
             print location_req_url
 
-            r = requests.get(location_req_url, timeout=.2)  # todo is point 2 long enough??
+            r = requests.get(location_req_url, timeout=.5)  # todo is point 5 long enough??
             print r
 
             location_obj = json.loads(r.text)
@@ -62,7 +62,7 @@ class Weather(Frame):
 
             # get weather
             weather_req_url = "https://api.darksky.net/forecast/%s/%s,%s" % (
-                src.project.resources.var.weather_api_token, lat, lon)
+                weather_api_token, lat, lon)
             r = requests.get(weather_req_url)
             weather_obj = json.loads(r.text)
 
@@ -124,6 +124,12 @@ class Weather(Frame):
         self.currentlyLbl.config(foreground="white")
         self.forecastLbl.config(foreground="white")
         self.locationLbl.config(foreground="white")
+
+    def save_weather_data(self):
+        update_weather_data( self.iconLbl, self.forecastLbl,  self.currentlyLbl, self.locationLbl, self.temperatureLbl)
+
+    def refresh_weather_data(self):
+        self.get_weather()  # todo Check is this is right
 
     @staticmethod
     def convert_kelvin_to_fahrenheit(kelvin_temp):

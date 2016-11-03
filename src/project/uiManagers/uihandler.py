@@ -5,6 +5,7 @@ from calendarBook import *
 from src.project.uiManagers.clock import *
 from page import *
 from returnButton import *
+from src.project.resources.var import *     #todo should change back to regular import
 
 
 class UIManager:
@@ -16,13 +17,20 @@ class UIManager:
         self.weather, self.clock, self.news, self.returnButton = None, None, None, None
         self.tk = Tk()
         self.tk2 = Tk()
-        self.canvas = Canvas(self.tk2, width=300, height=300, background='black')
-        self.circle_coord = (0,0)
-        self.circle_diameter = 10       #todo scale the cursor to match screen size
-        # todo create a variable class to make these constants into variables
-        self.cursor = self.canvas.create_oval(0,0,50,50,fill="blue", outline="#DDD", width=4)
-        self.line1 = self.canvas.create_line((150,0), (150,300), fill = "green",)
-        self.line2 = self.canvas.create_line((0, 150), (300, 150), fill="green", )
+        self.canvas = Canvas(self.tk2, width=camera_width + tk_cursor_diameter,
+                             height=camera_height + tk_cursor_diameter, background='black')
+        self.circle_coord = (0, 0)
+        self.circle_diameter = tk_cursor_diameter      #todo scale the cursor to match screen size
+        self.cursor = self.canvas.create_oval(0,0,tk_cursor_diameter,tk_cursor_diameter,
+                                              fill="blue", outline="#DDD", width=tk_cursor_outline_thickness)
+        # Vertical line
+        self.line1 = self.canvas.create_line((camera_width/2 + tk_cursor_diameter/2, 0),
+                                             (camera_width/2 + tk_cursor_diameter/2,
+                                              camera_height + tk_cursor_diameter), fill = "green",)
+        # Horizontal line
+        self.line2 = self.canvas.create_line((0, camera_height/2 + tk_cursor_diameter/2),
+                                             (camera_width + tk_cursor_diameter,
+                                              camera_height/2 + tk_cursor_diameter/2), fill="green", )
         self.canvas.pack()
         self.tk.configure(background='black')
         self.topFrame = Frame(self.tk, background='black')
@@ -57,28 +65,28 @@ class UIManager:
 
     def start_news(self):
         self.news = News(self.bottomFrame)
-        self.news.pack(side=LEFT, anchor=S, padx=100, pady=60)
+        self.news.pack(side=LEFT, anchor=S, padx=50, pady=50)
 
     def end_news(self):
         self.news.destroy()
 
     def start_weather(self):
         self.weather = Weather(self.topFrame)
-        self.weather.pack(side=LEFT, anchor=N, padx=100, pady=60)
+        self.weather.pack(side=LEFT, anchor=N, padx=50, pady=50)
 
     def end_weather(self):
         self.weather.destroy()
 
     def start_clock(self):
         self.clock = Clock(self.topFrame)
-        self.clock.pack(side=RIGHT, anchor=N, padx=100, pady=60)
+        self.clock.pack(side=RIGHT, anchor=N, padx=50, pady=50)
 
     def end_clock(self):
         self.clock.destroy()
 
     def new_return_button(self):
         self.returnButton = ReturnButton(self.topFrame)
-        self.returnButton.pack(side=LEFT, anchor=N, padx=100, pady=60)
+        self.returnButton.pack(side=LEFT, anchor=N, padx=50, pady=50)
 
     def remove_return_button(self):
         self.returnButton.destroy()
@@ -90,9 +98,9 @@ class UIManager:
         return "break"
 
     def update(self, cursor):
-        if self.counter == 50:
+        if self.counter == 100:
             self.change_page(2)
-        elif self.counter == 150:
+        elif self.counter == 200:
             self.change_page(1)
         self.counter += 1
         self.update_zone(cursor)

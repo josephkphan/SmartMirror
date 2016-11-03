@@ -3,7 +3,7 @@ from hardwareManagers.powerswitch import *
 from hardwareManagers.ultrasoundhandler import *
 from uiManagers.uihandler import *
 
-bool_light = False
+bool_light = True
 ultra_sound_handler = UltraSoundHandler()
 power_switch = PowerSwitch()
 camera = Camera(bool_light)
