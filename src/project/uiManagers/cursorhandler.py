@@ -1,14 +1,20 @@
 from shapely.geometry import *
 import numpy as np
+from src.project.resources.var import *
 
 class CursorHandler:
 
     def __init__(self ):
         self.zoneName = None
-        self.zone1 = Polygon([(0,0),(0,150), (150,150),(150,0)])
-        self.zone2 = Polygon([(0,150),(0,300), (150,300), (150,150)])
-        self.zone3 = Polygon([(150,0),(150,150), (300,150), (300,0)])
-        self.zone4 = Polygon([(150,150),(150,300), (300,300), (150,300)])
+        # MainPage Zones
+        self.zone1 = Polygon([(0,0),(0,camera_height/2), (camera_width/2,camera_height/2),
+                              (camera_width/2,0)])  # bottom Left
+        self.zone2 = Polygon([(0,camera_height/2),(0,camera_height), (camera_width/2,camera_height),
+                              (camera_width/2,camera_height/2)])  # top Left
+        self.zone3 = Polygon([(camera_width/2,0),(camera_width/2,camera_height/2),
+                              (camera_width,camera_height/2), (camera_width,0)])  # bottom right
+        self.zone4 = Polygon([(camera_width/2,camera_height/2),(camera_width/2,camera_height),
+                              (camera_width,camera_height), (camera_width/2,camera_height)])  # top right
 
     def update_cursor(self, cursor):
         p = Point(cursor[0], cursor[1])
