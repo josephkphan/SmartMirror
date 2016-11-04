@@ -4,6 +4,8 @@ import traceback
 from PIL import Image, ImageTk
 
 import src.project.resources.var
+# File Name: news.py
+# Purpose: Gathers headlines from news website
 
 
 class NewsHeadline(Frame):
@@ -55,6 +57,8 @@ class News(Frame):
             print "Error: %s. Cannot get news." % e
 
         self.after(600000, self.get_headlines)
+
+    # ---------------------------------- COLOR CHANGERS ----------------------------------- #
 
     def change_color_to_yellow(self):
         self.newsLbl.config(foreground="yellow")

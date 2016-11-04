@@ -11,6 +11,19 @@ camera_height = 200
 tk_cursor_diameter = 25
 tk_cursor_outline_thickness = tk_cursor_diameter/10
 
+# ------------------- Polygon Coordinate ---------------- #
+bottom_left_rectangle = [(0, camera_height / 2), (0, camera_height), (camera_width / 2, camera_height),
+                              (camera_width / 2, camera_height / 2)]
+
+bottom_right_rectangle = [(camera_width / 2, camera_height / 2), (camera_width / 2, camera_height),
+                              (camera_width, camera_height), (camera_width / 2, camera_height)]
+
+top_left_rectangle = [(0, 0), (0, camera_height / 2), (camera_width / 2, camera_height / 2),
+                              (camera_width / 2, 0)]
+
+top_right_rectangle = [(camera_width / 2, 0), (camera_width / 2, camera_height / 2),
+                              (camera_width, camera_height / 2), (camera_width, 0)]
+
 # -------------------- Saved Data -------------------- #
 
 # -------------------- Weather -------------------- #
@@ -29,6 +42,7 @@ def update_weather_data(icon,forecast,currently, location, temperature):
     saved_weather_currently = currently
     saved_weather_location = location
     saved_weather_temperature = temperature
+    print saved_weather_forecast
 
 # -------------------- News -------------------- #
 

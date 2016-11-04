@@ -10,7 +10,7 @@ from src.project.resources.var import *
 
 
 class Weather(Frame):
-    def __init__(self, parent, *args, **kwargs):
+    def __init__(self, parent, loadSavedData):
         Frame.__init__(self, parent, bg='black')
         self.temperature = ''
         self.forecast = ''
@@ -19,17 +19,32 @@ class Weather(Frame):
         self.icon = ''
         self.degreeFrm = Frame(self, bg="black")
         self.degreeFrm.pack(side=TOP, anchor=W)
-        self.temperatureLbl = Label(self.degreeFrm, font=('Helvetica', 94), fg="white", bg="black")
-        self.temperatureLbl.pack(side=LEFT, anchor=N)
-        self.iconLbl = Label(self.degreeFrm, bg="black")
-        self.iconLbl.pack(side=LEFT, anchor=N, padx=20)
-        self.currentlyLbl = Label(self, font=('Helvetica', 28), fg="white", bg="black")
-        self.currentlyLbl.pack(side=TOP, anchor=W)
-        self.forecastLbl = Label(self, font=('Helvetica', 18), fg="white", bg="black")
-        self.forecastLbl.pack(side=TOP, anchor=W)
-        self.locationLbl = Label(self, font=('Helvetica', 18), fg="white", bg="black")
-        self.locationLbl.pack(side=TOP, anchor=W)
-        self.get_weather()
+        if loadSavedData:
+            print "Checkpoint"
+            self.temperatureLbl = saved_weather_temperature
+            print self.temperatureLbl
+            self.temperatureLbl.pack(side=LEFT, anchor=N)
+            self.iconLbl = saved_weather_icon
+            self.iconLbl.pack(side=LEFT, anchor=N, padx=20)
+            self.currentlyLbl = saved_weather_currently
+            self.currentlyLbl.pack(side=TOP, anchor=W)
+            self.forecastLbl = saved_weather_forecast
+            self.forecastLbl.pack(side=TOP, anchor=W)
+            self.locationLbl = saved_weather_location
+            self.locationLbl.pack(side=TOP, anchor=W)
+        else:
+            self.temperatureLbl = Label(self.degreeFrm, font=('Helvetica', 94), fg="white", bg="black")
+            self.temperatureLbl.pack(side=LEFT, anchor=N)
+            self.iconLbl = Label(self.degreeFrm, bg="black")
+            self.iconLbl.pack(side=LEFT, anchor=N, padx=20)
+            self.currentlyLbl = Label(self, font=('Helvetica', 28), fg="white", bg="black")
+            self.currentlyLbl.pack(side=TOP, anchor=W)
+            self.forecastLbl = Label(self, font=('Helvetica', 18), fg="white", bg="black")
+            self.forecastLbl.pack(side=TOP, anchor=W)
+            self.locationLbl = Label(self, font=('Helvetica', 18), fg="white", bg="black")
+            self.locationLbl.pack(side=TOP, anchor=W)
+            self.get_weather()
+            self.save_weather_data()
 
     def get_ip(self):
         try:
