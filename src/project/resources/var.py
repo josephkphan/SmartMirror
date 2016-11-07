@@ -1,3 +1,5 @@
+import json
+import time;
 # -------------------- For Web Parsing -------------------- #
 
 ip = '<IP>'
@@ -27,22 +29,40 @@ top_right_rectangle = [(camera_width / 2, 0), (camera_width / 2, camera_height /
 # -------------------- Saved Data -------------------- #
 
 # -------------------- Weather -------------------- #
-saved_weather_icon = None
-saved_weather_forecast = None
-saved_weather_currently = None
-saved_weather_location = None
-saved_weather_temperature = None
+
+saved_data = { }
+saved_data['last_updated'] = 0;
+# Writing JSON data
 
 
-def update_weather_data(icon,forecast,currently, location, temperature):
-    global saved_weather_forecast, saved_weather_icon, saved_weather_location
-    global saved_weather_currently, saved_weather_temperature
-    saved_weather_icon = icon
-    saved_weather_forecast= forecast
-    saved_weather_currently = currently
-    saved_weather_location = location
-    saved_weather_temperature = temperature
-    print saved_weather_forecast
+def write_json_to_file():
+    # Open a file for writing
+    saved_data['last_updated'] = time.time()
+    out_file = open("data.json", "w")
+    # Save the data into this file
+    # (the 'indent=4' is optional, but makes it more readable)
+    json.dump(saved_data, out_file, indent=4)
+    out_file.close()
+
+
+
+# Reading data back
+def read_json_from_file():
+    global saved_data
+    with open('data.json', 'r') as f:
+        saved_data = json.load(f)
+
+
+
+
+def update_weather_data(weather_data, location_data):
+
+    # Converting to Json
+    saved_data['weather'] = weather_data
+    saved_data['location'] = location_data
+    write_json_to_file()
+    print saved_data
+
 
 # -------------------- News -------------------- #
 

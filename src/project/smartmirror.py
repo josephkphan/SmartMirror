@@ -1,3 +1,6 @@
+import sys
+sys.path.append("../..")
+
 from hardwareManagers.camera import *
 from hardwareManagers.powerswitch import *
 from hardwareManagers.ultrasoundhandler import *

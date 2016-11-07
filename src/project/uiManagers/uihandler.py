@@ -93,9 +93,12 @@ class UIManager:
         self.news.destroy()
 
     def start_loaded_weather(self):
-        self.weather = Weather(self.topFrame, False)  # todo change this
+        print "CHECKPOINT"
+        print saved_data
+        self.weather = Weather(self.topFrame, True)  # todo change this
         self.weather.pack(side=LEFT, anchor=N, padx=50, pady=50)
 
+    # todo only on first time load upif data jsondoesnt exist
     def start_new_weather(self):
         self.weather = Weather(self.topFrame, False)
         self.weather.pack(side=LEFT, anchor=N, padx=50, pady=50)

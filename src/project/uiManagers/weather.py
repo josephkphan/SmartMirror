@@ -19,32 +19,20 @@ class Weather(Frame):
         self.icon = ''
         self.degreeFrm = Frame(self, bg="black")
         self.degreeFrm.pack(side=TOP, anchor=W)
+        self.temperatureLbl = Label(self.degreeFrm, font=('Helvetica', 94), fg="white", bg="black")
+        self.temperatureLbl.pack(side=LEFT, anchor=N)
+        self.iconLbl = Label(self.degreeFrm, bg="black")
+        self.iconLbl.pack(side=LEFT, anchor=N, padx=20)
+        self.currentlyLbl = Label(self, font=('Helvetica', 28), fg="white", bg="black")
+        self.currentlyLbl.pack(side=TOP, anchor=W)
+        self.forecastLbl = Label(self, font=('Helvetica', 18), fg="white", bg="black")
+        self.forecastLbl.pack(side=TOP, anchor=W)
+        self.locationLbl = Label(self, font=('Helvetica', 18), fg="white", bg="black")
+        self.locationLbl.pack(side=TOP, anchor=W)
         if loadSavedData:
-            print "Checkpoint"
-            self.temperatureLbl = saved_weather_temperature
-            print self.temperatureLbl
-            self.temperatureLbl.pack(side=LEFT, anchor=N)
-            self.iconLbl = saved_weather_icon
-            self.iconLbl.pack(side=LEFT, anchor=N, padx=20)
-            self.currentlyLbl = saved_weather_currently
-            self.currentlyLbl.pack(side=TOP, anchor=W)
-            self.forecastLbl = saved_weather_forecast
-            self.forecastLbl.pack(side=TOP, anchor=W)
-            self.locationLbl = saved_weather_location
-            self.locationLbl.pack(side=TOP, anchor=W)
+            self.set_weather_data()
         else:
-            self.temperatureLbl = Label(self.degreeFrm, font=('Helvetica', 94), fg="white", bg="black")
-            self.temperatureLbl.pack(side=LEFT, anchor=N)
-            self.iconLbl = Label(self.degreeFrm, bg="black")
-            self.iconLbl.pack(side=LEFT, anchor=N, padx=20)
-            self.currentlyLbl = Label(self, font=('Helvetica', 28), fg="white", bg="black")
-            self.currentlyLbl.pack(side=TOP, anchor=W)
-            self.forecastLbl = Label(self, font=('Helvetica', 18), fg="white", bg="black")
-            self.forecastLbl.pack(side=TOP, anchor=W)
-            self.locationLbl = Label(self, font=('Helvetica', 18), fg="white", bg="black")
-            self.locationLbl.pack(side=TOP, anchor=W)
             self.get_weather()
-            self.save_weather_data()
 
     def get_ip(self):
         try:
@@ -56,6 +44,61 @@ class Weather(Frame):
             traceback.print_exc()
             return "Error: %s. Cannot get ip." % e
 
+    def set_weather_data(self):
+        location_obj = saved_data['location']
+
+        lat = location_obj['latitude']
+        lon = location_obj['longitude']
+
+        # print "Lat : " + str(lat) + "  |  Lon : " + str(lon)
+
+        location2 = "%s, %s" % (location_obj['city'], location_obj['region_code'])
+
+        weather_obj = saved_data['weather']
+
+        degree_sign = u'\N{DEGREE SIGN}'
+        temperature2 = "%s%s" % (str(int(weather_obj['currently']['temperature'])), degree_sign)
+        currently2 = weather_obj['currently']['summary']
+        forecast2 = weather_obj["hourly"]["summary"]
+
+        icon_id = weather_obj['currently']['icon']
+        icon2 = None
+
+        if icon_id in src.project.resources.lookup.icon:
+            icon2 = src.project.resources.lookup.icon[icon_id]
+
+        if icon2 is not None:
+            if self.icon != icon2:
+                self.icon = icon2
+                image = Image.open(icon2)
+                image = image.resize((100, 100), Image.ANTIALIAS)
+                image = image.convert('RGB')
+                photo = ImageTk.PhotoImage(image)
+
+                self.iconLbl.config(image=photo)
+                self.iconLbl.image = photo
+        else:
+            # remove image
+            self.iconLbl.config(image='')
+
+        if self.currently != currently2:
+            self.currently = currently2
+            self.currentlyLbl.config(text=currently2)
+        if self.forecast != forecast2:
+            self.forecast = forecast2
+            self.forecastLbl.config(text=forecast2)
+        if self.temperature != temperature2:
+            self.temperature = temperature2
+            self.temperatureLbl.config(text=temperature2)
+        if self.location != location2:
+            if location2 == ", ":
+                self.location = "Cannot Pinpoint Location"
+                self.locationLbl.config(text="Cannot Pinpoint Location")
+            else:
+                self.location = location2
+                self.locationLbl.config(text=location2)
+
+    # gets the weather and saves it
     def get_weather(self):
         try:
             # get location
@@ -80,6 +123,8 @@ class Weather(Frame):
                 weather_api_token, lat, lon)
             r = requests.get(weather_req_url)
             weather_obj = json.loads(r.text)
+
+            update_weather_data(weather_obj, location_obj)
 
             degree_sign = u'\N{DEGREE SIGN}'
             temperature2 = "%s%s" % (str(int(weather_obj['currently']['temperature'])), degree_sign)
