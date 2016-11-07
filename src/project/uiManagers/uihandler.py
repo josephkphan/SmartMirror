@@ -44,13 +44,15 @@ class UIManager:
         self.state = False
         self.tk.bind("<Return>", self.toggle_fullscreen)
         self.tk.bind("<Escape>", self.end_fullscreen)
+        self.tk.bind("<W>",self.update_page(Page.weather))
+        self.tk.bind("<M>", self.update_page(Page.main))    # todo : Doesn't work. please fix
 
         self.open_new_main_page()
         # calender - removing for now
         # self.calender = Calendar(self.bottomFrame)
         # self.calender.pack(side = RIGHT, anchor=S, padx=100, pady=60)
 
-    # ---------------------------------- TOGGLE FULL SCREEN ----------------------------------- #
+    # ---------------------------------- Key Binding Functions----------------------------------- #
 
     def toggle_fullscreen(self, event=None):
         self.state = not self.state  # Just toggling the boolean
@@ -61,6 +63,7 @@ class UIManager:
         self.state = False
         self.tk.attributes("-fullscreen", False)
         return "break"
+
 
     # ---------------------------------- Pages ----------------------------------- #
 
@@ -140,6 +143,10 @@ class UIManager:
         self.tk2.update_idletasks()
         self.tk2.update()
 
+    def update_page(self,new_page):
+        print "UPDATING PAGE!!!!"
+        self.current_page = new_page
+
     def update_zone(self, cursor):
         self.zone = self.cursor_handler.update_cursor(cursor, self.current_page)
         # Updating Zone based on Main Page
@@ -162,7 +169,7 @@ class UIManager:
             else:
                 self.returnButton.change_color_to_white()
 
-    def change_page(self, newpage):
+    def change_page(self,newpage, event = None):
         if newpage == 1:  # MAIN PAGE
             self.remove_return_button()
             self.open_loaded_main_page()

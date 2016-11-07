@@ -3,7 +3,7 @@ from hardwareManagers.powerswitch import *
 from hardwareManagers.ultrasoundhandler import *
 from uiManagers.uihandler import *
 
-bool_light = False
+bool_light = True
 ultra_sound_handler = UltraSoundHandler()
 power_switch = PowerSwitch()
 camera = Camera(bool_light)
@@ -15,10 +15,6 @@ while True:
     camera.update_values()
     cursor_location = camera.get_cursor()
     ui_manager.update(cursor_location)
-    # print str(counter)
-    # if counter >100:
-    #     ui_manager.end_news()
-    #     counter = -500
 
     k = cv2.waitKey(10)
     if k == 27:  # Esc key breaks out of program
