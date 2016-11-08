@@ -6,6 +6,7 @@ from src.project.uiManagers.clock import *
 from page import *
 from returnButton import *
 from src.project.resources.var import *  # todo should change back to regular import
+from webinfo import *
 
 
 # File Name: UI Handler:
@@ -21,6 +22,7 @@ class UIManager:
         self.weather, self.clock, self.news, self.returnButton = None, None, None, None
         self.tk = Tk()
         self.tk2 = Tk()
+        self.web_info = WebInfo()
         self.canvas = Canvas(self.tk2, width=camera_width + tk_cursor_diameter,
                              height=camera_height + tk_cursor_diameter, background='black')
         self.circle_coord = (0, 0)
@@ -30,11 +32,11 @@ class UIManager:
         # Vertical line
         self.line1 = self.canvas.create_line((camera_width / 2 + tk_cursor_diameter / 2, 0),
                                              (camera_width / 2 + tk_cursor_diameter / 2,
-                                              camera_height + tk_cursor_diameter), fill="green", )
+                                              camera_height + tk_cursor_diameter), fill="green")
         # Horizontal line
         self.line2 = self.canvas.create_line((0, camera_height / 2 + tk_cursor_diameter / 2),
                                              (camera_width + tk_cursor_diameter,
-                                              camera_height / 2 + tk_cursor_diameter / 2), fill="green", )
+                                              camera_height / 2 + tk_cursor_diameter / 2), fill="green")
         self.canvas.pack()
         self.tk.configure(background='black')
         self.topFrame = Frame(self.tk, background='black')
@@ -44,9 +46,10 @@ class UIManager:
         self.state = False
         self.tk.bind("<Return>", self.toggle_fullscreen)
         self.tk.bind("<Escape>", self.end_fullscreen)
-        self.tk.bind("<W>",self.update_page(Page.weather))
-        self.tk.bind("<M>", self.update_page(Page.main))    # todo : Doesn't work. please fix
+        self.tk.bind("<W>", self.update_page(Page.weather))
+        self.tk.bind("<M>", self.update_page(Page.main))  # todo : Doesn't work. please fix
 
+        self.web_info.update()
         self.open_new_main_page()
         # calender - removing for now
         # self.calender = Calendar(self.bottomFrame)
@@ -63,7 +66,6 @@ class UIManager:
         self.state = False
         self.tk.attributes("-fullscreen", False)
         return "break"
-
 
     # ---------------------------------- Pages ----------------------------------- #
 
@@ -93,14 +95,12 @@ class UIManager:
         self.news.destroy()
 
     def start_loaded_weather(self):
-        print "CHECKPOINT"
-        print saved_data
-        self.weather = Weather(self.topFrame, True)  # todo change this
+        self.weather = Weather(self.topFrame)  # todo change this
         self.weather.pack(side=LEFT, anchor=N, padx=50, pady=50)
 
     # todo only on first time load upif data jsondoesnt exist
     def start_new_weather(self):
-        self.weather = Weather(self.topFrame, False)
+        self.weather = Weather(self.topFrame)
         self.weather.pack(side=LEFT, anchor=N, padx=50, pady=50)
 
     def end_weather(self):
@@ -146,7 +146,7 @@ class UIManager:
         self.tk2.update_idletasks()
         self.tk2.update()
 
-    def update_page(self,new_page):
+    def update_page(self, new_page):
         print "UPDATING PAGE!!!!"
         self.current_page = new_page
 
@@ -156,15 +156,15 @@ class UIManager:
         if self.current_page == Page.main:
             if self.zone == MainPageZone.weather:
                 self.weather.change_color_to_yellow()
-                self.news.change_color_to_white()
+                self.news.change_news_title_to_white()
                 self.clock.change_color_to_white()
             elif self.zone == MainPageZone.news:
                 self.weather.change_color_to_white()
-                self.news.change_color_to_yellow()
+                self.news.change_news_title_to_yellow()
                 self.clock.change_color_to_white()
             elif self.zone == MainPageZone.clock:
                 self.weather.change_color_to_white()
-                self.news.change_color_to_white()
+                self.news.change_news_title_to_white()
                 self.clock.change_color_to_yellow()
         elif self.current_page == Page.weather:
             if self.zone == WeatherZone.returnButton:
@@ -172,7 +172,7 @@ class UIManager:
             else:
                 self.returnButton.change_color_to_white()
 
-    def change_page(self,newpage, event = None):
+    def change_page(self, newpage, event=None):
         if newpage == 1:  # MAIN PAGE
             self.remove_return_button()
             self.open_loaded_main_page()

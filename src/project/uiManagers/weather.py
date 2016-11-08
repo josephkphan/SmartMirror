@@ -10,7 +10,7 @@ from src.project.resources.var import *
 
 
 class Weather(Frame):
-    def __init__(self, parent, loadSavedData):
+    def __init__(self, parent):
         Frame.__init__(self, parent, bg='black')
         self.temperature = ''
         self.forecast = ''
@@ -29,22 +29,9 @@ class Weather(Frame):
         self.forecastLbl.pack(side=TOP, anchor=W)
         self.locationLbl = Label(self, font=('Helvetica', 18), fg="white", bg="black")
         self.locationLbl.pack(side=TOP, anchor=W)
-        if loadSavedData:
-            self.set_weather_data()
-        else:
-            self.get_weather()
+        self.update_weather()
 
-    def get_ip(self):
-        try:
-            ip_url = "http://jsonip.com/"
-            req = requests.get(ip_url)
-            ip_json = json.loads(req.text)
-            return ip_json['ip']
-        except Exception as e:
-            traceback.print_exc()
-            return "Error: %s. Cannot get ip." % e
-
-    def set_weather_data(self):
+    def update_weather(self):
         location_obj = saved_data['location']
 
         lat = location_obj['latitude']
@@ -98,81 +85,6 @@ class Weather(Frame):
                 self.location = location2
                 self.locationLbl.config(text=location2)
 
-    # gets the weather and saves it
-    def get_weather(self):
-        try:
-            # get location
-            location_req_url = "http://freegeoip.net/json/%s" % self.get_ip()
-            # print "Location req url : " + location_req_url
-            print location_req_url
-
-            r = requests.get(location_req_url, timeout=.5)  # todo is point 5 long enough??
-            print r
-
-            location_obj = json.loads(r.text)
-
-            lat = location_obj['latitude']
-            lon = location_obj['longitude']
-
-            # print "Lat : " + str(lat) + "  |  Lon : " + str(lon)
-
-            location2 = "%s, %s" % (location_obj['city'], location_obj['region_code'])
-
-            # get weather
-            weather_req_url = "https://api.darksky.net/forecast/%s/%s,%s" % (
-                weather_api_token, lat, lon)
-            r = requests.get(weather_req_url)
-            weather_obj = json.loads(r.text)
-
-            update_weather_data(weather_obj, location_obj)
-
-            degree_sign = u'\N{DEGREE SIGN}'
-            temperature2 = "%s%s" % (str(int(weather_obj['currently']['temperature'])), degree_sign)
-            currently2 = weather_obj['currently']['summary']
-            forecast2 = weather_obj["hourly"]["summary"]
-
-            icon_id = weather_obj['currently']['icon']
-            icon2 = None
-
-            if icon_id in src.project.resources.lookup.icon:
-                icon2 = src.project.resources.lookup.icon[icon_id]
-
-            if icon2 is not None:
-                if self.icon != icon2:
-                    self.icon = icon2
-                    image = Image.open(icon2)
-                    image = image.resize((100, 100), Image.ANTIALIAS)
-                    image = image.convert('RGB')
-                    photo = ImageTk.PhotoImage(image)
-
-                    self.iconLbl.config(image=photo)
-                    self.iconLbl.image = photo
-            else:
-                # remove image
-                self.iconLbl.config(image='')
-
-            if self.currently != currently2:
-                self.currently = currently2
-                self.currentlyLbl.config(text=currently2)
-            if self.forecast != forecast2:
-                self.forecast = forecast2
-                self.forecastLbl.config(text=forecast2)
-            if self.temperature != temperature2:
-                self.temperature = temperature2
-                self.temperatureLbl.config(text=temperature2)
-            if self.location != location2:
-                if location2 == ", ":
-                    self.location = "Cannot Pinpoint Location"
-                    self.locationLbl.config(text="Cannot Pinpoint Location")
-                else:
-                    self.location = location2
-                    self.locationLbl.config(text=location2)
-        except Exception as e:
-            traceback.print_exc()
-            print "Error: %s. Cannot get weather." % e
-
-        self.after(600000, self.get_weather)
-
     def change_color_to_yellow(self):
         self.temperatureLbl.config(foreground="yellow")
         self.currentlyLbl.config(foreground="yellow")
@@ -185,13 +97,9 @@ class Weather(Frame):
         self.forecastLbl.config(foreground="white")
         self.locationLbl.config(foreground="white")
 
-    def save_weather_data(self):
-        update_weather_data( self.iconLbl, self.forecastLbl,  self.currentlyLbl, self.locationLbl, self.temperatureLbl)
-
     def refresh_weather_data(self):
-        self.get_weather()  # todo Check is this is right
+        self.update_weather()  # todo Check is this is right
 
     @staticmethod
     def convert_kelvin_to_fahrenheit(kelvin_temp):
         return 1.8 * (kelvin_temp - 273) + 32
-

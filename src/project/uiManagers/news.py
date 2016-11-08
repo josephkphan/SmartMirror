@@ -3,7 +3,9 @@ import feedparser
 import traceback
 from PIL import Image, ImageTk
 
-import src.project.resources.var
+from src.project.resources.var import *
+
+
 # File Name: news.py
 # Purpose: Gathers headlines from news website
 
@@ -20,7 +22,6 @@ class NewsHeadline(Frame):
         self.iconLbl = Label(self, bg='black', image=photo)
         self.iconLbl.image = photo
         self.iconLbl.pack(side=LEFT, anchor=N)
-
         self.eventName = event_name
         self.eventNameLbl = Label(self, text=self.eventName, font=('Helvetica', 18), fg="white", bg="black")
         self.eventNameLbl.pack(side=LEFT, anchor=N)
@@ -29,46 +30,47 @@ class NewsHeadline(Frame):
 class News(Frame):
     def __init__(self, parent, *args, **kwargs):
         Frame.__init__(self, parent, *args, **kwargs)
+        self.newsPage = 0
         self.config(bg='black')
         self.title = 'Headlines'
         self.newsLbl = Label(self, text=self.title, font=('Helvetica', 28), fg="white", bg="black")
         self.newsLbl.pack(side=TOP, anchor=W)
         self.headlinesContainer = Frame(self, bg="black")
         self.headlinesContainer.pack(side=TOP)
-        self.headline1 = Frame(self, bg="black")
-        self.headline1 = Label(self, font=('Helvetica', 18), fg="white", bg="black")
-        self.get_headlines()
 
-    def get_headlines(self):
-        try:
-            # remove all children
-            for widget in self.headlinesContainer.winfo_children():
-                widget.destroy()
-            if src.project.resources.var.country_code == None:
-                headlines_url = "https://news.google.com/news?ned=us&output=rss"
-            else:
-                headlines_url = "https://news.google.com/news?ned=%s&output=rss" % src.project.resources.var.country_code
+        self.headline = {}
+        self.headline[0] = Frame(self, bg="black")
+        self.headline[0] = Label(self, font=('Helvetica', 18), fg="white", bg="black")
+        self.headline[1] = Frame(self, bg="black")
+        self.headline[1] = Label(self, font=('Helvetica', 18), fg="white", bg="black")
+        self.headline[2] = Frame(self, bg="black")
+        self.headline[2] = Label(self, font=('Helvetica', 18), fg="white", bg="black")
+        self.headline[3] = Frame(self, bg="black")
+        self.headline[3] = Label(self, font=('Helvetica', 18), fg="white", bg="black")
+        self.headline[4] = Frame(self, bg="black")
+        self.headline[4] = Label(self, font=('Helvetica', 18), fg="white", bg="black")
+        self.update_headlines()
 
-            feed = feedparser.parse(headlines_url)
-
-            for post in feed.entries[0:5]:
-                #headline = NewsHeadline(self.headlinesContainer, post.title)
-                self.headline1.config(text=post.title)
-                self.headline1.pack(side=TOP, anchor=W)
-
-        except Exception as e:
-            traceback.print_exc()
-            print "Error: %s. Cannot get news." % e
-
-        self.after(600000, self.get_headlines)
+    def update_headlines(self):
+        # remove all children
+        for widget in self.headlinesContainer.winfo_children():
+            widget.destroy()
+        headlines = saved_data['news_headlines']
+        links = saved_data['news_links']  # todo make clickable later link should open new window?
+        for i in range(0, 5):
+            self.headline[i].config(text=headlines[i])
+            self.headline[i].pack(side=TOP, anchor=W)
 
     # ---------------------------------- COLOR CHANGERS ----------------------------------- #
 
-    def change_color_to_yellow(self):
+    def change_news_title_to_yellow(self):
         self.newsLbl.config(foreground="yellow")
-        self.headline1.config(foreground="yellow")
-        # todo figure how to change headlines to yellow
 
-    def change_color_to_white(self):
+    def change_news_title_to_white(self):
         self.newsLbl.config(foreground="white")
-        self.headline1.config(foreground="white")
+
+    def change_headline1_to_yellow(self, headline_num):
+        self.headline[headline_num].config(foreground="yellow")
+
+    def change_headline1_to_white(self, headline_num):
+        self.headline[headline_num].config(foreground="white")

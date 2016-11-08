@@ -1,38 +1,45 @@
 import json
-import time;
+import time
+
 # -------------------- For Web Parsing -------------------- #
 
 ip = '<IP>'
-country_code = 'us' # todo read this from file
-weather_api_token = '58017729f3ec5ddf03d2d7a4063cad85'  # todo read this from file
+country_code = 'us'  # todo read this from file
+f = open('key.txt', 'r')
+weather_api_token = f.read().decode('base64', 'strict')
+f.close()
 
 # -------------------- Window Sizing -------------------- #
 
 camera_width = 200
 camera_height = 200
 tk_cursor_diameter = 25
-tk_cursor_outline_thickness = tk_cursor_diameter/10
+tk_cursor_outline_thickness = tk_cursor_diameter / 10
 
 # ------------------- Polygon Coordinate ---------------- #
 bottom_left_rectangle = [(0, camera_height / 2), (0, camera_height), (camera_width / 2, camera_height),
-                              (camera_width / 2, camera_height / 2)]
+                         (camera_width / 2, camera_height / 2)]
 
 bottom_right_rectangle = [(camera_width / 2, camera_height / 2), (camera_width / 2, camera_height),
-                              (camera_width, camera_height), (camera_width / 2, camera_height)]
+                          (camera_width, camera_height), (camera_width / 2, camera_height)]
 
 top_left_rectangle = [(0, 0), (0, camera_height / 2), (camera_width / 2, camera_height / 2),
-                              (camera_width / 2, 0)]
+                      (camera_width / 2, 0)]
 
 top_right_rectangle = [(camera_width / 2, 0), (camera_width / 2, camera_height / 2),
-                              (camera_width, camera_height / 2), (camera_width, 0)]
+                       (camera_width, camera_height / 2), (camera_width, 0)]
 
 # -------------------- Saved Data -------------------- #
 
 # -------------------- Weather -------------------- #
 
-saved_data = { }
+saved_data = {}
 saved_data['last_updated'] = 0;
+
+
 # Writing JSON data
+
+# -------------------- Read and Write to File -------------------- #
 
 
 def write_json_to_file():
@@ -45,7 +52,6 @@ def write_json_to_file():
     out_file.close()
 
 
-
 # Reading data back
 def read_json_from_file():
     global saved_data
@@ -53,18 +59,16 @@ def read_json_from_file():
         saved_data = json.load(f)
 
 
-
-
-def update_weather_data(weather_data, location_data):
-
+def update_data(weather_data, location_data, news_data):
     # Converting to Json
     saved_data['weather'] = weather_data
     saved_data['location'] = location_data
+
+    headlines = {}
+    links = {}
+    for i in range(0, 5):
+        headlines[i] = news_data.entries[i].title
+        links[i] = news_data.entries[i].links
+    saved_data['news_headlines'] = headlines
+    saved_data['news_links'] = links
     write_json_to_file()
-    print saved_data
-
-
-# -------------------- News -------------------- #
-
-
-# -------------------- Clock -------------------- #

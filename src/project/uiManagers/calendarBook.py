@@ -1,4 +1,3 @@
-
 from Tkinter import *
 
 
@@ -31,4 +30,3 @@ class Calendar(Frame):
         calendar_event = CalendarEvent(self.calendarEventContainer)
         calendar_event.pack(side=TOP, anchor=E)
         pass
-
