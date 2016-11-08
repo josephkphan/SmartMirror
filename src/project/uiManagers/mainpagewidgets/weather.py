@@ -29,9 +29,10 @@ class Weather(Frame):
         self.forecastLbl.pack(side=TOP, anchor=W)
         self.locationLbl = Label(self, font=('Helvetica', 18), fg="white", bg="black")
         self.locationLbl.pack(side=TOP, anchor=W)
-        self.update_weather()
+        self.update()
 
-    def update_weather(self):
+    def update(self):
+        print "UPDATING WEATHER INFO ON SCREEN"
         location_obj = saved_data['location']
 
         lat = location_obj['latitude']

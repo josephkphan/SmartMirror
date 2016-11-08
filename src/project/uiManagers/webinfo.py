@@ -18,7 +18,7 @@ class WebInfo:
             return "Error: %s. Cannot get ip." % e
 
     def update(self):
-        # print  "~~~~~UPDATING INFO~~~~"
+        print  "~~~~~UPDATING INFO~~~~"
         weather_obj, location_obj, feed = None, None, None
         try:
 

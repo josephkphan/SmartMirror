@@ -49,10 +49,11 @@ class News(Frame):
         self.headline[3] = Label(self, font=('Helvetica', 18), fg="white", bg="black")
         self.headline[4] = Frame(self, bg="black")
         self.headline[4] = Label(self, font=('Helvetica', 18), fg="white", bg="black")
-        self.update_headlines()
+        self.update()
 
-    def update_headlines(self):
+    def update(self):
         # remove all children
+        print "UPDATING NEWS INFO ON SCREEN"
         for widget in self.headlinesContainer.winfo_children():
             widget.destroy()
         headlines = saved_data['news_headlines']

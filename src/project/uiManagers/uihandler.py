@@ -27,7 +27,7 @@ class UIManager:
         # Weather Page Widgets
         self.weather_current, self.weather_hourly, self.weather_week = None, None, None
         # General Widgets
-        self.returnButton = None
+        self.returnButton, self.last_updated = None, None
 
         # Creating the Cursor window
         self.canvas = Canvas(self.tk2, width=camera_width + tk_cursor_diameter,
@@ -55,8 +55,8 @@ class UIManager:
         self.state = False
         self.tk.bind("<Return>", self.toggle_fullscreen)
         self.tk.bind("<Escape>", self.end_fullscreen)
-        self.tk.bind("<W>", self.update_page(Page.weather))
-        self.tk.bind("<M>", self.update_page(Page.main))  # todo : Doesn't work. please fix
+        # self.tk.bind("<W>", self.update_page(Page.weather))
+        # self.tk.bind("<M>", self.update_page(Page.main))  # todo : Doesn't work. please fix
 
         # Gather Data from Web
         self.web_info.update()
@@ -114,6 +114,7 @@ class UIManager:
 
     def end_news(self):
         self.main_news.destroy()
+        self.main_news = None
 
     def start_weather(self):
         self.main_weather = Weather(self.topFrame)
@@ -121,6 +122,7 @@ class UIManager:
 
     def end_weather(self):
         self.main_weather.destroy()
+        self.main_weather = None
 
     def start_clock(self):
         self.main_clock = Clock(self.topFrame)
@@ -128,11 +130,12 @@ class UIManager:
 
     def end_clock(self):
         self.main_clock.destroy()
+        self.main_clock = None
 
     # ---------------------------------- WEATHER PAGE COMPONENTS ----------------------------------- #
 
     def start_today_weather(self):
-        self.weather_current = None
+        self.weather_current = None     # todo finish this
 
     # ---------------------------------- OTHER COMPONENTS ----------------------------------- #
 
@@ -142,10 +145,22 @@ class UIManager:
 
     def remove_return_button(self):
         self.returnButton.destroy()
+        self.returnButton = None
 
     # ---------------------------------- UPDATING UIMANAGER ----------------------------------- #
 
     def update_all(self, cursor):
+        #update web data
+        last_update_time = math.floor(time.time() - saved_data['last_updated']) / 60
+        print last_update_time
+        if last_update_time >=10:  # Means its been 10 minutes since it last updated
+            print "UPDAATING WEB INFO. REQUESTING FROM WEB"
+            self.web_info.update()
+            if self.main_weather is not None:
+                self.main_weather.update()
+            if self.main_news is not None:
+                self.main_news.update()             # todo Current only updates main page. need to update everything
+
         if self.counter == 50:
             self.change_page(2)
         elif self.counter == 100:
@@ -165,7 +180,6 @@ class UIManager:
         self.tk2.update()
 
     def update_page(self, new_page):
-        print "UPDATING PAGE!!!!"
         self.current_page = new_page
 
     def update_zone(self, cursor):
