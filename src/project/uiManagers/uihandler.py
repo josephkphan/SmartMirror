@@ -1,9 +1,8 @@
-from src.project.uiManagers.mainpagewidgets.news import *
-from src.project.uiManagers.mainpagewidgets.clock import *
-
 from cursorhandler import *
 from page import *
-from returnButton import *
+from src.project.uiManagers.generalwidgets.returnButton import *
+from src.project.uiManagers.mainpagewidgets.clock import *
+from src.project.uiManagers.mainpagewidgets.news import *
 from src.project.uiManagers.mainpagewidgets.weather import *
 from webinfo import *
 
