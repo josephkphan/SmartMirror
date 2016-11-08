@@ -18,7 +18,7 @@ while True:
     counter += 1
     camera.update_values()
     cursor_location = camera.get_cursor()
-    ui_manager.update(cursor_location)
+    ui_manager.update_all(cursor_location)
 
     k = cv2.waitKey(10)
     if k == 27:  # Esc key breaks out of program

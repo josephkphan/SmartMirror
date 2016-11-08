@@ -50,7 +50,7 @@ class UIManager:
         self.tk.bind("<M>", self.update_page(Page.main))  # todo : Doesn't work. please fix
 
         self.web_info.update()
-        self.open_new_main_page()
+        self.open_main_page()
         # calender - removing for now
         # self.calender = Calendar(self.bottomFrame)
         # self.calender.pack(side = RIGHT, anchor=S, padx=100, pady=60)
@@ -69,14 +69,11 @@ class UIManager:
 
     # ---------------------------------- Pages ----------------------------------- #
 
-    def open_new_main_page(self):
-        self.start_clock()
-        self.start_new_weather()
-        self.start_news()
+    # ---------------------------------- MAIN PAGE ----------------------------------- #
 
-    def open_loaded_main_page(self):
+    def open_main_page(self):
         self.start_clock()
-        self.start_loaded_weather()
+        self.start_weather()
         self.start_news()
 
     def close_main_page(self):
@@ -84,6 +81,15 @@ class UIManager:
         self.end_weather()
         self.end_clock()
 
+    # ---------------------------------- Weather PAGE ----------------------------------- #
+
+    def open_weather_page(self):
+        self.new_return_button()
+
+    def close_weather_page(self):
+        self.remove_return_button()
+
+    # ---------------------------------- --------------- ----------------------------------- #
     # ---------------------------------- PAGE COMPONENTS ----------------------------------- #
 
     # ---------------------------------- MAIN PAGE COMPONENTS ----------------------------------- #
@@ -94,12 +100,7 @@ class UIManager:
     def end_news(self):
         self.news.destroy()
 
-    def start_loaded_weather(self):
-        self.weather = Weather(self.topFrame)  # todo change this
-        self.weather.pack(side=LEFT, anchor=N, padx=50, pady=50)
-
-    # todo only on first time load upif data jsondoesnt exist
-    def start_new_weather(self):
+    def start_weather(self):
         self.weather = Weather(self.topFrame)
         self.weather.pack(side=LEFT, anchor=N, padx=50, pady=50)
 
@@ -113,18 +114,18 @@ class UIManager:
     def end_clock(self):
         self.clock.destroy()
 
+    # ---------------------------------- OTHER COMPONENTS ----------------------------------- #
+
     def new_return_button(self):
         self.returnButton = ReturnButton(self.topFrame)
         self.returnButton.pack(side=LEFT, anchor=N, padx=50, pady=50)
-
-    # ---------------------------------- OTHER COMPONENTS ----------------------------------- #
 
     def remove_return_button(self):
         self.returnButton.destroy()
 
     # ---------------------------------- UPDATING UIMANAGER ----------------------------------- #
 
-    def update(self, cursor):
+    def update_all(self, cursor):
         if self.counter == 50:
             self.change_page(2)
         elif self.counter == 100:
@@ -137,10 +138,7 @@ class UIManager:
         diff_y = cursor[1] - self.circle_coord[1]
         # print "diff X = " + str(diff_x) + "  |  diff y = " + str(diff_y)
         self.canvas.move(self.cursor, diff_x, diff_y)
-        # self.canvas.move(self.cursor, cursor[0], cursor[1])
         self.circle_coord = cursor
-        # self.canvas.update()
-        # self.canvas.update_idletasks()
         self.tk.update_idletasks()
         self.tk.update()
         self.tk2.update_idletasks()
@@ -174,10 +172,11 @@ class UIManager:
 
     def change_page(self, newpage, event=None):
         if newpage == 1:  # MAIN PAGE
-            self.remove_return_button()
-            self.open_loaded_main_page()
+            if self.current_page == Page.weather:
+                self.close_weather_page()           # todo remove previous page if weather, news, etc
+            self.open_main_page()
             self.current_page = Page.main
         elif newpage == 2:  # BLANK PAGE
             self.close_main_page()
+            self.open_weather_page()
             self.current_page = Page.weather
-            self.new_return_button()
