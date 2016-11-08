@@ -61,14 +61,18 @@ def read_json_from_file():
 
 def update_data(weather_data, location_data, news_data):
     # Converting to Json
-    saved_data['weather'] = weather_data
-    saved_data['location'] = location_data
+    if weather_data != None:
+        saved_data['weather'] = weather_data
 
-    headlines = {}
-    links = {}
-    for i in range(0, 5):
-        headlines[i] = news_data.entries[i].title
-        links[i] = news_data.entries[i].links
-    saved_data['news_headlines'] = headlines
-    saved_data['news_links'] = links
+    if location_data != None:
+        saved_data['location'] = location_data
+
+    if news_data != None:
+        headlines = {}
+        links = {}
+        for i in range(0, 5):
+            headlines[i] = news_data.entries[i].title
+            links[i] = news_data.entries[i].links
+        saved_data['news_headlines'] = headlines
+        saved_data['news_links'] = links
     write_json_to_file()

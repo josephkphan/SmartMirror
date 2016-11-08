@@ -5,7 +5,8 @@ import requests
 import traceback
 
 
-class WebInfo():
+class WebInfo:
+    #todo IF THERE ISNT ANY INTERNET THIS WILL CRASH IN THAT CASE MAKE IT READ FROM FILE
     def get_ip(self):
         try:
             ip_url = "http://jsonip.com/"
@@ -18,6 +19,7 @@ class WebInfo():
 
     def update(self):
         # print  "~~~~~UPDATING INFO~~~~"
+        weather_obj, location_obj, feed = None, None, None
         try:
 
             if country_code == None:

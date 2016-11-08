@@ -4,6 +4,7 @@ from src.project.uiManagers.generalwidgets.returnButton import *
 from src.project.uiManagers.mainpagewidgets.clock import *
 from src.project.uiManagers.mainpagewidgets.news import *
 from src.project.uiManagers.mainpagewidgets.weather import *
+from src.project.uiManagers.weatherpagewidgets.currentweather import *
 from webinfo import *
 
 
@@ -13,14 +14,22 @@ from webinfo import *
 
 class UIManager:
     def __init__(self):
-        self.counter = 0
-        self.zone = MainPageZone.weather
-        self.current_page = Page.main
         self.cursor_handler = CursorHandler()
-        self.weather, self.clock, self.news, self.returnButton = None, None, None, None
+        self.web_info = WebInfo()
         self.tk = Tk()
         self.tk2 = Tk()
-        self.web_info = WebInfo()
+        self.current_page = Page.main
+        self.zone = None
+        self.counter = 0
+
+        # Main Page Widgets
+        self.main_weather, self.main_clock, self.main_news = None, None, None
+        # Weather Page Widgets
+        self.weather_current, self.weather_hourly, self.weather_week = None, None, None
+        # General Widgets
+        self.returnButton = None
+
+        # Creating the Cursor window
         self.canvas = Canvas(self.tk2, width=camera_width + tk_cursor_diameter,
                              height=camera_height + tk_cursor_diameter, background='black')
         self.circle_coord = (0, 0)
@@ -36,6 +45,8 @@ class UIManager:
                                              (camera_width + tk_cursor_diameter,
                                               camera_height / 2 + tk_cursor_diameter / 2), fill="green")
         self.canvas.pack()
+
+        # Configuring the UI window
         self.tk.configure(background='black')
         self.topFrame = Frame(self.tk, background='black')
         self.bottomFrame = Frame(self.tk, background='black')
@@ -47,8 +58,14 @@ class UIManager:
         self.tk.bind("<W>", self.update_page(Page.weather))
         self.tk.bind("<M>", self.update_page(Page.main))  # todo : Doesn't work. please fix
 
+        # Gather Data from Web
         self.web_info.update()
-        self.open_main_page()
+
+        # Display data onto UI Window
+        self.open_main_page()   #todo CHANGE BACK TO MAIN
+        # self.open_weather_page()   #todo CHANGE BACK TO MAIN
+
+
         # calender - removing for now
         # self.calender = Calendar(self.bottomFrame)
         # self.calender.pack(side = RIGHT, anchor=S, padx=100, pady=60)
@@ -92,25 +109,30 @@ class UIManager:
 
     # ---------------------------------- MAIN PAGE COMPONENTS ----------------------------------- #
     def start_news(self):
-        self.news = News(self.bottomFrame)
-        self.news.pack(side=LEFT, anchor=S, padx=50, pady=50)
+        self.main_news = News(self.bottomFrame)
+        self.main_news.pack(side=LEFT, anchor=S, padx=50, pady=50)
 
     def end_news(self):
-        self.news.destroy()
+        self.main_news.destroy()
 
     def start_weather(self):
-        self.weather = Weather(self.topFrame)
-        self.weather.pack(side=LEFT, anchor=N, padx=50, pady=50)
+        self.main_weather = Weather(self.topFrame)
+        self.main_weather.pack(side=LEFT, anchor=N, padx=50, pady=50)
 
     def end_weather(self):
-        self.weather.destroy()
+        self.main_weather.destroy()
 
     def start_clock(self):
-        self.clock = Clock(self.topFrame)
-        self.clock.pack(side=RIGHT, anchor=N, padx=50, pady=50)
+        self.main_clock = Clock(self.topFrame)
+        self.main_clock.pack(side=RIGHT, anchor=N, padx=50, pady=50)
 
     def end_clock(self):
-        self.clock.destroy()
+        self.main_clock.destroy()
+
+    # ---------------------------------- WEATHER PAGE COMPONENTS ----------------------------------- #
+
+    def start_today_weather(self):
+        self.weather_current = None
 
     # ---------------------------------- OTHER COMPONENTS ----------------------------------- #
 
@@ -151,17 +173,17 @@ class UIManager:
         # Updating Zone based on Main Page
         if self.current_page == Page.main:
             if self.zone == MainPageZone.weather:
-                self.weather.change_color_to_yellow()
-                self.news.change_news_title_to_white()
-                self.clock.change_color_to_white()
+                self.main_weather.change_color_to_yellow()
+                self.main_news.change_news_title_to_white()
+                self.main_clock.change_color_to_white()
             elif self.zone == MainPageZone.news:
-                self.weather.change_color_to_white()
-                self.news.change_news_title_to_yellow()
-                self.clock.change_color_to_white()
+                self.main_weather.change_color_to_white()
+                self.main_news.change_news_title_to_yellow()
+                self.main_clock.change_color_to_white()
             elif self.zone == MainPageZone.clock:
-                self.weather.change_color_to_white()
-                self.news.change_news_title_to_white()
-                self.clock.change_color_to_yellow()
+                self.main_weather.change_color_to_white()
+                self.main_news.change_news_title_to_white()
+                self.main_clock.change_color_to_yellow()
         elif self.current_page == Page.weather:
             if self.zone == WeatherZone.returnButton:
                 self.returnButton.change_color_to_yellow()
