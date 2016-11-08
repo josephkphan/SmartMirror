@@ -1,11 +1,10 @@
-from news import *
-from weather import *
+from src.project.uiManagers.mainpagewidgets.news import *
+from src.project.uiManagers.mainpagewidgets.clock import *
+
 from cursorhandler import *
-from calendarBook import *
-from src.project.uiManagers.clock import *
 from page import *
 from returnButton import *
-from src.project.resources.var import *  # todo should change back to regular import
+from src.project.uiManagers.mainpagewidgets.weather import *
 from webinfo import *
 
 
