@@ -6,7 +6,7 @@ from src.project.uiManagers.mainpagewidgets.news import *
 from src.project.uiManagers.mainpagewidgets.weather import *
 import src.project.resources.var
 from src.project.uiManagers.weatherpagewidgets.currentweather import *
-
+from src.project.uiManagers.weatherpagewidgets.dailyweather import *
 from webinfo import *
 
 
