@@ -16,10 +16,6 @@ class LastUpdatedLabel(Frame):
         self.update()
 
 
-
-
-
-
 class Clock(Frame):
     def __init__(self, parent, *args, **kwargs):
         Frame.__init__(self, parent, bg='black')
@@ -81,3 +77,6 @@ class Clock(Frame):
 
     def change_last_update_color_to_white(self):
         self.last_update.config(foreground="white")
+
+    def change_update_label_to_updating(self):
+        self.last_update.config(text="Updating...")

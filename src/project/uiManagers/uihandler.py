@@ -4,7 +4,9 @@ from src.project.uiManagers.generalwidgets.returnButton import *
 from src.project.uiManagers.mainpagewidgets.clock import *
 from src.project.uiManagers.mainpagewidgets.news import *
 from src.project.uiManagers.mainpagewidgets.weather import *
+import src.project.resources.var
 from src.project.uiManagers.weatherpagewidgets.currentweather import *
+
 from webinfo import *
 
 
@@ -59,7 +61,7 @@ class UIManager:
         # self.tk.bind("<M>", self.update_page(Page.main))  # todo : Doesn't work. please fix
 
         # Gather Data from Web
-        self.web_info.update()
+        # self.web_info.update()
 
         # Display data onto UI Window
         self.open_main_page()   #todo CHANGE BACK TO MAIN
@@ -151,10 +153,11 @@ class UIManager:
 
     def update_all(self, cursor):
         #update web data
-        last_update_time = math.floor(time.time() - saved_data['last_updated']) / 60
-        print last_update_time
-        if last_update_time >=10:  # Means its been 10 minutes since it last updated
-            print "UPDAATING WEB INFO. REQUESTING FROM WEB"
+        last_update_time = (time.time() - src.project.resources.var.saved_data['last_updated']) / 60
+        # print last_update_time
+        if last_update_time >=10 and self.current_page == Page.main:  # Means its been 10 minutes since it last updated
+            print "UPDATING WEB INFO. REQUESTING FROM WEB"
+            self.main_clock.change_update_label_to_updating()
             self.web_info.update()
             if self.main_weather is not None:
                 self.main_weather.update()

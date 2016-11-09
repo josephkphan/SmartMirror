@@ -33,18 +33,16 @@ top_right_rectangle = [(camera_width / 2, 0), (camera_width / 2, camera_height /
 
 # -------------------- Weather -------------------- #
 
-saved_data = {}
-saved_data['last_updated'] = 0;
-
 
 # Writing JSON data
 
 # -------------------- Read and Write to File -------------------- #
 
+saved_data = {}
 
 def write_json_to_file():
     # Open a file for writing
-    saved_data['last_updated'] = time.time()
+
     out_file = open("data.json", "w")
     # Save the data into this file
     # (the 'indent=4' is optional, but makes it more readable)
@@ -58,21 +56,25 @@ def read_json_from_file():
     with open('data.json', 'r') as f:
         saved_data = json.load(f)
 
-
 def update_data(weather_data, location_data, news_data):
     # Converting to Json
-    if weather_data != None:
+    read_json_from_file()
+    if weather_data is not None:
         saved_data['weather'] = weather_data
 
-    if location_data != None:
+    if location_data is not None:
         saved_data['location'] = location_data
 
     if news_data != None:
         headlines = {}
         links = {}
         for i in range(0, 5):
-            headlines[i] = news_data.entries[i].title
-            links[i] = news_data.entries[i].links
+            headlines[str(i)] = news_data.entries[i].title
+            links[str(i)] = news_data.entries[i].links
         saved_data['news_headlines'] = headlines
         saved_data['news_links'] = links
+    saved_data['last_updated'] = time.time()
     write_json_to_file()
+
+read_json_from_file()
+print "READING FROM FILE"

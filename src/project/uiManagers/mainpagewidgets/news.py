@@ -58,8 +58,9 @@ class News(Frame):
             widget.destroy()
         headlines = saved_data['news_headlines']
         links = saved_data['news_links']  # todo make clickable later link should open new window?
+
         for i in range(0, 5):
-            self.headline[i].config(text=headlines[i])
+            self.headline[i].config(text=headlines[str(i)])
             self.headline[i].pack(side=TOP, anchor=W)
 
     # ---------------------------------- COLOR CHANGERS ----------------------------------- #
