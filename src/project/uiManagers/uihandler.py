@@ -156,7 +156,7 @@ class UIManager:
     def start_daily_weather(self):
         for i in range(0,7):
             self.weather_day[i] = WeeklyWeather(self.topFrame,i)
-            self.weather_day[i].pack(side=TOP, anchor=N, padx=15, pady=15)
+            self.weather_day[i].pack(side=TOP, anchor=N, padx=5, pady=5)
 
     # ---------------------------------- OTHER COMPONENTS ----------------------------------- #
 

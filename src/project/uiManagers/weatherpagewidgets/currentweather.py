@@ -8,8 +8,6 @@ import src.project.resources.lookup
 from datetime import date
 from src.project.resources.var import *
 
-
-
 class WeeklyWeather(Frame):
     def __init__(self, parent, day):
         Frame.__init__(self, parent, bg='black')
@@ -18,11 +16,11 @@ class WeeklyWeather(Frame):
         self.day_icon = Frame(self, bg="black")
         self.day_icon.pack(side=RIGHT, anchor=N)
 
-        self.day_max = Label(self, font=('Helvetica', 14), fg="white", bg="black")
-        self.day_max.pack(side=RIGHT, anchor=N)
-
         self.day_min = Label(self, font=('Helvetica', 14), fg="white", bg="black")
         self.day_min.pack(side=RIGHT, anchor=N)
+
+        self.day_max = Label(self, font=('Helvetica', 14), fg="white", bg="black")
+        self.day_max.pack(side=RIGHT, anchor=N)
 
         self.day_name = Label(self, font=('Helvetica', 14), fg="white", bg="black")
         self.day_name.pack(side=RIGHT, anchor=N)
