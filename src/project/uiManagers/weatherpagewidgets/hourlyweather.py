@@ -3,43 +3,38 @@ import json
 import requests
 import traceback
 from PIL import Image, ImageTk
-
+import datetime
 import src.project.resources.lookup
 from datetime import date
 from src.project.resources.var import *
 
 
-class WeeklyWeather(Frame):
+class HourlyWeather(Frame):
     def __init__(self, parent, day):
         Frame.__init__(self, parent, bg='black')
-        self.day_icon,self.icon, self.day_max, self.day_min, self.day_name = None, None, None, None, None
+        self.time = ''
+        self.temp = ''
 
-        self.day_icon = Frame(self, bg="black")
-        self.day_icon.pack(side=RIGHT, anchor=N)
+        self.timeLbl = Label(self, font=('Helvetica', 14), fg="white", bg="black")
+        self.timeLbl.pack(side=RIGHT, anchor=N)
 
-        self.day_min = Label(self, font=('Helvetica', 14), fg="white", bg="black")
-        self.day_min.pack(side=RIGHT, anchor=N)
+        self.icon = Frame(self, bg="black")
+        self.icon.pack(side=RIGHT, anchor=N)
 
-        self.day_max = Label(self, font=('Helvetica', 14), fg="white", bg="black")
-        self.day_max.pack(side=RIGHT, anchor=N)
-
-        self.day_name = Label(self, font=('Helvetica', 14), fg="white", bg="black")
-        self.day_name.pack(side=RIGHT, anchor=N)
+        self.tempLbl = Label(self, font=('Helvetica', 14), fg="white", bg="black")
+        self.tempLbl.pack(side=RIGHT, anchor=N)
 
         self.fill_text(day)
 
-    def fill_text(self, day):
+    def fill_text(self, hour):
         weather_obj = saved_data['weather']
-        max = str(int(weather_obj['hourly']['data'][day]['temperature']))
-        min = str(int(weather_obj['hourly']['data'][day]['temperatureMin']))
-        sunset_time = weather_obj['hourly']['data'][day]['sunsetTime']
-        day_of_week =  WeeklyWeather.convert_epoch_time_to_day_of_the_week(sunset_time)
+        temperature = str(int(weather_obj['hourly']['data'][hour]['apparentTemperature']))
+        time = self.convert_epoch_time_to_datetime(weather_obj['hourly']['data'][hour]['time'])
+        self.timeLbl.config(text=self.get_time_from_datetime(time))
 
-        self.day_max.config(text=max)
-        self.day_min.config(text=min)
-        self.day_name.config(text=day_of_week)
+        self.tempLbl.config(text=temperature +  u'\N{DEGREE SIGN}')
 
-        # icon_id = weather_obj['daily']['data'][day]['icon']    todo add this in
+        # icon_id = weather_obj['daily']['data'][hour]['icon']    todo add this in
         # icon2 = None
         #
         # if icon_id in src.project.resources.lookup.icon:
@@ -59,12 +54,26 @@ class WeeklyWeather(Frame):
         #     # remove image
         #     self.day_icon.config(image='')
 
+    # todo THIS METHOD IS USED TWICE?? PUT IT IN ITS OWN FILE
 
     @staticmethod
-    def convert_epoch_time_to_day_of_the_week(epoch_time_in_seconds):
-        d = date.fromtimestamp(epoch_time_in_seconds)
-        return d.strftime('%A')
+    def convert_epoch_time_to_datetime(epoch_time):
+        begin_time = datetime.datetime(1970, 1, 1)
+        added = datetime.timedelta(seconds=(epoch_time - 28800))  # todo change to adjust to time zone!!!
+        time = begin_time + added  # todo its only set to PST
+        return time
 
+    @staticmethod
+    def get_time_from_datetime(time):
+        finaltime = ''
+        hour = ''
+        minute = ''
+        if time.hour > 12:  # finds out if its AM OR PM
+            hour = str(time.hour - 12)  # Adjust time so it's not in military time
+            end = 'PM'
+        else:
+            hour = str(time.hour)
+            end = 'AM'
 
-
-
+        finaltime = hour + ' ' + end
+        return finaltime

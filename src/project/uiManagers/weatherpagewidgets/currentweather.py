@@ -21,10 +21,13 @@ class CurrentWeather(Frame):
         self.probdrain = ''
         self.sunrise = ''
         self.sunset = ''
+        self.summary = ''
         self.locationLbl = Label(self, font=('Helvetica', 28), fg="white", bg="black")
         self.locationLbl.pack(side=TOP, anchor=N)
         self.currentlyLbl = Label(self, font=('Helvetica', 18), fg="white", bg="black")
         self.currentlyLbl.pack(side=TOP, anchor=N)
+        self.summaryLbl = Label(self, font=('Helvetica', 18), fg="white", bg="black")
+        self.summaryLbl.pack(side=TOP, anchor=N)
         self.degreeFrm = Frame(self, bg="black")
         self.degreeFrm.pack(side=TOP, anchor=N)
         self.temperatureLbl = Label(self.degreeFrm, font=('Helvetica', 70), fg="white", bg="black")
@@ -51,6 +54,9 @@ class CurrentWeather(Frame):
         temperature2 = "%s%s" % (str(int(weather_obj['currently']['temperature'])), degree_sign)
         currently2 = weather_obj['currently']['summary']
 
+        self.summary = weather_obj['daily']['data'][0]['summary']
+        self.summaryLbl.config(text='Day Summary: ' + self.summary)
+
         probdrain = weather_obj['daily']['data'][0]['precipProbability']
         self.probDrainLbl.config(text="Chance of Rain: " + str(probdrain) + "%")
 
@@ -62,7 +68,7 @@ class CurrentWeather(Frame):
 
         if self.currently != currently2:
             self.currently = currently2
-            self.currentlyLbl.config(text=currently2)
+            self.currentlyLbl.config(text="Current Weather: " + currently2)
         if self.temperature != temperature2:
             self.temperature = temperature2
             self.temperatureLbl.config(text=temperature2)
@@ -80,8 +86,8 @@ class CurrentWeather(Frame):
     @staticmethod
     def convert_epoch_time_to_datetime(epoch_time):
         begin_time = datetime.datetime(1970, 1, 1)
-        added = datetime.timedelta(seconds=(epoch_time - 28800))
-        time = begin_time + added
+        added = datetime.timedelta(seconds=(epoch_time - 28800))   # todo change to adjust to time zone!!!
+        time = begin_time + added                                   # todo its only set to PST
         return time
 
     @staticmethod

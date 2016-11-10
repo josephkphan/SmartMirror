@@ -7,6 +7,7 @@ from src.project.uiManagers.mainpagewidgets.weather import *
 import src.project.resources.var
 from src.project.uiManagers.weatherpagewidgets.currentweather import *
 from src.project.uiManagers.weatherpagewidgets.dailyweather import *
+from src.project.uiManagers.weatherpagewidgets.hourlyweather import *
 from webinfo import *
 
 
@@ -29,6 +30,7 @@ class UIManager:
         # Weather Page Widgets
         self.weather_current, self.weather_hourly, self.weather_week = None, None, None
         self.weather_day = {}
+        self.weather_hour = {}
         # General Widgets
         self.returnButton, self.last_updated = None, None
 
@@ -108,10 +110,13 @@ class UIManager:
         self.new_return_button()
         self.start_today_weather()
         self.start_daily_weather()
+        self.start_hourly_weather()
 
     def close_weather_page(self):
         self.remove_return_button()
         self.end_today_weather()
+        self.end_daily_weather()
+        self.end_hourly_weather()
 
 
     # ---------------------------------- --------------- ----------------------------------- #
@@ -157,6 +162,22 @@ class UIManager:
         for i in range(0,7):
             self.weather_day[i] = WeeklyWeather(self.topFrame,i)
             self.weather_day[i].pack(side=TOP, anchor=N, padx=5, pady=5)
+
+    def end_daily_weather(self):
+        for i in range(0, 7):
+            self.weather_day[i].destroy()
+            self.weather_day[i] = None
+
+    def start_hourly_weather(self):
+        for i in range(0,24):
+            self.weather_hour[i] = HourlyWeather(self.topFrame, i)
+            self.weather_hour[i].pack(side=TOP, anchor=N, padx=5, pady=5)
+
+    def end_hourly_weather(self):
+        for i in range(0, 24):
+            self.weather_hour[i].destroy()
+            self.weather_hour[i] = None
+
 
     # ---------------------------------- OTHER COMPONENTS ----------------------------------- #
 
