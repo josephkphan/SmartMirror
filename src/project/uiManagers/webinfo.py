@@ -45,7 +45,7 @@ class WebInfo:
                 location_req_url = "http://freegeoip.net/json/%s" % tempip
                 # print "Location req url : " + location_req_url
 
-                r = requests.get(location_req_url, timeout=.5)  # todo is point 5 long enough??
+                r = requests.get(location_req_url, timeout=1)  # todo is point 5 long enough??
 
                 location_obj = json.loads(r.text)
 
