@@ -29,6 +29,10 @@ top_left_rectangle = [(0, 0), (0, camera_height / 2), (camera_width / 2, camera_
 top_right_rectangle = [(camera_width / 2, 0), (camera_width / 2, camera_height / 2),
                        (camera_width, camera_height / 2), (camera_width, 0)]
 
+# ------------------- Selection Constants ----------------------#
+selection_time = 2.5        # in seconds
+update_time = 5             # in minutes
+
 # -------------------- Saved Data -------------------- #
 
 # -------------------- Weather -------------------- #
@@ -39,6 +43,7 @@ top_right_rectangle = [(camera_width / 2, 0), (camera_width / 2, camera_height /
 # -------------------- Read and Write to File -------------------- #
 
 saved_data = {}
+
 
 def write_json_to_file():
     # Open a file for writing
@@ -55,6 +60,7 @@ def read_json_from_file():
     global saved_data
     with open('data.json', 'r') as f:
         saved_data = json.load(f)
+
 
 def update_data(weather_data, location_data, news_data):
     # Converting to Json

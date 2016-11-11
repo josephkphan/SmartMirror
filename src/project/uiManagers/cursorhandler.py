@@ -2,6 +2,7 @@ from shapely.geometry import *
 import numpy as np
 from src.project.resources.var import *
 from page import *
+from zone import *
 from src.project.resources.var import *
 
 
@@ -44,7 +45,11 @@ class CursorHandler:
             elif Polygon(self.zone_UNAMED).contains(p):
                 # print "In Zone 4"
                 self.zoneName = 4  # todo change this or remove it later
+            else:
+                self.zoneName = MainPageZone.none
         elif current_page == Page.weather:
             if Polygon(self.zone_weather_return).contains(p):
                 self.zoneName = WeatherZone.returnButton
+            else:
+                self.zoneName = WeatherZone.none
         return self.zoneName

@@ -1,14 +1,16 @@
-from cursorhandler import *
-from page import *
+import src.project.resources.var
 from src.project.uiManagers.generalwidgets.returnButton import *
 from src.project.uiManagers.mainpagewidgets.clock import *
 from src.project.uiManagers.mainpagewidgets.news import *
 from src.project.uiManagers.mainpagewidgets.weather import *
-import src.project.resources.var
 from src.project.uiManagers.weatherpagewidgets.currentweather import *
 from src.project.uiManagers.weatherpagewidgets.dailyweather import *
 from src.project.uiManagers.weatherpagewidgets.hourlyweather import *
+from cursorhandler import *
+from page import *
 from webinfo import *
+from selectionhandler import *
+from zone import *
 
 
 # File Name: UI Handler:
@@ -19,6 +21,7 @@ class UIManager:
     def __init__(self):
         self.cursor_handler = CursorHandler()
         self.web_info = WebInfo()
+        self.selection_handler = SelectionHandler()
         self.tk = Tk()
         self.tk2 = Tk()
         self.current_page = None
@@ -67,11 +70,11 @@ class UIManager:
         # self.web_info.update()
 
         # Display data onto UI Window
-        # self.current_page = Page.main
-        # self.open_main_page()   #todo CHANGE BACK TO MAIN
+        self.current_page = Page.main
+        self.open_main_page()   #todo CHANGE BACK TO MAIN
 
-        self.current_page = Page.weather
-        self.open_weather_page()   #todo CHANGE BACK TO MAIN
+        # self.current_page = Page.weather
+        # self.open_weather_page()   #todo CHANGE BACK TO MAIN
 
 
         # calender - removing for now
@@ -195,7 +198,8 @@ class UIManager:
         #update web data
         last_update_time = (time.time() - src.project.resources.var.saved_data['last_updated']) / 60
         # print last_update_time
-        if last_update_time >=10 and self.current_page == Page.main:  # Means its been 10 minutes since it last updated
+        if last_update_time >=src.project.resources.var.update_time and self.current_page == Page.main:
+            # Means its been 10 minutes since it last updated
             print "UPDATING WEB INFO. REQUESTING FROM WEB"
             self.main_clock.change_update_label_to_updating()
             self.web_info.update()
@@ -204,26 +208,23 @@ class UIManager:
             if self.main_news is not None:
                 self.main_news.update()             # todo Current only updates main page. need to update everything
 
-        # if self.counter == 50:
+        # if self.counter == 100:
         #     self.change_page(Page.weather)
-        # elif self.counter == 100:
+        # elif self.counter == 200:
         #     self.change_page(Page.main)
         # self.counter += 1
         self.update_zone(cursor)
-        # print str(self.counter)
-        # print "X Coord: "  + str(cursor[0]) + "  |  Y Coord: " + str(cursor[1])
         diff_x = cursor[0] - self.circle_coord[0]
         diff_y = cursor[1] - self.circle_coord[1]
-        # print "diff X = " + str(diff_x) + "  |  diff y = " + str(diff_y)
         self.canvas.move(self.cursor, diff_x, diff_y)
         self.circle_coord = cursor
+
+        self.update_page(self.selection_handler.update(self.zone))
+
         self.tk.update_idletasks()
         self.tk.update()
         self.tk2.update_idletasks()
         self.tk2.update()
-
-    def update_page(self, new_page):
-        self.current_page = new_page
 
     def update_zone(self, cursor):
         self.zone = self.cursor_handler.update_cursor(cursor, self.current_page)
@@ -241,19 +242,32 @@ class UIManager:
                 self.main_weather.change_color_to_white()
                 self.main_news.change_news_title_to_white()
                 self.main_clock.change_color_to_yellow()
+            else:
+                self.main_weather.change_color_to_white()
+                self.main_news.change_news_title_to_white()
+                self.main_clock.change_color_to_white()
         elif self.current_page == Page.weather:
             if self.zone == WeatherZone.returnButton:
                 self.returnButton.change_color_to_yellow()
             else:
                 self.returnButton.change_color_to_white()
 
-    def change_page(self, newpage, event=None):
-        if newpage == Page.main:  # MAIN PAGE
+    def update_page(self, new_page):
+        if new_page is not None:
+            if self.current_page == Page.main:
+                if self.zone == MainPageZone.weather:
+                    self.change_page(Page.weather)
+            elif self.current_page == Page.weather:
+                if self.zone == WeatherZone.returnButton:
+                    self.change_page(Page.main)
+
+    def change_page(self, new_page):
+        if new_page == Page.main:  # MAIN PAGE
             if self.current_page == Page.weather:
                 self.close_weather_page()           # todo remove previous page if weather, news, etc
             self.open_main_page()
             self.current_page = Page.main
-        elif newpage == Page.weather:  # BLANK PAGE
+        elif new_page == Page.weather:  # BLANK PAGE
             self.close_main_page()
             self.open_weather_page()
             self.current_page = Page.weather
