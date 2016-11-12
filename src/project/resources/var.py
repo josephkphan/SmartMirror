@@ -1,6 +1,11 @@
 import json
 import time
 
+# -------------------- Coloring ------------------------ #
+selected_off = 'white'
+selected_on = 'yellow'
+background_color = 'black'
+font_style = 'Helvetica'
 # -------------------- For Web Parsing -------------------- #
 
 ip = '<IP>'

@@ -7,11 +7,12 @@ from Tkinter import *
 class ReturnButton(Frame):
     def __init__(self, parent, *args, **kwargs):
         Frame.__init__(self, parent, bg='black')
-        self.returnButton = Label(self, text="Return", font=('Helvetica', 28), fg="white", bg="black")
-        self.returnButton.pack(side=LEFT, anchor=N, padx=25, pady=25)  # todo padding isnt working, fix it
+        # initialize the return label
+        self.return_button = Label(self, text="Return", font=('Helvetica', 28), fg="white", bg="black")
+        self.return_button.pack(side=LEFT, anchor=N)
 
     def change_color_to_yellow(self):
-        self.returnButton.config(foreground="yellow")
+        self.return_button.config(foreground="yellow")
 
     def change_color_to_white(self):
-        self.returnButton.config(foreground="white")
+        self.return_button.config(foreground="white")
