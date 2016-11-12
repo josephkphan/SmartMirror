@@ -181,7 +181,6 @@ class UIManager:
             self.weather_hour[i].destroy()
             self.weather_hour[i] = None
 
-
     # ---------------------------------- OTHER COMPONENTS ----------------------------------- #
 
     def new_return_button(self):
@@ -195,7 +194,6 @@ class UIManager:
     # ---------------------------------- UPDATING UIMANAGER ----------------------------------- #
 
     def update_all(self, cursor):
-        #update web data
         last_update_time = (time.time() - src.project.resources.var.saved_data['last_updated']) / 60
         # print last_update_time
         if last_update_time >=src.project.resources.var.update_time and self.current_page == Page.main:
@@ -221,6 +219,7 @@ class UIManager:
 
         self.update_page(self.selection_handler.update(self.zone))
 
+        # Update tk
         self.tk.update_idletasks()
         self.tk.update()
         self.tk2.update_idletasks()
@@ -231,26 +230,26 @@ class UIManager:
         # Updating Zone based on Main Page
         if self.current_page == Page.main:
             if self.zone == MainPageZone.weather:
-                self.main_weather.change_color_to_yellow()
+                self.main_weather.change_color_all(selected_on)
                 self.main_news.change_color_news_title(selected_off)
                 self.main_clock.change_color_all(selected_off)
             elif self.zone == MainPageZone.news:
-                self.main_weather.change_color_to_white()
+                self.main_weather.change_color_all(selected_off)
                 self.main_news.change_color_news_title(selected_on)
                 self.main_clock.change_color_all(selected_off)
             elif self.zone == MainPageZone.clock:
-                self.main_weather.change_color_to_white()
+                self.main_weather.change_color_all(selected_off)
                 self.main_news.change_color_news_title(selected_off)
                 self.main_clock.change_color_all(selected_on)
             else:
-                self.main_weather.change_color_to_white()
+                self.main_weather.change_color_all(selected_off)
                 self.main_news.change_color_news_title(selected_off)
                 self.main_clock.change_color_all(selected_off)
         elif self.current_page == Page.weather:
             if self.zone == WeatherZone.returnButton:
-                self.returnButton.change_color_all_on()
+                self.returnButton.change_color_all(selected_on)
             else:
-                self.returnButton.change_color_all_off()
+                self.returnButton.change_color_all(selected_off)
 
     def update_page(self, new_page):
         if new_page is not None:

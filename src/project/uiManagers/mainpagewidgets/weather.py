@@ -21,7 +21,13 @@ class Weather(Frame):
         self.icon = ''
 
         # Initialize color for labels
-        self.degree_frame = Frame(self, bg=background_color)  # creates a subframe so icon can be on left or right
+        self.color_temperature = selected_off
+        self.color_forecast = selected_off
+        self.color_currently = selected_off
+        self.color_location = selected_off
+
+        # Initialize Labels
+        self.degree_frame = Frame(self, bg=background_color)  # creates a sub Frame so icon can be on left or right
         self.degree_frame.pack(side=TOP, anchor=W)
         self.temperature_label = Label(self.degree_frame, font=(font_style, 94), fg=selected_off, bg=background_color)
         self.temperature_label.pack(side=LEFT, anchor=N)
@@ -90,17 +96,31 @@ class Weather(Frame):
 
     # -------------------------- Coloring --------------------------- #
 
-    def change_color_to_yellow(self):
-        self.temperature_label.config(foreground="yellow")
-        self.currently_label.config(foreground="yellow")
-        self.forecast_label.config(foreground="yellow")
-        self.location_label.config(foreground="yellow")
+    def change_color_all(self, mode):
+        self.change_color_currently(mode)
+        self.change_color_forecast(mode)
+        self.change_color_temperature(mode)
+        self.change_color_location(mode)
 
-    def change_color_to_white(self):
-        self.temperature_label.config(foreground="white")
-        self.currently_label.config(foreground="white")
-        self.forecast_label.config(foreground="white")
-        self.location_label.config(foreground="white")
+    def change_color_temperature(self, mode):
+        if self.color_temperature != mode:
+            self.color_temperature = mode
+            self.temperature_label.config(foreground = self.color_temperature)
+
+    def change_color_forecast(self, mode):
+        if self.color_forecast != mode:
+            self.color_forecast = mode
+            self.forecast_label.config( foreground=self.color_forecast)
+
+    def change_color_currently(self, mode):
+        if self.color_currently != mode:
+            self.color_currently = mode
+            self.currently_label.config(foreground=self.color_currently)
+
+    def change_color_location(self, mode):
+        if self.color_location != mode:
+            self.color_location = mode
+            self.location_label.config(foreground=self.color_location)
 
     @staticmethod
     def convert_kelvin_to_fahrenheit(kelvin_temp):          # todo create a settings for user!!! <-- COOL IDEA

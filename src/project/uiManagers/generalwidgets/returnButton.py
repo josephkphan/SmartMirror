@@ -13,12 +13,7 @@ class ReturnButton(Frame):
         self.return_button = Label(self, text="Return", font=(font_style, 28), fg=selected_off, bg=background_color)
         self.return_button.pack(side=LEFT, anchor=N)
 
-    def change_color_all_on(self):
-        if self.color_return != selected_on:
-            self.color_return = selected_on
-            self.return_button.config(foreground=self.color_return)
-
-    def change_color_all_off(self):
-        if self.color_return != selected_off:
-            self.color_return = selected_off
+    def change_color_all(self,mode):
+        if self.color_return != mode:
+            self.color_return = mode
             self.return_button.config(foreground=self.color_return)
