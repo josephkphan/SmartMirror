@@ -1,9 +1,9 @@
 from shapely.geometry import *
-import numpy as np
+
+from src.project.resources.page import *
+
 from src.project.resources.var import *
-from page import *
-from zone import *
-from src.project.resources.var import *
+from src.project.resources.zone import *
 
 
 class CursorHandler:

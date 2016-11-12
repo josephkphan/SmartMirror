@@ -1,4 +1,9 @@
+from src.project.resources.page import *
+
 import src.project.resources.var
+from cursorhandler import *
+from selectionhandler import *
+from src.project.resources.zone import *
 from src.project.uiManagers.generalwidgets.returnButton import *
 from src.project.uiManagers.mainpagewidgets.clock import *
 from src.project.uiManagers.mainpagewidgets.news import *
@@ -6,11 +11,7 @@ from src.project.uiManagers.mainpagewidgets.weather import *
 from src.project.uiManagers.weatherpagewidgets.currentweather import *
 from src.project.uiManagers.weatherpagewidgets.dailyweather import *
 from src.project.uiManagers.weatherpagewidgets.hourlyweather import *
-from cursorhandler import *
-from page import *
 from webinfo import *
-from selectionhandler import *
-from zone import *
 
 
 # File Name: UI Handler:
