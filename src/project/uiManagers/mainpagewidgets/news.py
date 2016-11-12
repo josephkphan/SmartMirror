@@ -17,29 +17,30 @@ class NewsHeadline(Frame):
         image = image.convert('RGB')
         photo = ImageTk.PhotoImage(image)
 
-        self.iconLbl = Label(self, bg=background_color, image=photo)
-        self.iconLbl.image = photo
-        self.iconLbl.pack(side=LEFT, anchor=N)
-        self.eventName = event_name
-        self.eventNameLbl = Label(self, text=self.eventName, font=(font_style, 18), fg=selected_off,
+        self.icon_label = Label(self, bg=background_color, image=photo)
+        self.icon_label.image = photo
+        self.icon_label.pack(side=LEFT, anchor=N)
+        self.event_name = event_name
+        self.event_name_label = Label(self, text=self.event_name, font=(font_style, 18), fg=selected_off,
                                   bg=background_color)
-        self.eventNameLbl.pack(side=LEFT, anchor=N)
+        self.event_name_label.pack(side=LEFT, anchor=N)
 
 
 class News(Frame):
     def __init__(self, parent, *args, **kwargs):
         Frame.__init__(self, parent, *args, **kwargs)
-        self.newsPage = 0
+        self.news_page = 0  # used to alternate news title todo implement this!!
 
         # Initialize Title and container
         self.config(bg=background_color)
         self.title = 'Headlines'
-        self.newsLbl = Label(self, text=self.title, font=(font_style, 28), fg=selected_off, bg=background_color)
-        self.newsLbl.pack(side=TOP, anchor=W)
-        self.headlinesContainer = Frame(self, bg=background_color)
-        self.headlinesContainer.pack(side=TOP)
+        self.news_label = Label(self, text=self.title, font=(font_style, 28), fg=selected_off, bg=background_color)
+        self.news_label.pack(side=TOP, anchor=W)
+        self.headlines_container = Frame(self, bg=background_color)
+        self.headlines_container.pack(side=TOP)
 
         # Initializing color for headlines
+        self.color_title = selected_off
         self.color_headline = {}
         for i in range (0,5):
             self.color_headline[i] = selected_off
@@ -61,7 +62,7 @@ class News(Frame):
     def update(self):
         # remove all children
         print "UPDATING NEWS INFO ON SCREEN"
-        for widget in self.headlinesContainer.winfo_children():
+        for widget in self.headlines_container.winfo_children():
             widget.destroy()
         headlines = saved_data['news_headlines']
         links = saved_data['news_links']  # todo make clickable later link should open new window?
@@ -72,14 +73,12 @@ class News(Frame):
 
     # ---------------------------------- COLOR CHANGERS ----------------------------------- #
 
-    def change_news_title_to_yellow(self):
-        self.newsLbl.config(foreground="yellow")
+    def change_color_news_title(self, mode):
+        if self.color_title != mode:
+            self.color_title = mode
+            self.news_label.config(foreground=mode)
 
-    def change_news_title_to_white(self):
-        self.newsLbl.config(foreground="white")
-
-    def change_headline1_to_yellow(self, headline_num):
-        self.headline[headline_num].config(foreground="yellow")
-
-    def change_headline1_to_white(self, headline_num):
-        self.headline[headline_num].config(foreground="white")
+    def change_headline_on(self, mode, headline_num):
+        if self.color_headline[headline_num] != mode:
+            self.color_headline[headline_num] = mode
+            self.headline[headline_num].config(foreground=self.color_headline[headline_num])

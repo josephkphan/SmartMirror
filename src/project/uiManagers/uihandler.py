@@ -157,7 +157,6 @@ class UIManager:
         self.weather_current = CurrentWeather(self.topFrame)     # todo finish this
         self.weather_current.pack(side=RIGHT, anchor=N, padx=50, pady=50)
 
-
     def end_today_weather(self):
         self.weather_current.destroy()
         self.weather_current = None
@@ -233,20 +232,20 @@ class UIManager:
         if self.current_page == Page.main:
             if self.zone == MainPageZone.weather:
                 self.main_weather.change_color_to_yellow()
-                self.main_news.change_news_title_to_white()
-                self.main_clock.change_color_all_off()
+                self.main_news.change_color_news_title(selected_off)
+                self.main_clock.change_color_all(selected_off)
             elif self.zone == MainPageZone.news:
                 self.main_weather.change_color_to_white()
-                self.main_news.change_news_title_to_yellow()
-                self.main_clock.change_color_all_off()
+                self.main_news.change_color_news_title(selected_on)
+                self.main_clock.change_color_all(selected_off)
             elif self.zone == MainPageZone.clock:
                 self.main_weather.change_color_to_white()
-                self.main_news.change_news_title_to_white()
-                self.main_clock.change_color_all_on()
+                self.main_news.change_color_news_title(selected_off)
+                self.main_clock.change_color_all(selected_on)
             else:
                 self.main_weather.change_color_to_white()
-                self.main_news.change_news_title_to_white()
-                self.main_clock.change_color_all_off()
+                self.main_news.change_color_news_title(selected_off)
+                self.main_clock.change_color_all(selected_off)
         elif self.current_page == Page.weather:
             if self.zone == WeatherZone.returnButton:
                 self.returnButton.change_color_all_on()

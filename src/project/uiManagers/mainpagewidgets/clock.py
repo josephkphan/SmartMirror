@@ -74,61 +74,35 @@ class Clock(Frame):
         self.update()
         self.time_label.after(200, self.tick)
 
-    def change_color_all_on(self):
-        self.change_color_time_on()
-        self.change_color_date_on()
-        self.change_color_day_on()
-        self.change_color_update_on()
-
-    def change_color_all_off(self):
-        self.change_color_time_off()
-        self.change_color_date_off()
-        self.change_color_day_off()
-        self.change_color_update_off()
-
     # -------------------- Colorings -------------------------- #
 
-    def change_color_time_off(self):
-        if self.color_time != selected_off:
-            self.color_time = selected_off
-            print self.color_time
+    def change_color_all(self, mode):
+        self.change_color_time(mode)
+        self.change_color_date(mode)
+        self.change_color_day(mode)
+        self.change_color_update(mode)
+
+    def change_color_time(self, mode):
+        if self.color_time != mode:
+            self.color_time = mode
             self.time_label.config(foreground=self.color_time)
 
-    def change_color_time_on(self):
-        if self.color_time != selected_on:
-            self.color_time = selected_on
-            self.time_label.config(foreground=self.color_time)
-
-    def change_color_date_off(self):
-        if self.color_date != selected_off:
-            self.color_date = selected_off
+    def change_color_date(self, mode):
+        if self.color_date != mode:
+            self.color_date = mode
             self.date_label.config(foreground=self.color_date)
 
-    def change_color_date_on(self):
-        if self.color_date != selected_on:
-            self.color_date = selected_on
-            self.date_label.config(foreground=self.color_date)
-
-    def change_color_day_off(self):
-        if self.color_day != selected_off:
-            self.color_day = selected_off
+    def change_color_day(self, mode):
+        if self.color_day != mode:
+            self.color_day = mode
             self.day_label.config(foreground=self.color_day)
 
-    def change_color_day_on(self):
-        if self.color_day != selected_on:
-            self.color_day = selected_on
-            self.day_label.config(foreground=self.color_day)
-
-    def change_color_update_off(self):
-        if self.color_last_update != selected_off:
-            self.color_last_update = selected_off
+    def change_color_update(self, mode):
+        if self.color_last_update != mode:
+            self.color_last_update = mode
             self.last_update_label.config(foreground=self.color_last_update)
 
-    def change_color_update_on(self):
-        if self.color_last_update != selected_on:
-            self.color_last_update = selected_on
-            self.last_update_label.config(foreground=self.color_last_update)
-
+    # ---------------------- Update Label ---------------------- #
     def change_update_label_to_updating(self):
         self.last_update = "Updating..."
         self.last_update_label.config(text=self.last_update)
