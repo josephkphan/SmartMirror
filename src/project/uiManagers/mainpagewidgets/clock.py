@@ -74,13 +74,13 @@ class Clock(Frame):
         self.update()
         self.time_label.after(200, self.tick)
 
-    def change_color_to_yellow(self):
+    def change_color_all_on(self):
         self.change_color_time_on()
         self.change_color_date_on()
         self.change_color_day_on()
         self.change_color_update_on()
 
-    def change_color_to_white(self):
+    def change_color_all_off(self):
         self.change_color_time_off()
         self.change_color_date_off()
         self.change_color_day_off()

@@ -234,24 +234,24 @@ class UIManager:
             if self.zone == MainPageZone.weather:
                 self.main_weather.change_color_to_yellow()
                 self.main_news.change_news_title_to_white()
-                self.main_clock.change_color_to_white()
+                self.main_clock.change_color_all_off()
             elif self.zone == MainPageZone.news:
                 self.main_weather.change_color_to_white()
                 self.main_news.change_news_title_to_yellow()
-                self.main_clock.change_color_to_white()
+                self.main_clock.change_color_all_off()
             elif self.zone == MainPageZone.clock:
                 self.main_weather.change_color_to_white()
                 self.main_news.change_news_title_to_white()
-                self.main_clock.change_color_to_yellow()
+                self.main_clock.change_color_all_on()
             else:
                 self.main_weather.change_color_to_white()
                 self.main_news.change_news_title_to_white()
-                self.main_clock.change_color_to_white()
+                self.main_clock.change_color_all_off()
         elif self.current_page == Page.weather:
             if self.zone == WeatherZone.returnButton:
-                self.returnButton.change_color_to_yellow()
+                self.returnButton.change_color_all_on()
             else:
-                self.returnButton.change_color_to_white()
+                self.returnButton.change_color_all_off()
 
     def update_page(self, new_page):
         if new_page is not None:

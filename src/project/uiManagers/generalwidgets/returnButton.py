@@ -1,4 +1,5 @@
 from Tkinter import *
+from src.project.resources.var import *
 
 
 # File Name: returnButton
@@ -6,13 +7,18 @@ from Tkinter import *
 
 class ReturnButton(Frame):
     def __init__(self, parent, *args, **kwargs):
-        Frame.__init__(self, parent, bg='black')
+        Frame.__init__(self, parent, bg=background_color)
+        self.color_return = selected_off
         # initialize the return label
-        self.return_button = Label(self, text="Return", font=('Helvetica', 28), fg="white", bg="black")
+        self.return_button = Label(self, text="Return", font=(font_style, 28), fg=selected_off, bg=background_color)
         self.return_button.pack(side=LEFT, anchor=N)
 
-    def change_color_to_yellow(self):
-        self.return_button.config(foreground="yellow")
+    def change_color_all_on(self):
+        if self.color_return != selected_on:
+            self.color_return = selected_on
+            self.return_button.config(foreground=self.color_return)
 
-    def change_color_to_white(self):
-        self.return_button.config(foreground="white")
+    def change_color_all_off(self):
+        if self.color_return != selected_off:
+            self.color_return = selected_off
+            self.return_button.config(foreground=self.color_return)
