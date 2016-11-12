@@ -1,4 +1,5 @@
-# maps open weather icons to
+# Maps open weather icons to its corresponding image
+# Used for weather widgets
 icon = {
     'clear-day': "assets/sun.png",  # clear sky day
     'wind': "assets/wind.png",  # wind

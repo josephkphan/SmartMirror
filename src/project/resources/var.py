@@ -35,8 +35,8 @@ top_right_rectangle = [(camera_width / 2, 0), (camera_width / 2, camera_height /
                        (camera_width, camera_height / 2), (camera_width, 0)]
 
 # ------------------- Selection Constants ----------------------#
-selection_time = 2.5        # in seconds
-update_time = 5             # in minutes
+selection_time = 2.5  # in seconds
+update_time = 5  # in minutes
 
 # -------------------- Saved Data -------------------- #
 
@@ -76,7 +76,7 @@ def update_data(weather_data, location_data, news_data):
     if location_data is not None:
         saved_data['location'] = location_data
 
-    if news_data != None:
+    if news_data is not None:
         headlines = {}
         links = {}
         for i in range(0, 5):
@@ -86,6 +86,7 @@ def update_data(weather_data, location_data, news_data):
         saved_data['news_links'] = links
     saved_data['last_updated'] = time.time()
     write_json_to_file()
+
 
 read_json_from_file()
 print "READING FROM FILE"
