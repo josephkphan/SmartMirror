@@ -15,13 +15,16 @@ class HourlyWeather(Frame):
         # Initializing Label texts
         self.time = ''
         self.temperature = ''
+        self.prob_rain = ''
+        # image = Image.open("assets/newspaper.png")
 
         # Initializing Labels
+        self.prob_rain_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color, padx=10)
+        self.prob_rain_label.pack(side=RIGHT, anchor=N)
         self.temperature_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color, padx=10)
         self.temperature_label.pack(side=RIGHT, anchor=N)
         self.time_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color, padx=15)
         self.time_label.pack(side=RIGHT, anchor=N)
-
         self.update_now(hour)
 
     def update_now(self, hour):
@@ -31,6 +34,11 @@ class HourlyWeather(Frame):
         temperature = str(int(weather_obj['hourly']['data'][hour]['apparentTemperature'])) +  u'\N{DEGREE SIGN}'
         time_txt = self.convert_epoch_time_to_datetime(weather_obj['hourly']['data'][hour]['time'])
         time_txt = self.get_time_from_datetime(time_txt)
+        prob_rain = weather_obj['hourly']['data'][hour]['precipProbability']
+        if prob_rain == 0:
+            prob_rain = '0'     # todo change to '' if there isnt any rain
+        else:
+            prob_rain = str(prob_rain) + '%'            # todo IF > lets say 30, then ADD A RAINDROP ONTO THE HOUR <---
 
         # Updates hourly weather if its different
         if self.time != time_txt:
@@ -39,6 +47,9 @@ class HourlyWeather(Frame):
         if self.temperature != temperature:
             self.temperature = temperature
             self.temperature_label.config(text=self.temperature)
+        if self.prob_rain != prob_rain:
+            self.prob_rain = prob_rain
+            self.prob_rain_label.config(text=self.prob_rain)
 
         # icon_id = weather_obj['daily']['data'][hour]['icon']    todo add this in
         # icon2 = None
