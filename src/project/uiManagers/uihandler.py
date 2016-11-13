@@ -1,21 +1,20 @@
-import src.project.resources.var
+
+from src.project.resources import var
+from webinfo import *
 from cursorhandler import *
 from selectionhandler import *
-from src.project.resources.zone import *
-from src.project.uiManagers.generalwidgets.returnButton import *
-from src.project.uiManagers.mainpagewidgets.clock import *
 from src.project.uiManagers.mainpagewidgets.news import *
+from src.project.uiManagers.mainpagewidgets.clock import *
 from src.project.uiManagers.mainpagewidgets.weather import *
-from src.project.uiManagers.weatherpagewidgets.currentweather import *
+from src.project.uiManagers.generalwidgets.returnButton import *
 from src.project.uiManagers.weatherpagewidgets.dailyweather import *
 from src.project.uiManagers.weatherpagewidgets.hourlyweather import *
-from webinfo import *
+from src.project.uiManagers.weatherpagewidgets.currentweather import *
+from src.project.resources import zone
 
 
 # File Name: UI Handler:
 # Purpose: Handles all TKinter widgets and displays them appropriately based on the given inputs from the hardware
-
-
 class UIManager:
     def __init__(self):
 
@@ -78,12 +77,11 @@ class UIManager:
         # self.tk.bind("<M>", self.update_page(Page.main))  # todo : Doesn't work. please fix
 
         # Display data onto UI Window
-        # self.current_page = Page.main
-        # self.open_main_page()
+        self.current_page = Page.main
+        self.open_main_page()
 
-        self.current_page = Page.weather
-        self.open_weather_page()
-
+        # self.current_page = Page.weather
+        # self.open_weather_page()
 
         # calender - removing for now
         # self.calender = Calendar(self.bottom_frame)
@@ -91,12 +89,12 @@ class UIManager:
 
     # ---------------------------------- Key Binding Functions----------------------------------- #
 
-    def toggle_fullscreen(self, event=None):
+    def toggle_fullscreen(self):
         self.state = not self.state  # Just toggling the boolean
         self.tk.attributes("-fullscreen", self.state)
         return "break"
 
-    def end_fullscreen(self, event=None):
+    def end_fullscreen(self):
         self.state = False
         self.tk.attributes("-fullscreen", False)
         return "break"
@@ -143,7 +141,7 @@ class UIManager:
         self.returnButton.pack(side=TOP, anchor=N, padx=15, pady=15)
 
         # Hourly Weather
-        for i in range(0,24):
+        for i in range(0, 24):
             self.weather_hour[i] = HourlyWeather(self.left_top, i)
             self.weather_hour[i].pack(side=TOP, anchor=W, padx=5, pady=5)
 
@@ -187,9 +185,9 @@ class UIManager:
     # ---------------------------------- UPDATING UIMANAGER ----------------------------------- #
 
     def update_all(self, cursor):
-        last_update_time = (time.time() - src.project.resources.var.saved_data['last_updated']) / 60
+        last_update_time = (time.time() - var.saved_data['last_updated']) / 60
         # print last_update_time
-        if last_update_time >=src.project.resources.var.update_time and self.current_page == Page.main:
+        if last_update_time >= var.update_time and self.current_page == Page.main:
             # Means its been 10 minutes since it last updated
             print "UPDATING WEB INFO. REQUESTING FROM WEB"
             self.main_clock.change_update_label_to_updating()
@@ -197,7 +195,7 @@ class UIManager:
             if self.main_weather is not None:
                 self.main_weather.update()
             if self.main_news is not None:
-                self.main_news.update()             # todo Current only updates main page. need to update everything
+                self.main_news.update()  # todo Current only updates main page. need to update everything
 
         self.update_zone(cursor)
         diff_x = cursor[0] - self.circle_coord[0]
@@ -217,15 +215,15 @@ class UIManager:
         self.zone = self.cursor_handler.update_cursor(cursor, self.current_page)
         # Updating Zone based on Main Page
         if self.current_page == Page.main:
-            if self.zone == MainPageZone.weather:
+            if self.zone == zone.MainPage.weather:
                 self.main_weather.change_color_all(selected_on)
                 self.main_news.change_color_news_title(selected_off)
                 self.main_clock.change_color_all(selected_off)
-            elif self.zone == MainPageZone.news:
+            elif self.zone == zone.MainPage.news:
                 self.main_weather.change_color_all(selected_off)
                 self.main_news.change_color_news_title(selected_on)
                 self.main_clock.change_color_all(selected_off)
-            elif self.zone == MainPageZone.clock:
+            elif self.zone == zone.MainPage.clock:
                 self.main_weather.change_color_all(selected_off)
                 self.main_news.change_color_news_title(selected_off)
                 self.main_clock.change_color_all(selected_on)
@@ -234,7 +232,7 @@ class UIManager:
                 self.main_news.change_color_news_title(selected_off)
                 self.main_clock.change_color_all(selected_off)
         elif self.current_page == Page.weather:
-            if self.zone == WeatherZone.returnButton:
+            if self.zone == zone.Weather.returnButton:
                 self.returnButton.change_color_all(selected_on)
             else:
                 self.returnButton.change_color_all(selected_off)
@@ -242,11 +240,11 @@ class UIManager:
     def update_page(self, new_page):
         if new_page is not None:
             if self.current_page == Page.main:
-                if self.zone == MainPageZone.weather:
+                if self.zone == zone.MainPage.weather:
                     print "CHANGING PAGES"
                     self.change_page(Page.weather)
             elif self.current_page == Page.weather:
-                if self.zone == WeatherZone.returnButton:
+                if self.zone == zone.Weather.returnButton:
                     print "CHANGING PAGES"
                     self.change_page(Page.main)
 
@@ -255,7 +253,7 @@ class UIManager:
     def change_page(self, new_page):
         if new_page == Page.main:  # MAIN PAGE
             if self.current_page == Page.weather:
-                self.close_weather_page()           # todo remove previous page if weather, news, etc
+                self.close_weather_page()  # todo remove previous page if weather, news, etc
             self.open_main_page()
             self.current_page = Page.main
         elif new_page == Page.weather:  # BLANK PAGE

@@ -2,8 +2,8 @@ from shapely.geometry import *
 
 from src.project.resources.page import *
 
-from src.project.resources.var import *
-from src.project.resources.zone import *
+from src.project.resources import var
+from src.project.resources import zone
 
 
 class CursorHandler:
@@ -14,16 +14,16 @@ class CursorHandler:
 
         # ---------------------------------- MAIN PAGE ZONES ----------------------------------- #
         # top Left
-        self.zone_main_weather = Polygon(top_left_rectangle)
+        self.zone_main_weather = Polygon(var.top_left_rectangle)
         # top right
-        self.zone_main_clock = Polygon(top_right_rectangle)
+        self.zone_main_clock = Polygon(var.top_right_rectangle)
         # bottom Left
-        self.zone_main_news = Polygon(bottom_left_rectangle)
+        self.zone_main_news = Polygon(var.bottom_left_rectangle)
         # bottom right
-        self.zone_UNAMED = Polygon(bottom_right_rectangle)
+        # self.zone_UNAMED = Polygon(var.bottom_right_rectangle)             NOT USED RIGHT NOW
 
         # ---------------------------------- WEATHER PAGE ZONES ----------------------------------- #
-        self.zone_weather_return = Polygon(top_left_rectangle)
+        self.zone_weather_return = Polygon(var.top_left_rectangle)
 
         # ---------------------------------- NEWS PAGE ZONES ----------------------------------- #
 
@@ -35,21 +35,18 @@ class CursorHandler:
         if current_page == Page.main:
             if Polygon(self.zone_main_weather).contains(p):
                 # print "In Zone 1"
-                self.zoneName = MainPageZone.weather
+                self.zoneName = zone.MainPage.weather
             elif Polygon(self.zone_main_clock).contains(p):
                 # print "In Zone 2"
-                self.zoneName = MainPageZone.clock
+                self.zoneName = zone.MainPage.clock
             elif Polygon(self.zone_main_news).contains(p):
                 # print "In Zone 3"
-                self.zoneName = MainPageZone.news
-            elif Polygon(self.zone_UNAMED).contains(p):
-                # print "In Zone 4"
-                self.zoneName = 4  # todo change this or remove it later
+                self.zoneName = zone.MainPage.news
             else:
-                self.zoneName = MainPageZone.none
+                self.zoneName = zone.MainPage.none
         elif current_page == Page.weather:
             if Polygon(self.zone_weather_return).contains(p):
-                self.zoneName = WeatherZone.returnButton
+                self.zoneName = zone.Weather.returnButton
             else:
-                self.zoneName = WeatherZone.none
+                self.zoneName = zone.Weather.none
         return self.zoneName

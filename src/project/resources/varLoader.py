@@ -24,7 +24,7 @@ def update_data(weather_data, location_data, news_data):
     # Converting to Json
     read_json_from_file()
     if weather_data is not None:
-       var.saved_data['weather'] = weather_data
+        var.saved_data['weather'] = weather_data
 
     if location_data is not None:
         var.saved_data['location'] = location_data

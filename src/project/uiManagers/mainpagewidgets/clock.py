@@ -1,5 +1,5 @@
 from Tkinter import *
-from src.project.resources.var import *
+from src.project.resources import var
 import time
 import math
 # File Name: returnButton
@@ -9,6 +9,10 @@ import math
 # Will show the basic information such as current time, day of week, date, and last updated
 class Clock(Frame):
     def __init__(self, parent):
+        background_color = var.background_color
+        selected_off = var.selected_off
+        font_style = var.font_style
+
         Frame.__init__(self, parent, bg=background_color)
 
         # initialize label colors
@@ -57,7 +61,7 @@ class Clock(Frame):
             self.date_label.config(text=date)
 
         # if last update time changed, update it
-        last_update_time = math.floor(time.time() - saved_data['last_updated']) / 60
+        last_update_time = math.floor(time.time() - var.saved_data['last_updated']) / 60
         if int(last_update_time) == 0:
             last_update = 'Just Updated'  # todo CHECK after update it doesnt show just updated
             if self.last_update != last_update:

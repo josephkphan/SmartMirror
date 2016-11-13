@@ -1,12 +1,15 @@
 from Tkinter import *
 from PIL import Image, ImageTk
-import src.project.resources.lookup
+from src.project.resources import lookup
 from datetime import date
-from src.project.resources.var import *
+from src.project.resources import var
 
 
 class WeeklyWeather(Frame):
     def __init__(self, parent, day):
+        selected_off = var.selected_off
+        background_color = var.background_color
+        font_style = var.font_style
         Frame.__init__(self, parent, bg=background_color)
         self.daily_frame = Frame(self, bg=background_color)
         self.daily_frame.pack(side=TOP, anchor=N)
@@ -34,7 +37,7 @@ class WeeklyWeather(Frame):
 
     def update_now(self, day):
         # Gathering Daily weather data
-        weather_obj = saved_data['weather']
+        weather_obj = var.saved_data['weather']
         max_txt = str(int(weather_obj['daily']['data'][day]['temperatureMax']))
         min_txt = str(int(weather_obj['daily']['data'][day]['temperatureMin']))
         sunset_time = weather_obj['daily']['data'][day]['sunsetTime']
@@ -54,8 +57,8 @@ class WeeklyWeather(Frame):
             self.day_of_week = day_of_week
             self.day_of_week_label.config(text=self.day_of_week)
 
-        if icon_id in src.project.resources.lookup.icon:
-            icon = src.project.resources.lookup.icon[icon_id]
+        if icon_id in lookup.icon:
+            icon = lookup.icon[icon_id]
 
         if icon is not None:
             if self.icon != icon:

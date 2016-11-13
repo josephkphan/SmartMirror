@@ -2,7 +2,7 @@ from enum import Enum
 
 
 # Includes the possible zones that could be selected on the main page
-class MainPageZone(Enum):
+class MainPage(Enum):
     weather = 1
     clock = 2
     news = 3
@@ -10,6 +10,6 @@ class MainPageZone(Enum):
 
 
 # Includes the possible zones that could be selected on the weather page
-class WeatherZone(Enum):
+class Weather(Enum):
     returnButton = 4
     none = -1

@@ -1,15 +1,15 @@
 from Tkinter import *
 from PIL import Image, ImageTk
-
-from src.project.resources.var import *
+from src.project.resources import var
 
 
 # File Name: news.py
 # Purpose: Gathers headlines from news website
-
-
 class NewsHeadline(Frame):
     def __init__(self, parent, event_name=""):
+        selected_off = var.selected_off
+        background_color = var.background_color
+        font_style = var.font_style
         Frame.__init__(self, parent, bg=background_color)
         image = Image.open("assets/newspaper.png")
 
@@ -22,12 +22,15 @@ class NewsHeadline(Frame):
         self.icon_label.pack(side=LEFT, anchor=N)
         self.event_name = event_name
         self.event_name_label = Label(self, text=self.event_name, font=(font_style, 18), fg=selected_off,
-                                  bg=background_color)
+                                      bg=background_color)
         self.event_name_label.pack(side=LEFT, anchor=N)
 
 
 class News(Frame):
     def __init__(self, parent, *args, **kwargs):
+        selected_off = var.selected_off
+        background_color = var.background_color
+        font_style = var.font_style
         Frame.__init__(self, parent, *args, **kwargs)
         self.news_page = 0  # used to alternate news title todo implement this!!
 
@@ -42,11 +45,12 @@ class News(Frame):
         # Initializing color for headlines
         self.color_title = selected_off
         self.color_headline = {}
-        for i in range (0,5):
+        for i in range(0, 5):
             self.color_headline[i] = selected_off
 
         # Initialize headline text
         self.headline = {}
+        pass
         self.headline[0] = Frame(self, bg=background_color)
         self.headline[0] = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
         self.headline[1] = Frame(self, bg=background_color)
@@ -64,8 +68,8 @@ class News(Frame):
         print "UPDATING NEWS INFO ON SCREEN"
         for widget in self.headlines_container.winfo_children():
             widget.destroy()
-        headlines = saved_data['news_headlines']
-        links = saved_data['news_links']  # todo make clickable later link should open new window?
+        headlines = var.saved_data['news_headlines']
+        links = var.saved_data['news_links']  # todo make clickable later link should open new window?
 
         for i in range(0, 5):
             self.headline[i].config(text=headlines[str(i)])

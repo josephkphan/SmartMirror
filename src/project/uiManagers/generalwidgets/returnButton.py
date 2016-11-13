@@ -1,5 +1,5 @@
 from Tkinter import *
-from src.project.resources.var import *
+from src.project.resources import var
 
 
 # File Name: returnButton
@@ -7,6 +7,9 @@ from src.project.resources.var import *
 
 class ReturnButton(Frame):
     def __init__(self, parent):
+        selected_off = var.selected_off
+        background_color = var.background_color
+        font_style = var.font_style
         Frame.__init__(self, parent, bg=background_color)
         self.color_return = selected_off
         # initialize the return label

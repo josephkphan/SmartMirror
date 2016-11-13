@@ -2,11 +2,14 @@ from Tkinter import *
 import datetime
 from PIL import Image, ImageTk
 import src.project.resources.lookup
-from src.project.resources.var import *
+from src.project.resources import var
 
 
 class HourlyWeather(Frame):
     def __init__(self, parent, hour):
+        selected_off = var.selected_off
+        background_color = var.background_color
+        font_style = var.font_style
         Frame.__init__(self, parent, bg=background_color)
 
         self.icon = Frame(self, bg=background_color)
@@ -30,7 +33,7 @@ class HourlyWeather(Frame):
     def update_now(self, hour):
 
         # Gathering Data for hourly weather
-        weather_obj = saved_data['weather']
+        weather_obj = var.saved_data['weather']
         temperature = str(int(weather_obj['hourly']['data'][hour]['apparentTemperature'])) +  u'\N{DEGREE SIGN}'
         time_txt = self.convert_epoch_time_to_datetime(weather_obj['hourly']['data'][hour]['time'])
         time_txt = self.get_time_from_datetime(time_txt)

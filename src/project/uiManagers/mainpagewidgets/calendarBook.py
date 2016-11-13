@@ -1,9 +1,13 @@
 from Tkinter import *
-from src.project.resources.var import *
+from src.project.resources import var
+
 
 # Creates a Calendar Widget
 class CalendarEvent(Frame):
     def __init__(self, parent, event_name="Event 1"):
+        selected_off = var.selected_off
+        background_color = var.background_color
+        font_style = var.font_style
         Frame.__init__(self, parent, bg=background_color)
         self.event_name = event_name
         self.event_label = Label(self, text=self.event_name, font=(font_style, 18), fg=selected_off,
@@ -13,6 +17,9 @@ class CalendarEvent(Frame):
 
 class Calendar(Frame):
     def __init__(self, parent, *args, **kwargs):
+        selected_off = var.selected_off
+        background_color = var.background_color
+        font_style = var.font_style
         Frame.__init__(self, parent, bg=background_color)
         self.title = 'Calendar Events'
         self.calendar_label = Label(self, text=self.title, font=(font_style, 28), fg=selected_off, bg=background_color)

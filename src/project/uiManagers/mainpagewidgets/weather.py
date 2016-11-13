@@ -3,14 +3,14 @@ import json
 import requests
 import traceback
 from PIL import Image, ImageTk
-
-import src.project.resources.lookup
-
-from src.project.resources.var import *
+from src.project.resources import var, lookup
 
 
 class Weather(Frame):
     def __init__(self, parent):
+        selected_off = var.selected_off
+        background_color = var.background_color
+        font_style = var.font_style
         Frame.__init__(self, parent, bg=background_color)
         self.degree_frame = Frame(self, bg=background_color)  # creates a sub Frame so icon can be on left or right
         self.degree_frame.pack(side=TOP, anchor=W)
@@ -45,11 +45,11 @@ class Weather(Frame):
         print "UPDATING WEATHER INFO ON SCREEN"
 
         # Getting location related data
-        location_obj = saved_data['location']
+        location_obj = var.saved_data['location']
         location = "%s, %s" % (location_obj['city'], location_obj['region_code'])
 
         # Getting weather related data
-        weather_obj = saved_data['weather']
+        weather_obj = var.saved_data['weather']
         degree_sign = u'\N{DEGREE SIGN}'
         temperature = "%s%s" % (str(int(weather_obj['currently']['temperature'])), degree_sign)
         currently = weather_obj['currently']['summary']
@@ -58,8 +58,8 @@ class Weather(Frame):
         icon = None
 
         # Looking up icon
-        if icon_id in src.project.resources.lookup.icon:
-            icon = src.project.resources.lookup.icon[icon_id]
+        if icon_id in lookup.icon:
+            icon = lookup.icon[icon_id]
         if icon is not None:
             if self.icon != icon:
                 self.icon = icon

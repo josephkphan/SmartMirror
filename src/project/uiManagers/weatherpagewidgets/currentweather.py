@@ -1,17 +1,14 @@
 from Tkinter import *
-import json
-import requests
-import traceback
 from PIL import Image, ImageTk
-
-import src.project.resources.lookup
-from datetime import date
-from src.project.resources.var import *
+from src.project.resources import var, lookup
 import datetime
 
 
 class CurrentWeather(Frame):
     def __init__(self, parent):
+        selected_off = var.selected_off
+        background_color = var.background_color
+        font_style = var.font_style
         # Init Frames
         Frame.__init__(self, parent, bg=background_color)
         self.degree_frame = Frame(self, bg=background_color)
@@ -50,11 +47,11 @@ class CurrentWeather(Frame):
 
     def update_weather(self):
         # Gets Location Information
-        location_obj = saved_data['location']
+        location_obj = var.saved_data['location']
         location = "%s, %s" % (location_obj['city'], location_obj['region_code'])
 
         # Gets Weather Information
-        weather_obj = saved_data['weather']
+        weather_obj = var.saved_data['weather']
         icon_id = weather_obj['daily']['data'][0]['icon']
         icon2 = None
         degree_sign = u'\N{DEGREE SIGN}'
@@ -97,8 +94,8 @@ class CurrentWeather(Frame):
                 self.location = location
                 self.location_label.config(text=self.location)
 
-        if icon_id in src.project.resources.lookup.icon:
-            icon2 = src.project.resources.lookup.icon[icon_id]
+        if icon_id in lookup.icon:
+            icon2 = lookup.icon[icon_id]
 
         if icon2 is not None:
             if self.icon != icon2:
@@ -114,10 +111,6 @@ class CurrentWeather(Frame):
             # remove image
             self.icon_label.config(image='')
 
-
-    def refresh_weather_data(self):
-        self.update_weather()  # todo Check is this is right
-
     @staticmethod
     def convert_epoch_time_to_datetime(epoch_time):
         begin_time = datetime.datetime(1970, 1, 1)
@@ -127,10 +120,7 @@ class CurrentWeather(Frame):
 
     @staticmethod
     def get_time_from_datetime(time):
-        finaltime = ''
-        hour = ''
         minute = ''
-        end = ''
         if time.hour > 12:  # finds out if its AM OR PM
             hour = str(time.hour - 12)  # Adjust time so it's not in military time
             end = 'PM'
@@ -140,6 +130,4 @@ class CurrentWeather(Frame):
         if len(str(time.minute)) == 1:
             minute += '0'
         minute += str(time.minute)
-
-        finaltime = hour + ':' + minute + ' ' + end
-        return finaltime
+        return hour + ':' + minute + ' ' + end
