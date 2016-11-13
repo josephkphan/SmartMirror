@@ -1,5 +1,6 @@
 import json
 import time
+import varLoader
 
 # -------------------- Coloring ------------------------ #
 selected_off = 'white'
@@ -49,44 +50,44 @@ update_time = 5  # in minutes
 
 saved_data = {}
 
+#
+# def write_json_to_file():
+#     # Open a file for writing
+#
+#     out_file = open("data.json", "w")
+#     # Save the data into this file
+#     # (the 'indent=4' is optional, but makes it more readable)
+#     json.dump(saved_data, out_file, indent=4)
+#     out_file.close()
+#
+#
+# # Reading data back
+# def read_json_from_file():
+#     global saved_data
+#     with open('data.json', 'r') as f:
+#         saved_data = json.load(f)
+#
+#
+# def update_data(weather_data, location_data, news_data):
+#     # Converting to Json
+#     read_json_from_file()
+#     if weather_data is not None:
+#         saved_data['weather'] = weather_data
+#
+#     if location_data is not None:
+#         saved_data['location'] = location_data
+#
+#     if news_data is not None:
+#         headlines = {}
+#         links = {}
+#         for i in range(0, 5):
+#             headlines[str(i)] = news_data.entries[i].title
+#             links[str(i)] = news_data.entries[i].links
+#         saved_data['news_headlines'] = headlines
+#         saved_data['news_links'] = links
+#     saved_data['last_updated'] = time.time()
+#     write_json_to_file()
 
-def write_json_to_file():
-    # Open a file for writing
 
-    out_file = open("data.json", "w")
-    # Save the data into this file
-    # (the 'indent=4' is optional, but makes it more readable)
-    json.dump(saved_data, out_file, indent=4)
-    out_file.close()
-
-
-# Reading data back
-def read_json_from_file():
-    global saved_data
-    with open('data.json', 'r') as f:
-        saved_data = json.load(f)
-
-
-def update_data(weather_data, location_data, news_data):
-    # Converting to Json
-    read_json_from_file()
-    if weather_data is not None:
-        saved_data['weather'] = weather_data
-
-    if location_data is not None:
-        saved_data['location'] = location_data
-
-    if news_data is not None:
-        headlines = {}
-        links = {}
-        for i in range(0, 5):
-            headlines[str(i)] = news_data.entries[i].title
-            links[str(i)] = news_data.entries[i].links
-        saved_data['news_headlines'] = headlines
-        saved_data['news_links'] = links
-    saved_data['last_updated'] = time.time()
-    write_json_to_file()
-
-
-read_json_from_file()
+varLoader.read_json_from_file()
 print "READING FROM FILE"

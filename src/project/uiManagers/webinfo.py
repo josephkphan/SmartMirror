@@ -1,5 +1,6 @@
 from Tkinter import *
 from src.project.resources.var import *
+from src.project.resources.varLoader import *
 import feedparser
 import requests
 import traceback
