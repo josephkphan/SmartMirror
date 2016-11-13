@@ -39,9 +39,9 @@ class WeeklyWeather(Frame):
         min_txt = str(int(weather_obj['daily']['data'][day]['temperatureMin']))
         sunset_time = weather_obj['daily']['data'][day]['sunsetTime']
         day_of_week = WeeklyWeather.convert_epoch_time_to_day_of_the_week(sunset_time)
-        day_of_week = day_of_week[:3] # takes first 3 letters
+        day_of_week = day_of_week[:3]  # takes first 3 letters
         icon_id = weather_obj['daily']['data'][day]['icon']
-        icon2 = None
+        icon = None
 
         # Updating daily weather if it doesnt match
         if self.max != max_txt:
@@ -55,12 +55,12 @@ class WeeklyWeather(Frame):
             self.day_of_week_label.config(text=self.day_of_week)
 
         if icon_id in src.project.resources.lookup.icon:
-            icon2 = src.project.resources.lookup.icon[icon_id]
+            icon = src.project.resources.lookup.icon[icon_id]
 
-        if icon2 is not None:
-            if self.icon != icon2:
-                self.icon = icon2
-                image = Image.open(icon2)
+        if icon is not None:
+            if self.icon != icon:
+                self.icon = icon
+                image = Image.open(icon)
                 image = image.resize((50, 50), Image.ANTIALIAS)
                 image = image.convert('RGB')
                 photo = ImageTk.PhotoImage(image)
