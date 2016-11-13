@@ -6,7 +6,6 @@ import traceback
 
 
 class WebInfo:
-    #todo IF THERE ISNT ANY INTERNET THIS WILL CRASH IN THAT CASE MAKE IT READ FROM FILE
     def get_ip(self):
         try:
             ip_url = "http://jsonip.com/"

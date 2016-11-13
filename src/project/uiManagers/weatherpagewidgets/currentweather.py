@@ -12,73 +12,87 @@ import datetime
 
 class CurrentWeather(Frame):
     def __init__(self, parent):
-        Frame.__init__(self, parent, bg='black')
+        # Init Frames
+        Frame.__init__(self, parent, bg=background_color)
+        self.degree_frame = Frame(self, bg=background_color)
+        self.degree_frame.pack(side=TOP, anchor=N)
+
+        # Initializing text for labels
         self.temperature = ''
         self.forecast = ''
         self.location = ''
         self.currently = ''
         self.icon = ''
-        self.probdrain = ''
+        self.prob_rain = ''
         self.sunrise = ''
         self.sunset = ''
         self.summary = ''
-        self.locationLbl = Label(self, font=('Helvetica', 28), fg="white", bg="black")
-        self.locationLbl.pack(side=TOP, anchor=N)
-        self.currentlyLbl = Label(self, font=('Helvetica', 18), fg="white", bg="black")
-        self.currentlyLbl.pack(side=TOP, anchor=N)
-        self.summaryLbl = Label(self, font=('Helvetica', 18), fg="white", bg="black")
-        self.summaryLbl.pack(side=TOP, anchor=N)
-        self.degreeFrm = Frame(self, bg="black")
-        self.degreeFrm.pack(side=TOP, anchor=N)
-        self.temperatureLbl = Label(self.degreeFrm, font=('Helvetica', 70), fg="white", bg="black")
-        self.temperatureLbl.pack(side=LEFT, anchor=N)
-        self.probDrainLbl = Label(self.degreeFrm, font=('Helvetica', 18), fg="white", bg="black")
-        self.probDrainLbl.pack(side=TOP, anchor=N)
-        self.sunriseLbl = Label(self.degreeFrm, font=('Helvetica', 18), fg="white", bg="black")
-        self.sunriseLbl.pack(side=TOP, anchor=N)
-        self.sunsetLbl = Label(self.degreeFrm, font=('Helvetica', 18), fg="white", bg="black")
-        self.sunsetLbl.pack(side=TOP, anchor=N)
+
+        # Initializing Labels
+        self.location_label = Label(self, font=(font_style, 28), fg=selected_off, bg=background_color)
+        self.location_label.pack(side=TOP, anchor=N)
+        self.currently_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
+        self.currently_label.pack(side=TOP, anchor=N)
+        self.summary_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
+        self.summary_label.pack(side=TOP, anchor=N)
+        self.temperature_label = Label(self.degree_frame, font=(font_style, 70), fg=selected_off, bg=background_color)
+        self.temperature_label.pack(side=LEFT, anchor=N)
+        self.prob_rain_label = Label(self.degree_frame, font=(font_style, 18), fg=selected_off, bg=background_color)
+        self.prob_rain_label.pack(side=TOP, anchor=N)
+        self.sunrise_time_label = Label(self.degree_frame, font=(font_style, 18), fg=selected_off, bg=background_color)
+        self.sunrise_time_label.pack(side=TOP, anchor=N)
+        self.sunset_time_label = Label(self.degree_frame, font=(font_style, 18), fg=selected_off, bg=background_color)
+        self.sunset_time_label.pack(side=TOP, anchor=N)
         self.update_weather()
 
     def update_weather(self):
-
+        # Gets Location Information
         location_obj = saved_data['location']
         lat = location_obj['latitude']
         lon = location_obj['longitude']
-        # print "Lat : " + str(lat) + "  |  Lon : " + str(lon)
-        location2 = "%s, %s" % (location_obj['city'], location_obj['region_code'])
+        location = "%s, %s" % (location_obj['city'], location_obj['region_code'])
 
+        # Gets Weather Information
         weather_obj = saved_data['weather']
-
         degree_sign = u'\N{DEGREE SIGN}'
-        temperature2 = "%s%s" % (str(int(weather_obj['currently']['temperature'])), degree_sign)
-        currently2 = weather_obj['currently']['summary']
-
-        self.summary = weather_obj['daily']['data'][0]['summary']
-        self.summaryLbl.config(text='Day Summary: ' + self.summary)
-
-        probdrain = weather_obj['daily']['data'][0]['precipProbability']
-        self.probDrainLbl.config(text="Chance of Rain: " + str(probdrain) + "%")
-
+        temperature = "%s%s" % (str(int(weather_obj['currently']['temperature'])), degree_sign)
+        currently = weather_obj['currently']['summary']
+        currently = "Current Weather: " + currently
+        summary = weather_obj['daily']['data'][0]['summary']
+        summary = 'Day Summary: ' + summary
+        prob_rain = weather_obj['daily']['data'][0]['precipProbability']
+        prob_rain = "Chance of Rain: " + str(prob_rain) + "%"
         sunrise = self.convert_epoch_time_to_datetime(weather_obj['daily']['data'][0]['sunriseTime'])
-        self.sunriseLbl.config(text= "Sunrise Time: " + self.get_time_from_datetime(sunrise))
-
+        sunrise = "Sunrise Time: " + self.get_time_from_datetime(sunrise)
         sunset = self.convert_epoch_time_to_datetime(weather_obj['daily']['data'][0]['sunsetTime'])
-        self.sunsetLbl.config(text="Sunset time: " + self.get_time_from_datetime(sunset))
+        sunset = "Sunset time: " + self.get_time_from_datetime(sunset)
 
-        if self.currently != currently2:
-            self.currently = currently2
-            self.currentlyLbl.config(text="Current Weather: " + currently2)
-        if self.temperature != temperature2:
-            self.temperature = temperature2
-            self.temperatureLbl.config(text=temperature2)
-        if self.location != location2:
-            if location2 == ", ":
+        # Updates information if different
+        if self.summary != summary:
+            self.summary = summary
+            self.summary_label.config(text=self.summary)
+        if self.prob_rain != prob_rain:
+            self.prob_rain = prob_rain
+            self.prob_rain_label.config(text=self.prob_rain)
+        if self.sunrise != sunrise:
+            self.sunrise = sunrise
+            self.sunrise_time_label.config(text=self.sunrise)
+        if self.sunset != sunset:
+            self.sunset = sunset
+            self.sunset_time_label.config(text=self.sunset)
+        if self.currently != currently:
+            self.currently = currently
+            self.currently_label.config(text=self.currently)
+        if self.temperature != temperature:
+            self.temperature = temperature
+            self.temperature_label.config(text=self.temperature)
+        if self.location != location:
+            if location == ", ":
                 self.location = "Cannot Pinpoint Location"
-                self.locationLbl.config(text="Cannot Pinpoint Location")
+                self.location_label.config(text="Cannot Pinpoint Location")
             else:
-                self.location = location2
-                self.locationLbl.config(text=location2)
+                self.location = location
+                self.location_label.config(text=self.location)
 
     def refresh_weather_data(self):
         self.update_weather()  # todo Check is this is right
@@ -86,8 +100,8 @@ class CurrentWeather(Frame):
     @staticmethod
     def convert_epoch_time_to_datetime(epoch_time):
         begin_time = datetime.datetime(1970, 1, 1)
-        added = datetime.timedelta(seconds=(epoch_time - 28800))   # todo change to adjust to time zone!!!
-        time = begin_time + added                                   # todo its only set to PST
+        added = datetime.timedelta(seconds=(epoch_time - 28800))  # todo change to adjust to time zone!!!
+        time = begin_time + added  # todo its only set to PST
         return time
 
     @staticmethod
@@ -95,18 +109,16 @@ class CurrentWeather(Frame):
         finaltime = ''
         hour = ''
         minute = ''
-        end=''
-        if time.hour > 12:                  # finds out if its AM OR PM
-            hour = str(time.hour - 12)      # Adjust time so it's not in military time
+        end = ''
+        if time.hour > 12:  # finds out if its AM OR PM
+            hour = str(time.hour - 12)  # Adjust time so it's not in military time
             end = 'PM'
         else:
             hour = str(time.hour)
             end = 'AM'
-
         if len(str(time.minute)) == 1:
-            minute +='0'
-        minute+=str(time.minute)
+            minute += '0'
+        minute += str(time.minute)
 
         finaltime = hour + ':' + minute + ' ' + end
         return finaltime
-
