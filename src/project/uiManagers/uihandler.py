@@ -1,5 +1,3 @@
-from src.project.resources.page import *
-
 import src.project.resources.var
 from cursorhandler import *
 from selectionhandler import *
@@ -27,7 +25,6 @@ class UIManager:
         self.tk2 = Tk()
         self.current_page = None
         self.zone = None
-        self.counter = 0
 
         # Main Page Widgets
         self.main_weather, self.main_clock, self.main_news = None, None, None
@@ -67,16 +64,9 @@ class UIManager:
         # self.tk.bind("<W>", self.update_page(Page.weather))
         # self.tk.bind("<M>", self.update_page(Page.main))  # todo : Doesn't work. please fix
 
-        # Gather Data from Web
-        # self.web_info.update()
-
         # Display data onto UI Window
         self.current_page = Page.main
         self.open_main_page()   #todo CHANGE BACK TO MAIN
-
-        # self.current_page = Page.weather
-        # self.open_weather_page()   #todo CHANGE BACK TO MAIN
-
 
         # calender - removing for now
         # self.calender = Calendar(self.bottomFrame)
@@ -122,11 +112,9 @@ class UIManager:
         self.end_daily_weather()
         self.end_hourly_weather()
 
+    # ------------------------------------------- PAGE COMPONENTS ----------------------------------------------- #
 
-    # ---------------------------------- --------------- ----------------------------------- #
-    # ---------------------------------- PAGE COMPONENTS ----------------------------------- #
-
-    # ---------------------------------- MAIN PAGE COMPONENTS ----------------------------------- #
+    # ------------------- MAIN PAGE COMPONENTS --------------------- #
     def start_news(self):
         self.main_news = News(self.bottomFrame)
         self.main_news.pack(side=LEFT, anchor=S, padx=50, pady=50)
@@ -151,7 +139,7 @@ class UIManager:
         self.main_clock.destroy()
         self.main_clock = None
 
-    # ---------------------------------- WEATHER PAGE COMPONENTS ----------------------------------- #
+    # ----------------- WEATHER PAGE COMPONENTS ----------------------- #
 
     def start_today_weather(self):
         self.weather_current = CurrentWeather(self.topFrame)     # todo finish this
@@ -181,7 +169,7 @@ class UIManager:
             self.weather_hour[i].destroy()
             self.weather_hour[i] = None
 
-    # ---------------------------------- OTHER COMPONENTS ----------------------------------- #
+    # ----------------- OTHER COMPONENTS -------------------------- #
 
     def new_return_button(self):
         self.returnButton = ReturnButton(self.topFrame)
@@ -206,11 +194,6 @@ class UIManager:
             if self.main_news is not None:
                 self.main_news.update()             # todo Current only updates main page. need to update everything
 
-        # if self.counter == 100:
-        #     self.change_page(Page.weather)
-        # elif self.counter == 200:
-        #     self.change_page(Page.main)
-        # self.counter += 1
         self.update_zone(cursor)
         diff_x = cursor[0] - self.circle_coord[0]
         diff_y = cursor[1] - self.circle_coord[1]
@@ -253,12 +236,15 @@ class UIManager:
 
     def update_page(self, new_page):
         if new_page is not None:
+            print "CHANGING PAGES"
             if self.current_page == Page.main:
                 if self.zone == MainPageZone.weather:
                     self.change_page(Page.weather)
             elif self.current_page == Page.weather:
                 if self.zone == WeatherZone.returnButton:
                     self.change_page(Page.main)
+
+    # ---------------------------------- HELPER ----------------------------------- #
 
     def change_page(self, new_page):
         if new_page == Page.main:  # MAIN PAGE

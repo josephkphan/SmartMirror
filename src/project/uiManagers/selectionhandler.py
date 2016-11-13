@@ -12,7 +12,6 @@ class SelectionHandler:
             return None
         else:                                       # cursor still in zone
             if (time.time() - self.begin_time) > selection_time:
-                print "HERE"
                 self.current_zone = None
                 self.begin_time = time.time()
                 return zone

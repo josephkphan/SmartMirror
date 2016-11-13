@@ -48,8 +48,6 @@ class CurrentWeather(Frame):
     def update_weather(self):
         # Gets Location Information
         location_obj = saved_data['location']
-        lat = location_obj['latitude']
-        lon = location_obj['longitude']
         location = "%s, %s" % (location_obj['city'], location_obj['region_code'])
 
         # Gets Weather Information
