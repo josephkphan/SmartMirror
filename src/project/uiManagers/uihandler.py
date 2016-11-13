@@ -18,22 +18,35 @@ from webinfo import *
 
 class UIManager:
     def __init__(self):
+
+        # Handlers
         self.cursor_handler = CursorHandler()
         self.web_info = WebInfo()
         self.selection_handler = SelectionHandler()
+
+        # TK
         self.tk = Tk()
         self.tk2 = Tk()
+
+        # Page selection variables
         self.current_page = None
         self.zone = None
 
         # Main Page Widgets
         self.main_weather, self.main_clock, self.main_news = None, None, None
+
         # Weather Page Widgets
         self.weather_current, self.weather_hourly, self.weather_week = None, None, None
         self.weather_day = {}
         self.weather_hour = {}
+
         # General Widgets
         self.returnButton, self.last_updated = None, None
+
+        # Frames for other pages
+        self.left_top = None
+        self.right_top = None
+        self.weather_container = None
 
         # Creating the Cursor window
         self.canvas = Canvas(self.tk2, width=camera_width + tk_cursor_diameter,
@@ -52,12 +65,12 @@ class UIManager:
                                               camera_height / 2 + tk_cursor_diameter / 2), fill="green")
         self.canvas.pack()
 
-        # Configuring the UI window
+        # Configuring the UI window, Creating Frames
         self.tk.configure(background='black')
-        self.topFrame = Frame(self.tk, background='black')
-        self.bottomFrame = Frame(self.tk, background='black')
-        self.topFrame.pack(side=TOP, fill=BOTH, expand=YES)
-        self.bottomFrame.pack(side=BOTTOM, fill=BOTH, expand=YES)
+        self.top_frame = Frame(self.tk, background='black')
+        self.top_frame.pack(side=TOP, fill=BOTH, expand=YES)
+        self.bottom_frame = Frame(self.tk, background='black')
+        self.bottom_frame.pack(side=BOTTOM, fill=BOTH, expand=YES)
         self.state = False
         self.tk.bind("<Return>", self.toggle_fullscreen)
         self.tk.bind("<Escape>", self.end_fullscreen)
@@ -73,7 +86,7 @@ class UIManager:
 
 
         # calender - removing for now
-        # self.calender = Calendar(self.bottomFrame)
+        # self.calender = Calendar(self.bottom_frame)
         # self.calender.pack(side = RIGHT, anchor=S, padx=100, pady=60)
 
     # ---------------------------------- Key Binding Functions----------------------------------- #
@@ -88,100 +101,88 @@ class UIManager:
         self.tk.attributes("-fullscreen", False)
         return "break"
 
-    # ---------------------------------- Pages ----------------------------------- #
-
-    # ---------------------------------- MAIN PAGE ----------------------------------- #
+    # ---------------------------------- Main Page ----------------------------------- #
 
     def open_main_page(self):
-        self.start_clock()
-        self.start_weather()
-        self.start_news()
-
-    def close_main_page(self):
-        self.end_news()
-        self.end_weather()
-        self.end_clock()
-
-    # ---------------------------------- Weather PAGE ----------------------------------- #
-
-    def open_weather_page(self):
-        self.new_return_button()
-        self.start_today_weather()
-        self.start_daily_weather()
-        self.start_hourly_weather()
-
-    def close_weather_page(self):
-        self.remove_return_button()
-        self.end_today_weather()
-        self.end_daily_weather()
-        self.end_hourly_weather()
-
-    # ------------------------------------------- PAGE COMPONENTS ----------------------------------------------- #
-
-    # ------------------- MAIN PAGE COMPONENTS --------------------- #
-    def start_news(self):
-        self.main_news = News(self.bottomFrame)
-        self.main_news.pack(side=LEFT, anchor=S, padx=50, pady=50)
-
-    def end_news(self):
-        self.main_news.destroy()
-        self.main_news = None
-
-    def start_weather(self):
-        self.main_weather = Weather(self.topFrame)
+        # Weather
+        self.main_weather = Weather(self.top_frame)
         self.main_weather.pack(side=LEFT, anchor=N, padx=50, pady=50)
 
-    def end_weather(self):
+        # Clock
+        self.main_clock = Clock(self.top_frame)
+        self.main_clock.pack(side=RIGHT, anchor=N, padx=50, pady=50)
+
+        # News
+        self.main_news = News(self.bottom_frame)
+        self.main_news.pack(side=LEFT, anchor=S, padx=50, pady=50)
+
+    def close_main_page(self):
+        # Weather
         self.main_weather.destroy()
         self.main_weather = None
 
-    def start_clock(self):
-        self.main_clock = Clock(self.topFrame)
-        self.main_clock.pack(side=RIGHT, anchor=N, padx=50, pady=50)
-
-    def end_clock(self):
+        # Clock
         self.main_clock.destroy()
         self.main_clock = None
 
-    # ----------------- WEATHER PAGE COMPONENTS ----------------------- #
+        # News
+        self.main_news.destroy()
+        self.main_news = None
 
-    def start_today_weather(self):
-        self.weather_current = CurrentWeather(self.topFrame)     # todo finish this
-        self.weather_current.pack(side=RIGHT, anchor=N, padx=50, pady=50)
+    # ---------------------------------- Weather Page ----------------------------------- #
 
-    def end_today_weather(self):
+    def open_weather_page(self):
+        self.left_top = Frame(self.top_frame, bg=background_color)
+        self.left_top.pack(side=LEFT, anchor=W)
+
+        self.right_top = Frame(self.top_frame, bg=background_color)
+        self.right_top.pack(side=RIGHT, anchor=N)
+
+        # Return Button
+        self.returnButton = ReturnButton(self.left_top)
+        self.returnButton.pack(side=TOP, anchor=N, padx=15, pady=15)
+
+        # Hourly Weather
+        for i in range(0,24):
+            self.weather_hour[i] = HourlyWeather(self.left_top, i)
+            self.weather_hour[i].pack(side=TOP, anchor=N, padx=5, pady=5)
+
+        # Current weather
+        self.weather_current = CurrentWeather(self.right_top)
+        self.weather_current.pack(side=TOP, anchor=N, padx=50, pady=50)
+
+        # Daily Weather Container
+        self.weather_container = Frame(self.right_top, bg=background_color)
+        self.weather_container.pack(side=TOP, anchor=W)
+
+        # Daily weather
+        for i in range(0, 7):
+            self.weather_day[i] = WeeklyWeather(self.weather_container, i)
+            self.weather_day[i].pack(side=LEFT, anchor=N, padx=0, pady=0)
+
+    def close_weather_page(self):
+        # Return Button
+        self.returnButton.destroy()
+        self.returnButton = None
+
+        # Current Weather
         self.weather_current.destroy()
         self.weather_current = None
 
-    def start_daily_weather(self):
-        for i in range(0,7):
-            self.weather_day[i] = WeeklyWeather(self.topFrame,i)
-            self.weather_day[i].pack(side=LEFT, anchor=N, padx=5, pady=5)
-
-    def end_daily_weather(self):
+        # Daily Weather
         for i in range(0, 7):
             self.weather_day[i].destroy()
             self.weather_day[i] = None
 
-    def start_hourly_weather(self):
-        for i in range(0,24):
-            self.weather_hour[i] = HourlyWeather(self.topFrame, i)
-            self.weather_hour[i].pack(side=TOP, anchor=N, padx=5, pady=5)
-
-    def end_hourly_weather(self):
+        # Hourly Weather
         for i in range(0, 24):
             self.weather_hour[i].destroy()
             self.weather_hour[i] = None
 
-    # ----------------- OTHER COMPONENTS -------------------------- #
-
-    def new_return_button(self):
-        self.returnButton = ReturnButton(self.topFrame)
-        self.returnButton.pack(side=LEFT, anchor=N, padx=15, pady=15)
-
-    def remove_return_button(self):
-        self.returnButton.destroy()
-        self.returnButton = None
+        self.left_top.destroy()
+        self.right_top.destroy()
+        self.weather_container.destroy()
+        self.left_top, self.right_top, self.weather_container = None, None, None
 
     # ---------------------------------- UPDATING UIMANAGER ----------------------------------- #
 
@@ -240,12 +241,13 @@ class UIManager:
 
     def update_page(self, new_page):
         if new_page is not None:
-            print "CHANGING PAGES"
             if self.current_page == Page.main:
                 if self.zone == MainPageZone.weather:
+                    print "CHANGING PAGES"
                     self.change_page(Page.weather)
             elif self.current_page == Page.weather:
                 if self.zone == WeatherZone.returnButton:
+                    print "CHANGING PAGES"
                     self.change_page(Page.main)
 
     # ---------------------------------- HELPER ----------------------------------- #

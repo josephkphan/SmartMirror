@@ -39,6 +39,7 @@ class WeeklyWeather(Frame):
         min_txt = str(int(weather_obj['daily']['data'][day]['temperatureMin']))
         sunset_time = weather_obj['daily']['data'][day]['sunsetTime']
         day_of_week = WeeklyWeather.convert_epoch_time_to_day_of_the_week(sunset_time)
+        day_of_week = day_of_week[:3] # takes first 3 letters
         icon_id = weather_obj['daily']['data'][day]['icon']
         icon2 = None
 
@@ -66,7 +67,6 @@ class WeeklyWeather(Frame):
 
                 self.icon_label.config(image=photo)
                 self.icon_label.image = photo
-                self.icon
         else:
             # remove image
             self.icon_label.config(image='')
