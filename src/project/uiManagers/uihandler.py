@@ -145,7 +145,7 @@ class UIManager:
         # Hourly Weather
         for i in range(0,24):
             self.weather_hour[i] = HourlyWeather(self.left_top, i)
-            self.weather_hour[i].pack(side=TOP, anchor=N, padx=5, pady=5)
+            self.weather_hour[i].pack(side=TOP, anchor=W, padx=5, pady=5)
 
         # Current weather
         self.weather_current = CurrentWeather(self.right_top)

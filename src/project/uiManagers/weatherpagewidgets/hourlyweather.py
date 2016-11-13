@@ -17,10 +17,10 @@ class HourlyWeather(Frame):
         self.temperature = ''
 
         # Initializing Labels
-        self.time_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color)
-        self.time_label.pack(side=RIGHT, anchor=N)
-        self.temperature_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color)
+        self.temperature_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color, padx=10)
         self.temperature_label.pack(side=RIGHT, anchor=N)
+        self.time_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color, padx=15)
+        self.time_label.pack(side=RIGHT, anchor=N)
 
         self.update_now(hour)
 
@@ -70,16 +70,16 @@ class HourlyWeather(Frame):
         return time
 
     @staticmethod
-    def get_time_from_datetime(time):
-        finaltime = ''
-        hour = ''
-        minute = ''
-        if time.hour > 12:  # finds out if its AM OR PM
-            hour = str(time.hour - 12)  # Adjust time so it's not in military time
+    def get_time_from_datetime(d_time):
+        spaces = ' '
+        if d_time.hour > 12:  # finds out if its AM OR PM
+            hour = str(d_time.hour - 12)  # Adjust time so it's not in military time
+            if len(hour) == 1:
+                spaces = '   '
             end = 'PM'
         else:
-            hour = str(time.hour)
+            hour = str(d_time.hour)
+            if len(hour) == 1:
+                spaces = '   '
             end = 'AM'
-
-        finaltime = hour + ' ' + end
-        return finaltime
+        return hour + spaces + end

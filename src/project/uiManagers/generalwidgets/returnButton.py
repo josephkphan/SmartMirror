@@ -6,7 +6,7 @@ from src.project.resources.var import *
 # Purpose: created a text label "return" to go back to the main page
 
 class ReturnButton(Frame):
-    def __init__(self, parent, *args, **kwargs):
+    def __init__(self, parent):
         Frame.__init__(self, parent, bg=background_color)
         self.color_return = selected_off
         # initialize the return label
