@@ -1,9 +1,6 @@
 from Tkinter import *
-import json
-import requests
-import traceback
 from PIL import Image, ImageTk
-from src.project.resources import var, lookup
+from project.resources import var, lookup
 
 
 class Weather(Frame):

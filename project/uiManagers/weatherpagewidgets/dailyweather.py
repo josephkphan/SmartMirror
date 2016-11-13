@@ -1,8 +1,7 @@
 from Tkinter import *
 from PIL import Image, ImageTk
-from src.project.resources import lookup
+from project.resources import lookup, var
 from datetime import date
-from src.project.resources import var
 
 
 class WeeklyWeather(Frame):

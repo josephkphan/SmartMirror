@@ -1,8 +1,7 @@
 from Tkinter import *
 import datetime
 from PIL import Image, ImageTk
-import src.project.resources.lookup
-from src.project.resources import var
+from project.resources import lookup, var
 
 
 class HourlyWeather(Frame):

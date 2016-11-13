@@ -1,6 +1,6 @@
 from Tkinter import *
 from PIL import Image, ImageTk
-from src.project.resources import var
+from project.resources import var
 
 
 # File Name: news.py

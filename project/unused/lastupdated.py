@@ -1,5 +1,5 @@
 from Tkinter import *
-from src.project.resources.var import *
+from project.resources.var import *
 import time
 # File Name: returnButton
 # Purpose: created a text label "return" to go back to the main page

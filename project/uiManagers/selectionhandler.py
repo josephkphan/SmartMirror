@@ -1,4 +1,4 @@
-from src.project.resources.var import *
+from project.resources.var import *
 import time
 
 class SelectionHandler:

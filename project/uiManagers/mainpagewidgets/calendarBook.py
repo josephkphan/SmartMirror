@@ -1,5 +1,5 @@
 from Tkinter import *
-from src.project.resources import var
+from project.resources import var
 
 
 # Creates a Calendar Widget

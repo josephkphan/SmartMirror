@@ -1,4 +1,4 @@
-from src.project.resources import varLoader, var
+from project.resources import varLoader, var
 import json
 import feedparser
 import requests

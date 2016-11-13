@@ -1,9 +1,6 @@
 from shapely.geometry import *
-
-from src.project.resources.page import *
-
-from src.project.resources import var
-from src.project.resources import zone
+from project.resources.page import *
+from project.resources import var, zone
 
 
 class CursorHandler:
