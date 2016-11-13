@@ -1,38 +1,44 @@
 from Tkinter import *
-import json
-import requests
-import traceback
-from PIL import Image, ImageTk
 import datetime
+from PIL import Image, ImageTk
 import src.project.resources.lookup
-from datetime import date
 from src.project.resources.var import *
 
 
 class HourlyWeather(Frame):
-    def __init__(self, parent, day):
-        Frame.__init__(self, parent, bg='black')
-        self.time = ''
-        self.temp = ''
+    def __init__(self, parent, hour):
+        Frame.__init__(self, parent, bg=background_color)
 
-        self.timeLbl = Label(self, font=('Helvetica', 14), fg="white", bg="black")
-        self.timeLbl.pack(side=RIGHT, anchor=N)
-
-        self.icon = Frame(self, bg="black")
+        self.icon = Frame(self, bg=background_color)
         self.icon.pack(side=RIGHT, anchor=N)
 
-        self.tempLbl = Label(self, font=('Helvetica', 14), fg="white", bg="black")
-        self.tempLbl.pack(side=RIGHT, anchor=N)
+        # Initializing Label texts
+        self.time = ''
+        self.temperature = ''
 
-        self.fill_text(day)
+        # Initializing Labels
+        self.time_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color)
+        self.time_label.pack(side=RIGHT, anchor=N)
+        self.temperature_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color)
+        self.temperature_label.pack(side=RIGHT, anchor=N)
 
-    def fill_text(self, hour):
+        self.update_now(hour)
+
+    def update_now(self, hour):
+
+        # Gathering Data for hourly weather
         weather_obj = saved_data['weather']
-        temperature = str(int(weather_obj['hourly']['data'][hour]['apparentTemperature']))
-        time = self.convert_epoch_time_to_datetime(weather_obj['hourly']['data'][hour]['time'])
-        self.timeLbl.config(text=self.get_time_from_datetime(time))
+        temperature = str(int(weather_obj['hourly']['data'][hour]['apparentTemperature'])) +  u'\N{DEGREE SIGN}'
+        time_txt = self.convert_epoch_time_to_datetime(weather_obj['hourly']['data'][hour]['time'])
+        time_txt = self.get_time_from_datetime(time_txt)
 
-        self.tempLbl.config(text=temperature +  u'\N{DEGREE SIGN}')
+        # Updates hourly weather if its different
+        if self.time != time_txt:
+            self.time = time_txt
+            self.time_label.config(text=self.time)
+        if self.temperature != temperature:
+            self.temperature = temperature
+            self.temperature_label.config(text=self.temperature)
 
         # icon_id = weather_obj['daily']['data'][hour]['icon']    todo add this in
         # icon2 = None
