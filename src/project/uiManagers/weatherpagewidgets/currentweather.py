@@ -29,19 +29,22 @@ class CurrentWeather(Frame):
         self.summary = ''
 
         # Initializing Labels
+        self.temperature_label = Label(self.degree_frame, font=(font_style, 70), fg=selected_off, bg=background_color)
+        self.temperature_label.pack(side=LEFT, anchor=N)
+        self.icon_label = Label(self.degree_frame, bg=background_color)
+        self.icon_label.pack(side=LEFT, anchor=N, padx=20)
+
         self.location_label = Label(self, font=(font_style, 28), fg=selected_off, bg=background_color)
         self.location_label.pack(side=TOP, anchor=N)
         self.currently_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
         self.currently_label.pack(side=TOP, anchor=N)
         self.summary_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
         self.summary_label.pack(side=TOP, anchor=N)
-        self.temperature_label = Label(self.degree_frame, font=(font_style, 70), fg=selected_off, bg=background_color)
-        self.temperature_label.pack(side=LEFT, anchor=N)
-        self.prob_rain_label = Label(self.degree_frame, font=(font_style, 18), fg=selected_off, bg=background_color)
+        self.prob_rain_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
         self.prob_rain_label.pack(side=TOP, anchor=N)
-        self.sunrise_time_label = Label(self.degree_frame, font=(font_style, 18), fg=selected_off, bg=background_color)
+        self.sunrise_time_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
         self.sunrise_time_label.pack(side=TOP, anchor=N)
-        self.sunset_time_label = Label(self.degree_frame, font=(font_style, 18), fg=selected_off, bg=background_color)
+        self.sunset_time_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
         self.sunset_time_label.pack(side=TOP, anchor=N)
         self.update_weather()
 
@@ -52,6 +55,8 @@ class CurrentWeather(Frame):
 
         # Gets Weather Information
         weather_obj = saved_data['weather']
+        icon_id = weather_obj['daily']['data'][0]['icon']
+        icon2 = None
         degree_sign = u'\N{DEGREE SIGN}'
         temperature = "%s%s" % (str(int(weather_obj['currently']['temperature'])), degree_sign)
         currently = weather_obj['currently']['summary']
@@ -91,6 +96,24 @@ class CurrentWeather(Frame):
             else:
                 self.location = location
                 self.location_label.config(text=self.location)
+
+        if icon_id in src.project.resources.lookup.icon:
+            icon2 = src.project.resources.lookup.icon[icon_id]
+
+        if icon2 is not None:
+            if self.icon != icon2:
+                self.icon = icon2
+                image = Image.open(icon2)
+                image = image.resize((100, 100), Image.ANTIALIAS)
+                image = image.convert('RGB')
+                photo = ImageTk.PhotoImage(image)
+
+                self.icon_label.config(image=photo)
+                self.icon_label.image = photo
+        else:
+            # remove image
+            self.icon_label.config(image='')
+
 
     def refresh_weather_data(self):
         self.update_weather()  # todo Check is this is right

@@ -65,8 +65,12 @@ class UIManager:
         # self.tk.bind("<M>", self.update_page(Page.main))  # todo : Doesn't work. please fix
 
         # Display data onto UI Window
-        self.current_page = Page.main
-        self.open_main_page()   #todo CHANGE BACK TO MAIN
+        # self.current_page = Page.main
+        # self.open_main_page()
+
+        self.current_page = Page.weather
+        self.open_weather_page()
+
 
         # calender - removing for now
         # self.calender = Calendar(self.bottomFrame)
@@ -152,7 +156,7 @@ class UIManager:
     def start_daily_weather(self):
         for i in range(0,7):
             self.weather_day[i] = WeeklyWeather(self.topFrame,i)
-            self.weather_day[i].pack(side=TOP, anchor=N, padx=5, pady=5)
+            self.weather_day[i].pack(side=LEFT, anchor=N, padx=5, pady=5)
 
     def end_daily_weather(self):
         for i in range(0, 7):

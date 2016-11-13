@@ -12,6 +12,8 @@ from src.project.resources.var import *
 class Weather(Frame):
     def __init__(self, parent):
         Frame.__init__(self, parent, bg=background_color)
+        self.degree_frame = Frame(self, bg=background_color)  # creates a sub Frame so icon can be on left or right
+        self.degree_frame.pack(side=TOP, anchor=W)
 
         # Initialize text for labels
         self.temperature = ''
@@ -27,8 +29,6 @@ class Weather(Frame):
         self.color_location = selected_off
 
         # Initialize Labels
-        self.degree_frame = Frame(self, bg=background_color)  # creates a sub Frame so icon can be on left or right
-        self.degree_frame.pack(side=TOP, anchor=W)
         self.temperature_label = Label(self.degree_frame, font=(font_style, 94), fg=selected_off, bg=background_color)
         self.temperature_label.pack(side=LEFT, anchor=N)
         self.icon_label = Label(self.degree_frame, bg=background_color)
