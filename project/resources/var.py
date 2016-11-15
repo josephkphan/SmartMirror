@@ -47,4 +47,8 @@ print "READING FROM FILE"
 # -------------------- Settings ----------------------- #
 preferences = {}
 pass
-preferences['weather_page_humidity'] = True
+preferences['main_page_stocks'] = True
+preferences['main_page_news'] = False
+preferences['main_page_sunset'] = True
+preferences['main_page_sunrise'] = False
+preferences['main_page_weather_humidity'] = True

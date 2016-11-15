@@ -11,7 +11,8 @@ from project.uiManagers.generalwidgets.settingsbutton import *
 from project.uiManagers.weatherpagewidgets.dailyweather import *
 from project.uiManagers.weatherpagewidgets.hourlyweather import *
 from project.uiManagers.weatherpagewidgets.currentweather import *
-from project.uiManagers.settingwidgets.settings import *
+from project.uiManagers.settingwidgets.weathersettings import *
+from project.uiManagers.settingwidgets.mainpagesettings import *
 from project.resources import zone
 from project.resources.page import *
 
@@ -43,7 +44,7 @@ class UIManager:
         self.weather_hour = {}
 
         # Setting Widgets
-        self.settings = None
+        self.main_page_settings, self.weather_page_settings = None, None
 
         # General Widgets
         self.returnButton, self.last_updated = None, None
@@ -201,16 +202,19 @@ class UIManager:
     def open_settings_page(self):
         self.returnButton = ReturnButton(self.top_frame)
         self.returnButton.pack(side=TOP, anchor=W, padx=15, pady=15)
-        self.settings = Settings(self.top_frame)
-        self.settings.pack(side=TOP, anchor=W, padx=50, pady=15)
-
+        self.main_page_settings = MainPageSettings(self.top_frame)
+        self.main_page_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
+        # self.weather_page_settings = WeatherSettings(self.top_frame)
+        # self.weather_page_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
 
     def close_settings_page(self):
         # Return Button
         self.returnButton.destroy()
         self.returnButton = None
-        self.settings.destroy()
-        self.settings = None
+        self.main_page_settings.destroy()
+        self.main_page_settings = None
+        # self.weather_page_settings.destroy()
+        # self.weather_page_settings = None
 
     # ---------------------------------- UPDATING UIMANAGER ----------------------------------- #
 
