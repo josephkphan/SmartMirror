@@ -22,13 +22,17 @@ class CursorHandler:
         # ---------------------------------- WEATHER PAGE ZONES ----------------------------------- #
         self.zone_weather_return = Polygon(var.top_left_rectangle)
 
-        # ---------------------------------- NEWS PAGE ZONES ----------------------------------- #
+        # ---------------------------------- Settings ZONES ----------------------------------- #
+        self.zone_settings_return = Polygon(var.top_left_rectangle)
+
 
         # ---------------------------------- CLOCK PAGE ZONES ----------------------------------- #
+
 
     # Checks which polygon / zone the cursor is in (based on the current page)
     def update_cursor(self, cursor, current_page):
         p = Point(cursor[0], cursor[1])
+        # Update Zones for Main Page
         if current_page == Page.main:
             if Polygon(self.zone_main_weather).contains(p):
                 self.zoneName = zone.MainPage.weather
@@ -40,9 +44,18 @@ class CursorHandler:
                 self.zoneName = zone.MainPage.settings
             else:
                 self.zoneName = zone.MainPage.none
+
+        # Update Zones for Weather Page
         elif current_page == Page.weather:
             if Polygon(self.zone_weather_return).contains(p):
                 self.zoneName = zone.Weather.returnButton
             else:
                 self.zoneName = zone.Weather.none
+
+        # Update Zones for Settings Page
+        elif current_page == Page.settings:
+            if Polygon(self.zone_settings_return).contains(p):
+                self.zoneName = zone.Settings.returnButton
+            else:
+                self.zoneName = zone.Settings.none
         return self.zoneName

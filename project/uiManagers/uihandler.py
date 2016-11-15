@@ -11,8 +11,8 @@ from project.uiManagers.generalwidgets.settingsbutton import *
 from project.uiManagers.weatherpagewidgets.dailyweather import *
 from project.uiManagers.weatherpagewidgets.hourlyweather import *
 from project.uiManagers.weatherpagewidgets.currentweather import *
-
 from project.resources import zone
+from project.resources.page import *
 
 
 # File Name: UI Handler:
@@ -259,14 +259,26 @@ class UIManager:
 
     def update_page(self, new_page):
         if new_page is not None:
+            # Current on Main Page
             if self.current_page == Page.main:
+                # Change from Main Page to Weather Page
                 if self.zone == zone.MainPage.weather:
                     print "CHANGING PAGES"
                     self.change_page(Page.weather)
+                # Change from Main Page to Settings
+                if self.zone == zone.MainPage.settings:
+                    self.change_page(Page.settings)
+            # Currently on Weather Page
             elif self.current_page == Page.weather:
+                # Change from Weather Page to Main Page
                 if self.zone == zone.Weather.returnButton:
                     print "CHANGING PAGES"
                     self.change_page(Page.main)
+            # Currently on Settings Page
+            elif self.current_page == Page.settings:
+                # Change from Settings Page to Main Page
+                if self.zone == zone.Settings.returnButton:
+                    self.change_page(Page.settings)
 
     # ---------------------------------- HELPER ----------------------------------- #
 

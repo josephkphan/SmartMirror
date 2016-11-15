@@ -5,7 +5,6 @@ from enum import Enum
 # An Enum of all the possible pages for UI Manager
 class Page(Enum):
     main = 1
-    clock = 2
-    weather = 3
-    news = 4
+    weather = 2
+    settings = 3
     none = -1

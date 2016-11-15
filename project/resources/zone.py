@@ -14,3 +14,8 @@ class MainPage(Enum):
 class Weather(Enum):
     returnButton = 4
     none = -1
+
+
+class Settings(Enum):
+    returnButton = 5
+    none = -1

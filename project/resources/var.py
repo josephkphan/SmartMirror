@@ -1,4 +1,5 @@
 import varLoader
+import coordcreator
 
 wall_light_color = False
 
@@ -23,17 +24,15 @@ tk_cursor_diameter = 25
 tk_cursor_outline_thickness = tk_cursor_diameter / 10
 
 # ------------------- Polygon Coordinate ---------------- #
-bottom_left_rectangle = [(0, camera_height / 2), (0, camera_height), (camera_width / 2, camera_height),
-                         (camera_width / 2, camera_height / 2)]
 
-bottom_right_rectangle = [(camera_width / 2, camera_height / 2), (camera_width / 2, camera_height),
-                          (camera_width, camera_height), (camera_width / 2, camera_height)]
+bottom_left_rectangle = coordcreator.get_polygon_coord(0, camera_height / 2, camera_width / 2, camera_height / 2)
 
-top_left_rectangle = [(0, 0), (0, camera_height / 2), (camera_width / 2, camera_height / 2),
-                      (camera_width / 2, 0)]
+bottom_right_rectangle = coordcreator.get_polygon_coord(camera_width / 2, camera_height / 2, camera_width / 2,
+                                                        camera_height / 2)
 
-top_right_rectangle = [(camera_width / 2, 0), (camera_width / 2, camera_height / 2),
-                       (camera_width, camera_height / 2), (camera_width, 0)]
+top_left_rectangle = coordcreator.get_polygon_coord(0, 0, camera_width / 2, camera_height / 2)
+
+top_right_rectangle = coordcreator.get_polygon_coord(camera_width / 2, 0, camera_width / 2, camera_height / 2)
 
 # ------------------- Selection Constants ----------------------#
 selection_time = 2.5  # in seconds
@@ -44,3 +43,8 @@ update_time = 10  # in minutes
 saved_data = {}
 varLoader.read_json_from_file()
 print "READING FROM FILE"
+
+# -------------------- Settings ----------------------- #
+preferences = {}
+pass
+preferences['weather_page_humidity'] = True
