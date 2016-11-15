@@ -11,6 +11,7 @@ from project.uiManagers.generalwidgets.settingsbutton import *
 from project.uiManagers.weatherpagewidgets.dailyweather import *
 from project.uiManagers.weatherpagewidgets.hourlyweather import *
 from project.uiManagers.weatherpagewidgets.currentweather import *
+from project.uiManagers.settingwidgets.settings import *
 from project.resources import zone
 from project.resources.page import *
 
@@ -40,6 +41,9 @@ class UIManager:
         self.weather_current, self.weather_hourly, self.weather_week = None, None, None
         self.weather_day = {}
         self.weather_hour = {}
+
+        # Setting Widgets
+        self.settings = None
 
         # General Widgets
         self.returnButton, self.last_updated = None, None
@@ -79,9 +83,9 @@ class UIManager:
         # self.tk.bind("<M>", self.update_page(Page.main))  # todo : Doesn't work. please fix
 
         # Display data onto UI Window
-        self.current_page = Page.main
+        self.current_page = Page.settings
 
-        self.open_main_page()
+        self.open_settings_page()
 
         # self.current_page = Page.weather
         # self.open_weather_page()
@@ -193,6 +197,21 @@ class UIManager:
         self.weather_container.destroy()
         self.left_top, self.right_top, self.weather_container = None, None, None
 
+    # ---------------------------------- Settings Page ----------------------------------- #
+    def open_settings_page(self):
+        self.returnButton = ReturnButton(self.top_frame)
+        self.returnButton.pack(side=TOP, anchor=W, padx=15, pady=15)
+        self.settings = Settings(self.top_frame)
+        self.settings.pack(side=TOP, anchor=W, padx=50, pady=15)
+
+
+    def close_settings_page(self):
+        # Return Button
+        self.returnButton.destroy()
+        self.returnButton = None
+        self.settings.destroy()
+        self.settings = None
+
     # ---------------------------------- UPDATING UIMANAGER ----------------------------------- #
 
     def update_all(self, cursor):
@@ -222,40 +241,59 @@ class UIManager:
         self.tk2.update_idletasks()
         self.tk2.update()
 
+    # --------------------------------- Updating Zones ------------------------------------- #
     def update_zone(self, cursor):
         self.zone = self.cursor_handler.update_cursor(cursor, self.current_page)
         # Updating Zone based on Main Page
         if self.current_page == Page.main:
+            # Weather Zone Selected
             if self.zone == zone.MainPage.weather:
                 self.main_weather.change_color_all(selected_on)
                 self.main_news.change_color_news_title(selected_off)
                 self.main_clock.change_color_all(selected_off)
                 self.main_settings.change_color_setting(selected_off)
+            # News Zone Selected
             elif self.zone == zone.MainPage.news:
                 self.main_weather.change_color_all(selected_off)
                 self.main_news.change_color_news_title(selected_on)
                 self.main_clock.change_color_all(selected_off)
                 self.main_settings.change_color_setting(selected_off)
+            # Clock Zone Selected
             elif self.zone == zone.MainPage.clock:
                 self.main_weather.change_color_all(selected_off)
                 self.main_news.change_color_news_title(selected_off)
                 self.main_clock.change_color_all(selected_on)
                 self.main_settings.change_color_setting(selected_off)
+            # Settings Zone Selected
             elif self.zone == zone.MainPage.settings:
                 self.main_weather.change_color_all(selected_off)
                 self.main_news.change_color_news_title(selected_off)
                 self.main_clock.change_color_all(selected_off)
                 self.main_settings.change_color_setting(selected_on)
+            # Nothing Selected
             else:
                 self.main_weather.change_color_all(selected_off)
                 self.main_news.change_color_news_title(selected_off)
                 self.main_clock.change_color_all(selected_off)
                 self.main_settings.change_color_setting(selected_off)
+
+        # Updating zones for Weather Page
         elif self.current_page == Page.weather:
+            # Return Button Selected
             if self.zone == zone.Weather.returnButton:
                 self.returnButton.change_color_all(selected_on)
             else:
                 self.returnButton.change_color_all(selected_off)
+
+        # Updating Zones for Settings Page
+        elif self.current_page == Page.settings:
+            # Return Button Selected
+            if self.zone == zone.Settings.returnButton:
+                self.returnButton.change_color_all(selected_on)
+            else:
+                self.returnButton.change_color_all(selected_off)
+
+    # -------------------------------- Updating Pages ------------------------------------#
 
     def update_page(self, new_page):
         if new_page is not None:
@@ -278,17 +316,35 @@ class UIManager:
             elif self.current_page == Page.settings:
                 # Change from Settings Page to Main Page
                 if self.zone == zone.Settings.returnButton:
-                    self.change_page(Page.settings)
+                    self.change_page(Page.main)
 
     # ---------------------------------- HELPER ----------------------------------- #
 
     def change_page(self, new_page):
-        if new_page == Page.main:  # MAIN PAGE
+
+        # Switching to Main Page
+        if new_page == Page.main:
+            # Switching from Weather
             if self.current_page == Page.weather:
                 self.close_weather_page()  # todo remove previous page if weather, news, etc
-            self.open_main_page()
+            # Switching from Settings
+            elif self.current_page == Page.settings:
+                self.close_settings_page()
             self.current_page = Page.main
+            self.open_main_page()
+
+        # Switching from Main Page
+
+        # Switching to Weather
         elif new_page == Page.weather:  # BLANK PAGE
             self.close_main_page()
-            self.open_weather_page()
             self.current_page = Page.weather
+            self.open_weather_page()
+        # Switching to Settings
+        elif new_page == Page.settings:
+            self.close_main_page()
+            self.current_page = Page.settings
+            self.open_settings_page()
+
+
+
