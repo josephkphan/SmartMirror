@@ -17,7 +17,7 @@ class CursorHandler:
         # bottom Left
         self.zone_main_news = Polygon(var.bottom_left_rectangle)
         # bottom right
-        # self.zone_UNAMED = Polygon(var.bottom_right_rectangle)             NOT USED RIGHT NOW
+        self.zone_main_settings = Polygon(var.bottom_right_rectangle)
 
         # ---------------------------------- WEATHER PAGE ZONES ----------------------------------- #
         self.zone_weather_return = Polygon(var.top_left_rectangle)
@@ -31,14 +31,13 @@ class CursorHandler:
         p = Point(cursor[0], cursor[1])
         if current_page == Page.main:
             if Polygon(self.zone_main_weather).contains(p):
-                # print "In Zone 1"
                 self.zoneName = zone.MainPage.weather
             elif Polygon(self.zone_main_clock).contains(p):
-                # print "In Zone 2"
                 self.zoneName = zone.MainPage.clock
             elif Polygon(self.zone_main_news).contains(p):
-                # print "In Zone 3"
                 self.zoneName = zone.MainPage.news
+            elif Polygon(self.zone_main_settings).contains(p):
+                self.zoneName = zone.MainPage.settings
             else:
                 self.zoneName = zone.MainPage.none
         elif current_page == Page.weather:

@@ -6,6 +6,7 @@ class MainPage(Enum):
     weather = 1
     clock = 2
     news = 3
+    settings = 4
     none = -1
 
 

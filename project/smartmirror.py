@@ -6,11 +6,11 @@ from hardwareManagers.camera import *
 from hardwareManagers.powerswitch import *
 from hardwareManagers.ultrasoundhandler import *
 from uiManagers.uihandler import *
+from project.resources import var
 
-bool_light = True
 ultra_sound_handler = UltraSoundHandler()
 power_switch = PowerSwitch()
-camera = Camera(bool_light)
+camera = Camera(var.wall_light_color)
 ui_manager = UIManager()
 
 counter = 0

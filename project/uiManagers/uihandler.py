@@ -7,9 +7,11 @@ from project.uiManagers.mainpagewidgets.news import *
 from project.uiManagers.mainpagewidgets.clock import *
 from project.uiManagers.mainpagewidgets.weather import *
 from project.uiManagers.generalwidgets.returnButton import *
+from project.uiManagers.generalwidgets.settingsbutton import *
 from project.uiManagers.weatherpagewidgets.dailyweather import *
 from project.uiManagers.weatherpagewidgets.hourlyweather import *
 from project.uiManagers.weatherpagewidgets.currentweather import *
+
 from project.resources import zone
 
 
@@ -32,7 +34,7 @@ class UIManager:
         self.zone = None
 
         # Main Page Widgets
-        self.main_weather, self.main_clock, self.main_news = None, None, None
+        self.main_weather, self.main_clock, self.main_news, self.main_settings = None, None, None, None
 
         # Weather Page Widgets
         self.weather_current, self.weather_hourly, self.weather_week = None, None, None
@@ -90,12 +92,12 @@ class UIManager:
 
     # ---------------------------------- Key Binding Functions----------------------------------- #
 
-    def toggle_fullscreen(self):
+    def toggle_fullscreen(self, event=None):
         self.state = not self.state  # Just toggling the boolean
         self.tk.attributes("-fullscreen", self.state)
         return "break"
 
-    def end_fullscreen(self):
+    def end_fullscreen(self, event=None):
         self.state = False
         self.tk.attributes("-fullscreen", False)
         return "break"
@@ -103,6 +105,7 @@ class UIManager:
     # ---------------------------------- Main Page ----------------------------------- #
 
     def open_main_page(self):
+
         # Weather
         self.main_weather = Weather(self.top_frame)
         self.main_weather.pack(side=LEFT, anchor=N, padx=50, pady=50)
@@ -114,6 +117,10 @@ class UIManager:
         # News
         self.main_news = News(self.bottom_frame)
         self.main_news.pack(side=LEFT, anchor=S, padx=50, pady=50)
+
+        # Settings
+        self.main_settings = SettingsButton(self.bottom_frame)
+        self.main_settings.pack(side=BOTTOM, anchor=SE, padx=50, pady=10)
 
     def close_main_page(self):
         # Weather
@@ -127,6 +134,9 @@ class UIManager:
         # News
         self.main_news.destroy()
         self.main_news = None
+
+        self.main_settings.destroy()
+        self.main_settings = None
 
     # ---------------------------------- Weather Page ----------------------------------- #
 
@@ -220,18 +230,27 @@ class UIManager:
                 self.main_weather.change_color_all(selected_on)
                 self.main_news.change_color_news_title(selected_off)
                 self.main_clock.change_color_all(selected_off)
+                self.main_settings.change_color_setting(selected_off)
             elif self.zone == zone.MainPage.news:
                 self.main_weather.change_color_all(selected_off)
                 self.main_news.change_color_news_title(selected_on)
                 self.main_clock.change_color_all(selected_off)
+                self.main_settings.change_color_setting(selected_off)
             elif self.zone == zone.MainPage.clock:
                 self.main_weather.change_color_all(selected_off)
                 self.main_news.change_color_news_title(selected_off)
                 self.main_clock.change_color_all(selected_on)
+                self.main_settings.change_color_setting(selected_off)
+            elif self.zone == zone.MainPage.settings:
+                self.main_weather.change_color_all(selected_off)
+                self.main_news.change_color_news_title(selected_off)
+                self.main_clock.change_color_all(selected_off)
+                self.main_settings.change_color_setting(selected_on)
             else:
                 self.main_weather.change_color_all(selected_off)
                 self.main_news.change_color_news_title(selected_off)
                 self.main_clock.change_color_all(selected_off)
+                self.main_settings.change_color_setting(selected_off)
         elif self.current_page == Page.weather:
             if self.zone == zone.Weather.returnButton:
                 self.returnButton.change_color_all(selected_on)

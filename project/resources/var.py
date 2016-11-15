@@ -1,5 +1,7 @@
 import varLoader
 
+wall_light_color = False
+
 # -------------------- Coloring ------------------------ #
 selected_off = 'white'
 selected_on = 'yellow'

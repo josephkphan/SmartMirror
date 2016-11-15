@@ -31,6 +31,7 @@ class NewsHeadline(Frame):
         if self.color_event_name != mode:
             self.color_event_name = mode
             self.event_name_label.config(foreground=self.color_event_name)
+            #todo add an underline!!!!
 
 
 class News(Frame):
@@ -58,8 +59,6 @@ class News(Frame):
         # Initialize headline text
         self.headline = {}
         pass
-        for i in range (0,5):
-            self.headline[i] = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
         self.update()
 
     def update(self):
