@@ -78,6 +78,7 @@ class UIManager:
 
         # Display data onto UI Window
         self.current_page = Page.main
+
         self.open_main_page()
 
         # self.current_page = Page.weather

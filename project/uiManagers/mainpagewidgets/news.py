@@ -20,10 +20,17 @@ class NewsHeadline(Frame):
         self.icon_label = Label(self, bg=background_color, image=photo)
         self.icon_label.image = photo
         self.icon_label.pack(side=LEFT, anchor=N)
+
+        self.color_event_name = selected_off
         self.event_name = event_name
         self.event_name_label = Label(self, text=self.event_name, font=(font_style, 18), fg=selected_off,
                                       bg=background_color)
         self.event_name_label.pack(side=LEFT, anchor=N)
+
+    def change_color_event_name(self, mode):
+        if self.color_event_name != mode:
+            self.color_event_name = mode
+            self.event_name_label.config(foreground=self.color_event_name)
 
 
 class News(Frame):
@@ -51,16 +58,8 @@ class News(Frame):
         # Initialize headline text
         self.headline = {}
         pass
-        self.headline[0] = Frame(self, bg=background_color)
-        self.headline[0] = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
-        self.headline[1] = Frame(self, bg=background_color)
-        self.headline[1] = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
-        self.headline[2] = Frame(self, bg=background_color)
-        self.headline[2] = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
-        self.headline[3] = Frame(self, bg=background_color)
-        self.headline[3] = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
-        self.headline[4] = Frame(self, bg=background_color)
-        self.headline[4] = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
+        for i in range (0,5):
+            self.headline[i] = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
         self.update()
 
     def update(self):
@@ -72,7 +71,7 @@ class News(Frame):
         links = var.saved_data['news_links']  # todo make clickable later link should open new window?
 
         for i in range(0, 5):
-            self.headline[i].config(text=headlines[str(i)])
+            self.headline[i] = NewsHeadline(self.headlines_container,headlines[str(i)])
             self.headline[i].pack(side=TOP, anchor=W)
 
     # ---------------------------------- COLOR CHANGERS ----------------------------------- #
@@ -82,7 +81,5 @@ class News(Frame):
             self.color_title = mode
             self.news_label.config(foreground=mode)
 
-    def change_headline_on(self, mode, headline_num):
-        if self.color_headline[headline_num] != mode:
-            self.color_headline[headline_num] = mode
-            self.headline[headline_num].config(foreground=self.color_headline[headline_num])
+    def change_color_headline(self, mode, headline_num):
+        self.headline[headline_num].change_color_event_name(mode)
