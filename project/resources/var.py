@@ -42,13 +42,8 @@ update_time = 10  # in minutes
 
 saved_data = {}
 varLoader.read_json_from_file()
-print "READING FROM FILE"
 
 # -------------------- Settings ----------------------- #
 preferences = {}
-pass
-preferences['main_page_stocks'] = True
-preferences['main_page_news'] = False
-preferences['main_page_sunset'] = True
-preferences['main_page_sunrise'] = False
-preferences['main_page_weather_humidity'] = True
+varLoader.get_preferences()
+

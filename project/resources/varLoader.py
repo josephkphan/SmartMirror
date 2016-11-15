@@ -16,9 +16,32 @@ def write_json_to_file():
 
 # Reading data back
 def read_json_from_file():
-    with open('data.json', 'r') as f:
-        var.saved_data = json.load(f)
+    try:
+        with open('data.json', 'r') as f:
+            var.saved_data = json.load(f)
+    except IOError as e:
+        print "Unable to open file"  # Does not exist OR no read permissions
 
+
+def update_preferences():
+    out_file = open("preferences.json", "w")
+    # Save the data into this file
+    # (the 'indent=4' is optional, but makes it more readable)
+    json.dump(var.preferences, out_file, indent=4)
+    out_file.close()
+
+
+def get_preferences():
+    try:
+        with open('preferences.json') as file:
+            var.preferences = json.load(file)
+    except IOError as e:
+        print "Unable to open file"  # Does not exist OR no read permissions
+        var.preferences['main_page_stocks'] = True
+        var.preferences['main_page_news'] = True
+        var.preferences['main_page_sunset'] = True
+        var.preferences['main_page_sunrise'] = True
+        var.preferences['main_page_weather_humidity'] = True
 
 def update_data(weather_data, location_data, news_data):
     # Converting to Json
