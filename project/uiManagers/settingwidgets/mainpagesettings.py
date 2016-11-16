@@ -24,9 +24,11 @@ class MainPageSettings(Frame):
         self.news = checkbox.CheckBox(self.container, 'Show News', 'main_page_news')
         self.news.pack(side=TOP, anchor=W, padx=50)
 
-        self.sunset = checkbox.CheckBox(self.container, 'Show Sunset', 'main_page_sunset')
+        self.sunset = checkbox.CheckBox(self.container, 'Show Sunset time', 'main_page_sunset')
         self.sunset.pack(side=TOP, anchor=W, padx=50)
 
-        self.sunset = checkbox.CheckBox(self.container, 'Show SunRise', 'main_page_sunrise')
+        self.sunset = checkbox.CheckBox(self.container, 'Show Sunrise time', 'main_page_sunrise')
         self.sunset.pack(side=TOP, anchor=W, padx=50)
+
+
 

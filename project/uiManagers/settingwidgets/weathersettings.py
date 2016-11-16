@@ -9,7 +9,7 @@ class WeatherSettings(Frame):
         background_color = var.background_color
         font_style = var.font_style
         Frame.__init__(self, parent, bg=background_color)
-        #Weather Settings
+        # Weather Settings
         self.container = Frame(self, bg=background_color)
         self.container.pack(side=TOP)
 

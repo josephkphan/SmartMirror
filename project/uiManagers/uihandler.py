@@ -216,7 +216,7 @@ class UIManager:
         # self.weather_page_settings.destroy()
         # self.weather_page_settings = None
 
-    # ---------------------------------- UPDATING UIMANAGER ----------------------------------- #
+    # --------    -------------------------- UPDATING UIMANAGER - ----------------------------------  #
 
     def update_all(self, cursor):
         last_update_time = (time.time() - var.saved_data['last_updated']) / 60

@@ -1,7 +1,7 @@
 import varLoader
 import coordcreator
 
-wall_light_color = False
+wall_light_color = True
 
 # -------------------- Coloring ------------------------ #
 selected_off = 'white'
@@ -41,7 +41,7 @@ update_time = 10  # in minutes
 # -------------------- Saved Data -------------------- #
 
 saved_data = {}
-varLoader.read_json_from_file()
+varLoader.get_saved_data()
 
 # -------------------- Settings ----------------------- #
 preferences = {}
