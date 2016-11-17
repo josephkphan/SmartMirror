@@ -136,7 +136,7 @@ class UIManager:
             self.zone = pagegraph.Main[self.zone][key_click]
         elif self.current_page == Page.weather:
             self.zone = pagegraph.Weather[self.zone][key_click]
-        elif self.change_page == Page.settings:
+        elif self.current_page == Page.settings:
             self.zone = pagegraph.Settings[self.zone][key_click]
 
     def enter_click(self, event=None):
