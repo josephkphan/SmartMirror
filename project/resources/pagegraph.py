@@ -6,10 +6,17 @@ Main = {
     MainPage.settings: [MainPage.clock, MainPage.settings, MainPage.news, MainPage.settings],
     MainPage.weather: [MainPage.weather, MainPage.news, MainPage.weather, MainPage.clock],
     MainPage.news: [MainPage.weather, MainPage.news, MainPage.news, MainPage.settings],
-    MainPage.none: [MainPage.weather,MainPage.news, MainPage.news, MainPage.clock]
+    MainPage.none: [MainPage.weather, MainPage.news, MainPage.weather, MainPage.clock]
 }
 
-# Weather = {
-#
-#
-# }
+Weather = {
+    WeatherPage.none: [WeatherPage.returnButton, WeatherPage.returnButton, WeatherPage.returnButton,
+                       WeatherPage.returnButton],
+    WeatherPage.returnButton: [WeatherPage.none, WeatherPage.none, WeatherPage.none, WeatherPage.none]
+}
+
+Settings = {
+    SettingsPage.none: [SettingsPage.returnButton, SettingsPage.returnButton, SettingsPage.returnButton,
+                        SettingsPage.returnButton],
+    SettingsPage.returnButton: [SettingsPage.none, SettingsPage.none, SettingsPage.none, SettingsPage.none]
+}

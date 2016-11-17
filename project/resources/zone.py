@@ -11,11 +11,11 @@ class MainPage(Enum):
 
 
 # Includes the possible zones that could be selected on the weather page
-class Weather(Enum):
+class WeatherPage(Enum):
     none = 0
     returnButton = 4
 
 
-class Settings(Enum):
+class SettingsPage(Enum):
     none = 0
     returnButton = 5

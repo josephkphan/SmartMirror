@@ -113,27 +113,31 @@ class UIManager:
 
     def left_click(self, event=None):
         print "LEFT CLICK HAPPENED"
-        if self.current_page == Page.main:
-            self.zone = pagegraph.Main[self.zone][self.key_left]
+        self.directional_click(self.key_left)
         return "break"
 
     def right_click(self, event=None):
         print "RIGHT CLICK HAPPENED"
-        if self.current_page == Page.main:
-            self.zone = pagegraph.Main[self.zone][self.key_right]
+        self.directional_click(self.key_right)
         return "break"
 
     def up_click(self, event=None):
         print "UP CLICK HAPPENED"
-        if self.current_page == Page.main:
-            self.zone = pagegraph.Main[self.zone][self.key_up]
+        self.directional_click(self.key_up)
         return "break"
 
     def down_click(self, event=None):
         print "DOWN CLICK HAPPENED"
-        if self.current_page == Page.main:
-            self.zone = pagegraph.Main[self.zone][self.key_down]
+        self.directional_click(self.key_down)
         return "break"
+
+    def directional_click(self,key_click):
+        if self.current_page == Page.main:
+            self.zone = pagegraph.Main[self.zone][key_click]
+        elif self.current_page == Page.weather:
+            self.zone = pagegraph.Weather[self.zone][key_click]
+        elif self.change_page == Page.settings:
+            self.zone = pagegraph.Settings[self.zone][key_click]
 
     def enter_click(self, event=None):
         print "Enter CLICK HAPPENED"
@@ -334,7 +338,7 @@ class UIManager:
         # Updating zones for Weather Page
         elif self.current_page == Page.weather:
             # Return Button Selected
-            if self.zone == zone.Weather.returnButton:
+            if self.zone == zone.WeatherPage.returnButton:
                 self.returnButton.change_color_all(selected_on)
             else:
                 self.returnButton.change_color_all(selected_off)
@@ -342,7 +346,7 @@ class UIManager:
         # Updating Zones for Settings Page
         elif self.current_page == Page.settings:
             # Return Button Selected
-            if self.zone == zone.Settings.returnButton:
+            if self.zone == zone.SettingsPage.returnButton:
                 self.returnButton.change_color_all(selected_on)
             else:
                 self.returnButton.change_color_all(selected_off)
@@ -366,13 +370,13 @@ class UIManager:
         # Currently on Weather Page
         elif self.current_page == Page.weather:
             # Change from Weather Page to Main Page
-            if self.zone == zone.Weather.returnButton:
+            if self.zone == zone.WeatherPage.returnButton:
                 return Page.main
 
         # Currently on Settings Page
         elif self.current_page == Page.settings:
             # Change from Settings Page to Main Page
-            if self.zone == zone.Settings.returnButton:
+            if self.zone == zone.SettingsPage.returnButton:
                 return Page.main
         return None
 
@@ -388,6 +392,7 @@ class UIManager:
                     self.close_settings_page()
                 self.current_page = Page.main
                 self.open_main_page()
+                self.zone = zone.MainPage.none
 
             # Switching from Main Page
 
@@ -396,11 +401,13 @@ class UIManager:
                 self.close_main_page()
                 self.current_page = Page.weather
                 self.open_weather_page()
+                self.zone = zone.WeatherPage.none
             # Switching to Settings
             elif new_page == Page.settings:
                 self.close_main_page()
                 self.current_page = Page.settings
                 self.open_settings_page()
+                self.zone = zone.SettingsPage.none
 
 
 

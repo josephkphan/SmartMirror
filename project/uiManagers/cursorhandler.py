@@ -48,14 +48,14 @@ class CursorHandler:
         # Update Zones for Weather Page
         elif current_page == Page.weather:
             if Polygon(self.zone_weather_return).contains(p):
-                self.zoneName = zone.Weather.returnButton
+                self.zoneName = zone.WeatherPage.returnButton
             else:
-                self.zoneName = zone.Weather.none
+                self.zoneName = zone.WeatherPage.none
 
         # Update Zones for Settings Page
         elif current_page == Page.settings:
             if Polygon(self.zone_settings_return).contains(p):
-                self.zoneName = zone.Settings.returnButton
+                self.zoneName = zone.SettingsPage.returnButton
             else:
-                self.zoneName = zone.Settings.none
+                self.zoneName = zone.SettingsPage.none
         return self.zoneName
