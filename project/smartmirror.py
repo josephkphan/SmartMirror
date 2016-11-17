@@ -16,7 +16,7 @@ manual_mode = var.other_data['manual_mode']
 if manual_mode:
     camera.turn_off()   # todo add onto this . close windows?
 while True:
-    if not manual_mode:
+    if manual_mode:
         # Manual Mode
         ui_manager.update_all_manually()
 

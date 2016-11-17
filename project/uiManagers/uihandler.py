@@ -13,9 +13,8 @@ from project.uiManagers.weatherpagewidgets.hourlyweather import *
 from project.uiManagers.weatherpagewidgets.currentweather import *
 from project.uiManagers.settingwidgets.weathersettings import *
 from project.uiManagers.settingwidgets.mainpagesettings import *
-from project.resources import zone
+from project.resources import zone, pagegraph
 from project.resources.page import *
-
 
 # File Name: UI Handler:
 # Purpose: Handles all TKinter widgets and displays them appropriately based on the given inputs from the hardware
@@ -31,9 +30,8 @@ class UIManager:
         self.tk = Tk()
         self.tk2 = Tk()
 
-        # Page selection variables
-        self.current_page = None
-        self.zone = None
+        # initializing Keys
+        self.key_up, self.key_down, self.key_left, self.key_right = 0,1,2,3
 
         # Main Page Widgets
         self.main_weather, self.main_clock, self.main_news, self.main_settings = None, None, None, None
@@ -87,8 +85,9 @@ class UIManager:
         self.tk.bind("<Control_R>", self.enter_click)
 
         # Display data onto UI Window
-        self.current_page = Page.main
 
+        self.zone = zone.MainPage.none
+        self.current_page = Page.main
         self.open_main_page()
 
         # self.current_page = Page.weather
@@ -114,19 +113,26 @@ class UIManager:
 
     def left_click(self, event=None):
         print "LEFT CLICK HAPPENED"
-        self.zone = zone.MainPage.weather
+        if self.current_page == Page.main:
+            self.zone = pagegraph.Main[self.zone][self.key_left]
         return "break"
 
     def right_click(self, event=None):
         print "RIGHT CLICK HAPPENED"
+        if self.current_page == Page.main:
+            self.zone = pagegraph.Main[self.zone][self.key_right]
         return "break"
 
     def up_click(self, event=None):
         print "UP CLICK HAPPENED"
+        if self.current_page == Page.main:
+            self.zone = pagegraph.Main[self.zone][self.key_up]
         return "break"
 
     def down_click(self, event=None):
         print "DOWN CLICK HAPPENED"
+        if self.current_page == Page.main:
+            self.zone = pagegraph.Main[self.zone][self.key_down]
         return "break"
 
     def enter_click(self, event=None):
