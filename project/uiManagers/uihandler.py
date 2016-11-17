@@ -78,15 +78,18 @@ class UIManager:
         self.bottom_frame = Frame(self.tk, background='black')
         self.bottom_frame.pack(side=BOTTOM, fill=BOTH, expand=YES)
         self.state = False
-        self.tk.bind("<Return>", self.toggle_fullscreen)
+        self.tk.bind("<Tab>", self.toggle_fullscreen)
         self.tk.bind("<Escape>", self.end_fullscreen)
-        # self.tk.bind("<W>", self.update_page(Page.weather))
-        # self.tk.bind("<M>", self.update_page(Page.main))  # todo : Doesn't work. please fix
+        self.tk.bind("<Left>", self.left_click)
+        self.tk.bind("<Right>", self.right_click)
+        self.tk.bind("<Up>", self.up_click)
+        self.tk.bind("<Down>", self.down_click)
+        self.tk.bind("<Control_R>", self.enter_click)
 
         # Display data onto UI Window
-        self.current_page = Page.settings
+        self.current_page = Page.main
 
-        self.open_settings_page()
+        self.open_main_page()
 
         # self.current_page = Page.weather
         # self.open_weather_page()
@@ -105,6 +108,30 @@ class UIManager:
     def end_fullscreen(self, event=None):
         self.state = False
         self.tk.attributes("-fullscreen", False)
+        return "break"
+
+    # ------------------------ Used for Manual Mode ------------------------- #
+
+    def left_click(self, event=None):
+        print "LEFT CLICK HAPPENED"
+        self.zone = zone.MainPage.weather
+        return "break"
+
+    def right_click(self, event=None):
+        print "RIGHT CLICK HAPPENED"
+        return "break"
+
+    def up_click(self, event=None):
+        print "UP CLICK HAPPENED"
+        return "break"
+
+    def down_click(self, event=None):
+        print "DOWN CLICK HAPPENED"
+        return "break"
+
+    def enter_click(self, event=None):
+        print "Enter CLICK HAPPENED"
+        self.change_page(self.find_page_to_change_to())
         return "break"
 
     # ---------------------------------- Main Page ----------------------------------- #
@@ -219,6 +246,28 @@ class UIManager:
     # --------    -------------------------- UPDATING UIMANAGER - ----------------------------------  #
 
     def update_all(self, cursor):
+        self.update_web_info()
+        self.get_current_zone_from_cursor(cursor)
+        self.update_zone()
+        diff_x = cursor[0] - self.circle_coord[0]
+        diff_y = cursor[1] - self.circle_coord[1]
+        self.canvas.move(self.cursor, diff_x, diff_y)
+        self.circle_coord = cursor
+
+        self.update_page(self.selection_handler.update(self.zone))
+
+        # Update tk
+        self.update_tk()
+
+    def update_all_manually(self):
+        self.update_web_info()
+        self.update_zone()
+        # Update tk
+        self.update_tk()
+
+    # --------------------------------- Updating Web Info ------------------------------------- #
+
+    def update_web_info(self):
         last_update_time = (time.time() - var.saved_data['last_updated']) / 60
         # print last_update_time
         if last_update_time >= var.update_time and self.current_page == Page.main:
@@ -231,24 +280,19 @@ class UIManager:
             if self.main_news is not None:
                 self.main_news.update()  # todo Current only updates main page. need to update everything
 
-        self.update_zone(cursor)
-        diff_x = cursor[0] - self.circle_coord[0]
-        diff_y = cursor[1] - self.circle_coord[1]
-        self.canvas.move(self.cursor, diff_x, diff_y)
-        self.circle_coord = cursor
+    # --------------------------------- Updating Tk ------------------------------------- #
 
-        self.update_page(self.selection_handler.update(self.zone))
-
-        # Update tk
+    def update_tk(self):
         self.tk.update_idletasks()
         self.tk.update()
         self.tk2.update_idletasks()
         self.tk2.update()
 
     # --------------------------------- Updating Zones ------------------------------------- #
-    def update_zone(self, cursor):
+    def get_current_zone_from_cursor(self,cursor):
         self.zone = self.cursor_handler.update_cursor(cursor, self.current_page)
-        # Updating Zone based on Main Page
+
+    def update_zone(self):
         if self.current_page == Page.main:
             # Weather Zone Selected
             if self.zone == zone.MainPage.weather:
@@ -299,56 +343,58 @@ class UIManager:
 
     # -------------------------------- Updating Pages ------------------------------------#
 
-    def update_page(self, new_page):
-        if new_page is not None:
-            # Current on Main Page
-            if self.current_page == Page.main:
-                # Change from Main Page to Weather Page
-                if self.zone == zone.MainPage.weather:
-                    print "CHANGING PAGES"
-                    self.change_page(Page.weather)
-                # Change from Main Page to Settings
-                if self.zone == zone.MainPage.settings:
-                    self.change_page(Page.settings)
-            # Currently on Weather Page
-            elif self.current_page == Page.weather:
-                # Change from Weather Page to Main Page
-                if self.zone == zone.Weather.returnButton:
-                    print "CHANGING PAGES"
-                    self.change_page(Page.main)
-            # Currently on Settings Page
-            elif self.current_page == Page.settings:
-                # Change from Settings Page to Main Page
-                if self.zone == zone.Settings.returnButton:
-                    self.change_page(Page.main)
+    def update_page(self, cur_zone):
+        if cur_zone is not None:    # need this or it'll change page like crazy
+            self.change_page(self.find_page_to_change_to())
 
     # ---------------------------------- HELPER ----------------------------------- #
+    def find_page_to_change_to(self):
+        if self.current_page == Page.main:
+            # Change from Main Page to Weather Page
+            if self.zone == zone.MainPage.weather:
+                return Page.weather
+            # Change from Main Page to Settings
+            if self.zone == zone.MainPage.settings:
+                return Page.settings
+
+        # Currently on Weather Page
+        elif self.current_page == Page.weather:
+            # Change from Weather Page to Main Page
+            if self.zone == zone.Weather.returnButton:
+                return Page.main
+
+        # Currently on Settings Page
+        elif self.current_page == Page.settings:
+            # Change from Settings Page to Main Page
+            if self.zone == zone.Settings.returnButton:
+                return Page.main
+        return None
 
     def change_page(self, new_page):
+        if new_page is not None:    # safety check for manual mode
+            # Switching to Main Page
+            if new_page == Page.main:
+                # Switching from Weather
+                if self.current_page == Page.weather:
+                    self.close_weather_page()  # todo remove previous page if weather, news, etc
+                # Switching from Settings
+                elif self.current_page == Page.settings:
+                    self.close_settings_page()
+                self.current_page = Page.main
+                self.open_main_page()
 
-        # Switching to Main Page
-        if new_page == Page.main:
-            # Switching from Weather
-            if self.current_page == Page.weather:
-                self.close_weather_page()  # todo remove previous page if weather, news, etc
-            # Switching from Settings
-            elif self.current_page == Page.settings:
-                self.close_settings_page()
-            self.current_page = Page.main
-            self.open_main_page()
+            # Switching from Main Page
 
-        # Switching from Main Page
-
-        # Switching to Weather
-        elif new_page == Page.weather:  # BLANK PAGE
-            self.close_main_page()
-            self.current_page = Page.weather
-            self.open_weather_page()
-        # Switching to Settings
-        elif new_page == Page.settings:
-            self.close_main_page()
-            self.current_page = Page.settings
-            self.open_settings_page()
+            # Switching to Weather
+            elif new_page == Page.weather:  # BLANK PAGE
+                self.close_main_page()
+                self.current_page = Page.weather
+                self.open_weather_page()
+            # Switching to Settings
+            elif new_page == Page.settings:
+                self.close_main_page()
+                self.current_page = Page.settings
+                self.open_settings_page()
 
 
 

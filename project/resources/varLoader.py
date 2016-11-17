@@ -67,3 +67,36 @@ def get_preferences():
         var.preferences['main_page_sunset'] = True
         var.preferences['main_page_sunrise'] = True
         var.preferences['main_page_weather_humidity'] = True
+        update_preferences()
+
+
+def change_preferences(key,val):
+    var.preferences[key] = val
+    update_preferences()
+
+
+# ------------------------ Other Data -------------------------- #
+
+
+def update_other():
+    out_file = open("other.json", "w")
+    # Save the data into this file
+    # (the 'indent=4' is optional, but makes it more readable)
+    json.dump(var.other_data, out_file, indent=4)
+    out_file.close()
+
+
+def get_other():
+    try:
+        with open('other.json') as file:
+            var.other_data = json.load(file)
+    except IOError as e:
+        print "Unable to open file"  # Does not exist OR no read permissions
+        # Preferences Default
+        var.other_data['manual_mode'] = True
+        update_other()
+
+
+def change_other_data(key,val):
+    var.other_data[key] = val
+    update_other()

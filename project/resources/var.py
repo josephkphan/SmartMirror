@@ -47,3 +47,9 @@ varLoader.get_saved_data()
 preferences = {}
 varLoader.get_preferences()
 
+# ------------------- Other Data ---------------------- #
+
+other_data = {}
+varLoader.get_other()
+
+print other_data

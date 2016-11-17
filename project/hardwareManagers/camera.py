@@ -208,6 +208,6 @@ class Camera:
         if self.cap.isOpened():
             self.cap.release()
 
-    def turn_on(self):
+    def turn_on(self):          # todo CHECK IS THESE WORK if it doesnt, create a temp varaible to hold status
         if not self.cap.isOpened():
             self.cap = cv2.VideoCapture(0)
