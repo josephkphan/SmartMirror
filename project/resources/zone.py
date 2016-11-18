@@ -13,9 +13,14 @@ class MainPage(Enum):
 # Includes the possible zones that could be selected on the weather page
 class WeatherPage(Enum):
     none = 0
-    returnButton = 4
+    returnButton = 1
 
 
 class SettingsPage(Enum):
     none = 0
-    returnButton = 5
+    returnButton = 1
+    main_page_sunset = 2
+    main_page_sunrise = 3
+    main_page_high_low = 4
+    main_page_stocks = 5
+    main_page_news = 6

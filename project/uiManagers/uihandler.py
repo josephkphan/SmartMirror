@@ -16,6 +16,7 @@ from project.uiManagers.settingwidgets.mainpagesettings import *
 from project.resources import zone, pagegraph
 from project.resources.page import *
 
+
 # File Name: UI Handler:
 # Purpose: Handles all TKinter widgets and displays them appropriately based on the given inputs from the hardware
 class UIManager:

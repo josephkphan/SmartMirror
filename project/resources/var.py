@@ -25,6 +25,20 @@ tk_cursor_outline_thickness = tk_cursor_diameter / 10
 
 # ------------------- Polygon Coordinate ---------------- #
 
+#    0 ----------50-----------100- ... X Axis
+#    |
+#    |      THIS IS HOW THE
+#    |      AXIS WORKS
+#    50     NOTE* Y IS UPSIDE DOWN
+#    |
+#    |
+#    |
+#    100
+#   ...
+#    Y Axis
+
+# Four Corners
+
 bottom_left_rectangle = coordcreator.get_polygon_coord(0, camera_height / 2, camera_width / 2, camera_height / 2)
 
 bottom_right_rectangle = coordcreator.get_polygon_coord(camera_width / 2, camera_height / 2, camera_width / 2,
@@ -42,6 +56,17 @@ update_time = 10  # in minutes
 
 saved_data = {}
 varLoader.get_saved_data()
+
+# -------------------- Key ---------------------- #
+
+pref_keys = {
+    'mp_stocks' : 'main_page_stocks',
+    'mp_news' : 'main_page_news',
+    'mp_sunset': 'main_page_sunset',
+    'mp_sunrise' : 'main_page_sunrise',
+    'mp_humidity' : 'main_page_humidity',
+    'mp_hilo' : 'main_page_high_low'
+}
 
 # -------------------- Settings ----------------------- #
 preferences = {}

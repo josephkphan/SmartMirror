@@ -22,6 +22,12 @@ class WeeklyWeather(Frame):
         self.day_of_week = ''
         self.icon = ''
 
+        # Initializing the Colors for labels
+        self.color_min = selected_off
+        self.color_max = selected_off
+        self.color_name = selected_off
+        self.day_of_week = selected_off
+
         # Initializing Labels
         self.min_label = Label(self.degree_frame, font=(font_style, 14), fg=selected_off, bg=background_color)
         self.min_label.pack(side=RIGHT, anchor=N)
@@ -72,6 +78,23 @@ class WeeklyWeather(Frame):
         else:
             # remove image
             self.icon_label.config(image='')
+
+    # --------------------------- Color ------------------------------ #
+
+    def change_color_all(self, mode):
+        self.change_color_min(mode)
+
+    def change_color_min(self, mode):
+        if self.color_min != mode:
+            self.color_min = mode
+            self.min_label.config(foreground=self.color_min)
+
+    def change_color_max(self, mode):
+        if self.color_max != mode:
+            self.color_max = mode
+            self.max_label.config(foreground=self.color_min)
+
+    # ------------------------------ Time ---------------------------------- #
 
     @staticmethod
     def convert_epoch_time_to_day_of_the_week(epoch_time_in_seconds):

@@ -57,22 +57,25 @@ def update_preferences():
 
 def get_preferences():
     try:
-        with open('preferences.json') as file:
-            var.preferences = json.load(file)
+        with open('preferences.json') as f:
+            var.preferences = json.load(f)
     except IOError as e:
         print "Unable to open file"  # Does not exist OR no read permissions
         # Preferences Default
-        var.preferences['main_page_stocks'] = True
-        var.preferences['main_page_news'] = True
-        var.preferences['main_page_sunset'] = True
-        var.preferences['main_page_sunrise'] = True
-        var.preferences['main_page_weather_humidity'] = True
+        print var.pref_keys['mp_stocks']
+        var.preferences[var.pref_keys['mp_stocks']] = True
+        var.preferences[var.pref_keys['mp_news']] = True
+        var.preferences[var.pref_keys['mp_sunset']] = True
+        var.preferences[var.pref_keys['mp_sunrise']] = True
+        var.preferences[var.pref_keys['mp_humidity']] = True
+        var.preferences[var.pref_keys['mp_hilo']] = True
         update_preferences()
 
 
-def change_preferences(key,val):
-    var.preferences[key] = val
+def toggle_preferences(key):
+    var.preferences[key] = not var.preferences[key]
     update_preferences()
+
 
 
 # ------------------------ Other Data -------------------------- #

@@ -111,6 +111,8 @@ class CurrentWeather(Frame):
             # remove image
             self.icon_label.config(image='')
 
+    # --------------------------- Time Methods ------------------------------ #
+
     @staticmethod
     def convert_epoch_time_to_datetime(epoch_time):
         begin_time = datetime.datetime(1970, 1, 1)
