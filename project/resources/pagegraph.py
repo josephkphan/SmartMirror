@@ -1,6 +1,11 @@
 from project.resources.zone import *
 
-# Format    'Current Node' : [ UP, DOWN LEFT RIGHT]
+# This file contains Graphs used for the manual mode to know which zone to switch to given a
+# up down left right Command
+# NOTE the key is the zone and the result is an array of the corresponding zone in this format
+# Current Node' : [ UP, DOWN LEFT RIGHT]
+
+# Main Page Graph
 Main = {
     MainPage.clock: [MainPage.clock, MainPage.settings, MainPage.weather, MainPage.clock],
     MainPage.settings: [MainPage.clock, MainPage.settings, MainPage.news, MainPage.settings],
@@ -9,12 +14,14 @@ Main = {
     MainPage.none: [MainPage.weather, MainPage.news, MainPage.weather, MainPage.clock]
 }
 
+# Weather Page Graph
 Weather = {
     WeatherPage.none: [WeatherPage.returnButton, WeatherPage.returnButton, WeatherPage.returnButton,
                        WeatherPage.returnButton],
     WeatherPage.returnButton: [WeatherPage.none, WeatherPage.none, WeatherPage.none, WeatherPage.none]
 }
 
+# Settings Page Graph
 Settings = {
     SettingsPage.none: [SettingsPage.returnButton, SettingsPage.returnButton, SettingsPage.returnButton,
                         SettingsPage.returnButton],

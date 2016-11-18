@@ -4,10 +4,10 @@ import time
 
 
 # ----------------------- Saved Web Data ----------------------- #
-# todo Make this work!!!!
+
+# Writes saved_data to data.json
 def write_saved_data_json_to_file():
     # Open a file for writing
-
     out_file = open("data.json", "w")
     # Save the data into this file
     # (the 'indent=4' is optional, but makes it more readable)
@@ -15,7 +15,7 @@ def write_saved_data_json_to_file():
     out_file.close()
 
 
-# Reading data back
+# Reading from data.json file and saving into saved_data
 def get_saved_data():
     try:
         with open('data.json', 'r') as f:
@@ -24,37 +24,48 @@ def get_saved_data():
         print "Unable to open file"  # Does not exist OR no read permissions
 
 
+# Updated the current gathered data from web, and saves it (by writing to file)
 def update_data(weather_data, location_data, news_data):
-    # Converting to Json
+
+    # if gathering weather data failed, this will keep the last successful saved instance
+    # rather than writing over it
     get_saved_data()
+
     if weather_data is not None:
         var.saved_data['weather'] = weather_data
 
+    # Same as above, this makes sure an "empty' location doesnt get saved
     if location_data is not None:
         var.saved_data['location'] = location_data
 
+    # Same as above, but News came as parsed string. Have to convert it into Json
     if news_data is not None:
-        headlines = {}
+        headlines = {}  # Taking out only the headlines and links to those headlines
         links = {}
+        # Converting data to Json
         for i in range(0, 5):
             headlines[str(i)] = news_data.entries[i].title
             links[str(i)] = news_data.entries[i].links
             var.saved_data['news_headlines'] = headlines
             var.saved_data['news_links'] = links
-        var.saved_data['last_updated'] = time.time()
-        write_saved_data_json_to_file()
+
+    # Saves the time which data was last updated
+    var.saved_data['last_updated'] = time.time()
+
+    # Writes data to file
+    write_saved_data_json_to_file()
 
 
 # ----------------------- Preferences ----------------------- #
 
+# Writes Preferences to file
 def update_preferences():
     out_file = open("preferences.json", "w")
-    # Save the data into this file
-    # (the 'indent=4' is optional, but makes it more readable)
     json.dump(var.preferences, out_file, indent=4)
     out_file.close()
 
 
+# Gets Preferences from file
 def get_preferences():
     try:
         with open('preferences.json') as f:
@@ -62,25 +73,24 @@ def get_preferences():
     except IOError as e:
         print "Unable to open file"  # Does not exist OR no read permissions
         # Preferences Default
-        print var.pref_keys['mp_stocks']
+        # If preferences were never created, create the preference file
         var.preferences[var.pref_keys['mp_stocks']] = True
         var.preferences[var.pref_keys['mp_news']] = True
         var.preferences[var.pref_keys['mp_sunset']] = True
         var.preferences[var.pref_keys['mp_sunrise']] = True
         var.preferences[var.pref_keys['mp_humidity']] = True
         var.preferences[var.pref_keys['mp_hilo']] = True
-        update_preferences()
+        update_preferences()  # Saves to file
 
 
+# User wanted to change a preference, change it and update file
 def toggle_preferences(key):
     var.preferences[key] = not var.preferences[key]
     update_preferences()
 
-
-
 # ------------------------ Other Data -------------------------- #
 
-
+# todo DO WE NEED THIS OTHER FILE??? Curently only holding Camera mode... which isnt even implemented yet
 def update_other():
     out_file = open("other.json", "w")
     # Save the data into this file

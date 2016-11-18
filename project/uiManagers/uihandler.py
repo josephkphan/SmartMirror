@@ -352,9 +352,9 @@ class UIManager:
     def update_zone_weather_page(self):
         # Return Button Selected
         if self.current_zone == zone.WeatherPage.returnButton:
-            self.returnButton.chnge_color_all(var.selected_on)
+            self.returnButton.change_color_all(var.selected_on)
         else:
-            self.returnButton.chnge_color_all(var.selected_off)
+            self.returnButton.change_color_all(var.selected_off)
 
     def update_zone_settings_page(self):
         # Return Button Selected

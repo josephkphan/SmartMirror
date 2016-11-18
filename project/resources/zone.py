@@ -1,5 +1,8 @@
 from enum import Enum
 
+# "ZONE" is a an area that can be "turned yellow" or hovered over via manual or cursor
+# none should always be 0 (no reason, just for consistency)
+
 
 # Includes the possible zones that could be selected on the main page
 class MainPage(Enum):
@@ -16,6 +19,7 @@ class WeatherPage(Enum):
     returnButton = 1
 
 
+# Includes the possible zones that could be selected on the settings page
 class SettingsPage(Enum):
     none = 0
     returnButton = 1
