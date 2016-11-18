@@ -94,11 +94,11 @@ class CheckBox(Frame):
     def update_check_box_image(self):
         if var.preferences[self.key]:
             if (self.check_box_mode != CheckBoxMode.checked_off) or (self.check_box_mode != CheckBoxMode.checked_on):
-                self.check_box_mode = CheckBoxMode.checked_off
+                self.check_box_mode = CheckBoxMode.checked_on
                 self.icon_label.config(image=self.filled_check_box_on)
                 self.icon_label.image = self.filled_check_box_on
         else:
             if (self.check_box_mode != CheckBoxMode.not_checked_off) or (self.check_box_mode != CheckBoxMode.not_checked_on):
-                self.check_box_mode = CheckBoxMode.not_checked_off
+                self.check_box_mode = CheckBoxMode.not_checked_on
                 self.icon_label.config(image=self.empty_check_box_on)
                 self.icon_label.image = self.empty_check_box_on
