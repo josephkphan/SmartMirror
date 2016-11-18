@@ -90,14 +90,15 @@ class CheckBox(Frame):
                 self.icon_label.config(image=self.filled_check_box_off)
                 self.icon_label.image = self.filled_check_box_off
 
+    # Should only be used when the current area is selected, so the color should be yellow
     def update_check_box_image(self):
         if var.preferences[self.key]:
             if (self.check_box_mode != CheckBoxMode.checked_off) or (self.check_box_mode != CheckBoxMode.checked_on):
                 self.check_box_mode = CheckBoxMode.checked_off
-                self.icon_label.config(image=self.filled_check_box_off)
-                self.icon_label.image = self.filled_check_box_off
+                self.icon_label.config(image=self.filled_check_box_on)
+                self.icon_label.image = self.filled_check_box_on
         else:
             if (self.check_box_mode != CheckBoxMode.not_checked_off) or (self.check_box_mode != CheckBoxMode.not_checked_on):
                 self.check_box_mode = CheckBoxMode.not_checked_off
-                self.icon_label.config(image=self.empty_check_box_off)
-                self.icon_label.image = self.empty_check_box_off
+                self.icon_label.config(image=self.empty_check_box_on)
+                self.icon_label.image = self.empty_check_box_on

@@ -18,5 +18,17 @@ Weather = {
 Settings = {
     SettingsPage.none: [SettingsPage.returnButton, SettingsPage.returnButton, SettingsPage.returnButton,
                         SettingsPage.returnButton],
-    SettingsPage.returnButton: [SettingsPage.none, SettingsPage.none, SettingsPage.none, SettingsPage.none]
+    SettingsPage.returnButton: [SettingsPage.returnButton, SettingsPage.main_page_stocks, SettingsPage.main_page_news,
+                                SettingsPage.none],
+    SettingsPage.main_page_stocks: [SettingsPage.returnButton, SettingsPage.main_page_news, SettingsPage.none,
+                                    SettingsPage.none],
+    SettingsPage.main_page_news: [SettingsPage.main_page_stocks, SettingsPage.main_page_sunrise, SettingsPage.none,
+                                  SettingsPage.none],
+    SettingsPage.main_page_sunrise: [SettingsPage.main_page_news, SettingsPage.main_page_sunset, SettingsPage.none,
+                                     SettingsPage.none],
+    SettingsPage.main_page_sunset: [SettingsPage.main_page_sunrise, SettingsPage.main_page_high_low, SettingsPage.none,
+                                    SettingsPage.none],
+    SettingsPage.main_page_high_low: [SettingsPage.main_page_sunset, SettingsPage.none, SettingsPage.none,
+                                      SettingsPage.none]
+
 }

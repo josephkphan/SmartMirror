@@ -43,11 +43,11 @@ class MainPageSettings(Frame):
         self.news = checkbox.CheckBox(self.container, 'Show News', self.mp_news)
         self.news.pack(side=TOP, anchor=W, padx=50)
 
-        self.sunset = checkbox.CheckBox(self.container, 'Show Sunset time', self.mp_sunset)
-        self.sunset.pack(side=TOP, anchor=W, padx=50)
-
         self.sunrise = checkbox.CheckBox(self.container, 'Show Sunrise time', self.mp_sunrise)
         self.sunrise.pack(side=TOP, anchor=W, padx=50)
+
+        self.sunset = checkbox.CheckBox(self.container, 'Show Sunset time', self.mp_sunset)
+        self.sunset.pack(side=TOP, anchor=W, padx=50)
 
         self.hilo = checkbox.CheckBox(self.container, 'Show High Low for Day',  self.mp_hilo)
         self.hilo.pack(side=TOP, anchor=W, padx=50)
@@ -78,22 +78,29 @@ class MainPageSettings(Frame):
             self.stocks.change_color_all(mode)
 
     def change_a_setting(self, zone_to_change):
-        if zone_to_change == zone.SettingsPage.main_page_high_low:
-            varLoader.toggle_preferences(self.mp_hilo)
+        print "~~~~~~~ INSIDE CHANGE A SETTING"
+        print zone_to_change
+        if zone_to_change == zone.SettingsPage.main_page_stocks:
+            varLoader.toggle_preferences(self.mp_stocks)
+            self.stocks.update_check_box_image()
+
+
+        # elif zone_to_change == zone.SettingsPage.main_page_high_low:
+        #     varLoader.toggle_preferences(self.mp_humidity)
+        #     self.humidity.update_check_box_image()
+
+        elif zone_to_change == zone.SettingsPage.main_page_news:
+            varLoader.toggle_preferences(self.mp_news)
+            self.news.update_check_box_image()
+
+        elif zone_to_change == zone.SettingsPage.main_page_sunrise:
+            varLoader.toggle_preferences(self.mp_sunrise)
+            self.sunrise.update_check_box_image()
+
+        elif zone_to_change == zone.SettingsPage.main_page_sunset:
+            varLoader.toggle_preferences(self.mp_sunset)
+            self.sunset.update_check_box_image()
 
         elif zone_to_change == zone.SettingsPage.main_page_high_low:
             varLoader.toggle_preferences(self.mp_hilo)
-
-        elif zone_to_change == zone.SettingsPage.main_page_high_low:
-            varLoader.toggle_preferences(self.mp_hilo)
-
-        elif zone_to_change == zone.SettingsPage.main_page_high_low:
-            varLoader.toggle_preferences(self.mp_hilo)
-
-        elif zone_to_change == zone.SettingsPage.main_page_high_low:
-            varLoader.toggle_preferences(self.mp_hilo)
-
-        elif zone_to_change == zone.SettingsPage.main_page_high_low:
-            varLoader.toggle_preferences(self.mp_hilo)
-
-
+            self.hilo.update_check_box_image()
