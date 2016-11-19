@@ -12,16 +12,17 @@ power_switch = PowerSwitch()
 camera = Camera(var.wall_light_color)
 ui_manager = UIManager()
 print var.other_data
-manual_mode = var.other_data['manual_mode']
-if manual_mode:
+if var.other_data['manual_mode']:
     camera.turn_off()   # todo add onto this . close windows?
 while True:
-    if manual_mode:
+
+    if var.other_data['manual_mode']:
         # Manual Mode
         ui_manager.update_all_manually()
 
     else:
-        camera.turn_on()
+        camera.turn_on()                         #todo IF THIS IS PASS BY REFERENCE. ADD CAMErA INTO
+                                                 #todo UI MANAger, and only call camera.turn_on when its toggled
         # Camera Mode - relies on Camera
         camera.update_values()
         cursor_location = camera.get_cursor()

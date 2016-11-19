@@ -148,6 +148,11 @@ class UIManager:
             self.main_page_settings.change_a_setting(self.current_zone)
         return "break"
 
+    def toggle_manual_mode(self, event=None):
+        print "Enter SPACE HAPPENED"
+        # todo FINISH THIS
+
+
     # ---------------------------------- Main Page ----------------------------------- #
 
     def open_main_page(self):

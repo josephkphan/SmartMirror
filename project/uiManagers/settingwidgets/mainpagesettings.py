@@ -16,9 +16,9 @@ class MainPageSettings(Frame):
 
         # ------------------------- Color ------------------------------ #
 
-        self.color_stocks=selected_off
-        self.color_news=selected_off
-        self.color_sunset=selected_off
+        self.color_stocks = selected_off
+        self.color_news = selected_off
+        self.color_sunset = selected_off
         self.color_sunrise = selected_off
         self.color_hilo = selected_off
 
@@ -49,7 +49,7 @@ class MainPageSettings(Frame):
         self.sunset = checkbox.CheckBox(self.container, 'Show Sunset time', self.mp_sunset)
         self.sunset.pack(side=TOP, anchor=W, padx=50)
 
-        self.hilo = checkbox.CheckBox(self.container, 'Show High Low for Day',  self.mp_hilo)
+        self.hilo = checkbox.CheckBox(self.container, 'Show High Low for Day', self.mp_hilo)
         self.hilo.pack(side=TOP, anchor=W, padx=50)
 
     def change_color_sunset(self, mode):
