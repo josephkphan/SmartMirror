@@ -1,4 +1,3 @@
-
 from project.resources import var
 from webinfo import *
 from cursorhandler import *
@@ -13,7 +12,7 @@ from project.uiManagers.weatherpagewidgets.hourlyweather import *
 from project.uiManagers.weatherpagewidgets.currentweather import *
 from project.uiManagers.settingwidgets.weathersettings import *
 from project.uiManagers.settingwidgets.mainpagesettings import *
-from project.resources import zone, pagegraph, var
+from project.resources import zone, pagegraph, var, varLoader
 from project.resources.page import *
 
 
@@ -32,7 +31,10 @@ class UIManager:
         self.tk2 = Tk()
 
         # initializing Keys
-        self.key_up, self.key_down, self.key_left, self.key_right = 0,1,2,3
+        self.key_up, self.key_down, self.key_left, self.key_right = 0, 1, 2, 3
+
+        # camera select mode
+        self.camera_select_mode = False
 
         # Main Page Widgets
         self.main_weather, self.main_clock, self.main_news, self.main_settings = None, None, None, None
@@ -84,6 +86,7 @@ class UIManager:
         self.tk.bind("<Up>", self.up_click)
         self.tk.bind("<Down>", self.down_click)
         self.tk.bind("<Control_R>", self.enter_click)
+        self.tk.bind("<Control_L>", self.toggle_manual_mode)
 
         # Display data onto UI Window
 
@@ -132,7 +135,7 @@ class UIManager:
         self.directional_click(self.key_down)
         return "break"
 
-    def directional_click(self,key_click):
+    def directional_click(self, key_click):
         if self.current_page == Page.main:
             self.current_zone = pagegraph.Main[self.current_zone][key_click]
         elif self.current_page == Page.weather:
@@ -150,10 +153,14 @@ class UIManager:
 
     def toggle_manual_mode(self, event=None):
         print "Enter SPACE HAPPENED"
+        varLoader.change_other_data('manual_mode', not var.other_data['manual_mode'])
         # todo FINISH THIS
 
+    def toggle_select_mode_for_camera(self, event=None):
+        print  "toggling select mode for camera"
+        self.camera_select_mode = not self.camera_select_mode
 
-    # ---------------------------------- Main Page ----------------------------------- #
+        # ---------------------------------- Main Page ----------------------------------- #
 
     def open_main_page(self):
 
@@ -308,7 +315,7 @@ class UIManager:
         self.tk2.update()
 
     # --------------------------------- Updating Zones ------------------------------------- #
-    def get_current_zone_from_cursor(self,cursor):
+    def get_current_zone_from_cursor(self, cursor):
         self.current_zone = self.cursor_handler.update_cursor(cursor, self.current_page)
 
     def update_zone(self):
@@ -416,7 +423,7 @@ class UIManager:
     # -------------------------------- Updating Pages ------------------------------------#
 
     def update_page(self, cur_zone):
-        if cur_zone is not None:    # need this or it'll change page like crazy
+        if cur_zone is not None:  # need this or it'll change page like crazy
             self.change_page(self.find_page_to_change_to())
 
     # ---------------------------------- HELPER ----------------------------------- #
@@ -443,7 +450,7 @@ class UIManager:
         return None
 
     def change_page(self, new_page):
-        if new_page is not None:    # safety check for manual mode
+        if new_page is not None:  # safety check for manual mode
             # Switching to Main Page
             if new_page == Page.main:
                 # Switching from Weather
@@ -470,6 +477,3 @@ class UIManager:
                 self.current_page = Page.settings
                 self.open_settings_page()
                 self.current_zone = zone.SettingsPage.none
-
-
-
