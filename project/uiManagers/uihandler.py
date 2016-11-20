@@ -87,6 +87,7 @@ class UIManager:
         self.tk.bind("<Down>", self.down_click)
         self.tk.bind("<Control_R>", self.enter_click)
         self.tk.bind("<Control_L>", self.toggle_manual_mode)
+        self.tk.bind("<Shift_L>", self.toggle_select_mode_for_camera)
 
         # Display data onto UI Window
 
@@ -280,7 +281,7 @@ class UIManager:
         self.canvas.move(self.cursor, diff_x, diff_y)
         self.circle_coord = cursor
 
-        self.update_page(self.selection_handler.update(self.current_zone))
+        self.update_page(self.selection_handler.update(self.current_zone, self.camera_select_mode))
 
         # Update tk
         self.update_tk()
