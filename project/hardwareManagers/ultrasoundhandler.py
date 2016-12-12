@@ -10,22 +10,22 @@ class UltraSoundHandler:
         # todo get code
 
         # GPIO Mode (BOARD / BCM)
-        self.GPIO.setmode(GPIO.BCM)
+        GPIO.setmode(GPIO.BCM)
 
         # set GPIO Pins
         self.GPIO_TRIGGER = 18
         self.GPIO_ECHO = 24
 
         # set GPIO direction (IN / OUT)
-        self.GPIO.setup(self.GPIO_TRIGGER, GPIO.OUT)
-        self.GPIO.setup(self.GPIO_ECHO, GPIO.IN)
+        GPIO.setup(self.GPIO_TRIGGER, GPIO.OUT)
+        GPIO.setup(self.GPIO_ECHO, GPIO.IN)
 
         # initialize time
         self.stopTime, self.startTime, self.timeElapsed = None, None, None
 
         self.consecutiveHits = 0
 
-    def distance(self):
+    def get_distance(self):
         # set Trigger to HIGH
         GPIO.output(self.GPIO_TRIGGER, True)
 
@@ -55,7 +55,7 @@ class UltraSoundHandler:
     def wait_to_start_up(self):
 
         while True:
-            dist = self.distance()
+            dist = self.get_distance()
             print ("Measured Distance = %.1f cm" % dist)
             if dist > 150:
                 self.consecutiveHits = 0
@@ -66,5 +66,5 @@ class UltraSoundHandler:
                 #     os.system("python test_image.py")
             time.sleep(.1)
 
-    def get_distance(self):
+    def get_last_distance(self):
         return self.distance
