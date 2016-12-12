@@ -5,6 +5,7 @@ import requests
 import traceback
 
 
+# used to gather information from the web.
 class WebInfo:
     def __init__(self):
         self.key = var.weather_api_token
@@ -21,13 +22,16 @@ class WebInfo:
             print "Error: %s. Cannot get ip." % e
             return None
 
+    # Updates the information for Weather, and Newsheadlines
     def update(self):
-        print "~~~~~UPDATING INFO~~~~"
         weather_obj, location_obj, feed = None, None, None
+
+        # Gets IP information
         temp_ip = self.get_ip()
-        print "~~~~~~~~~~~~~IP RETURNED~~~~~~~~~~~"
         print temp_ip
         if temp_ip is not None:
+
+            # Gets News information
             try:
                 if var.country_code is None:
                     headlines_url = "https://news.google.com/news?ned=us&output=rss"
@@ -39,6 +43,7 @@ class WebInfo:
                 traceback.print_exc()
                 print "Error: %s. Cannot get news." % e
 
+            # Gets weather information
             try:
                 # Get location from web
                 location_req_url = "http://freegeoip.net/json/%s" % temp_ip
@@ -59,3 +64,4 @@ class WebInfo:
                 print "Error: %s. Cannot get weather." % e
 
         varLoader.update_data(weather_obj, location_obj, feed)
+

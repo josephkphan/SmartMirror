@@ -62,6 +62,10 @@ class UIManager:
         self.circle_diameter = tk_cursor_diameter  # todo scale the cursor to match screen size
         self.cursor = self.canvas.create_oval(0, 0, tk_cursor_diameter, tk_cursor_diameter,
                                               fill="blue", outline="#DDD", width=tk_cursor_outline_thickness)
+
+        #todo make a bunch of premade lines and turn them on or off depending on which page it's on
+        #@thomas Nguyen
+
         # Vertical line
         self.line1 = self.canvas.create_line((camera_width / 2 + tk_cursor_diameter / 2, 0),
                                              (camera_width / 2 + tk_cursor_diameter / 2,
