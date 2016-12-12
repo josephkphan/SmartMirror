@@ -1,6 +1,6 @@
-import sys
-
-sys.path.append("../..")
+# import sys
+#
+# sys.path.append("../..")
 # from project.hardwareManagers.camera import *
 # from project.hardwareManagers.powerswitch import *
 from project.hardwareManagers.ultrasoundhandler import *
