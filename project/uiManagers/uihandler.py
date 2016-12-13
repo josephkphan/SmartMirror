@@ -38,6 +38,7 @@ class UIManager:
 
         # Main Page Widgets
         self.main_weather, self.main_clock, self.main_news, self.main_settings = None, None, None, None
+        self.main_refresh = None
 
         # Weather Page Widgets
         self.weather_current, self.weather_hourly, self.weather_week = None, None, None

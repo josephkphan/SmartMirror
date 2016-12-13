@@ -1,6 +1,6 @@
 from Tkinter import *
 from PIL import Image, ImageTk
-from project.resources import var, lookup
+from project.resources import var, lookup, imagecolor
 
 
 class Weather(Frame):
@@ -24,12 +24,16 @@ class Weather(Frame):
         self.color_forecast = selected_off
         self.color_currently = selected_off
         self.color_location = selected_off
+        self.color_weather = selected_off
+        self.color_icon = selected_off
 
         # Initialize Labels
         self.temperature_label = Label(self.degree_frame, font=(font_style, 94), fg=selected_off, bg=background_color)
         self.temperature_label.pack(side=LEFT, anchor=N)
+        self.photo, self.photo_on = None, None
         self.icon_label = Label(self.degree_frame, bg=background_color)
         self.icon_label.pack(side=LEFT, anchor=N, padx=20)
+
         self.currently_label = Label(self, font=(font_style, 28), fg=selected_off, bg=background_color)
         self.currently_label.pack(side=TOP, anchor=W)
         self.forecast_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
@@ -63,10 +67,11 @@ class Weather(Frame):
                 image = Image.open(icon)
                 image = image.resize((100, 100), Image.ANTIALIAS)
                 image = image.convert('RGB')
-                photo = ImageTk.PhotoImage(image)
+                self.photo = ImageTk.PhotoImage(image)
+                self.photo_on = ImageTk.PhotoImage(imagecolor.tint(image, var.color_hex_codes[var.selected_on]))
+                self.icon_label.config(image=self.photo)
+                self.icon_label.image = self.photo
 
-                self.icon_label.config(image=photo)
-                self.icon_label.image = photo
         else:
             # remove image
             self.icon_label.config(image='')
@@ -96,6 +101,7 @@ class Weather(Frame):
         self.change_color_forecast(mode)
         self.change_color_temperature(mode)
         self.change_color_location(mode)
+        self.change_color_icon(mode)
 
     def change_color_temperature(self, mode):
         if self.color_temperature != mode:
@@ -116,6 +122,15 @@ class Weather(Frame):
         if self.color_location != mode:
             self.color_location = mode
             self.location_label.config(foreground=self.color_location)
+
+    def change_color_icon(self, mode):
+        if self.color_icon != mode:
+            if mode == var.selected_on:
+                print "HAPPEN"
+                self.icon_label.config(image=self.photo_on)
+            else:
+                self.icon_label.config(image=self.photo)
+            self.color_icon = mode
 
     @staticmethod
     def convert_kelvin_to_fahrenheit(kelvin_temp):          # todo create a settings for user!!! <-- COOL IDEA

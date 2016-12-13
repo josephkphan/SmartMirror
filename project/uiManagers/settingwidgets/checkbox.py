@@ -1,6 +1,6 @@
 from Tkinter import *
 from PIL import Image, ImageTk
-from project.resources import var
+from project.resources import var, imagecolor
 from enum import Enum
 
 
@@ -38,9 +38,7 @@ class CheckBox(Frame):
         self.empty_check_box_off = ImageTk.PhotoImage(image)
 
         # Checked off and yellow
-        image = Image.open("assets/empty_check_box_on.png")
-        image = image.resize((25, 25), Image.ANTIALIAS)
-        image = image.convert('RGB')
+        image = imagecolor.tint(image,var.color_hex_codes[var.selected_on])
         self.empty_check_box_on = ImageTk.PhotoImage(image)
 
         # Not Checked off and white
@@ -50,9 +48,7 @@ class CheckBox(Frame):
         self.filled_check_box_off = ImageTk.PhotoImage(image)
 
         # Not Checked off and yellow
-        image = Image.open("assets/check_box_on.png")
-        image = image.resize((25, 25), Image.ANTIALIAS)
-        image = image.convert('RGB')
+        image = imagecolor.tint(image, var.color_hex_codes[var.selected_on])
         self.filled_check_box_on = ImageTk.PhotoImage(image)
 
         # Initializes the Label

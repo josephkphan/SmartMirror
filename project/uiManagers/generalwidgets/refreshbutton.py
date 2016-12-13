@@ -1,10 +1,9 @@
 from Tkinter import *
 from PIL import Image, ImageTk
-from project.resources import var, imagecolor
+from project.resources import var
 
-
-
-class SettingsButton(Frame):
+#Not yet tested
+class RefreshButton(Frame):
     def __init__(self, parent):
         # keep an instance of the constant variables in var file
         # (just so you don't need to continually say var._____)
@@ -18,13 +17,15 @@ class SettingsButton(Frame):
 
         # initialize the 2 possible images
         # Settings - white
-        image = Image.open("assets/settings.png")  # todo DOesnt WOrk! FIX THIS
+        image = Image.open("assets/refresh.png")  # todo DOesnt WOrk! FIX THIS
         image = image.resize((50, 50), Image.ANTIALIAS)
         image = image.convert('RGB')
         self.photo_not_selected = ImageTk.PhotoImage(image)
 
         # Settings - Yellow
-        image = imagecolor.tint(image, var.color_hex_codes[var.selected_on])
+        image = Image.open("assets/refresh_on.png")  # todo DOesnt WOrk! FIX THIS
+        image = image.resize((50, 50), Image.ANTIALIAS)
+        image = image.convert('RGB')
         self.photo_selected = ImageTk.PhotoImage(image)
 
         # Packs in the icon
@@ -32,14 +33,14 @@ class SettingsButton(Frame):
         self.icon_label.image = self.photo_not_selected
         self.icon_label.pack(side=LEFT, anchor=N)
 
-        # Adds in "settings label"
-        self.settings_text = "Settings"
+        # Adds in label
+        self.settings_text = "Refresh Now"
         self.settings_text_label = Label(self, text=self.settings_text, font=(font_style, 24), fg=selected_off,
                                       bg=background_color)
         self.settings_text_label.pack(side=LEFT, anchor=CENTER)
 
     # Changes color based on passed in mode
-    def change_color_setting(self, mode):
+    def change_color(self, mode):
         if self.settings_selected != mode:
             self.settings_selected = mode
             if self.settings_selected == var.selected_on:

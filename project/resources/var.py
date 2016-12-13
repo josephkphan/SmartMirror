@@ -5,7 +5,7 @@ wall_light_color = True
 
 # -------------------- Coloring ------------------------ #
 selected_off = 'white'
-selected_on = 'yellow'
+selected_on = 'deep pink'
 background_color = 'black'
 font_style = 'Helvetica'
 # -------------------- For Web Parsing -------------------- #
@@ -13,7 +13,8 @@ font_style = 'Helvetica'
 ip = '<IP>'
 country_code = 'us'  # todo read this from file
 f = open('key.txt', 'r')
-weather_api_token = f.read().decode('base64', 'strict')
+weather_api_token = f.read()
+print weather_api_token
 f.close()
 
 # -------------------- Window Sizing -------------------- #
@@ -78,3 +79,10 @@ other_data = {}
 varLoader.get_other()
 
 print other_data
+
+# ---------------------- Images ----------------------- #
+color_hex_codes= {
+    'yellow' : '#ffff00',
+    'deep sky blue' : '#00bfff',
+    'deep pink' : '#ff1493'
+}
