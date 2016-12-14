@@ -66,25 +66,6 @@ update_time = 10  # in minutes
 saved_data = {}
 varLoader.get_saved_data()
 
-# -------------------- Key ---------------------- #
-
-pref_keys = {
-    # Main Page Keys
-    'mp_stocks' : 'main_page_stocks',
-    'mp_news' : 'main_page_news',
-    'mp_sunset': 'main_page_sunset',
-    'mp_sunrise' : 'main_page_sunrise',
-    'mp_humidity' : 'main_page_humidity',
-    'mp_hilo' : 'main_page_high_low',
-
-    # Color Scheme Keys
-    'cp_yellow' : 'color_page_yellow',
-    'cp_blue': 'color_page_blue',
-    'cp_red': 'color_page_red',
-    'cp_pink': 'color_page_yellow',
-    'cp_green': 'color_page_yellow'
-
-}
 
 # -------------------- Settings ----------------------- #
 preferences = {}
@@ -94,7 +75,7 @@ varLoader.get_preferences()
 
 other_data = {}
 varLoader.get_other()
-selected_on = color_hex_codes[preferences['color']]
+selected_on = preferences['color']
 print selected_on
 print other_data
 

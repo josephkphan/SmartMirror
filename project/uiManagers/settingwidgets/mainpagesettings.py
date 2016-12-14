@@ -22,6 +22,12 @@ class MainPageSettings(Frame):
         self.color_sunrise = selected_off
         self.color_hilo = selected_off
 
+        # Key from varLoader Preferences
+        self.key_stocks = 'main_page_stocks'
+        self.key_news = 'main_page_news'
+        self.key_sunrise ='main_page_sunrise'
+        self.key_sunset ='main_page_sunset'
+        self.key_hilo ='main_page_high_low'
 
         # --------------------------- Main Page ------------------------------ #
 
@@ -29,19 +35,19 @@ class MainPageSettings(Frame):
                                               fg=selected_off, bg=background_color)
         self.weather_page_title_label.pack(side=TOP, anchor=W)
 
-        self.stocks = checkbox.CheckBox(self.container, 'Show Stocks', 'main_page_stocks')
+        self.stocks = checkbox.CheckBox(self.container, 'Show Stocks', self.key_stocks)
         self.stocks.pack(side=TOP, anchor=W, padx=50)
 
-        self.news = checkbox.CheckBox(self.container, 'Show News', 'main_page_news')
+        self.news = checkbox.CheckBox(self.container, 'Show News', self.key_news)
         self.news.pack(side=TOP, anchor=W, padx=50)
 
-        self.sunrise = checkbox.CheckBox(self.container, 'Show Sunrise time', 'main_page_sunrise')
+        self.sunrise = checkbox.CheckBox(self.container, 'Show Sunrise time',  self.key_sunrise)
         self.sunrise.pack(side=TOP, anchor=W, padx=50)
 
-        self.sunset = checkbox.CheckBox(self.container, 'Show Sunset time','main_page_sunset')
+        self.sunset = checkbox.CheckBox(self.container, 'Show Sunset time', self.key_sunset)
         self.sunset.pack(side=TOP, anchor=W, padx=50)
 
-        self.hilo = checkbox.CheckBox(self.container, 'Show High Low for Day', 'main_page_high_low')
+        self.hilo = checkbox.CheckBox(self.container, 'Show High Low for Day', self.key_hilo)
         self.hilo.pack(side=TOP, anchor=W, padx=50)
 
     def change_color_sunset(self, mode):
@@ -73,7 +79,7 @@ class MainPageSettings(Frame):
         print "~~~~~~~ INSIDE CHANGE A SETTING"
         print zone_to_change
         if zone_to_change == zone.SettingsPage.main_page_stocks:
-            varLoader.toggle_preferences(self.mp_stocks)
+            varLoader.toggle_preferences(self.key_stocks)
             self.stocks.update_check_box_image()
 
 
@@ -82,17 +88,17 @@ class MainPageSettings(Frame):
         #     self.humidity.update_check_box_image()
 
         elif zone_to_change == zone.SettingsPage.main_page_news:
-            varLoader.toggle_preferences(self.mp_news)
+            varLoader.toggle_preferences(self.key_news)
             self.news.update_check_box_image()
 
         elif zone_to_change == zone.SettingsPage.main_page_sunrise:
-            varLoader.toggle_preferences(self.mp_sunrise)
+            varLoader.toggle_preferences( self.key_sunrise)
             self.sunrise.update_check_box_image()
 
         elif zone_to_change == zone.SettingsPage.main_page_sunset:
-            varLoader.toggle_preferences(self.mp_sunset)
+            varLoader.toggle_preferences( self.key_sunset)
             self.sunset.update_check_box_image()
 
         elif zone_to_change == zone.SettingsPage.main_page_high_low:
-            varLoader.toggle_preferences(self.mp_hilo)
+            varLoader.toggle_preferences(self.key_hilo)
             self.hilo.update_check_box_image()

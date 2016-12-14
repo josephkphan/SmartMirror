@@ -96,6 +96,12 @@ class UIManager:
         self.tk.bind("<Control_L>", self.toggle_manual_mode)
         self.tk.bind("<Shift_L>", self.toggle_select_mode_for_camera)
 
+
+        #FIRST TIME OPENING MIRROR
+        if not var.saved_data:
+            self.web_info.update() #todo if this fails, exit program sicne you dont have any data
+
+
         # Display data onto UI Window
 
         self.current_zone = zone.MainPage.none

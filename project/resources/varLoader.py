@@ -22,6 +22,7 @@ def get_saved_data():
             var.saved_data = json.load(f)
     except IOError as e:
         print "Unable to open file"  # Does not exist OR no read permissions
+        #todo end the program is there isnt an internet
 
 
 # Updated the current gathered data from web, and saves it (by writing to file)
@@ -76,15 +77,20 @@ def get_preferences():
         # If preferences were never created, create the preference file
 
         # Main page Preferences
-        var.preferences[var.pref_keys['mp_stocks']] = True
-        var.preferences[var.pref_keys['mp_news']] = True
-        var.preferences[var.pref_keys['mp_sunset']] = True
-        var.preferences[var.pref_keys['mp_sunrise']] = True
-        var.preferences[var.pref_keys['mp_humidity']] = True
-        var.preferences[var.pref_keys['mp_hilo']] = True
+        var.preferences['main_page_stocks'] = True
+        var.preferences['main_page_news'] = True
+        var.preferences['main_page_sunset'] = True
+        var.preferences['main_page_sunrise'] = True
+        var.preferences['main_page_high_low'] = True
 
         # Color Preferences
         var.preferences['color'] = 'yellow'
+        var.preferences['yellow'] = True
+        var.preferences['red'] = False
+        var.preferences['blue'] = False
+        var.preferences['green'] = False
+        var.preferences['pink'] = False
+
         update_preferences()  # Saves to file
 
 

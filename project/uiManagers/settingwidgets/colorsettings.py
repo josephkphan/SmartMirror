@@ -13,6 +13,7 @@ class ColorSettings(Frame):
         # Main Page Settings
         self.container = Frame(self, bg=background_color)
         self.container.pack(side=TOP)
+        self.current_color = var.preferences['color']
 
         # ------------------------- Color ------------------------------ #
 
@@ -24,23 +25,11 @@ class ColorSettings(Frame):
 
         # ------------------------- Keys ----------------------------- #
 
-        self.bool_yellow, self.bool_blue, self.bool_pink, self.bool_green, self.bool_red = False, False, False, False, False
-        selected_hex_code = var.preferences['color']
-        if selected_hex_code == var.color_hex_codes['yellow']:
-            self.bool_yellow = True
-        elif selected_hex_code == var.color_hex_codes['blue']:
-            self.bool_blue = True
-        elif selected_hex_code == var.color_hex_codes['pink']:
-            self.bool_pink = True
-        elif selected_hex_code == var.color_hex_codes['green']:
-            self.bool_green = True
-        elif selected_hex_code == var.color_hex_codes['red']:
-            self.bool_red = True
-        self.mp_stocks = var.pref_keys['mp_stocks']
-        self.mp_news = var.pref_keys['mp_news']
-        self.mp_sunrise = var.pref_keys['mp_sunrise']
-        self.mp_sunset = var.pref_keys['mp_sunset']
-        self.mp_hilo = var.pref_keys['mp_hilo']
+        self.key_yellow = 'color_page_yellow'
+        self.key_red = 'color_page_red'
+        self.key_green='color_page_green'
+        self.key_pink='color_page_pink'
+        self.key_blue='color_page_blue'
 
         # --------------------------- Main Page ------------------------------ #
 
@@ -48,19 +37,19 @@ class ColorSettings(Frame):
                                               fg=selected_off, bg=background_color)
         self.weather_page_title_label.pack(side=TOP, anchor=W)
 
-        self.stocks = checkbox.CheckBox(self.container, 'Yellow', self.mp_stocks)
+        self.stocks = checkbox.CheckBox(self.container, 'Yellow', self.key_yellow)
         self.stocks.pack(side=TOP, anchor=W, padx=50)
 
-        self.news = checkbox.CheckBox(self.container, 'Blue', self.mp_news)
+        self.news = checkbox.CheckBox(self.container, 'Blue', self.key_blue)
         self.news.pack(side=TOP, anchor=W, padx=50)
 
-        self.sunrise = checkbox.CheckBox(self.container, 'Pink', self.mp_sunrise)
+        self.sunrise = checkbox.CheckBox(self.container, 'Pink', self.key_pink)
         self.sunrise.pack(side=TOP, anchor=W, padx=50)
 
-        self.sunset = checkbox.CheckBox(self.container, 'Green', self.mp_sunset)
+        self.sunset = checkbox.CheckBox(self.container, 'Green', self.key_green )
         self.sunset.pack(side=TOP, anchor=W, padx=50)
 
-        self.hilo = checkbox.CheckBox(self.container, 'Red', self.mp_hilo)
+        self.hilo = checkbox.CheckBox(self.container, 'Red', self.key_red)
         self.hilo.pack(side=TOP, anchor=W, padx=50)
 
     def change_color_green(self, mode):
