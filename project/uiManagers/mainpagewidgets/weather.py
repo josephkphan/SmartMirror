@@ -68,7 +68,7 @@ class Weather(Frame):
                 image = image.resize((100, 100), Image.ANTIALIAS)
                 image = image.convert('RGB')
                 self.photo = ImageTk.PhotoImage(image)
-                self.photo_on = ImageTk.PhotoImage(imagecolor.tint(image, var.color_hex_codes[var.selected_on]))
+                self.photo_on = ImageTk.PhotoImage(imagecolor.tint(image, var.selected_on))
                 self.icon_label.config(image=self.photo)
                 self.icon_label.image = self.photo
 

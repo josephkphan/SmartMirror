@@ -74,12 +74,17 @@ def get_preferences():
         print "Unable to open file"  # Does not exist OR no read permissions
         # Preferences Default
         # If preferences were never created, create the preference file
+
+        # Main page Preferences
         var.preferences[var.pref_keys['mp_stocks']] = True
         var.preferences[var.pref_keys['mp_news']] = True
         var.preferences[var.pref_keys['mp_sunset']] = True
         var.preferences[var.pref_keys['mp_sunrise']] = True
         var.preferences[var.pref_keys['mp_humidity']] = True
         var.preferences[var.pref_keys['mp_hilo']] = True
+
+        # Color Preferences
+        var.preferences['color'] = 'yellow'
         update_preferences()  # Saves to file
 
 

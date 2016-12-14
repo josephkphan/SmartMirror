@@ -38,7 +38,7 @@ class CheckBox(Frame):
         self.empty_check_box_off = ImageTk.PhotoImage(image)
 
         # Checked off and yellow
-        image = imagecolor.tint(image,var.color_hex_codes[var.selected_on])
+        image = imagecolor.tint(image,var.selected_on)
         self.empty_check_box_on = ImageTk.PhotoImage(image)
 
         # Not Checked off and white
@@ -48,7 +48,7 @@ class CheckBox(Frame):
         self.filled_check_box_off = ImageTk.PhotoImage(image)
 
         # Not Checked off and yellow
-        image = imagecolor.tint(image, var.color_hex_codes[var.selected_on])
+        image = imagecolor.tint(image, var.selected_on)
         self.filled_check_box_on = ImageTk.PhotoImage(image)
 
         # Initializes the Label

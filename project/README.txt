@@ -20,4 +20,5 @@ Libraries Needed
         feedparser
         requests
         traceback
+        RPIO GPIO
 

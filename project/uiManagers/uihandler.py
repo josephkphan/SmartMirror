@@ -12,6 +12,7 @@ from project.uiManagers.weatherpagewidgets.hourlyweather import *
 from project.uiManagers.weatherpagewidgets.currentweather import *
 from project.uiManagers.settingwidgets.weathersettings import *
 from project.uiManagers.settingwidgets.mainpagesettings import *
+from project.uiManagers.settingwidgets.colorsettings import *
 from project.resources import zone, pagegraph, var, varLoader
 from project.resources.page import *
 
@@ -47,6 +48,7 @@ class UIManager:
 
         # Setting Widgets
         self.main_page_settings, self.weather_page_settings = None, None
+        self.color_scheme_settings = None
 
         # General Widgets
         self.returnButton, self.last_updated = None, None
@@ -155,6 +157,7 @@ class UIManager:
         if self.current_page == Page.settings:
             print "HEEREEEEEEEEE"
             self.main_page_settings.change_a_setting(self.current_zone)
+            self.color_scheme_settings.change_a_setting(self.current_zone)
         return "break"
 
     def toggle_manual_mode(self, event=None):
@@ -262,7 +265,10 @@ class UIManager:
         self.returnButton = ReturnButton(self.top_frame)
         self.returnButton.pack(side=TOP, anchor=W, padx=15, pady=15)
         self.main_page_settings = MainPageSettings(self.top_frame)
+        print " CHECKPOINT"
         self.main_page_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
+        self.color_scheme_settings = ColorSettings(self.top_frame)
+        self.color_scheme_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
         # self.weather_page_settings = WeatherSettings(self.top_frame)
         # self.weather_page_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
 
@@ -272,6 +278,8 @@ class UIManager:
         self.returnButton = None
         self.main_page_settings.destroy()
         self.main_page_settings = None
+        self.color_scheme_settings.destroy()
+        self.color_scheme_settings = None
         # self.weather_page_settings.destroy()
         # self.weather_page_settings = None
 

@@ -18,13 +18,13 @@ class SettingsButton(Frame):
 
         # initialize the 2 possible images
         # Settings - white
-        image = Image.open("assets/settings.png")  # todo DOesnt WOrk! FIX THIS
+        image = Image.open("assets/settings.png")
         image = image.resize((50, 50), Image.ANTIALIAS)
         image = image.convert('RGB')
         self.photo_not_selected = ImageTk.PhotoImage(image)
 
         # Settings - Yellow
-        image = imagecolor.tint(image, var.color_hex_codes[var.selected_on])
+        image = imagecolor.tint(image, var.selected_on)
         self.photo_selected = ImageTk.PhotoImage(image)
 
         # Packs in the icon
