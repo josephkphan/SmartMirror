@@ -39,7 +39,7 @@ class CheckBox(Frame):
         self.image_unchecked = ImageTk.PhotoImage(image)
 
         # Checked off and yellow
-        image = imagecolor.tint(image, var.color_hex_codes[var.selected_on])
+        image = imagecolor.tint(image, var.selected_on)
         self.image_unchecked_selected = ImageTk.PhotoImage(image)
 
         # Not Checked off and white
@@ -50,7 +50,7 @@ class CheckBox(Frame):
         self.image_checked = ImageTk.PhotoImage(image)
 
         # Not Checked off and yellow
-        image = imagecolor.tint(image, var.color_hex_codes[var.selected_on])
+        image = imagecolor.tint(image, var.selected_on)
         self.image_checked_selected = ImageTk.PhotoImage(image)
 
         # Initializes the Label
@@ -108,8 +108,7 @@ class CheckBox(Frame):
 
     # Will be called when a user wants to change the preference. It will toggle the box image
     def update_check_box_image(self):
-        print 'IN CHECK BOX'
-        print var.preferences[self.key]
+
         if var.preferences[self.key]:
             # Will end up as a CHECKED box
             if self.check_box_mode == CheckBoxMode.unchecked:
@@ -134,5 +133,5 @@ class CheckBox(Frame):
 
 
     def update_colored_boxes(self):
-        self.image_unchecked_selected = ImageTk.PhotoImage(imagecolor.tint(self.plain_empty_checked_box, var.color_hex_codes[var.selected_on]))
-        self.image_checked_selected = ImageTk.PhotoImage(imagecolor.tint(self.plain_checked_box, var.color_hex_codes[var.selected_on]))
+        self.image_unchecked_selected = ImageTk.PhotoImage(imagecolor.tint(self.plain_empty_checked_box, var.selected_on))
+        self.image_checked_selected = ImageTk.PhotoImage(imagecolor.tint(self.plain_checked_box, var.selected_on))

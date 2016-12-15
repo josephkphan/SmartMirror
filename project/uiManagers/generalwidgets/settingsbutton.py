@@ -24,7 +24,7 @@ class SettingsButton(Frame):
         self.photo_not_selected = ImageTk.PhotoImage(image)
 
         # Settings - Yellow
-        image = imagecolor.tint(image, var.color_hex_codes[var.selected_on])
+        image = imagecolor.tint(image, var.selected_on)
         self.photo_selected = ImageTk.PhotoImage(image)
 
         # Packs in the icon

@@ -75,7 +75,7 @@ varLoader.get_preferences()
 
 other_data = {}
 varLoader.get_other()
-selected_on = preferences['color']
+selected_on = color_hex_codes[preferences['color']]
 print selected_on
 print other_data
 

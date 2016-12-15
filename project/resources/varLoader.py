@@ -101,16 +101,11 @@ def toggle_preferences(key):
 
 def change_color_scheme(new_color):
 
-    print " ~~~~~~~~~~~~~~~~~~~~~~~~~~ "
-    print var.preferences['color']
     var.preferences[var.preferences['color']] = False   #turns old color off
-    print  var.preferences[var.preferences['color']]
     var.preferences[new_color] = True  # Turns new color on
+    var.preferences['color'] = new_color  # updates new color   #TODO PROBLEM IS HERE NEW COLOR IS STILL HEX NEED TEXT
     print new_color
-    var.preferences['color'] = new_color  #updates new color
-    var.selected_on = var.preferences['color']
-    print "~~~~~~~~~~~~~~~~~~~~~~~~~"
-    print var.preferences
+    var.selected_on = var.color_hex_codes[new_color] # PROBLEM
     update_preferences()
 
 # ------------------------ Other Data -------------------------- #
