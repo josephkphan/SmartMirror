@@ -43,8 +43,8 @@ class UIManager:
 
         # Weather Page Widgets
         self.weather_current, self.weather_hourly, self.weather_week = None, None, None
-        self.weather_day = {}
-        self.weather_hour = {}
+        self.weather_daily = {}
+        self.weather_hourly = {}
 
         # Setting Widgets
         self.main_page_settings, self.weather_page_settings = None, None
@@ -226,8 +226,8 @@ class UIManager:
 
         # Hourly Weather
         for i in range(0, 24):
-            self.weather_hour[i] = HourlyWeather(self.left_top, i)
-            self.weather_hour[i].pack(side=TOP, anchor=W, padx=5, pady=5)
+            self.weather_hourly[i] = HourlyWeather(self.left_top, i)
+            self.weather_hourly[i].pack(side=TOP, anchor=W, padx=5, pady=5)
 
         # Current weather
         self.weather_current = CurrentWeather(self.right_top)
@@ -239,8 +239,8 @@ class UIManager:
 
         # Daily weather
         for i in range(0, 7):
-            self.weather_day[i] = WeeklyWeather(self.weather_container, i)
-            self.weather_day[i].pack(side=LEFT, anchor=N, padx=0, pady=0)
+            self.weather_daily[i] = DailyWeather(self.weather_container, i)
+            self.weather_daily[i].pack(side=LEFT, anchor=N, padx=0, pady=0)
 
     def close_weather_page(self):
         # Return Button
@@ -253,13 +253,13 @@ class UIManager:
 
         # Daily Weather
         for i in range(0, 7):
-            self.weather_day[i].destroy()
-            self.weather_day[i] = None
+            self.weather_daily[i].destroy()
+            self.weather_daily[i] = None
 
         # Hourly Weather
         for i in range(0, 24):
-            self.weather_hour[i].destroy()
-            self.weather_hour[i] = None
+            self.weather_hourly[i].destroy()
+            self.weather_hourly[i] = None
 
         self.left_top.destroy()
         self.right_top.destroy()
@@ -338,6 +338,7 @@ class UIManager:
     def get_current_zone_from_cursor(self, cursor):
         self.current_zone = self.cursor_handler.update_cursor(cursor, self.current_page)
 
+    # Updates specific page's zones based on current location
     def update_zone(self):
         if self.current_page == Page.main:
             self.update_zone_main_page()
@@ -348,46 +349,53 @@ class UIManager:
         elif self.current_page == Page.settings:
             self.update_zone_settings_page()
 
-    # Helper for Updating Zones
+    # Updates all 4 zones on the main page
     def update_zone_main_page(self):
+        self.main_page_all_off()
         # Weather Zone Selected
         if self.current_zone == zone.MainPage.weather:
             self.main_weather.change_color_all(var.selected_on)
-            self.main_news.change_color_news_title(var.selected_off)
-            self.main_clock.change_color_all(var.selected_off)
-            self.main_settings.change_color_setting(var.selected_off)
         # News Zone Selected
         elif self.current_zone == zone.MainPage.news:
-            self.main_weather.change_color_all(var.selected_off)
             self.main_news.change_color_news_title(var.selected_on)
-            self.main_clock.change_color_all(var.selected_off)
-            self.main_settings.change_color_setting(var.selected_off)
         # Clock Zone Selected
         elif self.current_zone == zone.MainPage.clock:
-            self.main_weather.change_color_all(var.selected_off)
-            self.main_news.change_color_news_title(var.selected_off)
             self.main_clock.change_color_all(var.selected_on)
-            self.main_settings.change_color_setting(var.selected_off)
         # Settings Zone Selected
         elif self.current_zone == zone.MainPage.settings:
-            self.main_weather.change_color_all(var.selected_off)
-            self.main_news.change_color_news_title(var.selected_off)
-            self.main_clock.change_color_all(var.selected_off)
             self.main_settings.change_color_setting(var.selected_on)
         # Nothing Selected
         else:
-            self.main_weather.change_color_all(var.selected_off)
-            self.main_news.change_color_news_title(var.selected_off)
-            self.main_clock.change_color_all(var.selected_off)
-            self.main_settings.change_color_setting(var.selected_off)
+            self.main_page_all_off()
 
+    # De-selects all 4 zones on the main page
+    def main_page_all_off(self):
+        self.main_weather.change_color_all(var.selected_off)
+        self.main_news.change_color_news_title(var.selected_off)
+        self.main_clock.change_color_all(var.selected_off)
+        self.main_settings.change_color_setting(var.selected_off)
+
+    # Updates all 4 zones on the weather page
     def update_zone_weather_page(self):
         # Return Button Selected
+        self.weather_page_all_off()
         if self.current_zone == zone.WeatherPage.returnButton:
             self.returnButton.change_color_all(var.selected_on)
-        else:
-            self.returnButton.change_color_all(var.selected_off)
+        # elif self.current_zone == zone.WeatherPage.hourly_weather:
+        #     self.hourly_weather.change_color_all(var.selected_on)
+        # elif self.current_zone == zone.WeatherPage.current_weather:
+        #     self.current_weather.change_color_all(var.selected_on)
+        elif self.current_zone == zone.WeatherPage.daily_weather:
+            for i in range(0, 7):
+                self.weather_daily[i].change_color_all(var.selected_on)
 
+    # De-selects all 4 zones on the weather page
+    def weather_page_all_off(self):
+        self.returnButton.change_color_all(var.selected_off)
+        for i in range(0, 7):
+            self.weather_daily[i].change_color_all(var.selected_off)
+
+    # Updates all zones on the weather page
     def update_zone_settings_page(self):
         # Return Button Selected
         self.settings_page_all_off()
@@ -414,7 +422,7 @@ class UIManager:
         elif self.current_zone == zone.SettingsPage.yellow:
             self.color_scheme_settings.change_color_yellow(var.selected_on)
 
-
+    # De-selects all zones on the settings page
     def settings_page_all_off(self):
         self.returnButton.change_color_all(var.selected_off)
         self.main_page_settings.change_color_stocks(var.selected_off)

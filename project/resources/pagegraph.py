@@ -18,7 +18,14 @@ Main = {
 Weather = {
     WeatherPage.none: [WeatherPage.returnButton, WeatherPage.returnButton, WeatherPage.returnButton,
                        WeatherPage.returnButton],
-    WeatherPage.returnButton: [WeatherPage.none, WeatherPage.none, WeatherPage.none, WeatherPage.none]
+    WeatherPage.returnButton: [WeatherPage.returnButton, WeatherPage.hourly_weather, WeatherPage.returnButton,
+                               WeatherPage.current_weather],
+    WeatherPage.hourly_weather: [WeatherPage.returnButton, WeatherPage.hourly_weather, WeatherPage.hourly_weather,
+                                WeatherPage.daily_weather],
+    WeatherPage.current_weather: [WeatherPage.current_weather, WeatherPage.daily_weather, WeatherPage.returnButton,
+                                WeatherPage.current_weather],
+    WeatherPage.daily_weather: [WeatherPage.current_weather, WeatherPage.daily_weather, WeatherPage.hourly_weather,
+                               WeatherPage.daily_weather]
 }
 
 # Settings Page Graph
@@ -43,8 +50,4 @@ Settings = {
     SettingsPage.pink:[SettingsPage.green, SettingsPage.red, SettingsPage.pink,SettingsPage.pink],
     SettingsPage.red:[SettingsPage.pink, SettingsPage.yellow, SettingsPage.red,SettingsPage.red],
     SettingsPage.yellow: [SettingsPage.red, SettingsPage.yellow, SettingsPage.yellow, SettingsPage.yellow]
-
-
-
-
 }

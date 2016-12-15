@@ -17,6 +17,9 @@ class MainPage(Enum):
 class WeatherPage(Enum):
     none = 0
     returnButton = 1
+    hourly_weather = 2
+    current_weather = 3
+    daily_weather = 4
 
 
 # Includes the possible zones that could be selected on the settings page

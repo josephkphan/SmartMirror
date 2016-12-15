@@ -4,7 +4,7 @@ from project.resources import lookup, var
 from datetime import date
 
 
-class WeeklyWeather(Frame):
+class DailyWeather(Frame):
     def __init__(self, parent, day):
         selected_off = var.selected_off
         background_color = var.background_color
@@ -23,10 +23,11 @@ class WeeklyWeather(Frame):
         self.icon = ''
 
         # Initializing the Colors for labels
-        self.color_min = selected_off
-        self.color_max = selected_off
+        self.color_min_temp = selected_off
+        self.color_max_temp = selected_off
         self.color_name = selected_off
-        self.day_of_week = selected_off
+        self.color_day_of_week = selected_off
+        self.color_icon = selected_off
 
         # Initializing Labels
         self.min_label = Label(self.degree_frame, font=(font_style, 14), fg=selected_off, bg=background_color)
@@ -46,7 +47,7 @@ class WeeklyWeather(Frame):
         max_txt = str(int(weather_obj['daily']['data'][day]['temperatureMax']))
         min_txt = str(int(weather_obj['daily']['data'][day]['temperatureMin']))
         sunset_time = weather_obj['daily']['data'][day]['sunsetTime']
-        day_of_week = WeeklyWeather.convert_epoch_time_to_day_of_the_week(sunset_time)
+        day_of_week = DailyWeather.convert_epoch_time_to_day_of_the_week(sunset_time)
         day_of_week = day_of_week[:3]  # takes first 3 letters
         icon_id = weather_obj['daily']['data'][day]['icon']
         icon = None
@@ -82,17 +83,28 @@ class WeeklyWeather(Frame):
     # --------------------------- Color ------------------------------ #
 
     def change_color_all(self, mode):
-        self.change_color_min(mode)
+        self.change_color_min_temp(mode)
+        self.change_color_max_temp(mode)
+        self.change_color_day_of_week(mode)
+        self.change_color_icon(mode)
 
-    def change_color_min(self, mode):
-        if self.color_min != mode:
-            self.color_min = mode
-            self.min_label.config(foreground=self.color_min)
+    def change_color_min_temp(self, mode):
+        if self.color_min_temp != mode:
+            self.color_min_temp = mode
+            self.min_label.config(foreground=self.color_min_temp)
 
-    def change_color_max(self, mode):
-        if self.color_max != mode:
-            self.color_max = mode
-            self.max_label.config(foreground=self.color_min)
+    def change_color_max_temp(self, mode):
+        if self.color_max_temp != mode:
+            self.color_max_temp = mode
+            self.max_label.config(foreground=self.color_max_temp)
+
+    def change_color_day_of_week(self, mode):
+        if self.color_day_of_week != mode:
+            self.color_day_of_week = mode
+            self.day_of_week_label.config(foreground=self.color_day_of_week)
+
+    def change_color_icon(self,mode):
+        x=5
 
     # ------------------------------ Time ---------------------------------- #
 
