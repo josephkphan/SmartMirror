@@ -92,7 +92,7 @@ class UIManager:
         self.tk.bind("<Right>", self.right_click)
         self.tk.bind("<Up>", self.up_click)
         self.tk.bind("<Down>", self.down_click)
-        self.tk.bind("<Control_R>", self.enter_click)
+        self.tk.bind("<BackSpace>", self.enter_click)
         self.tk.bind("<Control_L>", self.toggle_manual_mode)
         self.tk.bind("<Shift_L>", self.toggle_select_mode_for_camera)
 
@@ -390,55 +390,45 @@ class UIManager:
 
     def update_zone_settings_page(self):
         # Return Button Selected
+        self.settings_page_all_off()
         if self.current_zone == zone.SettingsPage.returnButton:
             self.returnButton.change_color_all(var.selected_on)
-            self.main_page_settings.change_color_stocks(var.selected_off)
-            self.main_page_settings.change_color_news(var.selected_off)
-            self.main_page_settings.change_color_sunrise(var.selected_off)
-            self.main_page_settings.change_color_sunset(var.selected_off)
-            self.main_page_settings.change_color_hilo(var.selected_off)
         elif self.current_zone == zone.SettingsPage.main_page_stocks:
-            self.returnButton.change_color_all(var.selected_off)
             self.main_page_settings.change_color_stocks(var.selected_on)
-            self.main_page_settings.change_color_news(var.selected_off)
-            self.main_page_settings.change_color_sunrise(var.selected_off)
-            self.main_page_settings.change_color_sunset(var.selected_off)
-            self.main_page_settings.change_color_hilo(var.selected_off)
         elif self.current_zone == zone.SettingsPage.main_page_news:
-            self.returnButton.change_color_all(var.selected_off)
-            self.main_page_settings.change_color_stocks(var.selected_off)
             self.main_page_settings.change_color_news(var.selected_on)
-            self.main_page_settings.change_color_sunrise(var.selected_off)
-            self.main_page_settings.change_color_sunset(var.selected_off)
-            self.main_page_settings.change_color_hilo(var.selected_off)
         elif self.current_zone == zone.SettingsPage.main_page_sunrise:
-            self.returnButton.change_color_all(var.selected_off)
-            self.main_page_settings.change_color_stocks(var.selected_off)
-            self.main_page_settings.change_color_news(var.selected_off)
             self.main_page_settings.change_color_sunrise(var.selected_on)
-            self.main_page_settings.change_color_sunset(var.selected_off)
-            self.main_page_settings.change_color_hilo(var.selected_off)
         elif self.current_zone == zone.SettingsPage.main_page_sunset:
-            self.returnButton.change_color_all(var.selected_off)
-            self.main_page_settings.change_color_stocks(var.selected_off)
-            self.main_page_settings.change_color_news(var.selected_off)
-            self.main_page_settings.change_color_sunrise(var.selected_off)
             self.main_page_settings.change_color_sunset(var.selected_on)
-            self.main_page_settings.change_color_hilo(var.selected_off)
         elif self.current_zone == zone.SettingsPage.main_page_high_low:
-            self.returnButton.change_color_all(var.selected_off)
-            self.main_page_settings.change_color_stocks(var.selected_off)
-            self.main_page_settings.change_color_news(var.selected_off)
-            self.main_page_settings.change_color_sunrise(var.selected_off)
-            self.main_page_settings.change_color_sunset(var.selected_off)
             self.main_page_settings.change_color_hilo(var.selected_on)
-        else:
-            self.returnButton.change_color_all(var.selected_off)
-            self.main_page_settings.change_color_stocks(var.selected_off)
-            self.main_page_settings.change_color_news(var.selected_off)
-            self.main_page_settings.change_color_sunrise(var.selected_off)
-            self.main_page_settings.change_color_sunset(var.selected_off)
-            self.main_page_settings.change_color_hilo(var.selected_off)
+        elif self.current_zone == zone.SettingsPage.blue:
+            self.color_scheme_settings.change_color_blue(var.selected_on)
+        elif self.current_zone == zone.SettingsPage.green:
+            self.color_scheme_settings.change_color_green(var.selected_on)
+        elif self.current_zone == zone.SettingsPage.pink:
+            self.color_scheme_settings.change_color_pink(var.selected_on)
+        elif self.current_zone == zone.SettingsPage.red:
+            self.color_scheme_settings.change_color_red(var.selected_on)
+        elif self.current_zone == zone.SettingsPage.yellow:
+            self.color_scheme_settings.change_color_yellow(var.selected_on)
+
+
+    def settings_page_all_off(self):
+        self.returnButton.change_color_all(var.selected_off)
+        self.main_page_settings.change_color_stocks(var.selected_off)
+        self.main_page_settings.change_color_news(var.selected_off)
+        self.main_page_settings.change_color_sunrise(var.selected_off)
+        self.main_page_settings.change_color_sunset(var.selected_off)
+        self.main_page_settings.change_color_hilo(var.selected_off)
+        self.color_scheme_settings.change_color_blue(var.selected_off)
+        self.color_scheme_settings.change_color_green(var.selected_off)
+        self.color_scheme_settings.change_color_pink(var.selected_off)
+        self.color_scheme_settings.change_color_red(var.selected_off)
+        self.color_scheme_settings.change_color_yellow(var.selected_off)
+
+
 
     # -------------------------------- Updating Pages ------------------------------------#
 

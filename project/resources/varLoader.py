@@ -99,6 +99,11 @@ def toggle_preferences(key):
     var.preferences[key] = not var.preferences[key]
     update_preferences()
 
+def change_color_scheme(new_color):
+    var.preferences[var.preferences['color']] = False   #turns old color off
+    var.preferences[new_color] = True  # Turns new color on
+    var.preferences['color'] = new_color  #updates new color
+
 # ------------------------ Other Data -------------------------- #
 
 # todo DO WE NEED THIS OTHER FILE??? Curently only holding Camera mode... which isnt even implemented yet

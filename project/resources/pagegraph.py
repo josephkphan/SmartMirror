@@ -25,17 +25,26 @@ Weather = {
 Settings = {
     SettingsPage.none: [SettingsPage.returnButton, SettingsPage.returnButton, SettingsPage.returnButton,
                         SettingsPage.returnButton],
-    SettingsPage.returnButton: [SettingsPage.returnButton, SettingsPage.main_page_stocks, SettingsPage.main_page_news,
-                                SettingsPage.none],
-    SettingsPage.main_page_stocks: [SettingsPage.returnButton, SettingsPage.main_page_news, SettingsPage.none,
-                                    SettingsPage.none],
-    SettingsPage.main_page_news: [SettingsPage.main_page_stocks, SettingsPage.main_page_sunrise, SettingsPage.none,
-                                  SettingsPage.none],
-    SettingsPage.main_page_sunrise: [SettingsPage.main_page_news, SettingsPage.main_page_sunset, SettingsPage.none,
-                                     SettingsPage.none],
-    SettingsPage.main_page_sunset: [SettingsPage.main_page_sunrise, SettingsPage.main_page_high_low, SettingsPage.none,
-                                    SettingsPage.none],
-    SettingsPage.main_page_high_low: [SettingsPage.main_page_sunset, SettingsPage.none, SettingsPage.none,
-                                      SettingsPage.none]
+    SettingsPage.returnButton: [SettingsPage.returnButton, SettingsPage.main_page_stocks, SettingsPage.returnButton,
+                                SettingsPage.returnButton],
+    SettingsPage.main_page_stocks: [SettingsPage.returnButton, SettingsPage.main_page_news, SettingsPage.main_page_stocks,
+                                    SettingsPage.main_page_stocks],
+    SettingsPage.main_page_news: [SettingsPage.main_page_stocks, SettingsPage.main_page_sunrise, SettingsPage.main_page_news,
+                                  SettingsPage.main_page_news],
+    SettingsPage.main_page_sunrise: [SettingsPage.main_page_news, SettingsPage.main_page_sunset, SettingsPage.main_page_sunrise,
+                                     SettingsPage.main_page_sunrise],
+    SettingsPage.main_page_sunset: [SettingsPage.main_page_sunrise, SettingsPage.main_page_high_low, SettingsPage.main_page_sunset,
+                                    SettingsPage.main_page_sunset],
+    SettingsPage.main_page_high_low: [SettingsPage.main_page_sunset, SettingsPage.blue, SettingsPage.main_page_high_low,
+                                      SettingsPage.main_page_high_low],
+
+    SettingsPage.blue: [SettingsPage.main_page_high_low, SettingsPage.green, SettingsPage.blue, SettingsPage.blue],
+    SettingsPage.green: [SettingsPage.blue, SettingsPage.pink, SettingsPage.green,SettingsPage.green],
+    SettingsPage.pink:[SettingsPage.green, SettingsPage.red, SettingsPage.pink,SettingsPage.pink],
+    SettingsPage.red:[SettingsPage.pink, SettingsPage.yellow, SettingsPage.red,SettingsPage.red],
+    SettingsPage.yellow: [SettingsPage.red, SettingsPage.yellow, SettingsPage.yellow, SettingsPage.yellow]
+
+
+
 
 }

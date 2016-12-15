@@ -23,8 +23,16 @@ class WeatherPage(Enum):
 class SettingsPage(Enum):
     none = 0
     returnButton = 1
+    # Main page zones
     main_page_sunset = 2
     main_page_sunrise = 3
     main_page_high_low = 4
     main_page_stocks = 5
     main_page_news = 6
+
+    # Color Schemes
+    yellow = 7
+    blue = 8
+    pink = 9
+    red = 10
+    green=11

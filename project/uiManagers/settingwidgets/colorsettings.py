@@ -33,49 +33,49 @@ class ColorSettings(Frame):
 
         # --------------------------- Main Page ------------------------------ #
 
-        self.weather_page_title_label = Label(self.container, text='Color Scheme:', font=(font_style, 18),
+        self.title_label = Label(self.container, text='Color Scheme:', font=(font_style, 18),
                                               fg=selected_off, bg=background_color)
-        self.weather_page_title_label.pack(side=TOP, anchor=W)
+        self.title_label.pack(side=TOP, anchor=W)
 
-        self.stocks = checkbox.CheckBox(self.container, 'Yellow', self.key_yellow)
-        self.stocks.pack(side=TOP, anchor=W, padx=50)
+        self.blue_label = checkbox.CheckBox(self.container, 'Blue', self.key_blue)
+        self.blue_label.pack(side=TOP, anchor=W, padx=50)
 
-        self.news = checkbox.CheckBox(self.container, 'Blue', self.key_blue)
-        self.news.pack(side=TOP, anchor=W, padx=50)
+        self.green_label = checkbox.CheckBox(self.container, 'Green', self.key_green )
+        self.green_label.pack(side=TOP, anchor=W, padx=50)
 
-        self.sunrise = checkbox.CheckBox(self.container, 'Pink', self.key_pink)
-        self.sunrise.pack(side=TOP, anchor=W, padx=50)
+        self.pink_label = checkbox.CheckBox(self.container, 'Pink', self.key_pink)
+        self.pink_label.pack(side=TOP, anchor=W, padx=50)
 
-        self.sunset = checkbox.CheckBox(self.container, 'Green', self.key_green )
-        self.sunset.pack(side=TOP, anchor=W, padx=50)
+        self.red_label = checkbox.CheckBox(self.container, 'Red', self.key_red)
+        self.red_label.pack(side=TOP, anchor=W, padx=50)
 
-        self.hilo = checkbox.CheckBox(self.container, 'Red', self.key_red)
-        self.hilo.pack(side=TOP, anchor=W, padx=50)
+        self.yellow_label = checkbox.CheckBox(self.container, 'Yellow', self.key_yellow)
+        self.yellow_label.pack(side=TOP, anchor=W, padx=50)
 
     def change_color_green(self, mode):
         if self.color_green != mode:
             self.color_green = mode
-            self.sunset.change_color_all(mode)
+            self.green_label.change_color_all(mode)
 
     def change_color_pink(self, mode):
         if self.color_pink != mode:
             self.color_pink = mode
-            self.sunrise.change_color_all(mode)
+            self.pink_label.change_color_all(mode)
 
     def change_color_red(self, mode):
         if self.color_red != mode:
             self.color_red = mode
-            self.hilo.change_color_all(mode)
+            self.red_label.change_color_all(mode)
 
     def change_color_blue(self, mode):
         if self.color_blue != mode:
             self.color_blue = mode
-            self.news.change_color_all(mode)
+            self.blue_label.change_color_all(mode)
 
     def change_color_yellow(self, mode):
         if self.color_yellow != mode:
             self.color_yellow = mode
-            self.stocks.change_color_all(mode)
+            self.yellow_label.change_color_all(mode)
 
     def change_a_setting(self, zone_to_change):
         print "~~~~~~~ INSIDE CHANGE A SETTING"
