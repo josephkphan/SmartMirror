@@ -85,11 +85,11 @@ def get_preferences():
 
         # Color Preferences
         var.preferences['color'] = 'yellow'
-        var.preferences['yellow'] = True
-        var.preferences['red'] = False
-        var.preferences['blue'] = False
-        var.preferences['green'] = False
-        var.preferences['pink'] = False
+        var.preferences['color_page_yellow'] = True
+        var.preferences['color_page_red'] = False
+        var.preferences['color_page_blue'] = False
+        var.preferences['color_page_green'] = False
+        var.preferences['color_page_pink'] = False
 
         update_preferences()  # Saves to file
 
