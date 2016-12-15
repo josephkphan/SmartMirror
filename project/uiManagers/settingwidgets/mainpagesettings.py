@@ -102,3 +102,10 @@ class MainPageSettings(Frame):
         elif zone_to_change == zone.SettingsPage.main_page_high_low:
             varLoader.toggle_preferences(self.key_hilo)
             self.hilo.update_check_box_image()
+
+    def update_all_label_check_boxes(self):
+        self.hilo.update_colored_boxes()
+        self.stocks.update_colored_boxes()
+        self.news.update_colored_boxes()
+        self.sunrise.update_colored_boxes()
+        self.sunset.update_colored_boxes()

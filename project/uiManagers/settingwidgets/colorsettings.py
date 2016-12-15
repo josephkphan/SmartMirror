@@ -25,11 +25,11 @@ class ColorSettings(Frame):
 
         # ------------------------- Keys ----------------------------- #
 
-        self.key_yellow = 'color_page_yellow'
-        self.key_red = 'color_page_red'
-        self.key_green='color_page_green'
-        self.key_pink='color_page_pink'
-        self.key_blue='color_page_blue'
+        self.key_yellow = 'yellow'
+        self.key_red = 'red'
+        self.key_green='green'
+        self.key_pink='pink'
+        self.key_blue='blue'
 
         # --------------------------- Main Page ------------------------------ #
 
@@ -77,30 +77,39 @@ class ColorSettings(Frame):
             self.color_yellow = mode
             self.yellow_label.change_color_all(mode)
 
-    def change_a_setting(self, zone_to_change):
+    def change_a_setting(self, zone_to_change, other_setting):
         print "~~~~~~~ INSIDE CHANGE A SETTING"
         print zone_to_change
-        if zone_to_change == zone.SettingsPage.main_page_stocks:
-            varLoader.toggle_preferences(self.mp_stocks)
-            self.stocks.update_check_box_image()
 
+        if zone_to_change == zone.SettingsPage.blue:
+            varLoader.change_color_scheme('blue')
 
-        # elif zone_to_change == zone.SettingsPage.main_page_high_low:
-        #     varLoader.toggle_preferences(self.mp_humidity)
-        #     self.humidity.update_check_box_image()
+        elif zone_to_change == zone.SettingsPage.green:
+            varLoader.change_color_scheme('green')
 
-        elif zone_to_change == zone.SettingsPage.main_page_news:
-            varLoader.toggle_preferences(self.mp_news)
-            self.news.update_check_box_image()
+        elif zone_to_change == zone.SettingsPage.pink:
+            varLoader.change_color_scheme('pink')
 
-        elif zone_to_change == zone.SettingsPage.main_page_sunrise:
-            varLoader.toggle_preferences(self.mp_sunrise)
-            self.sunrise.update_check_box_image()
+        elif zone_to_change == zone.SettingsPage.red:
+            varLoader.change_color_scheme('red')
 
-        elif zone_to_change == zone.SettingsPage.main_page_sunset:
-            varLoader.toggle_preferences(self.mp_sunset)
-            self.sunset.update_check_box_image()
+        elif zone_to_change == zone.SettingsPage.yellow:
+            varLoader.change_color_scheme('yellow')
 
-        elif zone_to_change == zone.SettingsPage.main_page_high_low:
-            varLoader.toggle_preferences(self.mp_hilo)
-            self.hilo.update_check_box_image()
+        self.update_all_label_check_boxes()
+        self.update_all_box_images()
+        other_setting.update_all_label_check_boxes()
+
+    def update_all_label_check_boxes(self):
+            self.yellow_label.update_colored_boxes()
+            self.red_label.update_colored_boxes()
+            self.green_label.update_colored_boxes()
+            self.pink_label.update_colored_boxes()
+            self.blue_label.update_colored_boxes()
+
+    def update_all_box_images(self):
+            self.blue_label.update_check_box_image()
+            self.green_label.update_check_box_image()
+            self.pink_label.update_check_box_image()
+            self.red_label.update_check_box_image()
+            self.yellow_label.update_check_box_image()

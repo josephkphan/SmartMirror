@@ -6,10 +6,10 @@ from enum import Enum
 
 # Enum for the different Check Box image modes
 class CheckBoxMode(Enum):
-    not_checked_off = 1  # not selected
-    not_checked_on = 2
-    checked_off = 3
-    checked_on = 4
+    unchecked = 1  # not selected
+    unchecked_selected = 2
+    checked = 3
+    checked_selected = 4
 
 
 # Contains a label given and adds on a check box
@@ -25,9 +25,9 @@ class CheckBox(Frame):
 
         # Gets Saved Preferences from preferences file
         if var.preferences[key]:
-            self.check_box_mode = CheckBoxMode.checked_off
+            self.check_box_mode = CheckBoxMode.checked
         else:
-            self.check_box_mode = CheckBoxMode.not_checked_off
+            self.check_box_mode = CheckBoxMode.unchecked
 
         # --- Loads the 4 Possible Check Box Images --- #
 
@@ -35,33 +35,35 @@ class CheckBox(Frame):
         image = Image.open("assets/empty_check_box.png")
         image = image.resize((25, 25), Image.ANTIALIAS)
         image = image.convert('RGB')
-        self.empty_check_box_off = ImageTk.PhotoImage(image)
+        self.plain_empty_checked_box = image
+        self.image_unchecked = ImageTk.PhotoImage(image)
 
         # Checked off and yellow
         image = imagecolor.tint(image, var.color_hex_codes[var.selected_on])
-        self.empty_check_box_on = ImageTk.PhotoImage(image)
+        self.image_unchecked_selected = ImageTk.PhotoImage(image)
 
         # Not Checked off and white
         image = Image.open("assets/check_box.png")
         image = image.resize((25, 25), Image.ANTIALIAS)
         image = image.convert('RGB')
-        self.filled_check_box_off = ImageTk.PhotoImage(image)
+        self.plain_checked_box = image
+        self.image_checked = ImageTk.PhotoImage(image)
 
         # Not Checked off and yellow
         image = imagecolor.tint(image, var.color_hex_codes[var.selected_on])
-        self.filled_check_box_on = ImageTk.PhotoImage(image)
+        self.image_checked_selected = ImageTk.PhotoImage(image)
 
         # Initializes the Label
         self.label = Label(self, text=label, font=(font_style, 18), fg=selected_off, bg=background_color)
         self.label.pack(side=LEFT, anchor=N)
 
         # Chooses the according image to preference file
-        if self.check_box_mode == CheckBoxMode.checked_off:
-            self.icon_label = Label(self, bg=background_color, image=self.filled_check_box_off)
-            self.icon_label.image = self.filled_check_box_off
+        if self.check_box_mode == CheckBoxMode.checked:
+            self.icon_label = Label(self, bg=background_color, image=self.image_checked)
+            self.icon_label.image = self.image_checked
         else:
-            self.icon_label = Label(self, bg=background_color, image=self.empty_check_box_off)
-            self.icon_label.image = self.empty_check_box_off
+            self.icon_label = Label(self, bg=background_color, image=self.image_unchecked)
+            self.icon_label.image = self.image_unchecked
         self.icon_label.pack(side=LEFT, anchor=N, padx=20)
 
     # ----------------------- Coloring ------------------------ #
@@ -81,40 +83,56 @@ class CheckBox(Frame):
     def change_color_check_box(self, mode):
         if mode == var.selected_on:
             # If its On and the box's aren't selected, then select it
-            if self.check_box_mode == CheckBoxMode.not_checked_off:
-                self.check_box_mode = CheckBoxMode.not_checked_on
-                self.icon_label.config(image=self.empty_check_box_on)
-                self.icon_label.image = self.empty_check_box_on
-            elif self.check_box_mode == CheckBoxMode.checked_off:
-                self.check_box_mode = CheckBoxMode.checked_on
-                self.icon_label.config(image=self.filled_check_box_on)
-                self.icon_label.image = self.filled_check_box_on
+            if self.check_box_mode == CheckBoxMode.unchecked:
+                self.check_box_mode = CheckBoxMode.unchecked_selected
+                self.icon_label.config(image=self.image_unchecked_selected)
+                self.icon_label.image = self.image_unchecked_selected
+            elif self.check_box_mode == CheckBoxMode.checked:
+                self.check_box_mode = CheckBoxMode.checked_selected
+                self.icon_label.config(image=self.image_checked_selected)
+                self.icon_label.image = self.image_checked_selected
         else:
             # If the mode is off, that means the checkbox should be white
             # only change if its currently on
-            if self.check_box_mode == CheckBoxMode.not_checked_on:
-                self.check_box_mode = CheckBoxMode.not_checked_off
-                self.icon_label.config(image=self.empty_check_box_off)
-                self.icon_label.image = self.empty_check_box_off
+            if self.check_box_mode == CheckBoxMode.unchecked_selected:
+                self.check_box_mode = CheckBoxMode.unchecked
+                self.icon_label.config(image=self.image_unchecked)
+                self.icon_label.image = self.image_unchecked
 
-            elif self.check_box_mode == CheckBoxMode.checked_on:
-                self.check_box_mode = CheckBoxMode.checked_off
-                self.icon_label.config(image=self.filled_check_box_off)
-                self.icon_label.image = self.filled_check_box_off
+            elif self.check_box_mode == CheckBoxMode.checked_selected:
+                self.check_box_mode = CheckBoxMode.checked
+                self.icon_label.config(image=self.image_checked)
+                self.icon_label.image = self.image_checked
 
     # -------------------------- Updating Check Box Image -------------------------- #
 
     # Will be called when a user wants to change the preference. It will toggle the box image
     def update_check_box_image(self):
+        print 'IN CHECK BOX'
+        print var.preferences[self.key]
         if var.preferences[self.key]:
-            if (self.check_box_mode != CheckBoxMode.checked_off) or (self.check_box_mode != CheckBoxMode.checked_on):
-                self.check_box_mode = CheckBoxMode.checked_on
-                self.icon_label.config(image=self.filled_check_box_on)
-                self.icon_label.image = self.filled_check_box_on
-                # Should only be used when the current area is selected, so the color will be yellow
+            # Will end up as a CHECKED box
+            if self.check_box_mode == CheckBoxMode.unchecked:
+                self.check_box_mode = CheckBoxMode.checked
+                self.icon_label.config(image=self.image_checked)
+                self.icon_label.image = self.image_checked
+            if self.check_box_mode == CheckBoxMode.unchecked_selected:
+                self.check_box_mode = CheckBoxMode.checked_selected
+                self.icon_label.config(image=self.image_checked_selected)
+                self.icon_label.image = self.image_checked_selected
+
         else:
-            if (self.check_box_mode != CheckBoxMode.not_checked_off) or (
-                        self.check_box_mode != CheckBoxMode.not_checked_on):
-                self.check_box_mode = CheckBoxMode.not_checked_on
-                self.icon_label.config(image=self.empty_check_box_on)
-                self.icon_label.image = self.empty_check_box_on
+            # Will end up as an EMPTY box
+            if (self.check_box_mode == CheckBoxMode.checked):
+                self.check_box_mode = CheckBoxMode.unchecked
+                self.icon_label.config(image=self.image_unchecked)
+                self.icon_label.image = self.image_unchecked
+            if (self.check_box_mode == CheckBoxMode.checked_selected):
+                self.check_box_mode = CheckBoxMode.unchecked_selected
+                self.icon_label.config(image=self.image_unchecked_selected)
+                self.icon_label.image = self.image_unchecked_selected
+
+
+    def update_colored_boxes(self):
+        self.image_unchecked_selected = ImageTk.PhotoImage(imagecolor.tint(self.plain_empty_checked_box, var.color_hex_codes[var.selected_on]))
+        self.image_checked_selected = ImageTk.PhotoImage(imagecolor.tint(self.plain_checked_box, var.color_hex_codes[var.selected_on]))

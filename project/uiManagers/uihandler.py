@@ -163,7 +163,7 @@ class UIManager:
         if self.current_page == Page.settings:
             print "HEEREEEEEEEEE"
             self.main_page_settings.change_a_setting(self.current_zone)
-            self.color_scheme_settings.change_a_setting(self.current_zone)
+            self.color_scheme_settings.change_a_setting(self.current_zone,self.main_page_settings)
         return "break"
 
     def toggle_manual_mode(self, event=None):

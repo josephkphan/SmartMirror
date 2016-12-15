@@ -85,11 +85,11 @@ def get_preferences():
 
         # Color Preferences
         var.preferences['color'] = 'yellow'
-        var.preferences['color_page_yellow'] = True
-        var.preferences['color_page_red'] = False
-        var.preferences['color_page_blue'] = False
-        var.preferences['color_page_green'] = False
-        var.preferences['color_page_pink'] = False
+        var.preferences['yellow'] = True
+        var.preferences['red'] = False
+        var.preferences['blue'] = False
+        var.preferences['green'] = False
+        var.preferences['pink'] = False
 
         update_preferences()  # Saves to file
 
@@ -100,9 +100,18 @@ def toggle_preferences(key):
     update_preferences()
 
 def change_color_scheme(new_color):
+
+    print " ~~~~~~~~~~~~~~~~~~~~~~~~~~ "
+    print var.preferences['color']
     var.preferences[var.preferences['color']] = False   #turns old color off
+    print  var.preferences[var.preferences['color']]
     var.preferences[new_color] = True  # Turns new color on
+    print new_color
     var.preferences['color'] = new_color  #updates new color
+    var.selected_on = var.preferences['color']
+    print "~~~~~~~~~~~~~~~~~~~~~~~~~"
+    print var.preferences
+    update_preferences()
 
 # ------------------------ Other Data -------------------------- #
 
