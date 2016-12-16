@@ -21,8 +21,8 @@ class Calendar(Frame):
         background_color = var.background_color
         font_style = var.font_style
         Frame.__init__(self, parent, bg=background_color)
-        self.title = 'Calendar Events'
-        self.calendar_label = Label(self, text=self.title, font=(font_style, 28), fg=selected_off, bg=background_color)
+        self.title_text = 'Calendar Events'
+        self.calendar_label = Label(self, text=self.title_text, font=(font_style, 28), fg=selected_off, bg=background_color)
         self.calendar_label.pack(side=TOP, anchor=E)
         self.calendar_event_container = Frame(self, bg=background_color)
         self.calendar_event_container.pack(side=TOP, anchor=E)

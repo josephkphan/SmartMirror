@@ -53,6 +53,9 @@ class UIManager:
         self.main_page_settings, self.weather_page_settings = None, None
         self.color_scheme_settings = None
 
+        # Planner Widgets
+        self.planner = None #todo CHANGE THIS LATER. THIS IS JUST AN EXAMPLE
+
         # General Widgets
         self.returnButton, self.last_updated = None, None
 
@@ -157,12 +160,16 @@ class UIManager:
             self.current_zone = pagegraph.Weather[self.current_zone][key_click]
         elif self.current_page == Page.settings:
             self.current_zone = pagegraph.Settings[self.current_zone][key_click]
+        elif self.current_page == Page.news:
+            self.current_zone = pagegraph.News[self.current_zone][key_click]
+        elif self.current_page == Page.planner:
+            self.current_zone = pagegraph.Planner[self.current_zone][key_click]
+        return "break"
 
     def enter_click(self, event=None):
         print "Enter CLICK HAPPENED"
         self.change_page(self.find_page_to_change_to())
         if self.current_page == Page.settings:
-            print "HEEREEEEEEEEE"
             self.main_page_settings.change_a_setting(self.current_zone)
             self.color_scheme_settings.change_a_setting(self.current_zone, self.main_page_settings)
         return "break"
@@ -212,14 +219,31 @@ class UIManager:
         self.main_settings.destroy()
         self.main_settings = None
 
+# --------------------------------- News Page ------------------------------------ #
+
     def open_news_page(self):
+        self.returnButton = ReturnButton(self.top_frame)
+        self.returnButton.pack(side=TOP, anchor=N, padx=15, pady=15)
+
         self.news_headlines = News(self.bottom_frame,5)
         self.news_headlines.pack(side=LEFT, anchor=S, padx=50, pady=50)
 
     def close_news_page(self):
         self.news_headlines.destroy()
         self.news_headlines = None
+        self.returnButton.destroy()
+        self.returnButton = None
 
+    # --------------------------------- Planner Page ------------------------------------ #
+
+    def open_planner_page(self):
+        self.returnButton = ReturnButton(self.top_frame)
+        self.returnButton.pack(side=TOP, anchor=N, padx=15, pady=15)
+
+    def close_planner_page(self):
+
+        self.returnButton.destroy()
+        self.returnButton = None
 
     # ---------------------------------- Weather Page ----------------------------------- #
 
@@ -281,7 +305,6 @@ class UIManager:
         self.returnButton = ReturnButton(self.top_frame)
         self.returnButton.pack(side=TOP, anchor=W, padx=15, pady=15)
         self.main_page_settings = MainPageSettings(self.top_frame)
-        print " CHECKPOINT"
         self.main_page_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
         self.color_scheme_settings = ColorSettings(self.top_frame)
         self.color_scheme_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
@@ -358,6 +381,14 @@ class UIManager:
         # Updating Zones for Settings Page
         elif self.current_page == Page.settings:
             self.update_zone_settings_page()
+        elif self.current_page == Page.news:
+            self.update_zone_news_page()
+        elif self.current_page == Page.planner:
+            self.update_zone_planner_page()
+
+    # ----------------------- Helper Zone Methods ----------------------- #
+
+    # --------- Main Page Zone Helpers --------- #
 
     # Updates all 4 zones on the main page
     def update_zone_main_page(self):
@@ -367,28 +398,27 @@ class UIManager:
             self.main_weather.change_color_all(var.selected_on)
         # News Zone Selected
         elif self.current_zone == zone.MainPage.news:
-            self.main_news.change_color_news_title(var.selected_on)
+            self.main_news.change_color_all(var.selected_on)
         # Clock Zone Selected
         elif self.current_zone == zone.MainPage.clock:
             self.main_clock.change_color_all(var.selected_on)
         # Settings Zone Selected
         elif self.current_zone == zone.MainPage.settings:
             self.main_settings.change_color_setting(var.selected_on)
-        # Nothing Selected
-        else:
-            self.main_page_all_off()
 
     # De-selects all 4 zones on the main page
     def main_page_all_off(self):
         self.main_weather.change_color_all(var.selected_off)
-        self.main_news.change_color_news_title(var.selected_off)
+        self.main_news.change_color_all(var.selected_off)
         self.main_clock.change_color_all(var.selected_off)
         self.main_settings.change_color_setting(var.selected_off)
 
+    # --------- Weather Page Zone Helpers --------- #
+
     # Updates all 4 zones on the weather page
     def update_zone_weather_page(self):
-        # Return Button Selected
         self.weather_page_all_off()
+        # Return Button Selected
         if self.current_zone == zone.WeatherPage.returnButton:
             self.returnButton.change_color_all(var.selected_on)
         # elif self.current_zone == zone.WeatherPage.hourly_weather:
@@ -405,6 +435,30 @@ class UIManager:
         for i in range(0, 7):
             self.weather_daily[i].change_color_all(var.selected_off)
         self.weather_current.change_color_all(var.selected_off)
+
+    # --------- News Page Zone Helpers --------- #
+
+    # Updates all zones on the news page
+    def update_zone_news_page(self):
+        self.news_page_all_off()
+        # Return Button Selected
+        if self.current_zone == zone.NewsPage.returnButton:
+            self.returnButton.change_color_all(var.selected_on)
+
+    def news_page_all_off(self):
+        self.returnButton.change_color_all(var.selected_off)
+
+    # --------- Planner Page Zone Helpers --------- #
+    def update_zone_planner_page(self):
+        self.planner_page_all_off()
+        # Return Button Selected
+        if self.current_zone == zone.PlannerPage.returnButton:
+            self.returnButton.change_color_all(var.selected_on)
+
+    def planner_page_all_off(self):
+        self.returnButton.change_color_all(var.selected_off)
+
+    # --------- Settings Page Zone Helpers --------- #
 
     # Updates all zones on the weather page
     def update_zone_settings_page(self):
@@ -451,16 +505,22 @@ class UIManager:
 
     # ---------------------------------- HELPER ----------------------------------- #
     def find_page_to_change_to(self):
+        # --- Going from Main Page to Another Page --- #
+
         if self.current_page == Page.main:
             # Change from Main Page to Weather Page
             if self.current_zone == zone.MainPage.weather:
                 return Page.weather
             # Change from Main Page to Settings
-            if self.current_zone == zone.MainPage.settings:
+            elif self.current_zone == zone.MainPage.settings:
                 return Page.settings
             # Change from Main Page to News
-            if self.current_zone == zone.MainPage.news:
+            elif self.current_zone == zone.MainPage.news:
                 return Page.news
+            elif self.current_zone == zone. MainPage.clock:
+                return Page.planner
+
+        # --- Going back to Main Page--- #
 
         # Currently on Weather Page
         elif self.current_page == Page.weather:
@@ -479,6 +539,12 @@ class UIManager:
             # Change from Settings Page to Main Page
             if self.current_zone == zone.NewsPage.returnButton:
                 return Page.main
+
+        # Currently on Planner Page
+        elif self.current_page == Page.planner:
+            # Change from Planner Page to Main Page
+            if self.current_zone == zone.PlannerPage.returnButton:
+                return Page.main
         return None
 
     def change_page(self, new_page):
@@ -493,11 +559,13 @@ class UIManager:
                     self.close_settings_page()
                 elif self.current_page == Page.news:
                     self.close_news_page()
+                elif self.current_page == Page.planner:
+                    self.close_planner_page()
                 self.current_page = Page.main
                 self.open_main_page()
                 self.current_zone = zone.MainPage.none
 
-            # Switching from Main Page
+            # ----------Switching from Main Page --------- #
 
             # Switching to Weather
             elif new_page == Page.weather:  # BLANK PAGE
@@ -517,4 +585,10 @@ class UIManager:
                 self.current_page = Page.news
                 self.open_news_page()
                 self.current_zone = zone.NewsPage.none
+            elif new_page == Page.planner:
+                self.close_main_page()
+                self.current_page = Page.planner
+                self.open_planner_page()
+                self.current_zone = zone.PlannerPage.none
+
 

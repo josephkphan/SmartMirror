@@ -9,5 +9,6 @@ class Page(Enum):
     weather = 2
     settings = 3
     news = 4
+    planner = 5
     none = -1
 

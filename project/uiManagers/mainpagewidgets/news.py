@@ -1,6 +1,6 @@
 from Tkinter import *
 from PIL import Image, ImageTk
-from project.resources import var
+from project.resources import var, imagecolor
 
 
 # File Name: news.py
@@ -11,26 +11,39 @@ class NewsHeadline(Frame):
         background_color = var.background_color
         font_style = var.font_style
         Frame.__init__(self, parent, bg=background_color)
-        image = Image.open("assets/newspaper.png")
 
+        # Initializing Boolean color for all labels
+        self.color_all = selected_off
+
+        # Creating the regular icon photo an tinted photo
+        image = Image.open("assets/newspaper.png")
         image = image.resize((25, 25), Image.ANTIALIAS)
         image = image.convert('RGB')
-        photo = ImageTk.PhotoImage(image)
+        self.icon_photo, self.icon_photo_tinted = None, None
+        self.icon_photo = ImageTk.PhotoImage(image)
+        self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(image,var.selected_on))
 
-        self.icon_label = Label(self, bg=background_color, image=photo)
-        self.icon_label.image = photo
+        # Initializing Labels
+        self.icon_label = Label(self, bg=background_color, image=self.icon_photo)
+        self.icon_label.image = self.icon_photo
         self.icon_label.pack(side=LEFT, anchor=N)
 
-        self.color_event_name = selected_off
         self.event_name = event_name
         self.event_name_label = Label(self, text=self.event_name, font=(font_style, 18), fg=selected_off,
                                       bg=background_color)
         self.event_name_label.pack(side=LEFT, anchor=N)
 
-    def change_color_event_name(self, mode):
-        if self.color_event_name != mode:
-            self.color_event_name = mode
-            self.event_name_label.config(foreground=self.color_event_name)
+    def change_color_all(self, mode):
+        if self.color_all != mode:
+            self.color_all = mode
+            if self.color_all == var.selected_off:
+                # Image should be white
+                self.icon_label.config(image=self.icon_photo)
+            else:
+                # Image should be selected or tinted
+                self.icon_label.config(image=self.icon_photo_tinted)
+            # Changes Headline Text
+            self.event_name_label.config(foreground=self.color_all)
             # todo add an underline!!!!
 
 
@@ -43,21 +56,20 @@ class News(Frame):
         self.num_headlines = num_headlines
         # Initialize Title and container
         self.config(bg=background_color)
-        self.title = 'Headlines'
-        self.news_label = Label(self, text=self.title, font=(font_style, 28), fg=selected_off, bg=background_color)
-        self.news_label.pack(side=TOP, anchor=W)
+
+        self.title_label = Label(self, text='Headlines', font=(font_style, 28), fg=selected_off, bg=background_color)
+        self.title_label.pack(side=TOP, anchor=W)
         self.headlines_container = Frame(self, bg=background_color)
         self.headlines_container.pack(side=TOP)
 
-        # Initializing color for headlines
-        self.color_title = selected_off
-        self.color_headline = {}
-        for i in range(0,self.num_headlines):
-            self.color_headline[i] = selected_off
+        # Initializing color boolean for headlines
+        self.color_all = selected_off
+
+        # Initializing empty headlines
 
         # Initialize headline text
         self.headline = {}
-        pass
+        pass   # used to ignore empty dictionary complaint
         self.update()
 
     def update(self):
@@ -74,10 +86,10 @@ class News(Frame):
 
     # ---------------------------------- COLOR CHANGERS ----------------------------------- #
 
-    def change_color_news_title(self, mode):
-        if self.color_title != mode:
-            self.color_title = mode
-            self.news_label.config(foreground=mode)
+    def change_color_all(self, mode):
+        if self.color_all != mode:
+            self.color_all=mode
+            self.title_label.config(foreground=self.color_all)
+            for i in range (0,self.num_headlines):
+                self.headline[i].change_color_all(self.color_all)
 
-    def change_color_headline(self, mode, headline_num):
-        self.headline[headline_num].change_color_event_name(mode)

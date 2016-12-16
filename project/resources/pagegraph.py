@@ -28,6 +28,18 @@ Weather = {
                                 WeatherPage.daily_weather]
 }
 
+# News PageGraph
+News = {
+    NewsPage.none: [NewsPage.returnButton, NewsPage.none, NewsPage.none, NewsPage.none],
+    NewsPage.returnButton: [NewsPage.returnButton, NewsPage.none, NewsPage.returnButton, NewsPage.returnButton]
+}
+
+# Time PageGraph
+Planner = {
+    PlannerPage.none: [PlannerPage.returnButton, PlannerPage.none, PlannerPage.none, PlannerPage.none],
+    PlannerPage.returnButton: [PlannerPage.returnButton, PlannerPage.none, PlannerPage.returnButton, PlannerPage.returnButton]
+}
+
 # Settings Page Graph
 Settings = {
     # Main Page Portion
