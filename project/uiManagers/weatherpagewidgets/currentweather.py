@@ -58,7 +58,7 @@ class CurrentWeather(Frame):
         # Gets Weather Information
         weather_obj = var.saved_data['weather']
         icon_id = weather_obj['daily']['data'][0]['icon']
-        icon2 = None
+        icon = None
         degree_sign = u'\N{DEGREE SIGN}'
         temperature = "%s%s" % (str(int(weather_obj['currently']['temperature'])), degree_sign)
         currently = weather_obj['currently']['summary']
@@ -99,22 +99,43 @@ class CurrentWeather(Frame):
                 self.location_text = location
                 self.location_label.config(text=self.location_text)
 
+        # Find the corresponding icon in lookup.py
         if icon_id in lookup.icon:
-            icon2 = lookup.icon[icon_id]
+            icon = lookup.icon[icon_id]
 
-        if icon2 is not None:
-            if self.icon_path != icon2:
-                self.icon_path = icon2
-                image = Image.open(icon2)
+        if icon is not None:
+            if self.icon_path != icon:
+                self.icon_path = icon
+                image = Image.open(icon)
                 image = image.resize((100, 100), Image.ANTIALIAS)
                 image = image.convert('RGB')
                 photo = ImageTk.PhotoImage(image)
-
+                self.icon_photo = photo
+                self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(image, var.selected_on))
                 self.icon_label.config(image=photo)
                 self.icon_label.image = photo
         else:
             # remove image
             self.icon_label.config(image='')
+
+    # --------------------------- Color ------------------------------ #
+
+    def change_color_all(self, mode):
+        if self.color_all != mode:
+            self.color_all = mode
+            if self.color_all == var.selected_off:
+                self.icon_label.config(image=self.icon_photo)
+
+            else:
+                self.icon_label.config(image=self.icon_photo_tinted)
+
+            self.temperature_label.config(foreground=self.color_all)
+            self.location_label.config(foreground=self.color_all)
+            self.currently_label.config(foreground=self.color_all)
+            self.summary_label.config(foreground=self.color_all)
+            self.rain_probability_label.config(foreground=self.color_all)
+            self.sunrise_time_label.config(foreground=self.color_all)
+            self.sunset_time_label.config(foreground=self.color_all)
 
     # --------------------------- Time Methods ------------------------------ #
 

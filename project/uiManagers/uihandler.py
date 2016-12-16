@@ -381,8 +381,8 @@ class UIManager:
             self.returnButton.change_color_all(var.selected_on)
         # elif self.current_zone == zone.WeatherPage.hourly_weather:
         #     self.hourly_weather.change_color_all(var.selected_on)
-        # elif self.current_zone == zone.WeatherPage.current_weather:
-        #     self.current_weather.change_color_all(var.selected_on)
+        elif self.current_zone == zone.WeatherPage.current_weather:
+            self.weather_current.change_color_all(var.selected_on)
         elif self.current_zone == zone.WeatherPage.daily_weather:
             for i in range(0, 7):
                 self.weather_daily[i].change_color_all(var.selected_on)
@@ -392,6 +392,7 @@ class UIManager:
         self.returnButton.change_color_all(var.selected_off)
         for i in range(0, 7):
             self.weather_daily[i].change_color_all(var.selected_off)
+        self.weather_current.change_color_all(var.selected_off)
 
     # Updates all zones on the weather page
     def update_zone_settings_page(self):
