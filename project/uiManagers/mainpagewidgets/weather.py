@@ -19,13 +19,8 @@ class Weather(Frame):
         self.currently = ''
         self.icon = ''
 
-        # Initialize color for labels
-        self.color_temperature = selected_off
-        self.color_forecast = selected_off
-        self.color_currently = selected_off
-        self.color_location = selected_off
-        self.color_weather = selected_off
-        self.color_icon = selected_off
+        # Initialize boolean color variable for all labels
+        self.color_all = selected_off
 
         # Initialize Labels
         self.temperature_label = Label(self.degree_frame, font=(font_style, 94), fg=selected_off, bg=background_color)
@@ -97,41 +92,17 @@ class Weather(Frame):
     # -------------------------- Coloring --------------------------- #
 
     def change_color_all(self, mode):
-        self.change_color_currently(mode)
-        self.change_color_forecast(mode)
-        self.change_color_temperature(mode)
-        self.change_color_location(mode)
-        self.change_color_icon(mode)
-
-    def change_color_temperature(self, mode):
-        if self.color_temperature != mode:
-            self.color_temperature = mode
-            self.temperature_label.config(foreground = self.color_temperature)
-
-    def change_color_forecast(self, mode):
-        if self.color_forecast != mode:
-            self.color_forecast = mode
-            self.forecast_label.config( foreground=self.color_forecast)
-
-    def change_color_currently(self, mode):
-        if self.color_currently != mode:
-            self.color_currently = mode
-            self.currently_label.config(foreground=self.color_currently)
-
-    def change_color_location(self, mode):
-        if self.color_location != mode:
-            self.color_location = mode
-            self.location_label.config(foreground=self.color_location)
-
-    def change_color_icon(self, mode):
-        if self.color_icon != mode:
-            if mode == var.selected_on:
-                print "HAPPEN"
+        if self.color_all != mode:
+            self.color_all = mode
+            if self.color_all == var.selected_on:
                 self.icon_label.config(image=self.photo_on)
             else:
                 self.icon_label.config(image=self.photo)
-            self.color_icon = mode
+            self.temperature_label.config(foreground=self.color_all)
+            self.forecast_label.config(foreground=self.color_all)
+            self.currently_label.config(foreground=self.color_all)
+            self.location_label.config(foreground=self.color_all)
 
     @staticmethod
-    def convert_kelvin_to_fahrenheit(kelvin_temp):          # todo create a settings for user!!! <-- COOL IDEA
+    def convert_kelvin_to_fahrenheit(kelvin_temp):  # todo create a settings for user!!! <-- COOL IDEA
         return 1.8 * (kelvin_temp - 273) + 32

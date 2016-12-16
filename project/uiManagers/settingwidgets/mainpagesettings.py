@@ -50,15 +50,12 @@ class MainPageSettings(Frame):
         self.hilo = checkbox.CheckBox(self.container, 'Show High Low for Day', self.key_hilo)
         self.hilo.pack(side=TOP, anchor=W, padx=50)
 
-    def change_color_sunset(self, mode):
-        if self.color_sunset != mode:
-            self.color_sunset = mode
-            self.sunset.change_color_all(mode)
-
-    def change_color_sunrise(self, mode):
-        if self.color_sunrise != mode:
-            self.color_sunrise = mode
-            self.sunrise.change_color_all(mode)
+    def change_all_label_colors(self, mode):
+        self.change_color_hilo(mode)
+        self.change_color_news(mode)
+        self.change_color_stocks(mode)
+        self.change_color_sunrise(mode)
+        self.change_color_sunset(mode)
 
     def change_color_hilo(self, mode):
         if self.color_hilo != mode:
@@ -70,22 +67,25 @@ class MainPageSettings(Frame):
             self.color_news = mode
             self.news.change_color_all(mode)
 
+    def change_color_sunrise(self, mode):
+        if self.color_sunrise != mode:
+            self.color_sunrise = mode
+            self.sunrise.change_color_all(mode)
+
+    def change_color_sunset(self, mode):
+        if self.color_sunset != mode:
+            self.color_sunset = mode
+            self.sunset.change_color_all(mode)
+
     def change_color_stocks(self, mode):
         if self.color_stocks != mode:
             self.color_stocks = mode
             self.stocks.change_color_all(mode)
 
     def change_a_setting(self, zone_to_change):
-        print "~~~~~~~ INSIDE CHANGE A SETTING"
-        print zone_to_change
         if zone_to_change == zone.SettingsPage.main_page_stocks:
             varLoader.toggle_preferences(self.key_stocks)
             self.stocks.update_check_box_image()
-
-
-        # elif zone_to_change == zone.SettingsPage.main_page_high_low:
-        #     varLoader.toggle_preferences(self.mp_humidity)
-        #     self.humidity.update_check_box_image()
 
         elif zone_to_change == zone.SettingsPage.main_page_news:
             varLoader.toggle_preferences(self.key_news)

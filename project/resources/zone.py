@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 # "ZONE" is a an area that can be "turned yellow" or hovered over via manual or cursor
 # none should always be 0 (no reason, just for consistency)
 
@@ -34,8 +35,10 @@ class SettingsPage(Enum):
     main_page_news = 6
 
     # Color Schemes
-    yellow = 7
-    blue = 8
-    pink = 9
-    red = 10
-    green=11
+    blue = 7
+    green = 8
+    orange = 9
+    pink = 10
+    purple = 11
+    red = 12
+    yellow = 13

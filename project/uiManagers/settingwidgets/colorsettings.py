@@ -17,40 +17,52 @@ class ColorSettings(Frame):
 
         # ------------------------- Color ------------------------------ #
 
-        self.color_yellow = selected_off
         self.color_blue = selected_off
-        self.color_pink = selected_off
         self.color_green = selected_off
+        self.color_orange = selected_off
+        self.color_pink = selected_off
+        self.color_purple = selected_off
         self.color_red = selected_off
+        self.color_yellow = selected_off
 
         # ------------------------- Keys ----------------------------- #
 
-        self.key_yellow = 'yellow'
+        self.key_blue = 'blue'
+        self.key_green = 'green'
+        self.key_pink = 'pink'
+        self.key_orange = 'orange'
+        self.key_purple = 'purple'
         self.key_red = 'red'
-        self.key_green='green'
-        self.key_pink='pink'
-        self.key_blue='blue'
+        self.key_yellow = 'yellow'
 
-        # --------------------------- Main Page ------------------------------ #
+        # --------------------------- Color labels ------------------------------ #
 
         self.title_label = Label(self.container, text='Color Scheme:', font=(font_style, 18),
-                                              fg=selected_off, bg=background_color)
+                                 fg=selected_off, bg=background_color)
         self.title_label.pack(side=TOP, anchor=W)
 
         self.blue_label = checkbox.CheckBox(self.container, 'Blue', self.key_blue)
         self.blue_label.pack(side=TOP, anchor=W, padx=50)
 
-        self.green_label = checkbox.CheckBox(self.container, 'Green', self.key_green )
+        self.green_label = checkbox.CheckBox(self.container, 'Green', self.key_green)
         self.green_label.pack(side=TOP, anchor=W, padx=50)
+
+        self.orange_label = checkbox.CheckBox(self.container, 'Orange', self.key_orange)
+        self.orange_label.pack(side=TOP, anchor=W, padx=50)
 
         self.pink_label = checkbox.CheckBox(self.container, 'Pink', self.key_pink)
         self.pink_label.pack(side=TOP, anchor=W, padx=50)
+
+        self.purple_label = checkbox.CheckBox(self.container, 'Purple', self.key_purple)
+        self.purple_label.pack(side=TOP, anchor=W, padx=50)
 
         self.red_label = checkbox.CheckBox(self.container, 'Red', self.key_red)
         self.red_label.pack(side=TOP, anchor=W, padx=50)
 
         self.yellow_label = checkbox.CheckBox(self.container, 'Yellow', self.key_yellow)
         self.yellow_label.pack(side=TOP, anchor=W, padx=50)
+
+    # --------------------------- Color Methods ------------------------------ #
 
     def change_color_green(self, mode):
         if self.color_green != mode:
@@ -77,6 +89,27 @@ class ColorSettings(Frame):
             self.color_yellow = mode
             self.yellow_label.change_color_all(mode)
 
+    def change_color_purple(self, mode):
+        if self.color_purple != mode:
+            self.color_purple = mode
+            self.purple_label.change_color_all(mode)
+
+    def change_color_orange(self, mode):
+        if self.color_orange != mode:
+            self.color_orange = mode
+            self.orange_label.change_color_all(mode)
+
+    def change_all_label_colors(self, mode):
+        self.change_color_blue(mode)
+        self.change_color_green(mode)
+        self.change_color_orange(mode)
+        self.change_color_pink(mode)
+        self.change_color_purple(mode)
+        self.change_color_red(mode)
+        self.change_color_yellow(mode)
+
+    # --------------------------- Changing Settings ------------------------------ #
+
     def change_a_setting(self, zone_to_change, other_setting):
         print "~~~~~~~ INSIDE CHANGE A SETTING"
         print zone_to_change
@@ -87,8 +120,14 @@ class ColorSettings(Frame):
         elif zone_to_change == zone.SettingsPage.green:
             varLoader.change_color_scheme('green')
 
+        elif zone_to_change == zone.SettingsPage.orange:
+            varLoader.change_color_scheme('orange')
+
         elif zone_to_change == zone.SettingsPage.pink:
             varLoader.change_color_scheme('pink')
+
+        elif zone_to_change == zone.SettingsPage.purple:
+            varLoader.change_color_scheme('purple')
 
         elif zone_to_change == zone.SettingsPage.red:
             varLoader.change_color_scheme('red')
@@ -101,15 +140,19 @@ class ColorSettings(Frame):
         other_setting.update_all_label_check_boxes()
 
     def update_all_label_check_boxes(self):
-            self.yellow_label.update_colored_boxes()
-            self.red_label.update_colored_boxes()
-            self.green_label.update_colored_boxes()
-            self.pink_label.update_colored_boxes()
-            self.blue_label.update_colored_boxes()
+        self.blue_label.update_colored_boxes()
+        self.green_label.update_colored_boxes()
+        self.orange_label.update_colored_boxes()
+        self.pink_label.update_colored_boxes()
+        self.purple_label.update_colored_boxes()
+        self.red_label.update_colored_boxes()
+        self.yellow_label.update_colored_boxes()
 
     def update_all_box_images(self):
-            self.blue_label.update_check_box_image()
-            self.green_label.update_check_box_image()
-            self.pink_label.update_check_box_image()
-            self.red_label.update_check_box_image()
-            self.yellow_label.update_check_box_image()
+        self.blue_label.update_check_box_image()
+        self.green_label.update_check_box_image()
+        self.orange_label.update_check_box_image()
+        self.pink_label.update_check_box_image()
+        self.purple_label.update_check_box_image()
+        self.red_label.update_check_box_image()
+        self.yellow_label.update_check_box_image()

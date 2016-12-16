@@ -21,33 +21,38 @@ Weather = {
     WeatherPage.returnButton: [WeatherPage.returnButton, WeatherPage.hourly_weather, WeatherPage.returnButton,
                                WeatherPage.current_weather],
     WeatherPage.hourly_weather: [WeatherPage.returnButton, WeatherPage.hourly_weather, WeatherPage.hourly_weather,
-                                WeatherPage.daily_weather],
+                                 WeatherPage.daily_weather],
     WeatherPage.current_weather: [WeatherPage.current_weather, WeatherPage.daily_weather, WeatherPage.returnButton,
-                                WeatherPage.current_weather],
+                                  WeatherPage.current_weather],
     WeatherPage.daily_weather: [WeatherPage.current_weather, WeatherPage.daily_weather, WeatherPage.hourly_weather,
-                               WeatherPage.daily_weather]
+                                WeatherPage.daily_weather]
 }
 
 # Settings Page Graph
 Settings = {
+    # Main Page Portion
     SettingsPage.none: [SettingsPage.returnButton, SettingsPage.returnButton, SettingsPage.returnButton,
                         SettingsPage.returnButton],
     SettingsPage.returnButton: [SettingsPage.returnButton, SettingsPage.main_page_stocks, SettingsPage.returnButton,
                                 SettingsPage.returnButton],
-    SettingsPage.main_page_stocks: [SettingsPage.returnButton, SettingsPage.main_page_news, SettingsPage.main_page_stocks,
-                                    SettingsPage.main_page_stocks],
-    SettingsPage.main_page_news: [SettingsPage.main_page_stocks, SettingsPage.main_page_sunrise, SettingsPage.main_page_news,
-                                  SettingsPage.main_page_news],
-    SettingsPage.main_page_sunrise: [SettingsPage.main_page_news, SettingsPage.main_page_sunset, SettingsPage.main_page_sunrise,
+    SettingsPage.main_page_stocks: [SettingsPage.returnButton, SettingsPage.main_page_news,
+                                    SettingsPage.main_page_stocks, SettingsPage.main_page_stocks],
+    SettingsPage.main_page_news: [SettingsPage.main_page_stocks, SettingsPage.main_page_sunrise,
+                                  SettingsPage.main_page_news, SettingsPage.main_page_news],
+    SettingsPage.main_page_sunrise: [SettingsPage.main_page_news, SettingsPage.main_page_sunset,
+                                     SettingsPage.main_page_sunrise,
                                      SettingsPage.main_page_sunrise],
-    SettingsPage.main_page_sunset: [SettingsPage.main_page_sunrise, SettingsPage.main_page_high_low, SettingsPage.main_page_sunset,
+    SettingsPage.main_page_sunset: [SettingsPage.main_page_sunrise, SettingsPage.main_page_high_low,
+                                    SettingsPage.main_page_sunset,
                                     SettingsPage.main_page_sunset],
     SettingsPage.main_page_high_low: [SettingsPage.main_page_sunset, SettingsPage.blue, SettingsPage.main_page_high_low,
                                       SettingsPage.main_page_high_low],
-
+    # Color Scheme portion
     SettingsPage.blue: [SettingsPage.main_page_high_low, SettingsPage.green, SettingsPage.blue, SettingsPage.blue],
-    SettingsPage.green: [SettingsPage.blue, SettingsPage.pink, SettingsPage.green,SettingsPage.green],
-    SettingsPage.pink:[SettingsPage.green, SettingsPage.red, SettingsPage.pink,SettingsPage.pink],
-    SettingsPage.red:[SettingsPage.pink, SettingsPage.yellow, SettingsPage.red,SettingsPage.red],
+    SettingsPage.green: [SettingsPage.blue, SettingsPage.orange, SettingsPage.green, SettingsPage.green],
+    SettingsPage.orange: [SettingsPage.green, SettingsPage.pink, SettingsPage.orange, SettingsPage.orange],
+    SettingsPage.pink: [SettingsPage.orange, SettingsPage.purple, SettingsPage.pink, SettingsPage.pink],
+    SettingsPage.purple: [SettingsPage.pink, SettingsPage.red, SettingsPage.purple, SettingsPage.purple],
+    SettingsPage.red: [SettingsPage.purple, SettingsPage.yellow, SettingsPage.red, SettingsPage.red],
     SettingsPage.yellow: [SettingsPage.red, SettingsPage.yellow, SettingsPage.yellow, SettingsPage.yellow]
 }

@@ -15,14 +15,13 @@ class HourlyWeather(Frame):
         self.icon.pack(side=RIGHT, anchor=N)
 
         # Initializing Label texts
-        self.time = ''
-        self.temperature = ''
-        self.prob_rain = ''
-        # image = Image.open("assets/newspaper.png")
+        self.time_text = ''
+        self.temperature_text = ''
+        self.rain_probability_text = ''
 
         # Initializing Labels
-        self.prob_rain_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color, padx=10)
-        self.prob_rain_label.pack(side=RIGHT, anchor=N)
+        self.rain_probability_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color, padx=10)
+        self.rain_probability_label.pack(side=RIGHT, anchor=N)
         self.temperature_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color, padx=10)
         self.temperature_label.pack(side=RIGHT, anchor=N)
         self.time_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color, padx=15)
@@ -43,18 +42,18 @@ class HourlyWeather(Frame):
             prob_rain = str(prob_rain) + '%'            # todo IF > lets say 30, then ADD A RAINDROP ONTO THE HOUR <---
 
         # Updates hourly weather if its different
-        if self.time != time_txt:
-            self.time = time_txt
-            self.time_label.config(text=self.time)
-        if self.temperature != temperature:
-            self.temperature = temperature
-            self.temperature_label.config(text=self.temperature)
-        if self.prob_rain != prob_rain:
-            self.prob_rain = prob_rain
-            self.prob_rain_label.config(text=self.prob_rain)
+        if self.time_text != time_txt:
+            self.time_text = time_txt
+            self.time_label.config(text=self.time_text)
+        if self.temperature_text != temperature:
+            self.temperature_text = temperature
+            self.temperature_label.config(text=self.temperature_text)
+        if self.rain_probability_text != prob_rain:
+            self.rain_probability_text = prob_rain
+            self.rain_probability_label.config(text=self.rain_probability_text)
 
-        # icon_id = weather_obj['daily']['data'][hour]['icon']    todo add this in
-        # icon2 = None
+        # icon_id = weather_obj['daily']['data'][hour]['icon']    todo add this in. This is the icon per hour?
+        # icon2 = None                                           #todo maybe only show rain? since we only have rain %
         #
         # if icon_id in src.project.resources.lookup.icon:
         #     icon2 = src.project.resources.lookup.icon[icon_id]

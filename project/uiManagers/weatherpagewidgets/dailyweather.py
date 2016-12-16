@@ -16,32 +16,26 @@ class DailyWeather(Frame):
         self.degree_frame.pack(side=TOP, anchor=N)
 
         # Initializing text for labels
-        self.min = ''
-        self.max = ''
-        self.name = ''
-        self.day_of_week = ''
-        self.icon = ''
+        self.min_temperature_text = ''
+        self.max_temperature_text = ''
+        self.day_of_week_text = ''
+        self.icon_path = ''
 
-        self.image_icon_selected, self.image_icon = None, None
+        # Initializing the two photos - white version of icon image and the tinted version
+        self.icon_photo_selected, self.icon_photo = None, None
 
-        # Initializing the Colors for labels
-        self.color_min_temp = selected_off
-        self.color_max_temp = selected_off
-        self.color_name = selected_off
-        self.color_day_of_week = selected_off
-        self.color_icon = selected_off
+        # Initializing a color boolean for all labels
+        self.color_all = selected_off
 
         # Initializing Labels
-        self.min_label = Label(self.degree_frame, font=(font_style, 14), fg=selected_off, bg=background_color)
-        self.min_label.pack(side=RIGHT, anchor=N)
-        self.max_label = Label(self.degree_frame, font=(font_style, 14), fg=selected_off, bg=background_color)
-        self.max_label.pack(side=LEFT, anchor=N)
+        self.min_temperature_label = Label(self.degree_frame, font=(font_style, 14), fg=selected_off, bg=background_color)
+        self.min_temperature_label.pack(side=RIGHT, anchor=N)
+        self.max_temperature_label = Label(self.degree_frame, font=(font_style, 14), fg=selected_off, bg=background_color)
+        self.max_temperature_label.pack(side=LEFT, anchor=N)
         self.icon_label = Label(self.daily_frame, bg=background_color)
         self.icon_label.pack(side=TOP, anchor=N, padx=20)
         self.day_of_week_label = Label(self.daily_frame, font=(font_style, 14), fg=selected_off, bg=background_color)
         self.day_of_week_label.pack(side=TOP, anchor=N)
-
-
 
         self.update_now(day)
 
@@ -57,31 +51,29 @@ class DailyWeather(Frame):
         icon = None
 
         # Updating daily weather if it doesnt match
-        if self.max != max_txt:
-            self.max = max_txt
-            self.max_label.config(text=self.max)
-        if self.min != min_txt:
-            self.min = min_txt
-            self.min_label.config(text=self.min)
-        if self.day_of_week != day_of_week:
-            self.day_of_week = day_of_week
-            self.day_of_week_label.config(text=self.day_of_week)
+        if self.max_temperature_text != max_txt:
+            self.max_temperature_text = max_txt
+            self.max_temperature_label.config(text=self.max_temperature_text)
+        if self.min_temperature_label != min_txt:
+            self.min_temperature_text = min_txt
+            self.min_temperature_label.config(text=self.min_temperature_text)
+        if self.day_of_week_text != day_of_week:
+            self.day_of_week_text = day_of_week
+            self.day_of_week_label.config(text=self.day_of_week_text)
 
         if icon_id in lookup.icon:
             icon = lookup.icon[icon_id]
 
         if icon is not None:
-            if self.icon != icon:
-                self.icon = icon
+            if self.icon_path != icon:
+                self.icon_path = icon
                 image = Image.open(icon)
                 image = image.resize((50, 50), Image.ANTIALIAS)
                 image = image.convert('RGB')
                 photo = ImageTk.PhotoImage(image)
-                self.image_icon = photo
-                self.image_icon_selected = ImageTk.PhotoImage(imagecolor.tint(image,var.selected_on))
-
+                self.icon_photo = photo
+                self.icon_photo_selected = ImageTk.PhotoImage(imagecolor.tint(image,var.selected_on))
                 self.icon_label.config(image=photo)
-                self.icon_label.image = photo
         else:
             # remove image
             self.icon_label.config(image='')
@@ -89,37 +81,16 @@ class DailyWeather(Frame):
     # --------------------------- Color ------------------------------ #
 
     def change_color_all(self, mode):
-        self.change_color_min_temp(mode)
-        self.change_color_max_temp(mode)
-        self.change_color_day_of_week(mode)
-        self.change_color_icon(mode)
-
-    def change_color_min_temp(self, mode):
-        if self.color_min_temp != mode:
-            self.color_min_temp = mode
-            self.min_label.config(foreground=self.color_min_temp)
-
-    def change_color_max_temp(self, mode):
-        if self.color_max_temp != mode:
-            self.color_max_temp = mode
-            self.max_label.config(foreground=self.color_max_temp)
-
-    def change_color_day_of_week(self, mode):
-        if self.color_day_of_week != mode:
-            self.color_day_of_week = mode
-            self.day_of_week_label.config(foreground=self.color_day_of_week)
-
-    def change_color_icon(self, mode):
-        if self.color_icon != mode:
-            if self.color_icon == var.selected_off:
-                self.icon_label.config(image=self.image_icon_selected)
-                self.icon_label.image = self.image_icon_selected
+        if self.color_all != mode:
+            self.color_all = mode
+            if self.color_all == var.selected_off:
+                self.icon_label.config(image=self.icon_photo)
 
             else:
-                self.icon_label.config(image=self.image_icon)
-                self.icon_label.image = self.image_icon
-
-            self.color_icon = mode
+                self.icon_label.config(image=self.icon_photo_selected)
+            self.min_temperature_label.config(foreground=self.color_all)
+            self.max_temperature_label.config(foreground=self.color_all)
+            self.day_of_week_label.config(foreground=self.color_all)
 
     # ------------------------------ Time ---------------------------------- #
 

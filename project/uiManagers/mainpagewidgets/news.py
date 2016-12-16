@@ -31,7 +31,7 @@ class NewsHeadline(Frame):
         if self.color_event_name != mode:
             self.color_event_name = mode
             self.event_name_label.config(foreground=self.color_event_name)
-            #todo add an underline!!!!
+            # todo add an underline!!!!
 
 
 class News(Frame):
@@ -67,10 +67,10 @@ class News(Frame):
         for widget in self.headlines_container.winfo_children():
             widget.destroy()
         headlines = var.saved_data['news_headlines']
-        links = var.saved_data['news_links']  # todo make clickable later link should open new window?
+        # links = var.saved_data['news_links']  # todo make clickable later link should open new window?
 
         for i in range(0, 5):
-            self.headline[i] = NewsHeadline(self.headlines_container,headlines[str(i)])
+            self.headline[i] = NewsHeadline(self.headlines_container, headlines[str(i)])
             self.headline[i].pack(side=TOP, anchor=W)
 
     # ---------------------------------- COLOR CHANGERS ----------------------------------- #

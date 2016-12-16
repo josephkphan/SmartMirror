@@ -25,9 +25,7 @@ class CursorHandler:
         # ---------------------------------- Settings ZONES ----------------------------------- #
         self.zone_settings_return = Polygon(var.top_left_rectangle)
 
-
         # ---------------------------------- CLOCK PAGE ZONES ----------------------------------- #
-
 
     # Checks which polygon / zone the cursor is in (based on the current page)
     def update_cursor(self, cursor, current_page):

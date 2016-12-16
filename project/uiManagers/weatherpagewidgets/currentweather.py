@@ -15,15 +15,15 @@ class CurrentWeather(Frame):
         self.degree_frame.pack(side=TOP, anchor=N)
 
         # Initializing text for labels
-        self.temperature = ''
-        self.forecast = ''
-        self.location = ''
-        self.currently = ''
-        self.icon = ''
-        self.prob_rain = ''
-        self.sunrise = ''
-        self.sunset = ''
-        self.summary = ''
+        self.temperature_text = ''
+        self.icon_path = ''
+        self.location_text = ''
+        self.currently_text = ''
+        self.summary_text = ''
+        self.rain_probability_text = ''
+        self.forecast_text = ''
+        self.sunrise_text = ''
+        self.sunset_text = ''
 
         # Initializing Labels
         self.temperature_label = Label(self.degree_frame, font=(font_style, 70), fg=selected_off, bg=background_color)
@@ -37,8 +37,8 @@ class CurrentWeather(Frame):
         self.currently_label.pack(side=TOP, anchor=N)
         self.summary_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
         self.summary_label.pack(side=TOP, anchor=N)
-        self.prob_rain_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
-        self.prob_rain_label.pack(side=TOP, anchor=N)
+        self.rain_probability_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
+        self.rain_probability_label.pack(side=TOP, anchor=N)
         self.sunrise_time_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
         self.sunrise_time_label.pack(side=TOP, anchor=N)
         self.sunset_time_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
@@ -68,45 +68,44 @@ class CurrentWeather(Frame):
         sunset = "Sunset time: " + self.get_time_from_datetime(sunset)
 
         # Updates information if different
-        if self.summary != summary:
-            self.summary = summary
-            self.summary_label.config(text=self.summary)
-        if self.prob_rain != prob_rain:
-            self.prob_rain = prob_rain
-            self.prob_rain_label.config(text=self.prob_rain)
-        if self.sunrise != sunrise:
-            self.sunrise = sunrise
-            self.sunrise_time_label.config(text=self.sunrise)
-        if self.sunset != sunset:
-            self.sunset = sunset
-            self.sunset_time_label.config(text=self.sunset)
-        if self.currently != currently:
-            self.currently = currently
-            self.currently_label.config(text=self.currently)
-        if self.temperature != temperature:
-            self.temperature = temperature
-            self.temperature_label.config(text=self.temperature)
-        if self.location != location:
+        if self.summary_text != summary:
+            self.summary_text = summary
+            self.summary_label.config(text=self.summary_text)
+        if self.rain_probability_text != prob_rain:
+            self.rain_probability_text = prob_rain
+            self.rain_probability_label.config(text=self.rain_probability_text)
+        if self.sunrise_text != sunrise:
+            self.sunrise_text = sunrise
+            self.sunrise_time_label.config(text=self.sunrise_text)
+        if self.sunset_text != sunset:
+            self.sunset_text = sunset
+            self.sunset_time_label.config(text=self.sunset_text)
+        if self.currently_text != currently:
+            self.currently_text = currently
+            self.currently_label.config(text=self.currently_text)
+        if self.temperature_text != temperature:
+            self.temperature_text = temperature
+            self.temperature_label.config(text=self.temperature_text)
+        if self.location_text != location:
             if location == ", ":
-                self.location = "Cannot Pinpoint Location"
+                self.location_text = "Cannot Pinpoint Location"
                 self.location_label.config(text="Cannot Pinpoint Location")
             else:
-                self.location = location
-                self.location_label.config(text=self.location)
+                self.location_text = location
+                self.location_label.config(text=self.location_text)
 
         if icon_id in lookup.icon:
             icon2 = lookup.icon[icon_id]
 
         if icon2 is not None:
-            if self.icon != icon2:
-                self.icon = icon2
+            if self.icon_path != icon2:
+                self.icon_path = icon2
                 image = Image.open(icon2)
                 image = image.resize((100, 100), Image.ANTIALIAS)
                 image = image.convert('RGB')
                 photo = ImageTk.PhotoImage(image)
 
                 self.icon_label.config(image=photo)
-                self.icon_label.image = photo
         else:
             # remove image
             self.icon_label.config(image='')

@@ -8,12 +8,14 @@ selected_off = 'white'
 background_color = 'black'
 font_style = 'Helvetica'
 
-color_hex_codes= {
-    'yellow' : '#ffff00',
-    'blue' : '#00bfff',
-    'pink' : '#ff1493',
-    'green' : '#32CD32',
-    'red' : '#ff0000',
+color_hex_codes = {
+    'blue': '#00bfff',
+    'green': '#32CD32',
+    'orange': '#f7580e',
+    'pink': '#f2137f',
+    'purple': '#c932ef',
+    'red': '#ef1f1f',
+    'yellow': '#ffff00'
 
 }
 # -------------------- For Web Parsing -------------------- #
@@ -65,7 +67,6 @@ update_time = 10  # in minutes
 
 saved_data = {}
 varLoader.get_saved_data()
-
 
 # -------------------- Settings ----------------------- #
 preferences = {}

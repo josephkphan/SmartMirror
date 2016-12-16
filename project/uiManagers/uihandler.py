@@ -66,8 +66,8 @@ class UIManager:
         self.cursor = self.canvas.create_oval(0, 0, tk_cursor_diameter, tk_cursor_diameter,
                                               fill="blue", outline="#DDD", width=tk_cursor_outline_thickness)
 
-        #todo make a bunch of premade lines and turn them on or off depending on which page it's on
-        #@thomas Nguyen
+        # todo make a bunch of premade lines and turn them on or off depending on which page it's on
+        # @thomas Nguyen
 
         # Vertical line
         self.line1 = self.canvas.create_line((camera_width / 2 + tk_cursor_diameter / 2, 0),
@@ -96,11 +96,9 @@ class UIManager:
         self.tk.bind("<Control_L>", self.toggle_manual_mode)
         self.tk.bind("<Shift_L>", self.toggle_select_mode_for_camera)
 
-
-        #FIRST TIME OPENING MIRROR
+        # FIRST TIME OPENING MIRROR
         if not var.saved_data:
-            self.web_info.update() #todo if this fails, exit program sicne you dont have any data
-
+            self.web_info.update()  # todo if this fails, exit program sicne you dont have any data
 
         # Display data onto UI Window
 
@@ -163,7 +161,7 @@ class UIManager:
         if self.current_page == Page.settings:
             print "HEEREEEEEEEEE"
             self.main_page_settings.change_a_setting(self.current_zone)
-            self.color_scheme_settings.change_a_setting(self.current_zone,self.main_page_settings)
+            self.color_scheme_settings.change_a_setting(self.current_zone, self.main_page_settings)
         return "break"
 
     def toggle_manual_mode(self, event=None):
@@ -324,7 +322,7 @@ class UIManager:
             if self.main_weather is not None:
                 self.main_weather.update()
             if self.main_news is not None:
-                self.main_news.update()  # todo Current only updates main page. need to update everything
+                self.main_news.update()  # todo Current only updates when on main page. ?? is that okay?
 
     # --------------------------------- Updating Tk ------------------------------------- #
 
@@ -415,8 +413,12 @@ class UIManager:
             self.color_scheme_settings.change_color_blue(var.selected_on)
         elif self.current_zone == zone.SettingsPage.green:
             self.color_scheme_settings.change_color_green(var.selected_on)
+        elif self.current_zone == zone.SettingsPage.orange:
+            self.color_scheme_settings.change_color_orange(var.selected_on)
         elif self.current_zone == zone.SettingsPage.pink:
             self.color_scheme_settings.change_color_pink(var.selected_on)
+        elif self.current_zone == zone.SettingsPage.purple:
+            self.color_scheme_settings.change_color_purple(var.selected_on)
         elif self.current_zone == zone.SettingsPage.red:
             self.color_scheme_settings.change_color_red(var.selected_on)
         elif self.current_zone == zone.SettingsPage.yellow:
@@ -425,18 +427,8 @@ class UIManager:
     # De-selects all zones on the settings page
     def settings_page_all_off(self):
         self.returnButton.change_color_all(var.selected_off)
-        self.main_page_settings.change_color_stocks(var.selected_off)
-        self.main_page_settings.change_color_news(var.selected_off)
-        self.main_page_settings.change_color_sunrise(var.selected_off)
-        self.main_page_settings.change_color_sunset(var.selected_off)
-        self.main_page_settings.change_color_hilo(var.selected_off)
-        self.color_scheme_settings.change_color_blue(var.selected_off)
-        self.color_scheme_settings.change_color_green(var.selected_off)
-        self.color_scheme_settings.change_color_pink(var.selected_off)
-        self.color_scheme_settings.change_color_red(var.selected_off)
-        self.color_scheme_settings.change_color_yellow(var.selected_off)
-
-
+        self.main_page_settings.change_all_label_colors(var.selected_off)
+        self.color_scheme_settings.change_all_label_colors(var.selected_off)
 
     # -------------------------------- Updating Pages ------------------------------------#
 

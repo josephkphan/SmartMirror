@@ -22,12 +22,11 @@ def get_saved_data():
             var.saved_data = json.load(f)
     except IOError as e:
         print "Unable to open file"  # Does not exist OR no read permissions
-        #todo end the program is there isnt an internet
+        # todo end the program is there isnt an internet
 
 
 # Updated the current gathered data from web, and saves it (by writing to file)
 def update_data(weather_data, location_data, news_data):
-
     # if gathering weather data failed, this will keep the last successful saved instance
     # rather than writing over it
     get_saved_data()
@@ -85,11 +84,13 @@ def get_preferences():
 
         # Color Preferences
         var.preferences['color'] = 'yellow'
-        var.preferences['yellow'] = True
-        var.preferences['red'] = False
         var.preferences['blue'] = False
         var.preferences['green'] = False
+        var.preferences['orange'] = False
         var.preferences['pink'] = False
+        var.preferences['purple'] = False
+        var.preferences['red'] = False
+        var.preferences['yellow'] = True
 
         update_preferences()  # Saves to file
 
@@ -99,14 +100,14 @@ def toggle_preferences(key):
     var.preferences[key] = not var.preferences[key]
     update_preferences()
 
-def change_color_scheme(new_color):
 
-    var.preferences[var.preferences['color']] = False   #turns old color off
+def change_color_scheme(new_color):
+    var.preferences[var.preferences['color']] = False  # turns old color off
     var.preferences[new_color] = True  # Turns new color on
     var.preferences['color'] = new_color  # updates new color   #TODO PROBLEM IS HERE NEW COLOR IS STILL HEX NEED TEXT
-    print new_color
-    var.selected_on = var.color_hex_codes[new_color] # PROBLEM
+    var.selected_on = var.color_hex_codes[new_color]  # PROBLEM
     update_preferences()
+
 
 # ------------------------ Other Data -------------------------- #
 
@@ -130,6 +131,6 @@ def get_other():
         update_other()
 
 
-def change_other_data(key,val):
+def change_other_data(key, val):
     var.other_data[key] = val
     update_other()
