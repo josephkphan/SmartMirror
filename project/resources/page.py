@@ -8,4 +8,6 @@ class Page(Enum):
     main = 1
     weather = 2
     settings = 3
+    news = 4
     none = -1
+

@@ -35,13 +35,12 @@ class NewsHeadline(Frame):
 
 
 class News(Frame):
-    def __init__(self, parent, *args, **kwargs):
+    def __init__(self, parent,num_headlines, *args, **kwargs):
         selected_off = var.selected_off
         background_color = var.background_color
         font_style = var.font_style
         Frame.__init__(self, parent, *args, **kwargs)
-        self.news_page = 0  # used to alternate news title todo implement this!!
-
+        self.num_headlines = num_headlines
         # Initialize Title and container
         self.config(bg=background_color)
         self.title = 'Headlines'
@@ -53,7 +52,7 @@ class News(Frame):
         # Initializing color for headlines
         self.color_title = selected_off
         self.color_headline = {}
-        for i in range(0, 5):
+        for i in range(0,self.num_headlines):
             self.color_headline[i] = selected_off
 
         # Initialize headline text
@@ -69,7 +68,7 @@ class News(Frame):
         headlines = var.saved_data['news_headlines']
         # links = var.saved_data['news_links']  # todo make clickable later link should open new window?
 
-        for i in range(0, 5):
+        for i in range(0,self.num_headlines):
             self.headline[i] = NewsHeadline(self.headlines_container, headlines[str(i)])
             self.headline[i].pack(side=TOP, anchor=W)
 

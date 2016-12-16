@@ -46,6 +46,9 @@ class UIManager:
         self.weather_daily = {}
         self.weather_hourly = {}
 
+        # News Page Widgets
+        self.news_sports, self.news_headlines, self.news_stocks = None, None, None
+
         # Setting Widgets
         self.main_page_settings, self.weather_page_settings = None, None
         self.color_scheme_settings = None
@@ -186,7 +189,7 @@ class UIManager:
         self.main_clock.pack(side=RIGHT, anchor=N, padx=50, pady=50)
 
         # News
-        self.main_news = News(self.bottom_frame)
+        self.main_news = News(self.bottom_frame,5)
         self.main_news.pack(side=LEFT, anchor=S, padx=50, pady=50)
 
         # Settings
@@ -208,6 +211,15 @@ class UIManager:
 
         self.main_settings.destroy()
         self.main_settings = None
+
+    def open_news_page(self):
+        self.news_headlines = News(self.bottom_frame,5)
+        self.news_headlines.pack(side=LEFT, anchor=S, padx=50, pady=50)
+
+    def close_news_page(self):
+        self.news_headlines.destroy()
+        self.news_headlines = None
+
 
     # ---------------------------------- Weather Page ----------------------------------- #
 
@@ -446,6 +458,9 @@ class UIManager:
             # Change from Main Page to Settings
             if self.current_zone == zone.MainPage.settings:
                 return Page.settings
+            # Change from Main Page to News
+            if self.current_zone == zone.MainPage.news:
+                return Page.news
 
         # Currently on Weather Page
         elif self.current_page == Page.weather:
@@ -457,6 +472,12 @@ class UIManager:
         elif self.current_page == Page.settings:
             # Change from Settings Page to Main Page
             if self.current_zone == zone.SettingsPage.returnButton:
+                return Page.main
+
+        # Currently on News Page
+        elif self.current_page == Page.news:
+            # Change from Settings Page to Main Page
+            if self.current_zone == zone.NewsPage.returnButton:
                 return Page.main
         return None
 
@@ -470,6 +491,8 @@ class UIManager:
                 # Switching from Settings
                 elif self.current_page == Page.settings:
                     self.close_settings_page()
+                elif self.current_page == Page.news:
+                    self.close_news_page()
                 self.current_page = Page.main
                 self.open_main_page()
                 self.current_zone = zone.MainPage.none
@@ -488,3 +511,10 @@ class UIManager:
                 self.current_page = Page.settings
                 self.open_settings_page()
                 self.current_zone = zone.SettingsPage.none
+            # Switching to News
+            elif new_page == Page.news:
+                self.close_main_page()
+                self.current_page = Page.news
+                self.open_news_page()
+                self.current_zone = zone.NewsPage.none
+

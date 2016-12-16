@@ -3,6 +3,7 @@ import json
 import feedparser
 import requests
 import traceback
+import pprint
 
 
 # used to gather information from the web.
@@ -38,7 +39,8 @@ class WebInfo:
                 else:
                     headlines_url = "https://news.google.com/news?ned=%s&output=rss" % var.country_code
                 feed = feedparser.parse(headlines_url)
-
+                print [field for field in feed]
+                print (entry for entry in feed['entries'])
             except Exception as e:
                 traceback.print_exc()
                 print "Error: %s. Cannot get news." % e

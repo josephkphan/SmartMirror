@@ -22,6 +22,11 @@ class WeatherPage(Enum):
     current_weather = 3
     daily_weather = 4
 
+class NewsPage(Enum):
+    none = 0
+    returnButton = 1
+    headlines = 2
+
 
 # Includes the possible zones that could be selected on the settings page
 class SettingsPage(Enum):

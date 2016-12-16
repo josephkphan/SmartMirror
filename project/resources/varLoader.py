@@ -43,11 +43,13 @@ def update_data(weather_data, location_data, news_data):
         headlines = {}  # Taking out only the headlines and links to those headlines
         links = {}
         # Converting data to Json
+        print news_data.entries[0].keys()
         for i in range(0, 5):
             headlines[str(i)] = news_data.entries[i].title
             links[str(i)] = news_data.entries[i].links
             var.saved_data['news_headlines'] = headlines
             var.saved_data['news_links'] = links
+            print news_data.entries[i].summary
 
     # Saves the time which data was last updated
     var.saved_data['last_updated'] = time.time()
