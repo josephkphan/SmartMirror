@@ -15,14 +15,14 @@ class DailyWeather(Frame):
         self.degree_frame = Frame(self.daily_frame, bg=background_color)
         self.degree_frame.pack(side=TOP, anchor=N)
 
-        # Initializing text for labels
+        # Initializing text (raw values) for labels (values to be displayed)
         self.min_temperature_text = ''
         self.max_temperature_text = ''
         self.day_of_week_text = ''
         self.icon_path = ''
 
         # Initializing the two photos - white version of icon image and the tinted version
-        self.icon_photo_selected, self.icon_photo = None, None
+        self.icon_photo_tinted, self.icon_photo = None, None
 
         # Initializing a color boolean for all labels
         self.color_all = selected_off
@@ -42,25 +42,26 @@ class DailyWeather(Frame):
     def update_now(self, day):
         # Gathering Daily weather data
         weather_obj = var.saved_data['weather']
-        max_txt = str(int(weather_obj['daily']['data'][day]['temperatureMax']))
-        min_txt = str(int(weather_obj['daily']['data'][day]['temperatureMin']))
+        updated_max_txt = str(int(weather_obj['daily']['data'][day]['temperatureMax']))
+        updated_min_txt = str(int(weather_obj['daily']['data'][day]['temperatureMin']))
         sunset_time = weather_obj['daily']['data'][day]['sunsetTime']
-        day_of_week = DailyWeather.convert_epoch_time_to_day_of_the_week(sunset_time)
-        day_of_week = day_of_week[:3]  # takes first 3 letters
+        updated_day_of_week = DailyWeather.convert_epoch_time_to_day_of_the_week(sunset_time)
+        updated_day_of_week = updated_day_of_week[:3]  # takes first 3 letters
         icon_id = weather_obj['daily']['data'][day]['icon']
         icon = None
 
         # Updating daily weather if it doesnt match
-        if self.max_temperature_text != max_txt:
-            self.max_temperature_text = max_txt
+        if self.max_temperature_text != updated_max_txt:
+            self.max_temperature_text = updated_max_txt
             self.max_temperature_label.config(text=self.max_temperature_text)
-        if self.min_temperature_label != min_txt:
-            self.min_temperature_text = min_txt
+        if self.min_temperature_label != updated_min_txt:
+            self.min_temperature_text = updated_min_txt
             self.min_temperature_label.config(text=self.min_temperature_text)
-        if self.day_of_week_text != day_of_week:
-            self.day_of_week_text = day_of_week
+        if self.day_of_week_text != updated_day_of_week:
+            self.day_of_week_text = updated_day_of_week
             self.day_of_week_label.config(text=self.day_of_week_text)
 
+        # Find the corresponding icon in lookup.py
         if icon_id in lookup.icon:
             icon = lookup.icon[icon_id]
 
@@ -72,10 +73,10 @@ class DailyWeather(Frame):
                 image = image.convert('RGB')
                 photo = ImageTk.PhotoImage(image)
                 self.icon_photo = photo
-                self.icon_photo_selected = ImageTk.PhotoImage(imagecolor.tint(image,var.selected_on))
+                self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(image,var.selected_on))
                 self.icon_label.config(image=photo)
         else:
-            # remove image
+            # Remove Image
             self.icon_label.config(image='')
 
     # --------------------------- Color ------------------------------ #
@@ -87,7 +88,7 @@ class DailyWeather(Frame):
                 self.icon_label.config(image=self.icon_photo)
 
             else:
-                self.icon_label.config(image=self.icon_photo_selected)
+                self.icon_label.config(image=self.icon_photo_tinted)
             self.min_temperature_label.config(foreground=self.color_all)
             self.max_temperature_label.config(foreground=self.color_all)
             self.day_of_week_label.config(foreground=self.color_all)
