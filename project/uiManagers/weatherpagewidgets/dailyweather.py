@@ -1,6 +1,6 @@
 from Tkinter import *
 from PIL import Image, ImageTk
-from project.resources import lookup, var
+from project.resources import lookup, var, imagecolor
 from datetime import date
 
 
@@ -22,6 +22,8 @@ class DailyWeather(Frame):
         self.day_of_week = ''
         self.icon = ''
 
+        self.image_icon_selected, self.image_icon = None, None
+
         # Initializing the Colors for labels
         self.color_min_temp = selected_off
         self.color_max_temp = selected_off
@@ -38,6 +40,8 @@ class DailyWeather(Frame):
         self.icon_label.pack(side=TOP, anchor=N, padx=20)
         self.day_of_week_label = Label(self.daily_frame, font=(font_style, 14), fg=selected_off, bg=background_color)
         self.day_of_week_label.pack(side=TOP, anchor=N)
+
+
 
         self.update_now(day)
 
@@ -73,6 +77,8 @@ class DailyWeather(Frame):
                 image = image.resize((50, 50), Image.ANTIALIAS)
                 image = image.convert('RGB')
                 photo = ImageTk.PhotoImage(image)
+                self.image_icon = photo
+                self.image_icon_selected = ImageTk.PhotoImage(imagecolor.tint(image,var.selected_on))
 
                 self.icon_label.config(image=photo)
                 self.icon_label.image = photo
@@ -103,8 +109,17 @@ class DailyWeather(Frame):
             self.color_day_of_week = mode
             self.day_of_week_label.config(foreground=self.color_day_of_week)
 
-    def change_color_icon(self,mode):
-        x=5
+    def change_color_icon(self, mode):
+        if self.color_icon != mode:
+            if self.color_icon == var.selected_off:
+                self.icon_label.config(image=self.image_icon_selected)
+                self.icon_label.image = self.image_icon_selected
+
+            else:
+                self.icon_label.config(image=self.image_icon)
+                self.icon_label.image = self.image_icon
+
+            self.color_icon = mode
 
     # ------------------------------ Time ---------------------------------- #
 
