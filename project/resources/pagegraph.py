@@ -30,13 +30,14 @@ Weather = {
 
 # News PageGraph
 News = {
-    NewsPage.none: [NewsPage.returnButton, NewsPage.none, NewsPage.none, NewsPage.none],
-    NewsPage.returnButton: [NewsPage.returnButton, NewsPage.none, NewsPage.returnButton, NewsPage.returnButton]
+    NewsPage.none: [NewsPage.returnButton, NewsPage.none, NewsPage.none, NewsPage.returnButton],
+    NewsPage.returnButton: [NewsPage.returnButton, NewsPage.headlines, NewsPage.returnButton, NewsPage.returnButton],
+    NewsPage.headlines:[NewsPage.returnButton, NewsPage.headlines, NewsPage.headlines, NewsPage.headlines]
 }
 
 # Time PageGraph
 Planner = {
-    PlannerPage.none: [PlannerPage.returnButton, PlannerPage.none, PlannerPage.none, PlannerPage.none],
+    PlannerPage.none: [PlannerPage.returnButton, PlannerPage.none, PlannerPage.none, PlannerPage.returnButton],
     PlannerPage.returnButton: [PlannerPage.returnButton, PlannerPage.none, PlannerPage.returnButton, PlannerPage.returnButton]
 }
 
@@ -45,22 +46,20 @@ Settings = {
     # Main Page Portion
     SettingsPage.none: [SettingsPage.returnButton, SettingsPage.returnButton, SettingsPage.returnButton,
                         SettingsPage.returnButton],
-    SettingsPage.returnButton: [SettingsPage.returnButton, SettingsPage.main_page_stocks, SettingsPage.returnButton,
+    SettingsPage.returnButton: [SettingsPage.returnButton, SettingsPage.main_page_weather, SettingsPage.returnButton,
                                 SettingsPage.returnButton],
-    SettingsPage.main_page_stocks: [SettingsPage.returnButton, SettingsPage.main_page_news,
-                                    SettingsPage.main_page_stocks, SettingsPage.main_page_stocks],
-    SettingsPage.main_page_news: [SettingsPage.main_page_stocks, SettingsPage.main_page_sunrise,
-                                  SettingsPage.main_page_news, SettingsPage.main_page_news],
-    SettingsPage.main_page_sunrise: [SettingsPage.main_page_news, SettingsPage.main_page_sunset,
-                                     SettingsPage.main_page_sunrise,
-                                     SettingsPage.main_page_sunrise],
-    SettingsPage.main_page_sunset: [SettingsPage.main_page_sunrise, SettingsPage.main_page_high_low,
-                                    SettingsPage.main_page_sunset,
-                                    SettingsPage.main_page_sunset],
-    SettingsPage.main_page_high_low: [SettingsPage.main_page_sunset, SettingsPage.blue, SettingsPage.main_page_high_low,
-                                      SettingsPage.main_page_high_low],
+    SettingsPage.main_page_weather: [SettingsPage.returnButton, SettingsPage.main_page_news,
+                                    SettingsPage.main_page_weather, SettingsPage.main_page_weather],
+    SettingsPage.main_page_time: [SettingsPage.main_page_weather, SettingsPage.main_page_news,
+                                  SettingsPage.main_page_time, SettingsPage.main_page_time],
+    SettingsPage.main_page_news: [SettingsPage.main_page_time, SettingsPage.main_page_sports,
+                                     SettingsPage.main_page_news, SettingsPage.main_page_news],
+    SettingsPage.main_page_sports: [SettingsPage.main_page_news, SettingsPage.main_page_stocks,
+                                    SettingsPage.main_page_sports, SettingsPage.main_page_sports],
+    SettingsPage.main_page_stocks: [SettingsPage.main_page_sports, SettingsPage.blue, SettingsPage.main_page_stocks,
+                                      SettingsPage.main_page_stocks],
     # Color Scheme portion
-    SettingsPage.blue: [SettingsPage.main_page_high_low, SettingsPage.green, SettingsPage.blue, SettingsPage.blue],
+    SettingsPage.blue: [SettingsPage.main_page_stocks, SettingsPage.green, SettingsPage.blue, SettingsPage.blue],
     SettingsPage.green: [SettingsPage.blue, SettingsPage.orange, SettingsPage.green, SettingsPage.green],
     SettingsPage.orange: [SettingsPage.green, SettingsPage.pink, SettingsPage.orange, SettingsPage.orange],
     SettingsPage.pink: [SettingsPage.orange, SettingsPage.purple, SettingsPage.pink, SettingsPage.pink],

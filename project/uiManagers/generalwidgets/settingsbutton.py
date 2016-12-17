@@ -29,13 +29,13 @@ class SettingsButton(Frame):
         # Packs in the icon
         self.icon_label = Label(self, bg=background_color, image=self.icon_photo)
         self.icon_label.image = self.icon_photo
-        self.icon_label.pack(side=LEFT, anchor=N)
+        self.icon_label.pack(side=LEFT, anchor=S)
 
         # Adds in "settings label"
         self.settings_text = "Settings"
         self.settings_text_label = Label(self, text=self.settings_text, font=(font_style, 24), fg=selected_off,
                                          bg=background_color)
-        self.settings_text_label.pack(side=LEFT, anchor=CENTER)
+        self.settings_text_label.pack(side=LEFT, anchor=S)
 
     # Changes color based on passed in mode
     def change_color_setting(self, mode):

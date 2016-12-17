@@ -33,16 +33,17 @@ class PlannerPage(Enum):
     none = 0
     returnButton = 1
 
+
 # Includes the possible zones that could be selected on the settings page
 class SettingsPage(Enum):
     none = 0
     returnButton = 1
     # Main page zones
-    main_page_sunset = 2
-    main_page_sunrise = 3
-    main_page_high_low = 4
-    main_page_stocks = 5
-    main_page_news = 6
+    main_page_weather = 2
+    main_page_time = 3
+    main_page_news = 4
+    main_page_sports = 5
+    main_page_stocks = 6
 
     # Color Schemes
     blue = 7

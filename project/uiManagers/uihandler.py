@@ -196,8 +196,8 @@ class UIManager:
         self.main_clock.pack(side=RIGHT, anchor=N, padx=50, pady=50)
 
         # News
-        self.main_news = News(self.bottom_frame,5)
-        self.main_news.pack(side=LEFT, anchor=S, padx=50, pady=50)
+        self.main_news = News(self.bottom_frame,3)
+        self.main_news.pack(side=BOTTOM, anchor=W, padx=50, pady=50)
 
         # Settings
         self.main_settings = SettingsButton(self.bottom_frame)
@@ -225,7 +225,7 @@ class UIManager:
         self.returnButton = ReturnButton(self.top_frame)
         self.returnButton.pack(side=TOP, anchor=N, padx=15, pady=15)
 
-        self.news_headlines = News(self.bottom_frame,5)
+        self.news_headlines = News(self.bottom_frame,var.saved_data['news_number_of_headlines'])
         self.news_headlines.pack(side=LEFT, anchor=S, padx=50, pady=50)
 
     def close_news_page(self):
@@ -444,9 +444,12 @@ class UIManager:
         # Return Button Selected
         if self.current_zone == zone.NewsPage.returnButton:
             self.returnButton.change_color_all(var.selected_on)
+        elif self.current_zone == zone.NewsPage.headlines:
+            self.news_headlines.change_color_all(var.selected_on)
 
     def news_page_all_off(self):
         self.returnButton.change_color_all(var.selected_off)
+        self.news_headlines.change_color_all(var.selected_off)
 
     # --------- Planner Page Zone Helpers --------- #
     def update_zone_planner_page(self):
@@ -466,16 +469,19 @@ class UIManager:
         self.settings_page_all_off()
         if self.current_zone == zone.SettingsPage.returnButton:
             self.returnButton.change_color_all(var.selected_on)
-        elif self.current_zone == zone.SettingsPage.main_page_stocks:
-            self.main_page_settings.change_color_stocks(var.selected_on)
+
+        # Main Page Settings
+        elif self.current_zone == zone.SettingsPage.main_page_weather:
+            self.main_page_settings.change_color_weather(var.selected_on)
+        elif self.current_zone == zone.SettingsPage.main_page_time:
+            self.main_page_settings.change_color_time(var.selected_on)
         elif self.current_zone == zone.SettingsPage.main_page_news:
             self.main_page_settings.change_color_news(var.selected_on)
-        elif self.current_zone == zone.SettingsPage.main_page_sunrise:
-            self.main_page_settings.change_color_sunrise(var.selected_on)
-        elif self.current_zone == zone.SettingsPage.main_page_sunset:
-            self.main_page_settings.change_color_sunset(var.selected_on)
-        elif self.current_zone == zone.SettingsPage.main_page_high_low:
-            self.main_page_settings.change_color_hilo(var.selected_on)
+        elif self.current_zone == zone.SettingsPage.main_page_sports:
+            self.main_page_settings.change_color_sports(var.selected_on)
+        elif self.current_zone == zone.SettingsPage.main_page_stocks:
+            self.main_page_settings.change_color_stocks(var.selected_on)
+        # Color Scheme Settings
         elif self.current_zone == zone.SettingsPage.blue:
             self.color_scheme_settings.change_color_blue(var.selected_on)
         elif self.current_zone == zone.SettingsPage.green:

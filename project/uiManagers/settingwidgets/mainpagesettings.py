@@ -16,96 +16,114 @@ class MainPageSettings(Frame):
 
         # ------------------------- Color ------------------------------ #
 
-        self.color_stocks = selected_off
+        self.color_weather = selected_off
+        self.color_time = selected_off
         self.color_news = selected_off
-        self.color_sunset = selected_off
-        self.color_sunrise = selected_off
-        self.color_hilo = selected_off
+        self.color_sports = selected_off
+        self.color_stocks = selected_off
 
-        # Key from varLoader Preferences
-        self.key_stocks = 'main_page_stocks'
-        self.key_news = 'main_page_news'
-        self.key_sunrise ='main_page_sunrise'
-        self.key_sunset ='main_page_sunset'
-        self.key_hilo ='main_page_high_low'
+        # ---------------- Key from varLoader Preferences -------------- #
+        self.key_weather='weather'
+        self.key_time='time'
+        self.key_news ='news'
+        self.key_sports ='sports'
+        self.key_stocks ='stocks'
 
         # --------------------------- Main Page ------------------------------ #
 
-        self.weather_page_title_label = Label(self.container, text='Main Page:', font=(font_style, 18),
+        self.main_page_title_label = Label(self.container, text='Main Page:', font=(font_style, 18),
                                               fg=selected_off, bg=background_color)
-        self.weather_page_title_label.pack(side=TOP, anchor=W)
+        self.main_page_title_label.pack(side=TOP, anchor=W)
 
-        self.stocks = checkbox.CheckBox(self.container, 'Show Stocks', self.key_stocks)
-        self.stocks.pack(side=TOP, anchor=W, padx=50)
+        self.top_half_title_label = Label(self.container, text='Top Half:', font=(font_style, 18),
+                                              fg=selected_off, bg=background_color,padx=50 )
+        self.top_half_title_label.pack(side=TOP, anchor=W)
 
-        self.news = checkbox.CheckBox(self.container, 'Show News', self.key_news)
-        self.news.pack(side=TOP, anchor=W, padx=50)
+        self.weather_label = checkbox.CheckBox(self.container, 'Weather on Left Side',  self.key_weather)
+        self.weather_label.pack(side=TOP, anchor=W, padx=100)
 
-        self.sunrise = checkbox.CheckBox(self.container, 'Show Sunrise time',  self.key_sunrise)
-        self.sunrise.pack(side=TOP, anchor=W, padx=50)
+        self.time_label = checkbox.CheckBox(self.container, 'Time on Left Side',  self.key_time)
+        self.time_label.pack(side=TOP, anchor=W, padx=100)
 
-        self.sunset = checkbox.CheckBox(self.container, 'Show Sunset time', self.key_sunset)
-        self.sunset.pack(side=TOP, anchor=W, padx=50)
+        self.bottom_half_title_label = Label(self.container, text='Bottom Half:', font=(font_style, 18),
+                                              fg=selected_off, bg=background_color,padx=50 )
+        self.bottom_half_title_label.pack(side=TOP, anchor=W)
 
-        self.hilo = checkbox.CheckBox(self.container, 'Show High Low for Day', self.key_hilo)
-        self.hilo.pack(side=TOP, anchor=W, padx=50)
+        self.news_label = checkbox.CheckBox(self.container, 'Show News',  self.key_news)
+        self.news_label.pack(side=TOP, anchor=W, padx=100)
+
+        self.sports_label = checkbox.CheckBox(self.container, 'Show Sports', self.key_sports)
+        self.sports_label.pack(side=TOP, anchor=W, padx=100)
+
+        self.stocks_label = checkbox.CheckBox(self.container, 'Show Stocks', self.key_stocks)
+        self.stocks_label.pack(side=TOP, anchor=W, padx=100)
 
     def change_all_label_colors(self, mode):
-        self.change_color_hilo(mode)
+        self.change_color_weather(mode)
+        self.change_color_time(mode)
         self.change_color_news(mode)
+        self.change_color_sports(mode)
         self.change_color_stocks(mode)
-        self.change_color_sunrise(mode)
-        self.change_color_sunset(mode)
 
-    def change_color_hilo(self, mode):
-        if self.color_hilo != mode:
-            self.color_hilo = mode
-            self.hilo.change_color_all(mode)
+    def change_color_weather(self, mode):
+        if self.color_weather != mode:
+            self.color_weather = mode
+            self.weather_label.change_color_all(mode)
+
+    def change_color_time(self, mode):
+        if self.color_time != mode:
+            self.color_time = mode
+            self.time_label.change_color_all(mode)
 
     def change_color_news(self, mode):
         if self.color_news != mode:
             self.color_news = mode
-            self.news.change_color_all(mode)
+            self.news_label.change_color_all(mode)
 
-    def change_color_sunrise(self, mode):
-        if self.color_sunrise != mode:
-            self.color_sunrise = mode
-            self.sunrise.change_color_all(mode)
-
-    def change_color_sunset(self, mode):
-        if self.color_sunset != mode:
-            self.color_sunset = mode
-            self.sunset.change_color_all(mode)
+    def change_color_sports(self, mode):
+        if self.color_sports != mode:
+            self.color_sports = mode
+            self.sports_label.change_color_all(mode)
 
     def change_color_stocks(self, mode):
         if self.color_stocks != mode:
             self.color_stocks = mode
-            self.stocks.change_color_all(mode)
+            self.stocks_label.change_color_all(mode)
 
     def change_a_setting(self, zone_to_change):
-        if zone_to_change == zone.SettingsPage.main_page_stocks:
-            varLoader.toggle_preferences(self.key_stocks)
-            self.stocks.update_check_box_image()
+        if zone_to_change == zone.SettingsPage.main_page_weather:
+            varLoader.change_main_page_top(self.key_weather)
+            self.update_top_label_check_boxes()
+
+        elif zone_to_change == zone.SettingsPage.main_page_time:
+            varLoader.change_main_page_top(self.key_time)
+            self.update_top_label_check_boxes()
 
         elif zone_to_change == zone.SettingsPage.main_page_news:
-            varLoader.toggle_preferences(self.key_news)
-            self.news.update_check_box_image()
+            varLoader.change_main_page_bottom( self.key_news)
+            self.update_bottom_label_check_boxes()
 
-        elif zone_to_change == zone.SettingsPage.main_page_sunrise:
-            varLoader.toggle_preferences( self.key_sunrise)
-            self.sunrise.update_check_box_image()
+        elif zone_to_change == zone.SettingsPage.main_page_sports:
+            varLoader.change_main_page_bottom( self.key_sports)
+            self.update_bottom_label_check_boxes()
 
-        elif zone_to_change == zone.SettingsPage.main_page_sunset:
-            varLoader.toggle_preferences( self.key_sunset)
-            self.sunset.update_check_box_image()
+        elif zone_to_change == zone.SettingsPage.main_page_stocks:
+            varLoader.change_main_page_bottom(self.key_stocks)
+            self.update_bottom_label_check_boxes()
 
-        elif zone_to_change == zone.SettingsPage.main_page_high_low:
-            varLoader.toggle_preferences(self.key_hilo)
-            self.hilo.update_check_box_image()
+    def update_top_label_check_boxes(self):
+        self.weather_label.update_check_box_image()
+        self.time_label.update_check_box_image()
 
+    def update_bottom_label_check_boxes(self):
+        self.news_label.update_check_box_image()
+        self.sports_label.update_check_box_image()
+        self.stocks_label.update_check_box_image()
+
+    # Used by Color Settings Widget Class when color changes
     def update_all_label_check_boxes(self):
-        self.hilo.update_colored_boxes()
-        self.stocks.update_colored_boxes()
-        self.news.update_colored_boxes()
-        self.sunrise.update_colored_boxes()
-        self.sunset.update_colored_boxes()
+        self.weather_label.update_colored_boxes()
+        self.time_label.update_colored_boxes()
+        self.sports_label.update_colored_boxes()
+        self.news_label.update_colored_boxes()
+        self.stocks_label.update_colored_boxes()

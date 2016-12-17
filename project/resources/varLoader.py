@@ -3,6 +3,7 @@ import json
 import time
 
 
+
 # ----------------------- Saved Web Data ----------------------- #
 
 # Writes saved_data to data.json
@@ -44,12 +45,14 @@ def update_data(weather_data, location_data, news_data):
         links = {}
         # Converting data to Json
         print news_data.entries[0].keys()
-        for i in range(0, 5):
-            headlines[str(i)] = news_data.entries[i].title
-            links[str(i)] = news_data.entries[i].links
-            var.saved_data['news_headlines'] = headlines
-            var.saved_data['news_links'] = links
-            print news_data.entries[i].summary
+        counter =0
+        for entry in news_data.entries:
+            headlines[str(counter)] = entry.title
+            links[str(counter)] = entry.links
+            counter += 1
+        var.saved_data['news_headlines'] = headlines
+        var.saved_data['news_links'] = links
+        var.saved_data['news_number_of_headlines'] = counter
 
     # Saves the time which data was last updated
     var.saved_data['last_updated'] = time.time()
@@ -78,13 +81,22 @@ def get_preferences():
         # If preferences were never created, create the preference file
 
         # Main page Preferences
-        var.preferences['main_page_stocks'] = True
-        var.preferences['main_page_news'] = True
-        var.preferences['main_page_sunset'] = True
-        var.preferences['main_page_sunrise'] = True
-        var.preferences['main_page_high_low'] = True
+
+        # ONLY one of these choices can be true at a time
+        var.preferences['weather'] = True
+        var.preferences['time'] = False
+        # If weather is true, that means weather on the left and time on the right
+        # If time is true, that means time is on the left and weather is on the right
+        # weather and time cannot both be true at the same time
+
+        # ONLY one of these choices can be true at a time
+        var.preferences['news'] = True
+        var.preferences['stocks'] = False
+        var.preferences['sports'] = False
+        var.preferences['show_this_on_bottom_of_main_page'] = 'news'
 
         # Color Preferences
+        # ONLY one of these choices can be true at a time
         var.preferences['color'] = 'yellow'
         var.preferences['blue'] = False
         var.preferences['green'] = False
@@ -97,16 +109,25 @@ def get_preferences():
         update_preferences()  # Saves to file
 
 
-# User wanted to change a preference, change it and update file
-def toggle_preferences(key):
-    var.preferences[key] = not var.preferences[key]
+def change_main_page_top(new_widget):
+    if not var.preferences[new_widget]:
+        var.preferences['weather'], var.preferences['time'] = var.preferences['time'], var.preferences['weather']
+    update_preferences()
+
+
+def change_main_page_bottom(new_widget):
+    print 'HEREEEEEEE'
+    print new_widget
+    var.preferences[var.preferences['show_this_on_bottom_of_main_page']] = False  # turns old color off
+    var.preferences[new_widget] = True  # Turns new color on
+    var.preferences['show_this_on_bottom_of_main_page'] = new_widget  # updates new color
     update_preferences()
 
 
 def change_color_scheme(new_color):
     var.preferences[var.preferences['color']] = False  # turns old color off
     var.preferences[new_color] = True  # Turns new color on
-    var.preferences['color'] = new_color  # updates new color   #TODO PROBLEM IS HERE NEW COLOR IS STILL HEX NEED TEXT
+    var.preferences['color'] = new_color  # updates new color
     var.selected_on = var.color_hex_codes[new_color]  # PROBLEM
     update_preferences()
 
