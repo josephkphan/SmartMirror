@@ -42,23 +42,23 @@ class DailyWeather(Frame):
     def update_now(self, day):
         # Gathering Daily weather data
         weather_obj = var.saved_data['weather']
-        updated_max_txt = str(int(weather_obj['daily']['data'][day]['temperatureMax']))
-        updated_min_txt = str(int(weather_obj['daily']['data'][day]['temperatureMin']))
+        max_temperature_txt = str(int(weather_obj['daily']['data'][day]['temperatureMax']))
+        min_temperature_txt = str(int(weather_obj['daily']['data'][day]['temperatureMin']))
         sunset_time = weather_obj['daily']['data'][day]['sunsetTime']
-        updated_day_of_week = DailyWeather.convert_epoch_time_to_day_of_the_week(sunset_time)
-        updated_day_of_week = updated_day_of_week[:3]  # takes first 3 letters
+        day_of_week = DailyWeather.convert_epoch_time_to_day_of_the_week(sunset_time)
+        day_of_week = day_of_week[:3]  # takes first 3 letters
         icon_id = weather_obj['daily']['data'][day]['icon']
         icon = None
 
         # Updating daily weather if it doesnt match
-        if self.max_temperature_text != updated_max_txt:
-            self.max_temperature_text = updated_max_txt
+        if self.max_temperature_text != max_temperature_txt:
+            self.max_temperature_text = max_temperature_txt
             self.max_temperature_label.config(text=self.max_temperature_text)
-        if self.min_temperature_label != updated_min_txt:
-            self.min_temperature_text = updated_min_txt
+        if self.min_temperature_text != min_temperature_txt:
+            self.min_temperature_text = min_temperature_txt
             self.min_temperature_label.config(text=self.min_temperature_text)
-        if self.day_of_week_text != updated_day_of_week:
-            self.day_of_week_text = updated_day_of_week
+        if self.day_of_week_text != day_of_week:
+            self.day_of_week_text = day_of_week
             self.day_of_week_label.config(text=self.day_of_week_text)
 
         # Find the corresponding icon in lookup.py

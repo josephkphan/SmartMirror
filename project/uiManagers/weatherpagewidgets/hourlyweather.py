@@ -1,7 +1,7 @@
 from Tkinter import *
-import datetime
 from PIL import Image, ImageTk
-from project.resources import lookup, var
+from project.resources import imagecolor, lookup, var
+import datetime
 
 
 class HourlyWeather(Frame):
@@ -14,10 +14,16 @@ class HourlyWeather(Frame):
         self.icon = Frame(self, bg=background_color)
         self.icon.pack(side=RIGHT, anchor=N)
 
-        # Initializing Label texts
+        # Initializing text (raw values) for labels (values to be displayed)
         self.time_text = ''
         self.temperature_text = ''
         self.rain_probability_text = ''
+
+        # Initializing the two photos - white version of icon image and the tinted version
+        self.icon_photo_tinted, self.icon_photo = None, None
+
+        # Initializing a color boolean for all labels
+        self.color_all = selected_off
 
         # Initializing Labels
         self.rain_probability_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color, padx=10)
@@ -26,6 +32,7 @@ class HourlyWeather(Frame):
         self.temperature_label.pack(side=RIGHT, anchor=N)
         self.time_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color, padx=15)
         self.time_label.pack(side=RIGHT, anchor=N)
+
         self.update_now(hour)
 
     def update_now(self, hour):
@@ -73,6 +80,19 @@ class HourlyWeather(Frame):
         #     self.day_icon.config(image='')
 
     # todo THIS METHOD IS USED TWICE?? PUT IT IN ITS OWN FILE
+
+    # --------------------------- Color ------------------------------ #
+
+    def change_color_all(self, mode):
+        if self.color_all != mode:
+            self.color_all = mode
+
+            self.rain_probability_label.config(foreground=self.color_all)
+            self.temperature_label.config(foreground=self.color_all)
+            self.time_label.config(foreground=self.color_all)
+
+    # --------------------------- Time Methods ------------------------------ #
+
 
     @staticmethod
     def convert_epoch_time_to_datetime(epoch_time):

@@ -48,9 +48,9 @@ class CurrentWeather(Frame):
         self.sunset_time_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
         self.sunset_time_label.pack(side=TOP, anchor=N)
 
-        self.update_weather()
+        self.update_now()
 
-    def update_weather(self):
+    def update_now(self):
         # Gets Location Information
         location_obj = var.saved_data['location']
         location = "%s, %s" % (location_obj['city'], location_obj['region_code'])
