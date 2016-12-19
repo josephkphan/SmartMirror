@@ -15,6 +15,12 @@ import os
 # >
 # then it found an existing library
 
+# Update computer
+os.system("sudo apt-get update && time sudo apt-get dist-upgrade")
+
+# Install pip
+os.system("sudo apt-get install python-setuptools python-dev build-essential")
+
 # Install Shapely
 os.system("sudo apt-get install python-shapely")
 
@@ -33,6 +39,11 @@ os.system("sudo apt-get install python-feedparser")
 
 # Install requests
 os.system("sudo apt-get install python-requests")
+
+# Install Google Client Services
+os.system("pip install --upgrade google-api-python-client")
+
+
 
 # Install RPI.GPIO
 # .... TODO FINISH LATER     https://goo.gl/QpUyRZ
