@@ -86,7 +86,6 @@ class DailyWeather(Frame):
             self.color_all = mode
             if self.color_all == var.selected_off:
                 self.icon_label.config(image=self.icon_photo)
-
             else:
                 self.icon_label.config(image=self.icon_photo_tinted)
             self.min_temperature_label.config(foreground=self.color_all)

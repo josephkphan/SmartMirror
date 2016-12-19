@@ -10,6 +10,8 @@ class HourlyWeather(Frame):
         background_color = var.background_color
         font_style = var.font_style
         Frame.__init__(self, parent, bg=background_color)
+        self.hourly_temperature_frame = Frame(self, bg=background_color)
+        self.hourly_temperature_frame.pack(side=LEFT, anchor=N)
 
         self.icon = Frame(self, bg=background_color)
         self.icon.pack(side=RIGHT, anchor=N)
@@ -31,9 +33,9 @@ class HourlyWeather(Frame):
         self.icon_label.pack(side=RIGHT, anchor=N, padx=20)
         # self.rain_probability_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color, padx=10)
         # self.rain_probability_label.pack(side=RIGHT, anchor=N)
-        self.temperature_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color, padx=10)
+        self.temperature_label = Label(self.hourly_temperature_frame, font=(font_style, 14), fg=selected_off, bg=background_color, padx=10)
         self.temperature_label.pack(side=RIGHT, anchor=N)
-        self.time_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color, padx=15)
+        self.time_label = Label(self.hourly_temperature_frame, font=(font_style, 14), fg=selected_off, bg=background_color, padx=15)
         self.time_label.pack(side=RIGHT, anchor=N)
 
         self.update_now(hour)
@@ -49,10 +51,11 @@ class HourlyWeather(Frame):
         icon_id = weather_obj['hourly']['data'][hour]['icon']
         icon = None
 
+        # ---------- Precipitation Code -----
         # if prob_rain == 0:
-        #     prob_rain = '0'     # todo change to '' if there isnt any rain
+        #     prob_rain = '0'
         # else:
-        #     prob_rain = str(prob_rain) + '%'            # todo IF > lets say 30, then ADD A RAINDROP ONTO THE HOUR <---
+        #     prob_rain = str(prob_rain) + '%'
 
         # Updates hourly weather if its different
         if self.time_text != time_txt:
@@ -61,6 +64,8 @@ class HourlyWeather(Frame):
         if self.temperature_text != temperature:
             self.temperature_text = temperature
             self.temperature_label.config(text=self.temperature_text)
+
+        # ----- Precipitation Code -----
         # if self.rain_probability_text != prob_rain:
         #     self.rain_probability_text = prob_rain
         #     self.rain_probability_label.config(text=self.rain_probability_text)
@@ -73,7 +78,7 @@ class HourlyWeather(Frame):
             if self.icon_path != icon:
                 self.icon_path = icon
                 image = Image.open(icon)
-                image = image.resize((50, 50), Image.ANTIALIAS)
+                image = image.resize((25, 25), Image.ANTIALIAS)
                 image = image.convert('RGB')
                 photo = ImageTk.PhotoImage(image)
                 self.icon_photo = photo
@@ -83,8 +88,10 @@ class HourlyWeather(Frame):
             # Remove Image
             self.icon_label.config(image='')
 
-        # icon_id = weather_obj['daily']['data'][hour]['icon']    todo add this in. This is the icon per hour?
-        # icon2 = None                                           #todo maybe only show rain? since we only have rain %
+
+        # ----- Precipitation Code ----
+        # icon_id = weather_obj['daily']['data'][hour]['icon']
+        # icon2 = None
         #
         # if icon_id in src.project.resources.lookup.icon:
         #     icon2 = src.project.resources.lookup.icon[icon_id]
@@ -103,14 +110,16 @@ class HourlyWeather(Frame):
         #     # remove image
         #     self.day_icon.config(image='')
 
-    # todo THIS METHOD IS USED TWICE?? PUT IT IN ITS OWN FILE
 
     # --------------------------- Color ------------------------------ #
 
     def change_color_all(self, mode):
         if self.color_all != mode:
             self.color_all = mode
-
+            if self.color_all == var.selected_off:
+                self.icon_label.config(image=self.icon_photo)
+            else:
+                self.icon_label.config(image=self.icon_photo_tinted)
             # self.rain_probability_label.config(foreground=self.color_all)
             self.temperature_label.config(foreground=self.color_all)
             self.time_label.config(foreground=self.color_all)
