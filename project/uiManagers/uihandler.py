@@ -269,7 +269,7 @@ class UIManager:
 
         # Daily Weather Container
         self.weather_container = Frame(self.right_top, bg=background_color)
-        self.weather_container.pack(side=TOP, anchor=W)
+        self.weather_container.pack(side=TOP, anchor=N)
 
         # Daily weather
         for i in range(0, 7):

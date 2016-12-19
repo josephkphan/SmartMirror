@@ -18,6 +18,7 @@ class HourlyWeather(Frame):
         self.time_text = ''
         self.temperature_text = ''
         self.rain_probability_text = ''
+        self.icon_path = ''
 
         # Initializing the two photos - white version of icon image and the tinted version
         self.icon_photo_tinted, self.icon_photo = None, None
@@ -26,8 +27,10 @@ class HourlyWeather(Frame):
         self.color_all = selected_off
 
         # Initializing Labels
-        self.rain_probability_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color, padx=10)
-        self.rain_probability_label.pack(side=RIGHT, anchor=N)
+        self.icon_label = Label(self, bg=background_color)
+        self.icon_label.pack(side=RIGHT, anchor=N, padx=20)
+        # self.rain_probability_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color, padx=10)
+        # self.rain_probability_label.pack(side=RIGHT, anchor=N)
         self.temperature_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color, padx=10)
         self.temperature_label.pack(side=RIGHT, anchor=N)
         self.time_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color, padx=15)
@@ -43,10 +46,13 @@ class HourlyWeather(Frame):
         time_txt = self.convert_epoch_time_to_datetime(weather_obj['hourly']['data'][hour]['time'])
         time_txt = self.get_time_from_datetime(time_txt)
         prob_rain = weather_obj['hourly']['data'][hour]['precipProbability']
-        if prob_rain == 0:
-            prob_rain = '0'     # todo change to '' if there isnt any rain
-        else:
-            prob_rain = str(prob_rain) + '%'            # todo IF > lets say 30, then ADD A RAINDROP ONTO THE HOUR <---
+        icon_id = weather_obj['hourly']['data'][hour]['icon']
+        icon = None
+
+        # if prob_rain == 0:
+        #     prob_rain = '0'     # todo change to '' if there isnt any rain
+        # else:
+        #     prob_rain = str(prob_rain) + '%'            # todo IF > lets say 30, then ADD A RAINDROP ONTO THE HOUR <---
 
         # Updates hourly weather if its different
         if self.time_text != time_txt:
@@ -55,9 +61,27 @@ class HourlyWeather(Frame):
         if self.temperature_text != temperature:
             self.temperature_text = temperature
             self.temperature_label.config(text=self.temperature_text)
-        if self.rain_probability_text != prob_rain:
-            self.rain_probability_text = prob_rain
-            self.rain_probability_label.config(text=self.rain_probability_text)
+        # if self.rain_probability_text != prob_rain:
+        #     self.rain_probability_text = prob_rain
+        #     self.rain_probability_label.config(text=self.rain_probability_text)
+
+        # Find the corresponding icon in lookup.py
+        if icon_id in lookup.icon:
+            icon = lookup.icon[icon_id]
+
+        if icon is not None:
+            if self.icon_path != icon:
+                self.icon_path = icon
+                image = Image.open(icon)
+                image = image.resize((50, 50), Image.ANTIALIAS)
+                image = image.convert('RGB')
+                photo = ImageTk.PhotoImage(image)
+                self.icon_photo = photo
+                self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(image, var.selected_on))
+                self.icon_label.config(image=photo)
+        else:
+            # Remove Image
+            self.icon_label.config(image='')
 
         # icon_id = weather_obj['daily']['data'][hour]['icon']    todo add this in. This is the icon per hour?
         # icon2 = None                                           #todo maybe only show rain? since we only have rain %
@@ -87,7 +111,7 @@ class HourlyWeather(Frame):
         if self.color_all != mode:
             self.color_all = mode
 
-            self.rain_probability_label.config(foreground=self.color_all)
+            # self.rain_probability_label.config(foreground=self.color_all)
             self.temperature_label.config(foreground=self.color_all)
             self.time_label.config(foreground=self.color_all)
 
