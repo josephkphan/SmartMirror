@@ -2,17 +2,17 @@ from project.resources import var
 from webinfo import *
 from cursorhandler import *
 from selectionhandler import *
-from project.uiManagers.mainpagewidgets.news import *
-from project.uiManagers.mainpagewidgets.clock import *
-from project.uiManagers.mainpagewidgets.weather import *
-from project.uiManagers.generalwidgets.returnButton import *
-from project.uiManagers.generalwidgets.settingsbutton import *
-from project.uiManagers.weatherpagewidgets.dailyweather import *
-from project.uiManagers.weatherpagewidgets.hourlyweather import *
-from project.uiManagers.weatherpagewidgets.currentweather import *
-from project.uiManagers.settingwidgets.weathersettings import *
-from project.uiManagers.settingwidgets.mainpagesettings import *
-from project.uiManagers.settingwidgets.colorsettings import *
+from mainpagewidgets.news import *
+from mainpagewidgets.clock import *
+from mainpagewidgets.weather import *
+from generalwidgets.returnButton import *
+from generalwidgets.settingsbutton import *
+from weatherpagewidgets.dailyweather import *
+from weatherpagewidgets.hourlyweather import *
+from weatherpagewidgets.currentweather import *
+from settingwidgets.weathersettings import *
+from settingwidgets.mainpagesettings import *
+from settingwidgets.colorsettings import *
 from project.resources import zone, pagegraph, var, varLoader
 from project.resources.page import *
 

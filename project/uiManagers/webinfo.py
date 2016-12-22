@@ -50,7 +50,7 @@ class WebInfo:
                 # Get location from web
                 location_req_url = "http://freegeoip.net/json/%s" % temp_ip
                 r = requests.get(location_req_url,
-                                 timeout=1)  # todo is point 5 long enough?? WHAT TO DO IF TIMEOUT SIGNAL FAIL???
+                                 timeout=20)  # todo is point 5 long enough?? WHAT TO DO IF TIMEOUT SIGNAL FAIL???
 
                 location_obj = json.loads(r.text)
                 lat = location_obj['latitude']
