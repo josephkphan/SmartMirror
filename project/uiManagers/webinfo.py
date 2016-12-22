@@ -50,17 +50,24 @@ class WebInfo:
                 # Get location from web
                 location_req_url = "http://freegeoip.net/json/%s" % temp_ip
                 r = requests.get(location_req_url,
-                                 timeout=20)  # todo is point 5 long enough?? WHAT TO DO IF TIMEOUT SIGNAL FAIL???
+                                 timeout=10)  # todo is point 5 long enough?? WHAT TO DO IF TIMEOUT SIGNAL FAIL???
 
                 location_obj = json.loads(r.text)
                 lat = location_obj['latitude']
-                lon = location_obj['longitude']
+                lon = location_obj['longtude']
+                print "HER MOTHERFUCKA"
+                print lat
+                print lon
 
                 # get weather
                 weather_req_url = "https://api.darksky.net/forecast/%s/%s,%s" % (self.key, lat, lon)
                 r = requests.get(weather_req_url)
+                print '---------------------------------------'
+                print r
                 weather_obj = json.loads(r.text)
-
+                print '--------------------------------------'
+                print weather_obj
+                 
             except Exception as e:
                 traceback.print_exc()
                 print "Error: %s. Cannot get weather." % e
