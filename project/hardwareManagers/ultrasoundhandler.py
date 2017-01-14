@@ -61,8 +61,9 @@ class UltraSoundHandler:
                 self.consecutiveHits = 0
             elif dist <= 150:
                 self.consecutiveHits += 1
-                # if consecutiveHits >= 3:
-                #     print ("HELLO")
+                if self.consecutiveHits >= 3:
+                     print ("HELLO")
+                     self.consecutiveHits = 0
                 #     os.system("python test_image.py")
             time.sleep(.1)
 
