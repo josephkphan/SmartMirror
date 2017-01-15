@@ -21,8 +21,8 @@ color_hex_codes = {
 
 font_size_large = {
     'giant': 96,
-    'bigger' : 76,
-    'big' : 50,
+    'bigger': 76,
+    'big': 50,
     'title': 38,
     'text': 28,
     'small': 18
@@ -30,8 +30,8 @@ font_size_large = {
 
 font_size_medium = {
     'giant': 92,
-    'bigger' : 70,
-    'big' : 40,
+    'bigger': 70,
+    'big': 40,
     'title': 28,
     'text': 18,
     'small': 14

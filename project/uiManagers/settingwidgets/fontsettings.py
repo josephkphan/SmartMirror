@@ -30,7 +30,7 @@ class FontSettings(Frame):
 
         # --------------------------- Color labels ------------------------------ #
 
-        self.title_label = Label(self.container, text='Font Size:', font=(font_style,  font_sizes['text']),
+        self.title_label = Label(self.container, text='Font Size:', font=(font_style, font_sizes['text']),
                                  fg=selected_off, bg=background_color)
         self.title_label.pack(side=TOP, anchor=W)
 
@@ -42,7 +42,6 @@ class FontSettings(Frame):
 
         self.large_label = checkbox.CheckBox(self.container, 'Large', self.key_large)
         self.large_label.pack(side=TOP, anchor=W, padx=50)
-
 
     # --------------------------- Color Methods ------------------------------ #
 
@@ -98,10 +97,7 @@ class FontSettings(Frame):
         self.large_label.update_check_box_image()
 
     def update_all_label_font_sizes(self):
-        self.title_label.config(font=(var.font_style,  var.font_sizes['text']))
+        self.title_label.config(font=(var.font_style, var.font_sizes['text']))
         self.small_label.update_font_sizes()
         self.medium_label.update_font_sizes()
         self.large_label.update_font_sizes()
-
-
-
