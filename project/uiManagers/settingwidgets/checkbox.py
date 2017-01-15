@@ -18,6 +18,7 @@ class CheckBox(Frame):
         selected_off = var.selected_off
         background_color = var.background_color
         font_style = var.font_style
+        font_sizes = var.font_sizes
 
         Frame.__init__(self, parent, bg=background_color)
         self.color_label = selected_off
@@ -54,7 +55,7 @@ class CheckBox(Frame):
         self.checked_photo_selected = ImageTk.PhotoImage(image)
 
         # Initializes the Label
-        self.text_label = Label(self, text=label, font=(font_style, 18), fg=selected_off, bg=background_color)
+        self.text_label = Label(self, text=label, font=(font_style,  font_sizes['text']), fg=selected_off, bg=background_color)
         self.text_label.pack(side=LEFT, anchor=N)
 
         # Chooses the according image to preference file

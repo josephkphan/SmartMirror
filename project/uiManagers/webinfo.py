@@ -54,8 +54,7 @@ class WebInfo:
 
                 location_obj = json.loads(r.text)
                 lat = location_obj['latitude']
-                lon = location_obj['longtude']
-                print "HER MOTHERFUCKA"
+                lon = location_obj['longitude']
                 print lat
                 print lon
 

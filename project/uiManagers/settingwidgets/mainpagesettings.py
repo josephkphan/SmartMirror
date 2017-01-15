@@ -9,6 +9,7 @@ class MainPageSettings(Frame):
         selected_off = var.selected_off
         background_color = var.background_color
         font_style = var.font_style
+        font_sizes = var.font_sizes
         Frame.__init__(self, parent, bg=background_color)
         # Main Page Settings
         self.container = Frame(self, bg=background_color)
@@ -31,12 +32,12 @@ class MainPageSettings(Frame):
 
         # --------------------------- Main Page ------------------------------ #
 
-        self.main_page_title_label = Label(self.container, text='Main Page:', font=(font_style, 18),
+        self.main_page_title_label = Label(self.container, text='Main Page:', font=(font_style,  font_sizes['text']),
                                               fg=selected_off, bg=background_color)
         self.main_page_title_label.pack(side=TOP, anchor=W)
 
-        self.top_half_title_label = Label(self.container, text='Top Half:', font=(font_style, 18),
-                                              fg=selected_off, bg=background_color,padx=50 )
+        self.top_half_title_label = Label(self.container, text='Top Half:', font=(font_style,  font_sizes['text']),
+                                              fg=selected_off, bg=background_color,padx=50)
         self.top_half_title_label.pack(side=TOP, anchor=W)
 
         self.weather_label = checkbox.CheckBox(self.container, 'Weather on Left Side',  self.key_weather)
@@ -45,7 +46,7 @@ class MainPageSettings(Frame):
         self.time_label = checkbox.CheckBox(self.container, 'Time on Left Side',  self.key_time)
         self.time_label.pack(side=TOP, anchor=W, padx=100)
 
-        self.bottom_half_title_label = Label(self.container, text='Bottom Half:', font=(font_style, 18),
+        self.bottom_half_title_label = Label(self.container, text='Bottom Half:', font=(font_style,  font_sizes['text']),
                                               fg=selected_off, bg=background_color,padx=50 )
         self.bottom_half_title_label.pack(side=TOP, anchor=W)
 

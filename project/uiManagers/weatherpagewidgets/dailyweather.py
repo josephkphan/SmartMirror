@@ -9,6 +9,7 @@ class DailyWeather(Frame):
         selected_off = var.selected_off
         background_color = var.background_color
         font_style = var.font_style
+        font_sizes = var.font_sizes
         Frame.__init__(self, parent, bg=background_color)
         self.daily_frame = Frame(self, bg=background_color)
         self.daily_frame.pack(side=TOP, anchor=N)
@@ -28,13 +29,16 @@ class DailyWeather(Frame):
         self.color_all = selected_off
 
         # Initializing Labels
-        self.min_temperature_label = Label(self.degree_frame, font=(font_style, 14), fg=selected_off, bg=background_color)
+        self.min_temperature_label = Label(self.degree_frame, font=(font_style, font_sizes['small']), fg=selected_off,
+                                           bg=background_color)
         self.min_temperature_label.pack(side=RIGHT, anchor=N)
-        self.max_temperature_label = Label(self.degree_frame, font=(font_style, 14), fg=selected_off, bg=background_color)
+        self.max_temperature_label = Label(self.degree_frame, font=(font_style, font_sizes['small']), fg=selected_off,
+                                           bg=background_color)
         self.max_temperature_label.pack(side=LEFT, anchor=N)
         self.icon_label = Label(self.daily_frame, bg=background_color)
         self.icon_label.pack(side=TOP, anchor=N, padx=20)
-        self.day_of_week_label = Label(self.daily_frame, font=(font_style, 14), fg=selected_off, bg=background_color)
+        self.day_of_week_label = Label(self.daily_frame, font=(font_style, font_sizes['small']), fg=selected_off,
+                                       bg=background_color)
         self.day_of_week_label.pack(side=TOP, anchor=N)
 
         self.update_now(day)
@@ -73,7 +77,7 @@ class DailyWeather(Frame):
                 image = image.convert('RGB')
                 photo = ImageTk.PhotoImage(image)
                 self.icon_photo = photo
-                self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(image,var.selected_on))
+                self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(image, var.selected_on))
                 self.icon_label.config(image=photo)
         else:
             # Remove Image

@@ -9,6 +9,7 @@ class ColorSettings(Frame):
         selected_off = var.selected_off
         background_color = var.background_color
         font_style = var.font_style
+        font_sizes = var.font_sizes
         Frame.__init__(self, parent, bg=background_color)
         # Main Page Settings
         self.container = Frame(self, bg=background_color)
@@ -37,7 +38,7 @@ class ColorSettings(Frame):
 
         # --------------------------- Color labels ------------------------------ #
 
-        self.title_label = Label(self.container, text='Color Scheme:', font=(font_style, 18),
+        self.title_label = Label(self.container, text='Color Scheme:', font=(font_style,  font_sizes['text']),
                                  fg=selected_off, bg=background_color)
         self.title_label.pack(side=TOP, anchor=W)
 

@@ -8,12 +8,13 @@ class WeatherSettings(Frame):
         selected_off = var.selected_off
         background_color = var.background_color
         font_style = var.font_style
+        font_sizes = var.font_sizes
         Frame.__init__(self, parent, bg=background_color)
         # Weather Settings
         self.container = Frame(self, bg=background_color)
         self.container.pack(side=TOP)
 
-        self.weather_page_title_label = Label(self.container, text='Weather Page:', font=(font_style, 18),
+        self.weather_page_title_label = Label(self.container, text='Weather Page:', font=(font_style,  font_sizes['text']),
                                               fg=selected_off, bg=background_color)
         self.weather_page_title_label.pack(side=TOP, anchor=W)
 

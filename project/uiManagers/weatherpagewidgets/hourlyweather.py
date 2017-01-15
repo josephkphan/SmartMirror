@@ -9,6 +9,7 @@ class HourlyWeather(Frame):
         selected_off = var.selected_off
         background_color = var.background_color
         font_style = var.font_style
+        font_sizes = var.font_sizes
         Frame.__init__(self, parent, bg=background_color)
         self.hourly_temperature_frame = Frame(self, bg=background_color)
         self.hourly_temperature_frame.pack(side=LEFT, anchor=N)
@@ -33,9 +34,9 @@ class HourlyWeather(Frame):
         self.icon_label.pack(side=RIGHT, anchor=N, padx=20)
         # self.rain_probability_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color, padx=10)
         # self.rain_probability_label.pack(side=RIGHT, anchor=N)
-        self.temperature_label = Label(self.hourly_temperature_frame, font=(font_style, 14), fg=selected_off, bg=background_color, padx=10)
+        self.temperature_label = Label(self.hourly_temperature_frame, font=(font_style,  font_sizes['small']), fg=selected_off, bg=background_color, padx=10)
         self.temperature_label.pack(side=RIGHT, anchor=N)
-        self.time_label = Label(self.hourly_temperature_frame, font=(font_style, 14), fg=selected_off, bg=background_color, padx=15)
+        self.time_label = Label(self.hourly_temperature_frame, font=(font_style, font_sizes['small']), fg=selected_off, bg=background_color, padx=15)
         self.time_label.pack(side=RIGHT, anchor=N)
 
         self.update_now(hour)

@@ -14,6 +14,7 @@ class Clock(Frame):
         background_color = var.background_color
         selected_off = var.selected_off
         font_style = var.font_style
+        font_sizes = var.font_sizes
 
         Frame.__init__(self, parent, bg=background_color)
 
@@ -27,20 +28,21 @@ class Clock(Frame):
         self.last_update_text = ''
 
         # initialize time label
-        self.time_label = Label(self, text=self.time_text, font=(font_style, 48), fg=selected_off, bg=background_color)
+        self.time_label = Label(self, text=self.time_text, font=(font_style, font_sizes['big']),
+                                fg=selected_off, bg=background_color)
         self.time_label.pack(side=TOP, anchor=E)
 
         # initialize day of week
-        self.day_label = Label(self, text=self.day_text, font=(font_style, 18), fg=selected_off,
+        self.day_label = Label(self, text=self.day_text, font=(font_style, font_sizes['text']), fg=selected_off,
                                bg=background_color)
         self.day_label.pack(side=TOP, anchor=E)
 
         # initialize date label
-        self.date_label = Label(self, text=self.date_text, font=(font_style, 18), fg=selected_off, bg=background_color)
+        self.date_label = Label(self, text=self.date_text, font=(font_style,  font_sizes['text']), fg=selected_off, bg=background_color)
         self.date_label.pack(side=TOP, anchor=E)
 
         # initialize last updated label
-        self.last_update_label = Label(self, text=self.last_update_text, font=(font_style, 12), fg=selected_off,
+        self.last_update_label = Label(self, text=self.last_update_text, font=(font_style,  font_sizes['small']), fg=selected_off,
                                        bg=background_color)
         self.last_update_label.pack(side=TOP, anchor=E)
 

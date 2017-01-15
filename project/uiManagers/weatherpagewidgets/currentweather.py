@@ -9,6 +9,7 @@ class CurrentWeather(Frame):
         selected_off = var.selected_off
         background_color = var.background_color
         font_style = var.font_style
+        font_sizes = var.font_sizes
         Frame.__init__(self, parent, bg=background_color)
         self.degree_frame = Frame(self, bg=background_color)
         self.degree_frame.pack(side=TOP, anchor=N)
@@ -31,21 +32,25 @@ class CurrentWeather(Frame):
         self.color_all = selected_off
 
         # Initializing Labels
-        self.temperature_label = Label(self.degree_frame, font=(font_style, 70), fg=selected_off, bg=background_color)
+        self.temperature_label = Label(self.degree_frame, font=(font_style, font_sizes['bigger']), fg=selected_off,
+                                       bg=background_color)
         self.temperature_label.pack(side=LEFT, anchor=N)
         self.icon_label = Label(self.degree_frame, bg=background_color)
         self.icon_label.pack(side=LEFT, anchor=N, padx=20)
-        self.location_label = Label(self, font=(font_style, 28), fg=selected_off, bg=background_color)
+        self.location_label = Label(self, font=(font_style, font_sizes['title']), fg=selected_off, bg=background_color)
         self.location_label.pack(side=TOP, anchor=N)
-        self.currently_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
+        self.currently_label = Label(self, font=(font_style, font_sizes['text']), fg=selected_off, bg=background_color)
         self.currently_label.pack(side=TOP, anchor=N)
-        self.summary_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
+        self.summary_label = Label(self, font=(font_style, font_sizes['text']), fg=selected_off, bg=background_color)
         self.summary_label.pack(side=TOP, anchor=N)
-        self.rain_probability_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
+        self.rain_probability_label = Label(self, font=(font_style, font_sizes['text']), fg=selected_off,
+                                            bg=background_color)
         self.rain_probability_label.pack(side=TOP, anchor=N)
-        self.sunrise_time_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
+        self.sunrise_time_label = Label(self, font=(font_style, font_sizes['text']), fg=selected_off,
+                                        bg=background_color)
         self.sunrise_time_label.pack(side=TOP, anchor=N)
-        self.sunset_time_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
+        self.sunset_time_label = Label(self, font=(font_style, font_sizes['text']), fg=selected_off,
+                                       bg=background_color)
         self.sunset_time_label.pack(side=TOP, anchor=N)
 
         self.update_now()

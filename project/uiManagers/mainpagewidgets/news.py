@@ -10,6 +10,7 @@ class NewsHeadline(Frame):
         selected_off = var.selected_off
         background_color = var.background_color
         font_style = var.font_style
+        font_sizes = var.font_sizes
         Frame.__init__(self, parent, bg=background_color)
 
         # Initializing Boolean color for all labels
@@ -29,7 +30,7 @@ class NewsHeadline(Frame):
         self.icon_label.pack(side=LEFT, anchor=N)
 
         self.event_name = event_name
-        self.event_name_label = Label(self, text=self.event_name, font=(font_style, 18), fg=selected_off,
+        self.event_name_label = Label(self, text=self.event_name, font=(font_style,  font_sizes['text']), fg=selected_off,
                                       bg=background_color)
         self.event_name_label.pack(side=LEFT, anchor=N)
 
@@ -52,12 +53,13 @@ class News(Frame):
         selected_off = var.selected_off
         background_color = var.background_color
         font_style = var.font_style
+        font_sizes = var.font_sizes
         Frame.__init__(self, parent, *args, **kwargs)
         self.num_headlines = num_headlines
         # Initialize Title and container
         self.config(bg=background_color)
 
-        self.title_label = Label(self, text='Headlines', font=(font_style, 28), fg=selected_off, bg=background_color)
+        self.title_label = Label(self, text='Headlines', font=(font_style,  font_sizes['title']), fg=selected_off, bg=background_color)
         self.title_label.pack(side=TOP, anchor=W)
         self.headlines_container = Frame(self, bg=background_color)
         self.headlines_container.pack(side=TOP)

@@ -11,13 +11,14 @@ class ReturnButton(Frame):
         selected_off = var.selected_off
         background_color = var.background_color
         font_style = var.font_style
+        font_sizes = var.font_sizes
         Frame.__init__(self, parent, bg=background_color)
 
         # initialize color for the label
         self.color_return = selected_off
 
         # initialize the return label
-        self.return_button = Label(self, text="Return", font=(font_style, 28), fg=selected_off, bg=background_color)
+        self.return_button = Label(self, text="Return", font=(font_style,  font_sizes['title']), fg=selected_off, bg=background_color)
         self.return_button.pack(side=LEFT, anchor=N)
 
     # Changes color based on specified mode

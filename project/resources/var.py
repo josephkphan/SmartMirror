@@ -18,6 +18,16 @@ color_hex_codes = {
     'yellow': '#ffff00'
 
 }
+
+font_sizes = {
+    'giant': 92,
+    'bigger' : 70,
+    'big' : 48,
+    'title': 28,
+    'text': 18,
+    'small': 14
+}
+
 # -------------------- For Web Parsing -------------------- #
 
 ip = '<IP>'

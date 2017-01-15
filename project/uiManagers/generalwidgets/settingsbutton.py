@@ -10,6 +10,7 @@ class SettingsButton(Frame):
         selected_off = var.selected_off
         background_color = var.background_color
         font_style = var.font_style
+        font_sizes = var.font_sizes
         Frame.__init__(self, bg=background_color)
 
         # to keep track of current color
@@ -33,8 +34,9 @@ class SettingsButton(Frame):
 
         # Adds in "settings label"
         self.settings_text = "Settings"
-        self.settings_text_label = Label(self, text=self.settings_text, font=(font_style, 24), fg=selected_off,
-                                         bg=background_color)
+
+        self.settings_text_label = Label(self, text=self.settings_text, font=(font_style, font_sizes['title']),
+                                         fg=selected_off, bg=background_color)
         self.settings_text_label.pack(side=LEFT, anchor=S)
 
     # Changes color based on passed in mode
