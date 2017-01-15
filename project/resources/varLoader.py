@@ -75,6 +75,7 @@ def get_preferences():
     try:
         with open('preferences.json') as f:
             var.preferences = json.load(f)
+            update_font_size()
     except IOError as e:
         print "Unable to open file"  # Does not exist OR no read permissions
         # Preferences Default
@@ -82,18 +83,19 @@ def get_preferences():
 
         # Main page Preferences
 
-        # ONLY one of these choices can be true at a time
-        var.preferences['weather'] = True
-        var.preferences['time'] = False
-        # If weather is true, that means weather on the left and time on the right
-        # If time is true, that means time is on the left and weather is on the right
-        # weather and time cannot both be true at the same time
-
-        # ONLY one of these choices can be true at a time
-        var.preferences['news'] = True
-        var.preferences['stocks'] = False
-        var.preferences['sports'] = False
-        var.preferences['show_this_on_bottom_of_main_page'] = 'news'
+        # todo Main Page settings isn't implemented.
+        # # ONLY one of these choices can be true at a time
+        # var.preferences['weather'] = True
+        # var.preferences['time'] = False
+        # # If weather is true, that means weather on the left and time on the right
+        # # If time is true, that means time is on the left and weather is on the right
+        # # weather and time cannot both be true at the same time
+        #
+        # # ONLY one of these choices can be true at a time
+        # var.preferences['news'] = True
+        # var.preferences['stocks'] = False
+        # var.preferences['sports'] = False
+        # var.preferences['show_this_on_bottom_of_main_page'] = 'news'
 
         # Color Preferences
         # ONLY one of these choices can be true at a time
@@ -105,6 +107,13 @@ def get_preferences():
         var.preferences['purple'] = False
         var.preferences['red'] = False
         var.preferences['yellow'] = True
+
+        # Font Size Preferences
+        # OBLY one of these choices can be true at a time
+        var.preferences['font_size_current'] = 'medium'
+        var.preferences['small'] = False
+        var.preferences['medium'] = True
+        var.preferences['large'] = False
 
         update_preferences()  # Saves to file
 
@@ -131,6 +140,22 @@ def change_color_scheme(new_color):
     var.selected_on = var.color_hex_codes[new_color]  # PROBLEM
     update_preferences()
 
+
+def change_font_size(new_size):
+    var.preferences[var.preferences['font_size_current']] = False  # turns old color off
+    var.preferences[new_size] = True  # Turns new color on
+    var.preferences['font_size_current'] = new_size  # updates new color
+    update_font_size()
+    update_preferences()
+
+
+def update_font_size():
+    if var.preferences['font_size_current'] == 'small':
+        var.font_sizes = var.font_size_small
+    elif var.preferences['font_size_current'] == 'medium':
+        var.font_sizes = var.font_size_medium
+    else:
+        var.font_sizes = var.font_size_large
 
 # ------------------------ Other Data -------------------------- #
 

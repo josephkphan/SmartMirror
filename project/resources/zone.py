@@ -53,3 +53,8 @@ class SettingsPage(Enum):
     purple = 11
     red = 12
     yellow = 13
+
+    # Font Sizes
+    small = 14
+    medium = 15
+    large = 16

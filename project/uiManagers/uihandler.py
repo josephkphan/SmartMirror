@@ -13,6 +13,7 @@ from weatherpagewidgets.currentweather import *
 from settingwidgets.weathersettings import *
 from settingwidgets.mainpagesettings import *
 from settingwidgets.colorsettings import *
+from settingwidgets.fontsettings import *
 from project.resources import zone, pagegraph, var, varLoader
 from project.resources.page import *
 
@@ -50,7 +51,7 @@ class UIManager:
         self.news_sports, self.news_headlines, self.news_stocks = None, None, None
 
         # Setting Widgets
-        self.main_page_settings, self.weather_page_settings = None, None
+        self.main_page_settings, self.weather_page_settings, self.font_settings = None, None, None
         self.color_scheme_settings = None
 
         # Planner Widgets
@@ -170,8 +171,9 @@ class UIManager:
         print "Enter CLICK HAPPENED"
         self.change_page(self.find_page_to_change_to())
         if self.current_page == Page.settings:
-            self.main_page_settings.change_a_setting(self.current_zone)
-            self.color_scheme_settings.change_a_setting(self.current_zone, self.main_page_settings)
+            # self.main_page_settings.change_a_setting(self.current_zone)
+            self.color_scheme_settings.change_a_setting(self.current_zone, self.font_settings)
+            self.font_settings.change_a_setting(self.current_zone,self.returnButton, self.color_scheme_settings)
         return "break"
 
     def toggle_manual_mode(self, event=None):
@@ -304,10 +306,12 @@ class UIManager:
     def open_settings_page(self):
         self.returnButton = ReturnButton(self.top_frame)
         self.returnButton.pack(side=TOP, anchor=W, padx=15, pady=15)
-        self.main_page_settings = MainPageSettings(self.top_frame)
-        self.main_page_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
+        # self.main_page_settings = MainPageSettings(self.top_frame)
+        # self.main_page_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
         self.color_scheme_settings = ColorSettings(self.top_frame)
         self.color_scheme_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
+        self.font_settings = FontSettings(self.top_frame)
+        self.font_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
         # self.weather_page_settings = WeatherSettings(self.top_frame)
         # self.weather_page_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
 
@@ -315,10 +319,12 @@ class UIManager:
         # Return Button
         self.returnButton.destroy()
         self.returnButton = None
-        self.main_page_settings.destroy()
-        self.main_page_settings = None
+        # self.main_page_settings.destroy()
+        # self.main_page_settings = None
         self.color_scheme_settings.destroy()
         self.color_scheme_settings = None
+        self.font_settings.destroy()
+        self.font_settings = None
         # self.weather_page_settings.destroy()
         # self.weather_page_settings = None
 
@@ -473,17 +479,18 @@ class UIManager:
         if self.current_zone == zone.SettingsPage.returnButton:
             self.returnButton.change_color_all(var.selected_on)
 
-        # Main Page Settings
-        elif self.current_zone == zone.SettingsPage.main_page_weather:
-            self.main_page_settings.change_color_weather(var.selected_on)
-        elif self.current_zone == zone.SettingsPage.main_page_time:
-            self.main_page_settings.change_color_time(var.selected_on)
-        elif self.current_zone == zone.SettingsPage.main_page_news:
-            self.main_page_settings.change_color_news(var.selected_on)
-        elif self.current_zone == zone.SettingsPage.main_page_sports:
-            self.main_page_settings.change_color_sports(var.selected_on)
-        elif self.current_zone == zone.SettingsPage.main_page_stocks:
-            self.main_page_settings.change_color_stocks(var.selected_on)
+        # # Main Page Settings
+        # elif self.current_zone == zone.SettingsPage.main_page_weather:
+        #     self.main_page_settings.change_color_weather(var.selected_on)
+        # elif self.current_zone == zone.SettingsPage.main_page_time:
+        #     self.main_page_settings.change_color_time(var.selected_on)
+        # elif self.current_zone == zone.SettingsPage.main_page_news:
+        #     self.main_page_settings.change_color_news(var.selected_on)
+        # elif self.current_zone == zone.SettingsPage.main_page_sports:
+        #     self.main_page_settings.change_color_sports(var.selected_on)
+        # elif self.current_zone == zone.SettingsPage.main_page_stocks:
+        #     self.main_page_settings.change_color_stocks(var.selected_on)
+
         # Color Scheme Settings
         elif self.current_zone == zone.SettingsPage.blue:
             self.color_scheme_settings.change_color_blue(var.selected_on)
@@ -500,11 +507,21 @@ class UIManager:
         elif self.current_zone == zone.SettingsPage.yellow:
             self.color_scheme_settings.change_color_yellow(var.selected_on)
 
+        # Font Settings
+        elif self.current_zone == zone.SettingsPage.small:
+            self.font_settings.change_color_small(var.selected_on)
+        elif self.current_zone == zone.SettingsPage.medium:
+            self.font_settings.change_color_medium(var.selected_on)
+        elif self.current_zone == zone.SettingsPage.large:
+            self.font_settings.change_color_large(var.selected_on)
+
+
     # De-selects all zones on the settings page
     def settings_page_all_off(self):
         self.returnButton.change_color_all(var.selected_off)
-        self.main_page_settings.change_all_label_colors(var.selected_off)
+        #self.main_page_settings.change_all_label_colors(var.selected_off)
         self.color_scheme_settings.change_all_label_colors(var.selected_off)
+        self.font_settings.change_all_label_colors(var.selected_off)
 
     # -------------------------------- Updating Pages ------------------------------------#
 

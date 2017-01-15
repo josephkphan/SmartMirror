@@ -8,6 +8,7 @@ class Weather(Frame):
         selected_off = var.selected_off
         background_color = var.background_color
         font_style = var.font_style
+        font_sizes = var.font_sizes
         Frame.__init__(self, parent, bg=background_color)
         self.degree_frame = Frame(self, bg=background_color)  # creates a sub Frame so icon can be on left or right
         self.degree_frame.pack(side=TOP, anchor=W)
@@ -23,17 +24,17 @@ class Weather(Frame):
         self.color_all = selected_off
 
         # Initialize Labels
-        self.temperature_label = Label(self.degree_frame, font=(font_style, 94), fg=selected_off, bg=background_color)
+        self.temperature_label = Label(self.degree_frame, font=(font_style, font_sizes['giant']), fg=selected_off, bg=background_color)
         self.temperature_label.pack(side=LEFT, anchor=N)
         self.photo, self.photo_on = None, None
         self.icon_label = Label(self.degree_frame, bg=background_color)
         self.icon_label.pack(side=LEFT, anchor=N, padx=20)
 
-        self.currently_label = Label(self, font=(font_style, 28), fg=selected_off, bg=background_color)
+        self.currently_label = Label(self, font=(font_style, font_sizes['title']), fg=selected_off, bg=background_color)
         self.currently_label.pack(side=TOP, anchor=W)
-        self.forecast_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
+        self.forecast_label = Label(self, font=(font_style, font_sizes['text']), fg=selected_off, bg=background_color)
         self.forecast_label.pack(side=TOP, anchor=W)
-        self.location_label = Label(self, font=(font_style, 18), fg=selected_off, bg=background_color)
+        self.location_label = Label(self, font=(font_style, font_sizes['text']), fg=selected_off, bg=background_color)
         self.location_label.pack(side=TOP, anchor=W)
         self.update()
 

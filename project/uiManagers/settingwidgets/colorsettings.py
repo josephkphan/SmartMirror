@@ -157,3 +157,13 @@ class ColorSettings(Frame):
         self.purple_label.update_check_box_image()
         self.red_label.update_check_box_image()
         self.yellow_label.update_check_box_image()
+
+    def update_all_font_sizes(self):
+        self.title_label.config(font=(var.font_style,  var.font_sizes['text']))
+        self.blue_label.update_font_sizes()
+        self.green_label.update_font_sizes()
+        self.orange_label.update_font_sizes()
+        self.pink_label.update_font_sizes()
+        self.purple_label.update_font_sizes()
+        self.red_label.update_font_sizes()
+        self.yellow_label.update_font_sizes()

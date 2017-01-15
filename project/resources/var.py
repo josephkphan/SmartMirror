@@ -19,15 +19,36 @@ color_hex_codes = {
 
 }
 
-font_sizes = {
+font_size_large = {
+    'giant': 96,
+    'bigger' : 76,
+    'big' : 50,
+    'title': 38,
+    'text': 28,
+    'small': 18
+}
+
+font_size_medium = {
     'giant': 92,
     'bigger' : 70,
-    'big' : 48,
+    'big' : 40,
     'title': 28,
     'text': 18,
     'small': 14
 }
 
+font_size_small = {
+    'giant': 64,
+    'bigger': 48,
+    'big': 32,
+    'title': 20,
+    'text': 14,
+    'small': 10
+}
+
+# todo ADD ICON SIZES
+
+font_sizes = None
 # -------------------- For Web Parsing -------------------- #
 
 ip = '<IP>'
@@ -87,6 +108,8 @@ varLoader.get_preferences()
 other_data = {}
 varLoader.get_other()
 selected_on = color_hex_codes[preferences['color']]
+varLoader.update_font_size()
+
 print selected_on
 print other_data
 

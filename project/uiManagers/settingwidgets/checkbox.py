@@ -126,3 +126,6 @@ class CheckBox(Frame):
         self.unchecked_photo_selected = ImageTk.PhotoImage(
             imagecolor.tint(self.plain_empty_checked_box, var.selected_on))
         self.checked_photo_selected = ImageTk.PhotoImage(imagecolor.tint(self.plain_checked_box, var.selected_on))
+
+    def update_font_sizes(self):
+        self.text_label.config(font=(var.font_style,  var.font_sizes['text']))

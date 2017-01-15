@@ -46,24 +46,34 @@ Settings = {
     # Main Page Portion
     SettingsPage.none: [SettingsPage.returnButton, SettingsPage.returnButton, SettingsPage.returnButton,
                         SettingsPage.returnButton],
-    SettingsPage.returnButton: [SettingsPage.returnButton, SettingsPage.main_page_weather, SettingsPage.returnButton,
+    SettingsPage.returnButton: [SettingsPage.returnButton, SettingsPage.blue, SettingsPage.returnButton,
                                 SettingsPage.returnButton],
-    SettingsPage.main_page_weather: [SettingsPage.returnButton, SettingsPage.main_page_news,
-                                    SettingsPage.main_page_weather, SettingsPage.main_page_weather],
-    SettingsPage.main_page_time: [SettingsPage.main_page_weather, SettingsPage.main_page_news,
-                                  SettingsPage.main_page_time, SettingsPage.main_page_time],
-    SettingsPage.main_page_news: [SettingsPage.main_page_time, SettingsPage.main_page_sports,
-                                     SettingsPage.main_page_news, SettingsPage.main_page_news],
-    SettingsPage.main_page_sports: [SettingsPage.main_page_news, SettingsPage.main_page_stocks,
-                                    SettingsPage.main_page_sports, SettingsPage.main_page_sports],
-    SettingsPage.main_page_stocks: [SettingsPage.main_page_sports, SettingsPage.blue, SettingsPage.main_page_stocks,
-                                      SettingsPage.main_page_stocks],
+
+    # Main Page Settings
+    # SettingsPage.main_page_weather: [SettingsPage.returnButton, SettingsPage.main_page_news,
+    #                                 SettingsPage.main_page_weather, SettingsPage.main_page_weather],
+    # SettingsPage.main_page_time: [SettingsPage.main_page_weather, SettingsPage.main_page_news,
+    #                               SettingsPage.main_page_time, SettingsPage.main_page_time],
+    # SettingsPage.main_page_news: [SettingsPage.main_page_time, SettingsPage.main_page_sports,
+    #                                  SettingsPage.main_page_news, SettingsPage.main_page_news],
+    # SettingsPage.main_page_sports: [SettingsPage.main_page_news, SettingsPage.main_page_stocks,
+    #                                 SettingsPage.main_page_sports, SettingsPage.main_page_sports],
+    # SettingsPage.main_page_stocks: [SettingsPage.main_page_sports, SettingsPage.blue, SettingsPage.main_page_stocks,
+    #                                   SettingsPage.main_page_stocks],
+
     # Color Scheme portion
-    SettingsPage.blue: [SettingsPage.main_page_stocks, SettingsPage.green, SettingsPage.blue, SettingsPage.blue],
+    SettingsPage.blue: [SettingsPage.returnButton, SettingsPage.green, SettingsPage.blue, SettingsPage.blue],
     SettingsPage.green: [SettingsPage.blue, SettingsPage.orange, SettingsPage.green, SettingsPage.green],
     SettingsPage.orange: [SettingsPage.green, SettingsPage.pink, SettingsPage.orange, SettingsPage.orange],
     SettingsPage.pink: [SettingsPage.orange, SettingsPage.purple, SettingsPage.pink, SettingsPage.pink],
     SettingsPage.purple: [SettingsPage.pink, SettingsPage.red, SettingsPage.purple, SettingsPage.purple],
     SettingsPage.red: [SettingsPage.purple, SettingsPage.yellow, SettingsPage.red, SettingsPage.red],
-    SettingsPage.yellow: [SettingsPage.red, SettingsPage.yellow, SettingsPage.yellow, SettingsPage.yellow]
+    SettingsPage.yellow: [SettingsPage.red, SettingsPage.small, SettingsPage.yellow, SettingsPage.yellow],
+
+    # Font Setting Portion
+    SettingsPage.small: [SettingsPage.yellow, SettingsPage.medium, SettingsPage.small, SettingsPage.small],
+    SettingsPage.medium: [SettingsPage.small, SettingsPage.large, SettingsPage.medium, SettingsPage.medium],
+    SettingsPage.large: [SettingsPage.medium, SettingsPage.large, SettingsPage.large, SettingsPage.large]
+
+
 }

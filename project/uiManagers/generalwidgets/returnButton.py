@@ -26,3 +26,6 @@ class ReturnButton(Frame):
         if self.color_return != mode:  # will only act if the requested change is different
             self.color_return = mode
             self.return_button.config(foreground=self.color_return)
+
+    def update_font_size(self):
+        self.return_button.config(font=(var.font_style,  var.font_sizes['title']))
