@@ -269,11 +269,11 @@ class UIManager:
 
         # Hourly Weather
         for i in range(0, 24):
-            # self.weather_hourly[i].update_now(i)
+            self.weather_hourly[i].update_now(i)
             self.weather_hourly[i].pack(side=TOP, anchor=W, padx=5, pady=5)
 
         # Current weather
-        # self.weather_current.update_now()
+        self.weather_current.update_now()
         self.weather_current.pack(side=TOP, anchor=N, padx=50, pady=50)
 
         # Daily Weather Container
@@ -282,7 +282,7 @@ class UIManager:
 
         # Daily weather
         for i in range(0, 7):
-            # self.weather_daily[i].update_now(i)
+            self.weather_daily[i].update_now(i)
             self.weather_daily[i].pack(side=LEFT, anchor=N, padx=0, pady=0)
 
     def close_weather_page(self):
