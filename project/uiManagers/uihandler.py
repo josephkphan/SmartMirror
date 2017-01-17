@@ -130,8 +130,8 @@ class UIManager:
             self.weather_hourly[i] = HourlyWeather(self.left_top, i)
         for i in range(0, 7):
             self.weather_daily[i] = DailyWeather(self.right_top, i)
-        self.font_settings = FontSettings(self.left_top,self.update_all_widgets)
-        self.color_scheme_settings = ColorSettings(self.left_top,self.update_all_widgets)
+        self.font_settings = FontSettings(self.left_top)
+        self.color_scheme_settings = ColorSettings(self.left_top)
 
         #self.main_weather = Weather(self.top_frame)
         self.open_main_page()
@@ -197,6 +197,7 @@ class UIManager:
             # self.main_page_settings.change_a_setting(self.current_zone)
             self.color_scheme_settings.change_a_setting(self.current_zone, self.font_settings)
             self.font_settings.change_a_setting(self.current_zone,self.returnButton, self.color_scheme_settings)
+            self.update_all_widgets()
         return "break"
 
     def toggle_manual_mode(self, event=None):
