@@ -5,7 +5,8 @@ from project.uiManagers.settingwidgets import checkbox
 
 
 class ColorSettings(Frame):
-    def __init__(self, parent):
+    def __init__(self, parent,update_all_widgets):
+        self.update_all_widgets = update_all_widgets
         selected_off = var.selected_off
         background_color = var.background_color
         font_style = var.font_style
@@ -139,6 +140,8 @@ class ColorSettings(Frame):
         self.update_all_label_check_boxes()
         self.update_all_box_images()
         other_setting.update_all_label_check_boxes()
+
+        self.update_all_widgets()
 
     def update_all_label_check_boxes(self):
         self.blue_label.update_colored_boxes()

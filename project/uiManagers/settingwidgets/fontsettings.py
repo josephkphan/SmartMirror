@@ -5,7 +5,8 @@ from project.uiManagers.settingwidgets import checkbox
 
 
 class FontSettings(Frame):
-    def __init__(self, parent):
+    def __init__(self, parent, update_all_widgets):
+        self.update_all_widgets=update_all_widgets
         selected_off = var.selected_off
         background_color = var.background_color
         font_style = var.font_style
@@ -70,7 +71,6 @@ class FontSettings(Frame):
     def change_a_setting(self, zone_to_change, return_button, color_settings):
         print "~~~~~~~ INSIDE CHANGE A SETTING"
         print zone_to_change
-
         if zone_to_change == zone.SettingsPage.small:
             varLoader.change_font_size('small')
 
@@ -85,6 +85,8 @@ class FontSettings(Frame):
         color_settings.update_all_font_sizes()
         self.update_all_label_check_boxes()
         self.update_all_box_images()
+
+        self.update_all_widgets()
 
     def update_all_label_check_boxes(self):
         self.small_label.update_colored_boxes()

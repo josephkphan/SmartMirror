@@ -126,12 +126,12 @@ class UIManager:
         self.weather_current = CurrentWeather(self.right_top)
         self.main_settings = SettingsButton(self.bottom_frame)
         self.news_headlines = News(self.bottom_frame,var.saved_data['news_number_of_headlines'])
-        self.color_scheme_settings = ColorSettings(self.left_top)
-        self.font_settings = FontSettings(self.left_top)
         for i in range(0, 24):
             self.weather_hourly[i] = HourlyWeather(self.left_top, i)
         for i in range(0, 7):
-            self.weather_daily[i] = DailyWeather(self.weather_container, i)
+            self.weather_daily[i] = DailyWeather(self.right_top, i)
+        self.font_settings = FontSettings(self.left_top,self.update_all_widgets)
+        self.color_scheme_settings = ColorSettings(self.left_top,self.update_all_widgets)
 
         #self.main_weather = Weather(self.top_frame)
         self.open_main_page()
@@ -269,11 +269,11 @@ class UIManager:
 
         # Hourly Weather
         for i in range(0, 24):
-            self.weather_hourly[i].update_now(i)
+            # self.weather_hourly[i].update_now(i)
             self.weather_hourly[i].pack(side=TOP, anchor=W, padx=5, pady=5)
 
         # Current weather
-        self.weather_current.update_now()
+        # self.weather_current.update_now()
         self.weather_current.pack(side=TOP, anchor=N, padx=50, pady=50)
 
         # Daily Weather Container
@@ -282,7 +282,7 @@ class UIManager:
 
         # Daily weather
         for i in range(0, 7):
-            self.weather_daily[i].update_now(i)
+            # self.weather_daily[i].update_now(i)
             self.weather_daily[i].pack(side=LEFT, anchor=N, padx=0, pady=0)
 
     def close_weather_page(self):
@@ -351,17 +351,14 @@ class UIManager:
     def update_web_info(self):
         last_update_time = (time.time() - var.saved_data['last_updated']) / 60
         # print last_update_time
-        if last_update_time >= var.update_time and self.current_page == Page.main:
+        if last_update_time >= var.update_time and self.current_page == Page.main: #todo only update on main page??
             # Means its been 10 minutes since it last updated
             print "UPDATING WEB INFO. REQUESTING FROM WEB"
             self.main_clock.change_update_label_to_updating()
             self.web_info.update()
-            if self.main_weather is not None:
-                self.main_weather.update()
-            if self.main_news is not None:
-                self.main_news.update()  # todo Current only updates when on main page. ?? is that okay?
+            self.update_all_widgets()
 
-    def update_all_widgets(self):   # todo IMPLEMENT THIS IN
+    def update_all_widgets(self, event=None):   # todo IMPLEMENT THIS IN
         # Weather Page
         for i in range(0, 7):
             self.weather_daily[i].update_now(i)
@@ -373,6 +370,7 @@ class UIManager:
         # Main Page
         self.main_news.update()
         self.main_weather.update()
+        self.main_settings.update_now()
 
 
     # --------------------------------- Updating Tk ------------------------------------- #
