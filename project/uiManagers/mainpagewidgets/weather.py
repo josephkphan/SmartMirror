@@ -26,7 +26,7 @@ class Weather(Frame):
         # Initialize Labels
         self.temperature_label = Label(self.degree_frame, font=(font_style, font_sizes['giant']), fg=selected_off, bg=background_color)
         self.temperature_label.pack(side=LEFT, anchor=N)
-        self.photo, self.photo_on = None, None
+        self.photo, self.photo_on, self.image =None, None, None
         self.icon_label = Label(self.degree_frame, bg=background_color)
         self.icon_label.pack(side=LEFT, anchor=N, padx=20)
 
@@ -60,17 +60,20 @@ class Weather(Frame):
         if icon is not None:
             if self.icon != icon:
                 self.icon = icon
-                image = Image.open(icon)
-                image = image.resize(var.font_sizes['large_icon'], Image.ANTIALIAS)
-                image = image.convert('RGB')
-                self.photo = ImageTk.PhotoImage(image)
-                self.photo_on = ImageTk.PhotoImage(imagecolor.tint(image, var.selected_on))
+                self.image = Image.open(icon)
+                self.image = self.image.resize(var.font_sizes['large_icon'], Image.ANTIALIAS)
+                self.image = self.image.convert('RGB')
+                self.photo = ImageTk.PhotoImage(self.image)
+                self.photo_on = ImageTk.PhotoImage(imagecolor.tint(self.image, var.selected_on))
                 self.icon_label.config(image=self.photo)
                 self.icon_label.image = self.photo
 
         else:
             # remove image
             self.icon_label.config(image='')
+
+        if self.photo is not None:
+            self.photo_on = ImageTk.PhotoImage(imagecolor.tint(self.image, var.selected_on))
 
         # Updating weather data
         if self.currently != currently:

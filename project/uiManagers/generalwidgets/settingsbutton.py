@@ -18,13 +18,13 @@ class SettingsButton(Frame):
 
         # initialize the 2 possible images
         # Settings - white
-        image = Image.open("assets/settings.png")
-        image = image.resize(var.font_sizes['medium_icon'], Image.ANTIALIAS)
-        image = image.convert('RGB')
-        self.icon_photo = ImageTk.PhotoImage(image)
+        self.image = Image.open("assets/settings.png")
+        self.image = self.image.resize(var.font_sizes['medium_icon'], Image.ANTIALIAS)
+        self.image = self.image.convert('RGB')
+        self.icon_photo = ImageTk.PhotoImage(self.image)
 
         # Settings - Yellow
-        image = imagecolor.tint(image, var.selected_on)
+        image = imagecolor.tint(self.image, var.selected_on)
         self.icon_photo_selected = ImageTk.PhotoImage(image)
 
         # Packs in the icon
@@ -51,3 +51,7 @@ class SettingsButton(Frame):
                 self.icon_label.config(image=self.icon_photo)
             # updates the text label
             self.settings_text_label.config(foreground=self.settings_selected)
+
+    def update_now(self):
+        if self.icon_photo is not None:
+            self.icon_photo_selected = ImageTk.PhotoImage(imagecolor.tint(self.image, var.selected_on))

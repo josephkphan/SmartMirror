@@ -24,7 +24,7 @@ class HourlyWeather(Frame):
         self.icon_path = ''
 
         # Initializing the two photos - white version of icon image and the tinted version
-        self.icon_photo_tinted, self.icon_photo = None, None
+        self.icon_photo_tinted, self.icon_photo, self.image = None, None, None
 
         # Initializing a color boolean for all labels
         self.color_all = selected_off
@@ -78,17 +78,19 @@ class HourlyWeather(Frame):
         if icon is not None:
             if self.icon_path != icon:
                 self.icon_path = icon
-                image = Image.open(icon)
-                image = image.resize(var.font_sizes['small_icon'], Image.ANTIALIAS)
-                image = image.convert('RGB')
-                photo = ImageTk.PhotoImage(image)
+                self.image = Image.open(icon)
+                self.image = self.image.resize(var.font_sizes['small_icon'], Image.ANTIALIAS)
+                self.image = self.image.convert('RGB')
+                photo = ImageTk.PhotoImage(self.image)
                 self.icon_photo = photo
-                self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(image, var.selected_on))
+                self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(self.image, var.selected_on))
                 self.icon_label.config(image=photo)
         else:
             # Remove Image
             self.icon_label.config(image='')
 
+        if self.icon_photo is not None:
+            self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(self.image, var.selected_on))
 
         # ----- Precipitation Code ----
         # icon_id = weather_obj['daily']['data'][hour]['icon']

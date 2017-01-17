@@ -81,7 +81,8 @@ class News(Frame):
             widget.destroy()
         headlines = var.saved_data['news_headlines']
         # links = var.saved_data['news_links']  # todo make clickable later link should open new window?
-
+        if var.saved_data['news_number_of_headlines'] < self.num_headlines:
+            self.num_headlines = var.saved_data['news_number_of_headlines']
         for i in range(0,self.num_headlines):
             self.headline[i] = NewsHeadline(self.headlines_container, headlines[str(i)])
             self.headline[i].pack(side=TOP, anchor=W)

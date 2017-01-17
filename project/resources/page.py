@@ -10,5 +10,6 @@ class Page(Enum):
     settings = 3
     news = 4
     planner = 5
+    blank = 0
     none = -1
 

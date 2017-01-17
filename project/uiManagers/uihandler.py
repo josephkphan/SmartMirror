@@ -112,6 +112,27 @@ class UIManager:
         self.current_zone = zone.MainPage.none
         self.current_page = Page.main
 
+        # Initializing widgets
+        self.left_top = Frame(self.top_frame, bg=background_color)
+        self.left_top.pack(side=LEFT, anchor=W)
+
+        self.right_top = Frame(self.top_frame, bg=background_color)
+        self.right_top.pack(side=RIGHT, anchor=N)
+
+        self.returnButton = ReturnButton(self.left_top)
+        self.main_weather = Weather(self.left_top)
+        self.main_clock = Clock(self.right_top)
+        self.main_news = News(self.bottom_frame, 3)
+        self.weather_current = CurrentWeather(self.right_top)
+        self.main_settings = SettingsButton(self.bottom_frame)
+        self.news_headlines = News(self.bottom_frame,var.saved_data['news_number_of_headlines'])
+        self.color_scheme_settings = ColorSettings(self.left_top)
+        self.font_settings = FontSettings(self.left_top)
+        for i in range(0, 24):
+            self.weather_hourly[i] = HourlyWeather(self.left_top, i)
+        for i in range(0, 7):
+            self.weather_daily[i] = DailyWeather(self.weather_container, i)
+
         #self.main_weather = Weather(self.top_frame)
         self.open_main_page()
 
@@ -192,84 +213,67 @@ class UIManager:
     def open_main_page(self):
 
         # Weather
-        self.main_weather = Weather(self.top_frame)
+        # self.main_weather.update()
         self.main_weather.pack(side=LEFT, anchor=N, padx=50, pady=50)
 
         # Clock
-        self.main_clock = Clock(self.top_frame)
         self.main_clock.pack(side=RIGHT, anchor=N, padx=50, pady=50)
 
         # News
-        self.main_news = News(self.bottom_frame,3)
+        # self.main_news.update()
         self.main_news.pack(side=BOTTOM, anchor=W, padx=50, pady=50)
 
         # Settings
-        self.main_settings = SettingsButton(self.bottom_frame)
+        # self.main_settings.update_now()
         self.main_settings.pack(side=BOTTOM, anchor=SE, padx=50, pady=10)
 
     def close_main_page(self):
         # Weather
-        self.main_weather.destroy()
-        self.main_weather = None
-        #self.main_weather.pack_forget()
+        self.main_weather.pack_forget()
 
         # Clock
-        self.main_clock.destroy()
-        self.main_clock = None
+        self.main_clock.pack_forget()
 
         # News
-        self.main_news.destroy()
-        self.main_news = None
+        self.main_news.pack_forget()
 
-        self.main_settings.destroy()
-        self.main_settings = None
+        # Settings Button
+        self.main_settings.pack_forget()
 
 # --------------------------------- News Page ------------------------------------ #
 
     def open_news_page(self):
-        self.returnButton = ReturnButton(self.top_frame)
         self.returnButton.pack(side=TOP, anchor=N, padx=15, pady=15)
-
-        self.news_headlines = News(self.bottom_frame,var.saved_data['news_number_of_headlines'])
+        # self.news_headlines.update()
         self.news_headlines.pack(side=LEFT, anchor=S, padx=50, pady=50)
 
     def close_news_page(self):
-        self.news_headlines.destroy()
-        self.news_headlines = None
-        self.returnButton.destroy()
-        self.returnButton = None
+        self.news_headlines.pack_forget()
+        self.returnButton.pack_forget()
 
     # --------------------------------- Planner Page ------------------------------------ #
 
     def open_planner_page(self):
-        self.returnButton = ReturnButton(self.top_frame)
         self.returnButton.pack(side=TOP, anchor=N, padx=15, pady=15)
 
     def close_planner_page(self):
 
-        self.returnButton.destroy()
-        self.returnButton = None
+        self.returnButton.pack_forget()
 
     # ---------------------------------- Weather Page ----------------------------------- #
 
     def open_weather_page(self):
-        self.left_top = Frame(self.top_frame, bg=background_color)
-        self.left_top.pack(side=LEFT, anchor=W)
-
-        self.right_top = Frame(self.top_frame, bg=background_color)
-        self.right_top.pack(side=RIGHT, anchor=N)
 
         # Return Button
-        self.returnButton = ReturnButton(self.left_top)
         self.returnButton.pack(side=TOP, anchor=N, padx=15, pady=15)
 
         # Hourly Weather
         for i in range(0, 24):
-            self.weather_hourly[i] = HourlyWeather(self.left_top, i)
+            # self.weather_hourly[i].update_now(i)
             self.weather_hourly[i].pack(side=TOP, anchor=W, padx=5, pady=5)
 
         # Current weather
-        self.weather_current = CurrentWeather(self.right_top)
+        # self.weather_current.update_now()
         self.weather_current.pack(side=TOP, anchor=N, padx=50, pady=50)
 
         # Daily Weather Container
@@ -278,56 +282,45 @@ class UIManager:
 
         # Daily weather
         for i in range(0, 7):
-            self.weather_daily[i] = DailyWeather(self.weather_container, i)
+            # self.weather_daily[i].update_now(i)
             self.weather_daily[i].pack(side=LEFT, anchor=N, padx=0, pady=0)
 
     def close_weather_page(self):
         # Return Button
-        self.returnButton.destroy()
-        self.returnButton = None
+        self.returnButton.pack_forget()
 
         # Current Weather
-        self.weather_current.destroy()
-        self.weather_current = None
+        self.weather_current.pack_forget()
 
         # Daily Weather
         for i in range(0, 7):
-            self.weather_daily[i].destroy()
-            self.weather_daily[i] = None
+            self.weather_daily[i].pack_forget()
 
         # Hourly Weather
         for i in range(0, 24):
-            self.weather_hourly[i].destroy()
-            self.weather_hourly[i] = None
+            self.weather_hourly[i].pack_forget()
 
-        self.left_top.destroy()
-        self.right_top.destroy()
         self.weather_container.destroy()
-        self.left_top, self.right_top, self.weather_container = None, None, None
 
     # ---------------------------------- Settings Page ----------------------------------- #
     def open_settings_page(self):
-        self.returnButton = ReturnButton(self.top_frame)
         self.returnButton.pack(side=TOP, anchor=W, padx=15, pady=15)
         # self.main_page_settings = MainPageSettings(self.top_frame)
         # self.main_page_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
-        self.color_scheme_settings = ColorSettings(self.top_frame)
+
         self.color_scheme_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
-        self.font_settings = FontSettings(self.top_frame)
+
         self.font_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
         # self.weather_page_settings = WeatherSettings(self.top_frame)
         # self.weather_page_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
 
     def close_settings_page(self):
         # Return Button
-        self.returnButton.destroy()
-        self.returnButton = None
+        self.returnButton.pack_forget()
         # self.main_page_settings.destroy()
         # self.main_page_settings = None
-        self.color_scheme_settings.destroy()
-        self.color_scheme_settings = None
-        self.font_settings.destroy()
-        self.font_settings = None
+        self.color_scheme_settings.pack_forget()
+        self.font_settings.pack_forget()
         # self.weather_page_settings.destroy()
         # self.weather_page_settings = None
 
@@ -367,6 +360,20 @@ class UIManager:
                 self.main_weather.update()
             if self.main_news is not None:
                 self.main_news.update()  # todo Current only updates when on main page. ?? is that okay?
+
+    def update_all_widgets(self):   # todo IMPLEMENT THIS IN
+        # Weather Page
+        for i in range(0, 7):
+            self.weather_daily[i].update_now(i)
+        for i in range(0, 24):
+            self.weather_hourly[i].update_now(i)
+        self.weather_current.update_now()
+        # News Page
+        self.news_headlines.update()
+        # Main Page
+        self.main_news.update()
+        self.main_weather.update()
+
 
     # --------------------------------- Updating Tk ------------------------------------- #
 
