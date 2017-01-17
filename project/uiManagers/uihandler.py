@@ -111,6 +111,8 @@ class UIManager:
 
         self.current_zone = zone.MainPage.none
         self.current_page = Page.main
+
+        #self.main_weather = Weather(self.top_frame)
         self.open_main_page()
 
         # self.current_page = Page.weather
@@ -209,6 +211,7 @@ class UIManager:
         # Weather
         self.main_weather.destroy()
         self.main_weather = None
+        #self.main_weather.pack_forget()
 
         # Clock
         self.main_clock.destroy()

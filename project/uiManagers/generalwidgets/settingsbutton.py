@@ -19,7 +19,7 @@ class SettingsButton(Frame):
         # initialize the 2 possible images
         # Settings - white
         image = Image.open("assets/settings.png")
-        image = image.resize((50, 50), Image.ANTIALIAS)
+        image = image.resize(var.font_sizes['settings_icon'], Image.ANTIALIAS)
         image = image.convert('RGB')
         self.icon_photo = ImageTk.PhotoImage(image)
 

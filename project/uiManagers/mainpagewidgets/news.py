@@ -18,7 +18,7 @@ class NewsHeadline(Frame):
 
         # Creating the regular icon photo an tinted photo
         image = Image.open("assets/newspaper.png")
-        image = image.resize((25, 25), Image.ANTIALIAS)
+        image = image.resize(var.font_sizes['newspaper_icon'], Image.ANTIALIAS)
         image = image.convert('RGB')
         self.icon_photo, self.icon_photo_tinted = None, None
         self.icon_photo = ImageTk.PhotoImage(image)

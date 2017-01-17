@@ -112,7 +112,7 @@ class CurrentWeather(Frame):
             if self.icon_path != icon:
                 self.icon_path = icon
                 image = Image.open(icon)
-                image = image.resize((100, 100), Image.ANTIALIAS)
+                image = image.resize(var.font_sizes['main_page_weather_icon'], Image.ANTIALIAS)
                 image = image.convert('RGB')
                 photo = ImageTk.PhotoImage(image)
                 self.icon_photo = photo

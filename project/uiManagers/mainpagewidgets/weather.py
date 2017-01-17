@@ -61,7 +61,7 @@ class Weather(Frame):
             if self.icon != icon:
                 self.icon = icon
                 image = Image.open(icon)
-                image = image.resize((100, 100), Image.ANTIALIAS)
+                image = image.resize(var.font_sizes['main_page_weather_icon'], Image.ANTIALIAS)
                 image = image.convert('RGB')
                 self.photo = ImageTk.PhotoImage(image)
                 self.photo_on = ImageTk.PhotoImage(imagecolor.tint(image, var.selected_on))
