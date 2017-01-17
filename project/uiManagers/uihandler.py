@@ -114,7 +114,7 @@ class UIManager:
 
         # Initializing widgets
         self.left_top = Frame(self.top_frame, bg=background_color)
-        self.left_top.pack(side=LEFT, anchor=W)
+        self.left_top.pack(side=LEFT, anchor=N)
 
         self.right_top = Frame(self.top_frame, bg=background_color)
         self.right_top.pack(side=RIGHT, anchor=N)
@@ -214,19 +214,16 @@ class UIManager:
     def open_main_page(self):
 
         # Weather
-        # self.main_weather.update()
         self.main_weather.pack(side=LEFT, anchor=N, padx=50, pady=50)
 
         # Clock
         self.main_clock.pack(side=RIGHT, anchor=N, padx=50, pady=50)
 
         # News
-        # self.main_news.update()
         self.main_news.pack(side=BOTTOM, anchor=W, padx=50, pady=50)
 
         # Settings
-        # self.main_settings.update_now()
-        self.main_settings.pack(side=BOTTOM, anchor=SE, padx=50, pady=10)
+        self.main_settings.pack(side=BOTTOM, anchor=E, padx=50, pady=10)
 
     def close_main_page(self):
         # Weather
@@ -245,7 +242,6 @@ class UIManager:
 
     def open_news_page(self):
         self.returnButton.pack(side=TOP, anchor=N, padx=15, pady=15)
-        # self.news_headlines.update()
         self.news_headlines.pack(side=LEFT, anchor=S, padx=50, pady=50)
 
     def close_news_page(self):
@@ -270,20 +266,13 @@ class UIManager:
 
         # Hourly Weather
         for i in range(0, 24):
-            # self.weather_hourly[i].update_now(i)
             self.weather_hourly[i].pack(side=TOP, anchor=W, padx=5, pady=5)
 
         # Current weather
-        # self.weather_current.update_now()
         self.weather_current.pack(side=TOP, anchor=N, padx=50, pady=50)
-
-        # Daily Weather Container
-        self.weather_container = Frame(self.right_top, bg=background_color)
-        self.weather_container.pack(side=TOP, anchor=N)
 
         # Daily weather
         for i in range(0, 7):
-            # self.weather_daily[i].update_now(i)
             self.weather_daily[i].pack(side=LEFT, anchor=N, padx=0, pady=0)
 
     def close_weather_page(self):
