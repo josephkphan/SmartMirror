@@ -79,7 +79,7 @@ class HourlyWeather(Frame):
             if self.icon_path != icon:
                 self.icon_path = icon
                 image = Image.open(icon)
-                image = image.resize((25, 25), Image.ANTIALIAS)
+                image = image.resize(var.font_sizes['small_icon'], Image.ANTIALIAS)
                 image = image.convert('RGB')
                 photo = ImageTk.PhotoImage(image)
                 self.icon_photo = photo

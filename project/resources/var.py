@@ -26,9 +26,9 @@ font_size_large = {
     'title': 38,
     'text': 28,
     'small': 18,
-    'main_page_weather_icon' : (125,125),
-    'settings_icon': (65,65),
-    'newspaper_icon':(35,35)
+    'large_icon' : (125,125),
+    'medium_icon': (65,65),
+    'small_icon':(35,35)
 }
 
 font_size_medium = {
@@ -38,9 +38,9 @@ font_size_medium = {
     'title': 28,
     'text': 18,
     'small': 14,
-    'main_page_weather_icon' : (100,100),
-    'settings_icon': (50,50),
-    'newspaper_icon':(25,25)
+    'large_icon' : (100,100),
+    'medium_icon': (50,50),
+    'small_icon':(25,25)
 }
 
 font_size_small = {
@@ -50,9 +50,9 @@ font_size_small = {
     'title': 20,
     'text': 14,
     'small': 10,
-    'main_page_weather_icon' : (75,75),
-    'settings_icon': (40,40),
-    'newspaper_icon':(20,20)
+    'large_icon' : (75,75),
+    'medium_icon': (40,40),
+    'small_icon':(20,20)
 }
 
 # todo ADD ICON SIZES
