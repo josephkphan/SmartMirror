@@ -309,6 +309,7 @@ class UIManager:
         # Main Page
         self.main_news.update_now()
         self.main_weather.update_now()
+        self.settings_update_now.update_now()
 
     def update_all_widgets_everything(self, event=None):  # updates font, content, and image colors
         self.update_all_widgets_content()

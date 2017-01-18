@@ -51,7 +51,7 @@ class UpdateNow(Frame):
         self.check_last_update()
 
     def check_last_update(self):
-
+        print "heree"
         # if last update time changed, update it
         last_update_time = math.floor(time.time() - var.saved_data['last_updated']) / 60
         if int(last_update_time) == 0:
@@ -68,7 +68,8 @@ class UpdateNow(Frame):
         # calls itself every 200 milliseconds to update the time display as needed
         # could use >200 ms, but display gets jerky
         self.update()
-        self.last_update_label.after(200, self.check_last_update) #todo is 200 too much???
+        self.last_update_label.after(1000, self.check_last_update) #todo is 200 too much???
+            #todo THIS IS STILL CALLED EVEN DURING OTHER PAGES!!! -since instiated in begininng
 
     # Changes color based on passed in mode
     def change_color_update_now(self, mode):

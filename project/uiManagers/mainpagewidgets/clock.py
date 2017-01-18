@@ -82,7 +82,7 @@ class Clock(Frame):
         # calls itself every 200 milliseconds to update the time display as needed
         # could use >200 ms, but display gets jerky
         self.update()
-        self.time_label.after(200, self.tick)
+        self.time_label.after(1000, self.tick)
 
     # -------------------- Colorings -------------------------- #
 
