@@ -17,12 +17,12 @@ class NewsHeadline(Frame):
         self.color_all = selected_off
 
         # Creating the regular icon photo an tinted photo
-        image = Image.open("assets/newspaper.png")
-        image = image.resize(var.font_sizes['small_icon'], Image.ANTIALIAS)
-        image = image.convert('RGB')
+        self.image = Image.open("assets/newspaper.png")
+        self.image = self.image.resize(var.font_sizes['small_icon'], Image.ANTIALIAS)
+        self.image = self.image.convert('RGB')
         self.icon_photo, self.icon_photo_tinted = None, None
-        self.icon_photo = ImageTk.PhotoImage(image)
-        self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(image,var.selected_on))
+        self.icon_photo = ImageTk.PhotoImage(self.image)
+        self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(self.image,var.selected_on))
 
         # Initializing Labels
         self.icon_label = Label(self, bg=background_color, image=self.icon_photo)
@@ -46,6 +46,16 @@ class NewsHeadline(Frame):
             # Changes Headline Text
             self.event_name_label.config(foreground=self.color_all)
             # todo add an underline!!!!
+
+    def change_font_size(self):
+        # Updating image
+        self.image = self.image.resize(var.font_sizes['small_icon'], Image.ANTIALIAS)
+        self.image = self.image.convert('RGB')
+        self.icon_photo, self.icon_photo_tinted = None, None
+        self.icon_photo = ImageTk.PhotoImage(self.image)
+        self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(self.image, var.selected_on))
+
+        self.event_name_label.config(font=(var.font_style,  var.font_sizes['text']))
 
 
 class News(Frame):
@@ -72,13 +82,15 @@ class News(Frame):
         # Initialize headline text
         self.headline = {}
         pass   # used to ignore empty dictionary complaint
-        self.update()
+        self.update_now()
 
-    def update(self):
+    def update_now(self):
         # remove all children
         print "UPDATING NEWS INFO ON SCREEN"
         for widget in self.headlines_container.winfo_children():
             widget.destroy()
+        self.title_label.config(font=(var.font_style,  var.font_sizes['title']))    # for updating font size
+
         headlines = var.saved_data['news_headlines']
         # links = var.saved_data['news_links']  # todo make clickable later link should open new window?
         if var.saved_data['news_number_of_headlines'] < self.num_headlines:
@@ -95,4 +107,3 @@ class News(Frame):
             self.title_label.config(foreground=self.color_all)
             for i in range (0,self.num_headlines):
                 self.headline[i].change_color_all(self.color_all)
-

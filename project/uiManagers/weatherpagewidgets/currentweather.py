@@ -124,7 +124,15 @@ class CurrentWeather(Frame):
             self.icon_label.config(image='')
 
         if self.icon_photo is not None:
+            self.image = self.image.resize(var.font_sizes['large_icon'], Image.ANTIALIAS)
+            self.image = self.image.convert('RGB')
+            photo = ImageTk.PhotoImage(self.image)
+            self.icon_photo = photo
             self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(self.image, var.selected_on))
+            self.icon_label.config(image=photo)
+            self.icon_label.image = photo
+
+        self.update_font_size()
 
     # --------------------------- Color ------------------------------ #
 
@@ -167,3 +175,13 @@ class CurrentWeather(Frame):
             minute += '0'
         minute += str(time.minute)
         return hour + ':' + minute + ' ' + end
+
+    def update_font_size(self):
+        self.temperature_label.config(font=(var.font_style, var.font_sizes['bigger']))
+        self.icon_label.config(font=(var.font_style, var.font_sizes['text']))
+        self.location_label.config(font=(var.font_style, var.font_sizes['text']))
+        self.currently_label.config(font=(var.font_style, var.font_sizes['text']))
+        self.summary_label.config(font=(var.font_style, var.font_sizes['text']))
+        self.rain_probability_label.config(font=(var.font_style, var.font_sizes['text']))
+        self.sunrise_time_label.config(font=(var.font_style, var.font_sizes['text']))
+        self.sunset_time_label.config(font=(var.font_style, var.font_sizes['text']))

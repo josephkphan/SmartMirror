@@ -38,33 +38,6 @@ class UIManager:
         # camera select mode
         self.camera_select_mode = False
 
-        # Main Page Widgets
-        self.main_weather, self.main_clock, self.main_news, self.main_settings = None, None, None, None
-        self.main_refresh = None
-
-        # Weather Page Widgets
-        self.weather_current, self.weather_hourly, self.weather_week = None, None, None
-        self.weather_daily = {}
-        self.weather_hourly = {}
-
-        # News Page Widgets
-        self.news_sports, self.news_headlines, self.news_stocks = None, None, None
-
-        # Setting Widgets
-        self.main_page_settings, self.weather_page_settings, self.font_settings = None, None, None
-        self.color_scheme_settings = None
-
-        # Planner Widgets
-        self.planner = None #todo CHANGE THIS LATER. THIS IS JUST AN EXAMPLE
-
-        # General Widgets
-        self.returnButton, self.last_updated = None, None
-
-        # Frames for other pages
-        self.left_top = None
-        self.right_top = None
-        self.weather_container = None
-
         # Creating the Cursor window
         self.canvas = Canvas(self.tk2, width=camera_width + tk_cursor_diameter,
                              height=camera_height + tk_cursor_diameter, background='black')
@@ -88,11 +61,7 @@ class UIManager:
 
         # Configuring the UI window, Creating Frames
         self.tk.configure(background='black')
-        self.top_frame = Frame(self.tk, background='black')
-        self.top_frame.pack(side=TOP, fill=BOTH, expand=YES)
-        self.bottom_frame = Frame(self.tk, background='black')
-        self.bottom_frame.pack(side=BOTTOM, fill=BOTH, expand=YES)
-        self.state = False
+        self.camera_selection_mode = False
         self.tk.bind("<Tab>", self.toggle_fullscreen)
         self.tk.bind("<Escape>", self.end_fullscreen)
         self.tk.bind("<Left>", self.left_click)
@@ -107,51 +76,59 @@ class UIManager:
         if not var.saved_data:
             self.web_info.update()  # todo if this fails, exit program sicne you dont have any data
 
-        # Display data onto UI Window
+        # Creating Frames
+        self.top_frame = Frame(self.tk, background='black')
+        self.top_frame.pack(side=TOP, fill=BOTH, expand=YES)
+        self.bottom_frame = Frame(self.tk, background='black')
+        self.bottom_frame.pack(side=BOTTOM, fill=BOTH, expand=YES)
 
-        self.current_zone = zone.MainPage.none
-        self.current_page = Page.main
-
-        # Initializing widgets
         self.left_top = Frame(self.top_frame, bg=background_color)
         self.left_top.pack(side=LEFT, anchor=N)
-
         self.right_top = Frame(self.top_frame, bg=background_color)
         self.right_top.pack(side=RIGHT, anchor=N)
 
-        self.returnButton = ReturnButton(self.left_top)
+        self.container = Frame(self.right_top, bg=background_color)
+
+        # ----------------Initializing widgets------------------ #
+
+        # General Widgets
+        self.return_button = ReturnButton(self.left_top)
+
+        # Main Page Widgets
         self.main_weather = Weather(self.left_top)
         self.main_clock = Clock(self.right_top)
         self.main_news = News(self.bottom_frame, 3)
-        self.weather_current = CurrentWeather(self.right_top)
         self.main_settings = SettingsButton(self.bottom_frame)
-        self.news_headlines = News(self.bottom_frame,var.saved_data['news_number_of_headlines'])
+
+        # Weather Page Widgets
+        self.weather_current = CurrentWeather(self.right_top)
+        self.weather_hourly = {}
+        self.weather_daily = {}
         for i in range(0, 24):
             self.weather_hourly[i] = HourlyWeather(self.left_top, i)
         for i in range(0, 7):
-            self.weather_daily[i] = DailyWeather(self.right_top, i)
+            self.weather_daily[i] = DailyWeather(self.container, i)
+
+        # News Page Widgets
+        self.news_headlines = News(self.bottom_frame, var.saved_data['news_number_of_headlines'])
+        # Setting Widgets
         self.font_settings = FontSettings(self.left_top)
         self.color_scheme_settings = ColorSettings(self.left_top)
 
-        #self.main_weather = Weather(self.top_frame)
+        # Setting initial zone and page data
+        self.current_zone = zone.MainPage.none      # Starts off on main page
+        self.current_page = Page.main
         self.open_main_page()
-
-        # self.current_page = Page.weather
-        # self.open_weather_page()
-
-        # calender - removing for now
-        # self.calender = Calendar(self.bottom_frame)
-        # self.calender.pack(side = RIGHT, anchor=S, padx=100, pady=60)
 
     # ---------------------------------- Key Binding Functions----------------------------------- #
 
     def toggle_fullscreen(self, event=None):
-        self.state = not self.state  # Just toggling the boolean
-        self.tk.attributes("-fullscreen", self.state)
+        self.camera_selection_mode = not self.camera_selection_mode  # Just toggling the boolean
+        self.tk.attributes("-fullscreen", self.camera_selection_mode)
         return "break"
 
     def end_fullscreen(self, event=None):
-        self.state = False
+        self.camera_selection_mode = False
         self.tk.attributes("-fullscreen", False)
         return "break"
 
@@ -196,8 +173,8 @@ class UIManager:
         if self.current_page == Page.settings:
             # self.main_page_settings.change_a_setting(self.current_zone)
             self.color_scheme_settings.change_a_setting(self.current_zone, self.font_settings)
-            self.font_settings.change_a_setting(self.current_zone,self.returnButton, self.color_scheme_settings)
-            self.update_all_widgets()
+            self.font_settings.change_a_setting(self.current_zone, self.return_button, self.color_scheme_settings)
+            self.update_all_widgets_everything()
         return "break"
 
     def toggle_manual_mode(self, event=None):
@@ -212,107 +189,68 @@ class UIManager:
         # ---------------------------------- Main Page ----------------------------------- #
 
     def open_main_page(self):
-
-        # Weather
         self.main_weather.pack(side=LEFT, anchor=N, padx=50, pady=50)
-
-        # Clock
         self.main_clock.pack(side=RIGHT, anchor=N, padx=50, pady=50)
-
-        # News
-        self.main_news.pack(side=BOTTOM, anchor=W, padx=50, pady=50)
-
-        # Settings
-        self.main_settings.pack(side=BOTTOM, anchor=E, padx=50, pady=10)
+        self.main_news.pack(side=LEFT, anchor=S, padx=50, pady=50, fill=X)
+        self.main_settings.pack(side=RIGHT, anchor=S, padx=50, pady=0, fill=X)
 
     def close_main_page(self):
-        # Weather
         self.main_weather.pack_forget()
-
-        # Clock
         self.main_clock.pack_forget()
-
-        # News
         self.main_news.pack_forget()
-
-        # Settings Button
         self.main_settings.pack_forget()
 
-# --------------------------------- News Page ------------------------------------ #
+    # --------------------------------- News Page ------------------------------------ #
 
     def open_news_page(self):
-        self.returnButton.pack(side=TOP, anchor=N, padx=15, pady=15)
-        self.news_headlines.pack(side=LEFT, anchor=S, padx=50, pady=50)
+        self.return_button.pack(side=TOP, anchor=N, padx=15, pady=15)
+        self.news_headlines.pack(side=BOTTOM, anchor=S, padx=50, pady=50)
 
     def close_news_page(self):
         self.news_headlines.pack_forget()
-        self.returnButton.pack_forget()
+        self.return_button.pack_forget()
 
     # --------------------------------- Planner Page ------------------------------------ #
 
     def open_planner_page(self):
-        self.returnButton.pack(side=TOP, anchor=N, padx=15, pady=15)
+        self.return_button.pack(side=TOP, anchor=N, padx=15, pady=15)
 
     def close_planner_page(self):
-
-        self.returnButton.pack_forget()
+        self.return_button.pack_forget()
 
     # ---------------------------------- Weather Page ----------------------------------- #
 
     def open_weather_page(self):
-
-        # Return Button
-        self.returnButton.pack(side=TOP, anchor=N, padx=15, pady=15)
-
-        # Hourly Weather
+        self.return_button.pack(side=TOP, anchor=N, padx=15, pady=15)
         for i in range(0, 24):
             self.weather_hourly[i].pack(side=TOP, anchor=W, padx=5, pady=5)
-
-        # Current weather
         self.weather_current.pack(side=TOP, anchor=N, padx=50, pady=50)
 
-        # Daily weather
+        self.container.pack(side=TOP, anchor=N)
         for i in range(0, 7):
             self.weather_daily[i].pack(side=LEFT, anchor=N, padx=0, pady=0)
 
     def close_weather_page(self):
-        # Return Button
-        self.returnButton.pack_forget()
-
-        # Current Weather
+        self.return_button.pack_forget()
         self.weather_current.pack_forget()
-
-        # Daily Weather
         for i in range(0, 7):
             self.weather_daily[i].pack_forget()
 
-        # Hourly Weather
         for i in range(0, 24):
             self.weather_hourly[i].pack_forget()
-
-        self.weather_container.destroy()
+        self.container.pack_forget()
 
     # ---------------------------------- Settings Page ----------------------------------- #
     def open_settings_page(self):
-        self.returnButton.pack(side=TOP, anchor=W, padx=15, pady=15)
-        # self.main_page_settings = MainPageSettings(self.top_frame)
-        # self.main_page_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
-
+        self.return_button.pack(side=TOP, anchor=W, padx=15, pady=15)
         self.color_scheme_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
-
         self.font_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
-        # self.weather_page_settings = WeatherSettings(self.top_frame)
-        # self.weather_page_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
 
     def close_settings_page(self):
         # Return Button
-        self.returnButton.pack_forget()
-        # self.main_page_settings.destroy()
-        # self.main_page_settings = None
+        self.return_button.pack_forget()
         self.color_scheme_settings.pack_forget()
         self.font_settings.pack_forget()
-        # self.weather_page_settings.destroy()
-        # self.weather_page_settings = None
 
     # --------    -------------------------- UPDATING UIMANAGER - ----------------------------------  #
 
@@ -324,16 +262,12 @@ class UIManager:
         diff_y = cursor[1] - self.circle_coord[1]
         self.canvas.move(self.cursor, diff_x, diff_y)
         self.circle_coord = cursor
-
         self.update_page(self.selection_handler.update(self.current_zone, self.camera_select_mode))
-
-        # Update tk
         self.update_tk()
 
     def update_all_manually(self):
         self.update_web_info()
         self.update_zone()
-        # Update tk
         self.update_tk()
 
     # --------------------------------- Updating Web Info ------------------------------------- #
@@ -341,26 +275,33 @@ class UIManager:
     def update_web_info(self):
         last_update_time = (time.time() - var.saved_data['last_updated']) / 60
         # print last_update_time
-        if last_update_time >= var.update_time and self.current_page == Page.main: #todo only update on main page??
+        if last_update_time >= var.update_time and self.current_page == Page.main:  # todo only update on main page??
             # Means its been 10 minutes since it last updated
             print "UPDATING WEB INFO. REQUESTING FROM WEB"
             self.main_clock.change_update_label_to_updating()
             self.web_info.update()
-            self.update_all_widgets()
+            self.update_all_widgets_content()
 
-    def update_all_widgets(self, event=None):   # todo IMPLEMENT THIS IN
+    def update_all_widgets_content(self, event=None):  # todo IMPLEMENT THIS IN
         # Weather Page
         for i in range(0, 7):
-            self.weather_daily[i].update_now(i)
+            self.weather_daily[i].update_now(i)         # NOTE THIS ONLY UPDATES IMAGE COLORS AND TEXT CONTENT
         for i in range(0, 24):
             self.weather_hourly[i].update_now(i)
         self.weather_current.update_now()
         # News Page
-        self.news_headlines.update()
+        self.news_headlines.update_now()
         # Main Page
-        self.main_news.update()
-        self.main_weather.update()
+        self.main_news.update_now()
+        self.main_weather.update_now()
+
+
+    def update_all_widgets_everything(self, event=None):  #updates font, content, and image colors
+        self.update_all_widgets_content()
         self.main_settings.update_now()
+        self.return_button.update_font_size()
+        self.main_clock.update_font_size()
+
 
 
     # --------------------------------- Updating Tk ------------------------------------- #
@@ -424,7 +365,7 @@ class UIManager:
         self.weather_page_all_off()
         # Return Button Selected
         if self.current_zone == zone.WeatherPage.returnButton:
-            self.returnButton.change_color_all(var.selected_on)
+            self.return_button.change_color_all(var.selected_on)
         elif self.current_zone == zone.WeatherPage.hourly_weather:
             for i in range(0, 24):
                 self.weather_hourly[i].change_color_all(var.selected_on)
@@ -436,7 +377,7 @@ class UIManager:
 
     # De-selects all 4 zones on the weather page
     def weather_page_all_off(self):
-        self.returnButton.change_color_all(var.selected_off)
+        self.return_button.change_color_all(var.selected_off)
         for i in range(0, 7):
             self.weather_daily[i].change_color_all(var.selected_off)
         self.weather_current.change_color_all(var.selected_off)
@@ -450,12 +391,12 @@ class UIManager:
         self.news_page_all_off()
         # Return Button Selected
         if self.current_zone == zone.NewsPage.returnButton:
-            self.returnButton.change_color_all(var.selected_on)
+            self.return_button.change_color_all(var.selected_on)
         elif self.current_zone == zone.NewsPage.headlines:
             self.news_headlines.change_color_all(var.selected_on)
 
     def news_page_all_off(self):
-        self.returnButton.change_color_all(var.selected_off)
+        self.return_button.change_color_all(var.selected_off)
         self.news_headlines.change_color_all(var.selected_off)
 
     # --------- Planner Page Zone Helpers --------- #
@@ -463,10 +404,10 @@ class UIManager:
         self.planner_page_all_off()
         # Return Button Selected
         if self.current_zone == zone.PlannerPage.returnButton:
-            self.returnButton.change_color_all(var.selected_on)
+            self.return_button.change_color_all(var.selected_on)
 
     def planner_page_all_off(self):
-        self.returnButton.change_color_all(var.selected_off)
+        self.return_button.change_color_all(var.selected_off)
 
     # --------- Settings Page Zone Helpers --------- #
 
@@ -475,19 +416,7 @@ class UIManager:
         # Return Button Selected
         self.settings_page_all_off()
         if self.current_zone == zone.SettingsPage.returnButton:
-            self.returnButton.change_color_all(var.selected_on)
-
-        # # Main Page Settings
-        # elif self.current_zone == zone.SettingsPage.main_page_weather:
-        #     self.main_page_settings.change_color_weather(var.selected_on)
-        # elif self.current_zone == zone.SettingsPage.main_page_time:
-        #     self.main_page_settings.change_color_time(var.selected_on)
-        # elif self.current_zone == zone.SettingsPage.main_page_news:
-        #     self.main_page_settings.change_color_news(var.selected_on)
-        # elif self.current_zone == zone.SettingsPage.main_page_sports:
-        #     self.main_page_settings.change_color_sports(var.selected_on)
-        # elif self.current_zone == zone.SettingsPage.main_page_stocks:
-        #     self.main_page_settings.change_color_stocks(var.selected_on)
+            self.return_button.change_color_all(var.selected_on)
 
         # Color Scheme Settings
         elif self.current_zone == zone.SettingsPage.blue:
@@ -513,11 +442,10 @@ class UIManager:
         elif self.current_zone == zone.SettingsPage.large:
             self.font_settings.change_color_large(var.selected_on)
 
-
     # De-selects all zones on the settings page
     def settings_page_all_off(self):
-        self.returnButton.change_color_all(var.selected_off)
-        #self.main_page_settings.change_all_label_colors(var.selected_off)
+        self.return_button.change_color_all(var.selected_off)
+        # self.main_page_settings.change_all_label_colors(var.selected_off)
         self.color_scheme_settings.change_all_label_colors(var.selected_off)
         self.font_settings.change_all_label_colors(var.selected_off)
 
@@ -541,7 +469,7 @@ class UIManager:
             # Change from Main Page to News
             elif self.current_zone == zone.MainPage.news:
                 return Page.news
-            elif self.current_zone == zone. MainPage.clock:
+            elif self.current_zone == zone.MainPage.clock:
                 return Page.planner
 
         # --- Going back to Main Page--- #
@@ -614,5 +542,3 @@ class UIManager:
                 self.current_page = Page.planner
                 self.open_planner_page()
                 self.current_zone = zone.PlannerPage.none
-
-

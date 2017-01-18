@@ -84,7 +84,14 @@ class DailyWeather(Frame):
             self.icon_label.config(image='')
 
         if self.icon_photo is not None:
+            self.image = self.image.resize(var.font_sizes['medium_icon'], Image.ANTIALIAS)
+            self.image = self.image.convert('RGB')
+            photo = ImageTk.PhotoImage(self.image)
+            self.icon_photo = photo
             self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(self.image, var.selected_on))
+            self.icon_label.config(image=photo)
+
+        self.update_font_size()
 
     # --------------------------- Color ------------------------------ #
 
@@ -105,3 +112,10 @@ class DailyWeather(Frame):
     def convert_epoch_time_to_day_of_the_week(epoch_time_in_seconds):
         d = date.fromtimestamp(epoch_time_in_seconds)
         return d.strftime('%A')
+
+
+    def update_font_size(self):
+        self.min_temperature_label.config(font=(var.font_style, var.font_sizes['small']))
+        self.max_temperature_label.config(font=(var.font_style, var.font_sizes['small']))
+        self.icon_label.config(font=(var.font_style, var.font_sizes['small']))
+        self.day_of_week_label.config(font=(var.font_style, var.font_sizes['small']))

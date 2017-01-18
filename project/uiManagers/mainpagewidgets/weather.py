@@ -36,9 +36,9 @@ class Weather(Frame):
         self.forecast_label.pack(side=TOP, anchor=W)
         self.location_label = Label(self, font=(font_style, font_sizes['text']), fg=selected_off, bg=background_color)
         self.location_label.pack(side=TOP, anchor=W)
-        self.update()
+        self.update_now()
 
-    def update(self):
+    def update_now(self):
         print "UPDATING WEATHER INFO ON SCREEN"
 
         # Getting location related data
@@ -73,7 +73,14 @@ class Weather(Frame):
             self.icon_label.config(image='')
 
         if self.photo is not None:
+            self.image = self.image.resize(var.font_sizes['large_icon'], Image.ANTIALIAS)
+            self.image = self.image.convert('RGB')
+            self.photo = ImageTk.PhotoImage(self.image)
             self.photo_on = ImageTk.PhotoImage(imagecolor.tint(self.image, var.selected_on))
+            self.icon_label.config(image=self.photo)
+            self.icon_label.image = self.photo
+
+        self.update_font_size()
 
         # Updating weather data
         if self.currently != currently:
@@ -110,3 +117,9 @@ class Weather(Frame):
     @staticmethod
     def convert_kelvin_to_fahrenheit(kelvin_temp):  # todo create a settings for user!!! <-- COOL IDEA
         return 1.8 * (kelvin_temp - 273) + 32
+
+    def update_font_size(self):
+        self.temperature_label.config(font=(var.font_style, var.font_sizes['giant']))
+        self.currently_label.config(font=(var.font_style, var.font_sizes['title']))
+        self.forecast_label.config(font=(var.font_style, var.font_sizes['text']))
+        self.location_label.config(font=(var.font_style, var.font_sizes['text']))

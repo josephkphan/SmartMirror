@@ -98,3 +98,11 @@ class Clock(Frame):
     def change_update_label_to_updating(self):
         self.last_update_text = "Updating..."
         self.last_update_label.config(text=self.last_update_text)
+
+    def update_font_size(self):
+        self.date_label.config(font=(var.font_style, var.font_sizes['text']))
+        self.day_label.config(font=(var.font_style, var.font_sizes['text']))
+        self.last_update_label.config(font=(var.font_style, var.font_sizes['small']))
+        self.time_label.config(font=(var.font_style, var.font_sizes['big']))
+
+

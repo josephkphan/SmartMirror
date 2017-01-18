@@ -32,8 +32,6 @@ class HourlyWeather(Frame):
         # Initializing Labels
         self.icon_label = Label(self, bg=background_color)
         self.icon_label.pack(side=RIGHT, anchor=N, padx=20)
-        # self.rain_probability_label = Label(self, font=(font_style, 14), fg=selected_off, bg=background_color, padx=10)
-        # self.rain_probability_label.pack(side=RIGHT, anchor=N)
         self.temperature_label = Label(self.hourly_temperature_frame, font=(font_style,  font_sizes['small']), fg=selected_off, bg=background_color, padx=10)
         self.temperature_label.pack(side=RIGHT, anchor=N)
         self.time_label = Label(self.hourly_temperature_frame, font=(font_style, font_sizes['small']), fg=selected_off, bg=background_color, padx=15)
@@ -90,8 +88,15 @@ class HourlyWeather(Frame):
             self.icon_label.config(image='')
 
         if self.icon_photo is not None:
+            self.image = Image.open(icon)
+            self.image = self.image.resize(var.font_sizes['small_icon'], Image.ANTIALIAS)
+            self.image = self.image.convert('RGB')
+            photo = ImageTk.PhotoImage(self.image)
+            self.icon_photo = photo
             self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(self.image, var.selected_on))
+            self.icon_label.config(image=photo)
 
+        self.update_font_size()
         # ----- Precipitation Code ----
         # icon_id = weather_obj['daily']['data'][hour]['icon']
         # icon2 = None
@@ -151,3 +156,7 @@ class HourlyWeather(Frame):
                 spaces = '   '
             end = 'AM'
         return hour + spaces + end
+
+    def update_font_size(self):
+        self.temperature_label.config(font=(var.font_style, var.font_sizes['small']))
+        self.time_label.config(font=(var.font_style, var.font_sizes['small']))
