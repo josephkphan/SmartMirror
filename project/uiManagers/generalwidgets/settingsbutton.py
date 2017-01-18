@@ -11,7 +11,7 @@ class SettingsButton(Frame):
         background_color = var.background_color
         font_style = var.font_style
         font_sizes = var.font_sizes
-        Frame.__init__(self, bg=background_color)
+        Frame.__init__(self,parent, bg=background_color)
 
         # to keep track of current color
         self.settings_selected = selected_off

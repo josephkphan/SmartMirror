@@ -14,6 +14,7 @@ from settingwidgets.weathersettings import *
 from settingwidgets.mainpagesettings import *
 from settingwidgets.colorsettings import *
 from settingwidgets.fontsettings import *
+from settingwidgets.updatenow import *
 from project.resources import zone, pagegraph, var, varLoader
 from project.resources.page import *
 
@@ -112,8 +113,9 @@ class UIManager:
         # News Page Widgets
         self.news_headlines = News(self.bottom_frame, var.saved_data['news_number_of_headlines'])
         # Setting Widgets
-        self.font_settings = FontSettings(self.left_top)
-        self.color_scheme_settings = ColorSettings(self.left_top)
+        self.settings_font = FontSettings(self.left_top)
+        self.settings_color_scheme = ColorSettings(self.left_top)
+        self.settings_update_now = UpdateNow(self.left_top,self.web_info_update,self.update_all_widgets_content)
 
         # Setting initial zone and page data
         self.current_zone = zone.MainPage.none      # Starts off on main page
@@ -172,8 +174,8 @@ class UIManager:
         self.change_page(self.find_page_to_change_to())
         if self.current_page == Page.settings:
             # self.main_page_settings.change_a_setting(self.current_zone)
-            self.color_scheme_settings.change_a_setting(self.current_zone, self.font_settings)
-            self.font_settings.change_a_setting(self.current_zone, self.return_button, self.color_scheme_settings)
+            self.settings_color_scheme.change_a_setting(self.current_zone, self.settings_font)
+            self.settings_font.change_a_setting(self.current_zone, self.return_button, self.settings_color_scheme)
             self.update_all_widgets_everything()
         return "break"
 
@@ -191,8 +193,8 @@ class UIManager:
     def open_main_page(self):
         self.main_weather.pack(side=LEFT, anchor=N, padx=50, pady=50)
         self.main_clock.pack(side=RIGHT, anchor=N, padx=50, pady=50)
-        self.main_news.pack(side=LEFT, anchor=S, padx=50, pady=50, fill=X)
-        self.main_settings.pack(side=RIGHT, anchor=S, padx=50, pady=0, fill=X)
+        self.main_news.pack(side=LEFT, anchor=S, padx=50, pady=50)
+        self.main_settings.pack(side=RIGHT, anchor=S, padx=50, pady=50)
 
     def close_main_page(self):
         self.main_weather.pack_forget()
@@ -243,14 +245,17 @@ class UIManager:
     # ---------------------------------- Settings Page ----------------------------------- #
     def open_settings_page(self):
         self.return_button.pack(side=TOP, anchor=W, padx=15, pady=15)
-        self.color_scheme_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
-        self.font_settings.pack(side=TOP, anchor=W, padx=50, pady=15)
+        self.settings_update_now.pack(side=TOP, anchor=W, padx=50, pady=15)
+        self.settings_color_scheme.pack(side=TOP, anchor=W, padx=50, pady=15)
+        self.settings_font.pack(side=TOP, anchor=W, padx=50, pady=15)
+
 
     def close_settings_page(self):
         # Return Button
         self.return_button.pack_forget()
-        self.color_scheme_settings.pack_forget()
-        self.font_settings.pack_forget()
+        self.settings_color_scheme.pack_forget()
+        self.settings_font.pack_forget()
+        self.settings_update_now.pack_forget()
 
     # --------    -------------------------- UPDATING UIMANAGER - ----------------------------------  #
 
@@ -279,8 +284,11 @@ class UIManager:
             # Means its been 10 minutes since it last updated
             print "UPDATING WEB INFO. REQUESTING FROM WEB"
             self.main_clock.change_update_label_to_updating()
-            self.web_info.update()
+            self.web_info_update()
             self.update_all_widgets_content()
+
+    def web_info_update(self):
+        self.web_info.update()
 
     def update_all_widgets_content(self, event=None):  # todo IMPLEMENT THIS IN
         # Weather Page
@@ -295,14 +303,11 @@ class UIManager:
         self.main_news.update_now()
         self.main_weather.update_now()
 
-
     def update_all_widgets_everything(self, event=None):  #updates font, content, and image colors
         self.update_all_widgets_content()
         self.main_settings.update_now()
         self.return_button.update_font_size()
         self.main_clock.update_font_size()
-
-
 
     # --------------------------------- Updating Tk ------------------------------------- #
 
@@ -420,34 +425,34 @@ class UIManager:
 
         # Color Scheme Settings
         elif self.current_zone == zone.SettingsPage.blue:
-            self.color_scheme_settings.change_color_blue(var.selected_on)
+            self.settings_color_scheme.change_color_blue(var.selected_on)
         elif self.current_zone == zone.SettingsPage.green:
-            self.color_scheme_settings.change_color_green(var.selected_on)
+            self.settings_color_scheme.change_color_green(var.selected_on)
         elif self.current_zone == zone.SettingsPage.orange:
-            self.color_scheme_settings.change_color_orange(var.selected_on)
+            self.settings_color_scheme.change_color_orange(var.selected_on)
         elif self.current_zone == zone.SettingsPage.pink:
-            self.color_scheme_settings.change_color_pink(var.selected_on)
+            self.settings_color_scheme.change_color_pink(var.selected_on)
         elif self.current_zone == zone.SettingsPage.purple:
-            self.color_scheme_settings.change_color_purple(var.selected_on)
+            self.settings_color_scheme.change_color_purple(var.selected_on)
         elif self.current_zone == zone.SettingsPage.red:
-            self.color_scheme_settings.change_color_red(var.selected_on)
+            self.settings_color_scheme.change_color_red(var.selected_on)
         elif self.current_zone == zone.SettingsPage.yellow:
-            self.color_scheme_settings.change_color_yellow(var.selected_on)
+            self.settings_color_scheme.change_color_yellow(var.selected_on)
 
         # Font Settings
         elif self.current_zone == zone.SettingsPage.small:
-            self.font_settings.change_color_small(var.selected_on)
+            self.settings_font.change_color_small(var.selected_on)
         elif self.current_zone == zone.SettingsPage.medium:
-            self.font_settings.change_color_medium(var.selected_on)
+            self.settings_font.change_color_medium(var.selected_on)
         elif self.current_zone == zone.SettingsPage.large:
-            self.font_settings.change_color_large(var.selected_on)
+            self.settings_font.change_color_large(var.selected_on)
 
     # De-selects all zones on the settings page
     def settings_page_all_off(self):
         self.return_button.change_color_all(var.selected_off)
         # self.main_page_settings.change_all_label_colors(var.selected_off)
-        self.color_scheme_settings.change_all_label_colors(var.selected_off)
-        self.font_settings.change_all_label_colors(var.selected_off)
+        self.settings_color_scheme.change_all_label_colors(var.selected_off)
+        self.settings_font.change_all_label_colors(var.selected_off)
 
     # -------------------------------- Updating Pages ------------------------------------#
 
