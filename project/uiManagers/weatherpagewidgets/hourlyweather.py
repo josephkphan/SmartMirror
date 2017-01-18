@@ -77,49 +77,22 @@ class HourlyWeather(Frame):
             if self.icon_path != icon:
                 self.icon_path = icon
                 self.image = Image.open(icon)
-                self.image = self.image.resize(var.font_sizes['small_icon'], Image.ANTIALIAS)
-                self.image = self.image.convert('RGB')
-                photo = ImageTk.PhotoImage(self.image)
-                self.icon_photo = photo
-                self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(self.image, var.selected_on))
-                self.icon_label.config(image=photo)
+                self.create_photo()
         else:
             # Remove Image
             self.icon_label.config(image='')
 
         if self.icon_photo is not None:
-            self.image = Image.open(icon)
-            self.image = self.image.resize(var.font_sizes['small_icon'], Image.ANTIALIAS)
-            self.image = self.image.convert('RGB')
-            photo = ImageTk.PhotoImage(self.image)
-            self.icon_photo = photo
-            self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(self.image, var.selected_on))
-            self.icon_label.config(image=photo)
-
+            self.create_photo()
         self.update_font_size()
-        # ----- Precipitation Code ----
-        # icon_id = weather_obj['daily']['data'][hour]['icon']
-        # icon2 = None
-        #
-        # if icon_id in src.project.resources.lookup.icon:
-        #     icon2 = src.project.resources.lookup.icon[icon_id]
-        #
-        # if icon2 is not None:
-        #     if self.icon != icon2:
-        #         self.icon = icon2
-        #         image = Image.open(icon2)
-        #         image = image.resize((100, 100), Image.ANTIALIAS)
-        #         image = image.convert('RGB')
-        #         photo = ImageTk.PhotoImage(image)
-        #
-        #         self.day_icon.config(image=photo)
-        #         self.day_icon.image = photo
-        # else:
-        #     # remove image
-        #     self.day_icon.config(image='')
 
-
-    # --------------------------- Color ------------------------------ #
+    def create_photo(self):
+        self.image = self.image.resize(var.font_sizes['small_icon'], Image.ANTIALIAS)
+        self.image = self.image.convert('RGB')
+        photo = ImageTk.PhotoImage(self.image)
+        self.icon_photo = photo
+        self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(self.image, var.selected_on))
+        self.icon_label.config(image=photo)
 
     def change_color_all(self, mode):
         if self.color_all != mode:

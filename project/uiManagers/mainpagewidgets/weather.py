@@ -61,24 +61,13 @@ class Weather(Frame):
             if self.icon != icon:
                 self.icon = icon
                 self.image = Image.open(icon)
-                self.image = self.image.resize(var.font_sizes['large_icon'], Image.ANTIALIAS)
-                self.image = self.image.convert('RGB')
-                self.photo = ImageTk.PhotoImage(self.image)
-                self.photo_on = ImageTk.PhotoImage(imagecolor.tint(self.image, var.selected_on))
-                self.icon_label.config(image=self.photo)
-                self.icon_label.image = self.photo
-
+                self.create_photo()
         else:
             # remove image
             self.icon_label.config(image='')
 
         if self.photo is not None:
-            self.image = self.image.resize(var.font_sizes['large_icon'], Image.ANTIALIAS)
-            self.image = self.image.convert('RGB')
-            self.photo = ImageTk.PhotoImage(self.image)
-            self.photo_on = ImageTk.PhotoImage(imagecolor.tint(self.image, var.selected_on))
-            self.icon_label.config(image=self.photo)
-            self.icon_label.image = self.photo
+            self.create_photo()
 
         self.update_font_size()
 
@@ -99,6 +88,14 @@ class Weather(Frame):
             else:
                 self.location = location
                 self.location_label.config(text=self.location)
+
+    def create_photo(self):
+        self.image = self.image.resize(var.font_sizes['large_icon'], Image.ANTIALIAS)
+        self.image = self.image.convert('RGB')
+        self.photo = ImageTk.PhotoImage(self.image)
+        self.photo_on = ImageTk.PhotoImage(imagecolor.tint(self.image, var.selected_on))
+        self.icon_label.config(image=self.photo)
+        self.icon_label.image = self.photo
 
     # -------------------------- Coloring --------------------------- #
 

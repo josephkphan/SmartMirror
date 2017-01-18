@@ -73,26 +73,24 @@ class DailyWeather(Frame):
             if self.icon_path != icon:
                 self.icon_path = icon
                 self.image = Image.open(icon)
-                self.image = self.image.resize(var.font_sizes['medium_icon'], Image.ANTIALIAS)
-                self.image = self.image.convert('RGB')
-                photo = ImageTk.PhotoImage(self.image)
-                self.icon_photo = photo
-                self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(self.image, var.selected_on))
-                self.icon_label.config(image=photo)
+                self.create_photo()
+
         else:
             # Remove Image
             self.icon_label.config(image='')
 
         if self.icon_photo is not None:
-            self.image = self.image.resize(var.font_sizes['medium_icon'], Image.ANTIALIAS)
-            self.image = self.image.convert('RGB')
-            photo = ImageTk.PhotoImage(self.image)
-            self.icon_photo = photo
-            self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(self.image, var.selected_on))
-            self.icon_label.config(image=photo)
+            self.create_photo()
 
         self.update_font_size()
 
+    def create_photo(self):
+        self.image = self.image.resize(var.font_sizes['medium_icon'], Image.ANTIALIAS)
+        self.image = self.image.convert('RGB')
+        photo = ImageTk.PhotoImage(self.image)
+        self.icon_photo = photo
+        self.icon_photo_tinted = ImageTk.PhotoImage(imagecolor.tint(self.image, var.selected_on))
+        self.icon_label.config(image=photo)
     # --------------------------- Color ------------------------------ #
 
     def change_color_all(self, mode):
