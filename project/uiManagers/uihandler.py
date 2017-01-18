@@ -72,6 +72,7 @@ class UIManager:
         self.tk.bind("<BackSpace>", self.enter_click)
         self.tk.bind("<Control_L>", self.toggle_manual_mode)
         self.tk.bind("<Shift_L>", self.toggle_select_mode_for_camera)
+        self.tk.bind("<Control_R>", self.toggle_power)
 
         # FIRST TIME OPENING MIRROR
         if not var.saved_data:
@@ -115,10 +116,10 @@ class UIManager:
         # Setting Widgets
         self.settings_font = FontSettings(self.left_top)
         self.settings_color_scheme = ColorSettings(self.left_top)
-        self.settings_update_now = UpdateNow(self.left_top,self.web_info_update,self.update_all_widgets_content)
+        self.settings_update_now = UpdateNow(self.left_top, self.web_info_update, self.update_all_widgets_content)
 
         # Setting initial zone and page data
-        self.current_zone = zone.MainPage.none      # Starts off on main page
+        self.current_zone = zone.MainPage.none  # Starts off on main page
         self.current_page = Page.main
         self.open_main_page()
 
@@ -133,6 +134,12 @@ class UIManager:
         self.camera_selection_mode = False
         self.tk.attributes("-fullscreen", False)
         return "break"
+
+    def toggle_power(self, event=None):
+        if self.current_page != Page.blank:
+            self.change_page(Page.blank)
+        else:
+            self.change_page(Page.main)
 
     # ------------------------ Used for Manual Mode ------------------------- #
 
@@ -250,7 +257,6 @@ class UIManager:
         self.settings_color_scheme.pack(side=TOP, anchor=W, padx=50, pady=15)
         self.settings_font.pack(side=TOP, anchor=W, padx=50, pady=15)
 
-
     def close_settings_page(self):
         # Return Button
         self.return_button.pack_forget()
@@ -294,7 +300,7 @@ class UIManager:
     def update_all_widgets_content(self, event=None):  # todo IMPLEMENT THIS IN
         # Weather Page
         for i in range(0, 7):
-            self.weather_daily[i].update_now(i)         # NOTE THIS ONLY UPDATES IMAGE COLORS AND TEXT CONTENT
+            self.weather_daily[i].update_now(i)  # NOTE THIS ONLY UPDATES IMAGE COLORS AND TEXT CONTENT
         for i in range(0, 24):
             self.weather_hourly[i].update_now(i)
         self.weather_current.update_now()
@@ -304,7 +310,7 @@ class UIManager:
         self.main_news.update_now()
         self.main_weather.update_now()
 
-    def update_all_widgets_everything(self, event=None):  #updates font, content, and image colors
+    def update_all_widgets_everything(self, event=None):  # updates font, content, and image colors
         self.update_all_widgets_content()
         self.main_settings.update_now()
         self.return_button.update_font_size()
@@ -551,3 +557,16 @@ class UIManager:
                 self.current_page = Page.planner
                 self.open_planner_page()
                 self.current_zone = zone.PlannerPage.none
+
+            elif new_page == Page.blank:
+                if self.current_page == Page.main:
+                    self.close_main_page()
+                elif self.current_page == Page.weather:
+                    self.close_weather_page()
+                elif self.current_page == Page.settings:
+                    self.close_settings_page()
+                elif self.current_page == Page.planner:
+                    self.close_planner_page()
+                elif self.current_page == Page.news:
+                    self.close_news_page()
+                self.current_page = Page.blank
