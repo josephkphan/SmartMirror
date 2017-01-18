@@ -58,3 +58,5 @@ class SettingsPage(Enum):
     small = 14
     medium = 15
     large = 16
+
+    update_now = 17

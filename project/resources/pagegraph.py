@@ -46,23 +46,14 @@ Settings = {
     # Main Page Portion
     SettingsPage.none: [SettingsPage.returnButton, SettingsPage.returnButton, SettingsPage.returnButton,
                         SettingsPage.returnButton],
-    SettingsPage.returnButton: [SettingsPage.returnButton, SettingsPage.blue, SettingsPage.returnButton,
+    SettingsPage.returnButton: [SettingsPage.returnButton, SettingsPage.update_now, SettingsPage.returnButton,
                                 SettingsPage.returnButton],
-
-    # Main Page Settings
-    # SettingsPage.main_page_weather: [SettingsPage.returnButton, SettingsPage.main_page_news,
-    #                                 SettingsPage.main_page_weather, SettingsPage.main_page_weather],
-    # SettingsPage.main_page_time: [SettingsPage.main_page_weather, SettingsPage.main_page_news,
-    #                               SettingsPage.main_page_time, SettingsPage.main_page_time],
-    # SettingsPage.main_page_news: [SettingsPage.main_page_time, SettingsPage.main_page_sports,
-    #                                  SettingsPage.main_page_news, SettingsPage.main_page_news],
-    # SettingsPage.main_page_sports: [SettingsPage.main_page_news, SettingsPage.main_page_stocks,
-    #                                 SettingsPage.main_page_sports, SettingsPage.main_page_sports],
-    # SettingsPage.main_page_stocks: [SettingsPage.main_page_sports, SettingsPage.blue, SettingsPage.main_page_stocks,
-    #                                   SettingsPage.main_page_stocks],
+    # Update now portion
+    SettingsPage.update_now: [SettingsPage.returnButton, SettingsPage.blue, SettingsPage.update_now,
+                                SettingsPage.update_now],
 
     # Color Scheme portion
-    SettingsPage.blue: [SettingsPage.returnButton, SettingsPage.green, SettingsPage.blue, SettingsPage.blue],
+    SettingsPage.blue: [SettingsPage.update_now, SettingsPage.green, SettingsPage.blue, SettingsPage.blue],
     SettingsPage.green: [SettingsPage.blue, SettingsPage.orange, SettingsPage.green, SettingsPage.green],
     SettingsPage.orange: [SettingsPage.green, SettingsPage.pink, SettingsPage.orange, SettingsPage.orange],
     SettingsPage.pink: [SettingsPage.orange, SettingsPage.purple, SettingsPage.pink, SettingsPage.pink],

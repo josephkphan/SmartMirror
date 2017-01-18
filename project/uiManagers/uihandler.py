@@ -176,6 +176,7 @@ class UIManager:
             # self.main_page_settings.change_a_setting(self.current_zone)
             self.settings_color_scheme.change_a_setting(self.current_zone, self.settings_font)
             self.settings_font.change_a_setting(self.current_zone, self.return_button, self.settings_color_scheme)
+            self.settings_update_now.update_smart_mirror(self.current_zone)
             self.update_all_widgets_everything()
         return "break"
 
@@ -422,7 +423,9 @@ class UIManager:
         self.settings_page_all_off()
         if self.current_zone == zone.SettingsPage.returnButton:
             self.return_button.change_color_all(var.selected_on)
-
+        # Update now Setting
+        elif self.current_zone == zone.SettingsPage.update_now:
+            self.settings_update_now.change_color_update_now(var.selected_on)
         # Color Scheme Settings
         elif self.current_zone == zone.SettingsPage.blue:
             self.settings_color_scheme.change_color_blue(var.selected_on)
@@ -453,6 +456,7 @@ class UIManager:
         # self.main_page_settings.change_all_label_colors(var.selected_off)
         self.settings_color_scheme.change_all_label_colors(var.selected_off)
         self.settings_font.change_all_label_colors(var.selected_off)
+        self.settings_update_now.change_color_update_now(var.selected_off)
 
     # -------------------------------- Updating Pages ------------------------------------#
 

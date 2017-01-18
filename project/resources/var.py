@@ -101,7 +101,7 @@ top_right_rectangle = coordcreator.get_polygon_coord(camera_width / 2, 0, camera
 
 # ------------------- Selection Constants ----------------------#
 selection_time = 2.5  # in seconds
-update_time = 10  # in minutes
+update_time = 30  # in minutes
 
 # -------------------- Saved Data -------------------- #
 

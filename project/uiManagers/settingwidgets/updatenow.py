@@ -1,6 +1,6 @@
 from Tkinter import *
 from PIL import Image, ImageTk
-from project.resources import var, imagecolor
+from project.resources import var, imagecolor, zone
 import time, math
 
 
@@ -72,7 +72,7 @@ class UpdateNow(Frame):
         self.last_update_label.after(200, self.check_last_update) #todo is 200 too much???
 
     # Changes color based on passed in mode
-    def change_color_setting(self, mode):
+    def change_color_update_now(self, mode):
         if self.color_update_now != mode:
             self.color_update_now = mode  # update color boolean
             # Updating the image
@@ -103,3 +103,8 @@ class UpdateNow(Frame):
         self.update_status_label.config(font=(var.font_style, var.font_sizes['text']))
         self.last_update_label.config(font=(var.font_style, var.font_sizes['text']))
         self.update_now_label.config(font=(var.font_style, var.font_sizes['text']))
+
+    def update_smart_mirror(self, current_zone):
+        if current_zone == zone.SettingsPage.update_now:
+            self.web_info_update()
+            self.tkinter_update()
