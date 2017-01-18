@@ -54,7 +54,6 @@ class UpdateNow(Frame):
 
         # if last update time changed, update it
         last_update_time = math.floor(time.time() - var.saved_data['last_updated']) / 60
-        print 'hereeeeeeee'
         if int(last_update_time) == 0:
             last_update = 'Just Updated'  # todo CHECK after update it doesnt show just updated
             if self.last_update_text != last_update:
@@ -106,5 +105,7 @@ class UpdateNow(Frame):
 
     def update_smart_mirror(self, current_zone):
         if current_zone == zone.SettingsPage.update_now:
+            self.last_update_text = 'Updating...'
+            self.last_update_label.config(text=self.last_update_text)       # Todo THIS DOESNT WORK -- FIX IT
             self.web_info_update()
             self.tkinter_update()
