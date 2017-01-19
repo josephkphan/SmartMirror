@@ -29,7 +29,8 @@ font_size_large = {
     'large_icon' : (125,125),
     'medium_icon': (65,65),
     'small_medium_icon': (50, 50),
-    'small_icon':(35,35)
+    'small_icon':(35,35),
+    'news_length':70
 }
 
 font_size_medium = {
@@ -42,7 +43,8 @@ font_size_medium = {
     'large_icon' : (100,100),
     'medium_icon': (50,50),
     'small_medium_icon':(40,40),
-    'small_icon':(25,25)
+    'small_icon':(25,25),
+    'news_length': 100
 }
 
 font_size_small = {
@@ -55,7 +57,8 @@ font_size_small = {
     'large_icon' : (75,75),
     'medium_icon': (40,40),
     'small_medium_icon': (30, 30),
-    'small_icon':(20,20)
+    'small_icon':(20,20),
+    'news_length':140
 }
 
 # todo ADD ICON SIZES

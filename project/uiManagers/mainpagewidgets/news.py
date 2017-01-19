@@ -29,7 +29,9 @@ class NewsHeadline(Frame):
         self.icon_label.image = self.icon_photo
         self.icon_label.pack(side=LEFT, anchor=N)
 
-        self.event_name = event_name
+        self.event_name = event_name[:var.font_sizes['news_length']]
+        if len(event_name) > var.font_sizes['news_length']:
+            self.event_name += '...'
         self.event_name_label = Label(self, text=self.event_name, font=(font_style,  font_sizes['text']), fg=selected_off,
                                       bg=background_color)
         self.event_name_label.pack(side=LEFT, anchor=N)
@@ -95,6 +97,7 @@ class News(Frame):
         # links = var.saved_data['news_links']  # todo make clickable later link should open new window?
         if var.saved_data['news_number_of_headlines'] < self.num_headlines:
             self.num_headlines = var.saved_data['news_number_of_headlines']
+
         for i in range(0,self.num_headlines):
             self.headline[i] = NewsHeadline(self.headlines_container, headlines[str(i)])
             self.headline[i].pack(side=TOP, anchor=W)
