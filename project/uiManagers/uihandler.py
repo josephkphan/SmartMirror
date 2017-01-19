@@ -10,8 +10,6 @@ from generalwidgets.settingsbutton import *
 from weatherpagewidgets.dailyweather import *
 from weatherpagewidgets.hourlyweather import *
 from weatherpagewidgets.currentweather import *
-from settingwidgets.weathersettings import *
-from settingwidgets.mainpagesettings import *
 from settingwidgets.colorsettings import *
 from settingwidgets.fontsettings import *
 from settingwidgets.updatenow import *
@@ -31,34 +29,12 @@ class UIManager:
 
         # TK
         self.tk = Tk()
-        self.tk2 = Tk()
 
         # initializing Keys
         self.key_up, self.key_down, self.key_left, self.key_right = 0, 1, 2, 3
 
         # camera select mode
         self.camera_select_mode = False
-
-        # Creating the Cursor window
-        self.canvas = Canvas(self.tk2, width=camera_width + tk_cursor_diameter,
-                             height=camera_height + tk_cursor_diameter, background='black')
-        self.circle_coord = (0, 0)
-        self.circle_diameter = tk_cursor_diameter  # todo scale the cursor to match screen size
-        self.cursor = self.canvas.create_oval(0, 0, tk_cursor_diameter, tk_cursor_diameter,
-                                              fill="blue", outline="#DDD", width=tk_cursor_outline_thickness)
-
-        # todo make a bunch of premade lines and turn them on or off depending on which page it's on
-        # @thomas Nguyen
-
-        # Vertical line
-        self.line1 = self.canvas.create_line((camera_width / 2 + tk_cursor_diameter / 2, 0),
-                                             (camera_width / 2 + tk_cursor_diameter / 2,
-                                              camera_height + tk_cursor_diameter), fill="green")
-        # Horizontal line
-        self.line2 = self.canvas.create_line((0, camera_height / 2 + tk_cursor_diameter / 2),
-                                             (camera_width + tk_cursor_diameter,
-                                              camera_height / 2 + tk_cursor_diameter / 2), fill="green")
-        self.canvas.pack()
 
         # Configuring the UI window, Creating Frames
         self.tk.configure(background='black')
@@ -89,6 +65,11 @@ class UIManager:
         self.right_top = Frame(self.top_frame, bg=background_color)
         self.right_top.pack(side=RIGHT, anchor=N)
 
+        self.left_bottom = Frame(self.bottom_frame, bg=background_color)
+        self.left_bottom.pack(side=LEFT, anchor=N)
+        self.right_bottom = Frame(self.bottom_frame, bg=background_color)
+        self.right_bottom.pack(side=RIGHT, anchor=N)
+
         self.container = Frame(self.right_top, bg=background_color)
 
         # ----------------Initializing widgets------------------ #
@@ -117,6 +98,26 @@ class UIManager:
         self.settings_font = FontSettings(self.left_top)
         self.settings_color_scheme = ColorSettings(self.left_top)
         self.settings_update_now = UpdateNow(self.left_top, self.web_info_update, self.update_all_widgets_content)
+
+        # Creating the Cursor window
+        self.canvas = Canvas(self.left_top, width=camera_width + tk_cursor_diameter,
+                             height=camera_height + tk_cursor_diameter, background='black')
+        self.circle_coord = (0, 0)
+        self.circle_diameter = tk_cursor_diameter  # todo scale the cursor to match screen size
+        self.cursor = self.canvas.create_oval(0, 0, tk_cursor_diameter, tk_cursor_diameter,
+                                              fill="blue", outline="#DDD", width=tk_cursor_outline_thickness)
+
+        # todo make a bunch of premade lines and turn them on or off depending on which page it's on
+        # @thomas Nguyen
+
+        # Vertical line
+        self.line1 = self.canvas.create_line((camera_width / 2 + tk_cursor_diameter / 2, 0),
+                                             (camera_width / 2 + tk_cursor_diameter / 2,
+                                              camera_height + tk_cursor_diameter), fill="green")
+        # Horizontal line
+        self.line2 = self.canvas.create_line((0, camera_height / 2 + tk_cursor_diameter / 2),
+                                             (camera_width + tk_cursor_diameter,
+                                              camera_height / 2 + tk_cursor_diameter / 2), fill="green")
 
         # Setting initial zone and page data
         self.current_zone = zone.MainPage.none  # Starts off on main page
@@ -188,7 +189,7 @@ class UIManager:
         return "break"
 
     def toggle_manual_mode(self, event=None):
-        print "Enter SPACE HAPPENED"
+        print "Enter CONTROL HAPPENED"
         varLoader.change_other_data('manual_mode', not var.other_data['manual_mode'])
         # todo FINISH THIS
 
@@ -199,21 +200,23 @@ class UIManager:
         # ---------------------------------- Main Page ----------------------------------- #
 
     def open_main_page(self):
-        self.main_weather.pack(side=LEFT, anchor=N, padx=50, pady=50)
+        self.main_weather.pack(side=TOP, anchor=W, padx=50, pady=50)
         self.main_clock.pack(side=RIGHT, anchor=N, padx=50, pady=50)
         self.main_news.pack(side=LEFT, anchor=S, padx=50, pady=50)
         self.main_settings.pack(side=RIGHT, anchor=S, padx=50, pady=50)
+        # self.canvas.pack(side=TOP, anchor=W, padx=50)
 
     def close_main_page(self):
         self.main_weather.pack_forget()
         self.main_clock.pack_forget()
         self.main_news.pack_forget()
         self.main_settings.pack_forget()
+        # self.canvas.pack_forget()
 
     # --------------------------------- News Page ------------------------------------ #
 
     def open_news_page(self):
-        self.return_button.pack(side=TOP, anchor=N, padx=15, pady=15)
+        self.return_button.pack(side=TOP, anchor=NW, padx=15, pady=15)
         self.news_headlines.pack(side=BOTTOM, anchor=S, padx=50, pady=50)
 
     def close_news_page(self):
@@ -223,7 +226,7 @@ class UIManager:
     # --------------------------------- Planner Page ------------------------------------ #
 
     def open_planner_page(self):
-        self.return_button.pack(side=TOP, anchor=N, padx=15, pady=15)
+        self.return_button.pack(side=TOP, anchor=NW, padx=15, pady=15)
 
     def close_planner_page(self):
         self.return_button.pack_forget()
@@ -231,7 +234,7 @@ class UIManager:
     # ---------------------------------- Weather Page ----------------------------------- #
 
     def open_weather_page(self):
-        self.return_button.pack(side=TOP, anchor=N, padx=15, pady=15)
+        self.return_button.pack(side=TOP, anchor=NW, padx=15, pady=15)
         for i in range(0, 24):
             self.weather_hourly[i].pack(side=TOP, anchor=W, padx=5, pady=5)
         self.weather_current.pack(side=TOP, anchor=N, padx=50, pady=50)
@@ -310,11 +313,11 @@ class UIManager:
         self.main_news.update_now()
         self.main_weather.update_now()
         self.settings_update_now.update_now()
+        self.return_button.update_now()
 
     def update_all_widgets_everything(self, event=None):  # updates font, content, and image colors
         self.update_all_widgets_content()
         self.main_settings.update_now()
-        self.return_button.update_font_size()
         self.main_clock.update_font_size()
 
     # --------------------------------- Updating Tk ------------------------------------- #
@@ -322,8 +325,6 @@ class UIManager:
     def update_tk(self):
         self.tk.update_idletasks()
         self.tk.update()
-        self.tk2.update_idletasks()
-        self.tk2.update()
 
     # --------------------------------- Updating Zones ------------------------------------- #
     def get_current_zone_from_cursor(self, cursor):

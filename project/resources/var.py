@@ -28,6 +28,7 @@ font_size_large = {
     'small': 18,
     'large_icon' : (125,125),
     'medium_icon': (65,65),
+    'small_medium_icon': (50, 50),
     'small_icon':(35,35)
 }
 
@@ -40,6 +41,7 @@ font_size_medium = {
     'small': 14,
     'large_icon' : (100,100),
     'medium_icon': (50,50),
+    'small_medium_icon':(40,40),
     'small_icon':(25,25)
 }
 
@@ -52,6 +54,7 @@ font_size_small = {
     'small': 10,
     'large_icon' : (75,75),
     'medium_icon': (40,40),
+    'small_medium_icon': (30, 30),
     'small_icon':(20,20)
 }
 
