@@ -37,7 +37,7 @@ class UpdateNow(Frame):
                                          fg=selected_off, bg=background_color)
         self.last_update_label.pack(side=LEFT, anchor=W)
 
-        self.image = Image.open("assets/refresh.png")
+        self.image = Image.open("assets/reload.png")
         self.icon_photo, self.icon_photo_selected = None, None
 
         # Packs in the icon
