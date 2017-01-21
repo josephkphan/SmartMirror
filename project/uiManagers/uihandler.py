@@ -294,6 +294,8 @@ class UIManager:
             self.directional_click(self.key_left)
         elif (joystick_state == 'right'):
             self.directional_click(self.key_right)
+        elif (joystick_state == 'pressed'):
+            self.enter_click()
 
 
     # --------------------------------- Updating Web Info ------------------------------------- #
