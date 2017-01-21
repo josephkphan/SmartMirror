@@ -285,6 +285,17 @@ class UIManager:
         self.update_zone()
         self.update_tk()
 
+    def update_all_joystick(self, joystick_state):
+        if (joystick_state == 'up'):
+            self.directional_click(self.key_up)
+        elif (joystick_state == 'down'):
+            self.directional_click(self.key_down)
+        elif (joystick_state == 'left'):
+            self.directional_click(self.key_left)
+        elif (joystick_state == 'right'):
+            self.directional_click(self.key_right)
+
+
     # --------------------------------- Updating Web Info ------------------------------------- #
 
     def update_web_info(self):

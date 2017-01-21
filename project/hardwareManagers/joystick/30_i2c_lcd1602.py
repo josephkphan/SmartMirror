@@ -1,6 +1,8 @@
 #!/usr/bin/env python
-import LCD1602
 import time
+
+import LCD1602
+
 
 def setup():
 	LCD1602.init(0x27, 1)	# init(slave address, background light)

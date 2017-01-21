@@ -14,10 +14,11 @@
 #			RST ---------------- Pin 22
 #
 #-----------------------------------------------------
-from datetime import datetime
-import ds1302
-import rpi_time
 import time
+
+import ds1302
+
+import rpi_time
 
 rtc = rpi_time.DS1302()
 
