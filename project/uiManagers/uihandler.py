@@ -296,7 +296,8 @@ class UIManager:
             self.directional_click(self.key_right)
         elif (joystick_state == 'pressed'):
             self.enter_click()
-
+        elif (joystick_state == 'toggled'):
+            self.toggle_power()
 
     # --------------------------------- Updating Web Info ------------------------------------- #
 

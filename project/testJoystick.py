@@ -14,6 +14,13 @@ while True:
     # Get the direction
     joystick_state = joystick_manager.get_direction()
 
+    counter = 0
+
+    # Hold down enter on Joystick to turn off
+    while joystick_state == 'pressed':
+        if counter == 50:
+            joystick_state = 'toggled'
+
     # Manual Mode
     ui_manager.update_all_joystick(joystick_state)
     ui_manager.update_all_manually()
