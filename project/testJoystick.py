@@ -19,6 +19,7 @@ while True:
 
     # Hold down enter on Joystick to turn off
     while joystick_state == 'pressed':
+        joystick_state = joystick_manager.get_direction()
         end = time.time()
         if (end-start) >= 5:
             joystick_state = 'toggled'
