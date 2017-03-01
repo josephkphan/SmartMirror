@@ -70,7 +70,7 @@ ip = '<IP>'
 country_code = 'us'  # todo read this from file
 f = open('key.txt', 'r')
 weather_api_token = f.read()
-print weather_api_token
+print 'TOKEN:'+str(weather_api_token)
 f.close()
 
 # -------------------- Window Sizing -------------------- #

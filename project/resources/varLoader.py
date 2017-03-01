@@ -22,7 +22,7 @@ def get_saved_data():
         with open('data.json', 'r') as f:
             var.saved_data = json.load(f)
     except IOError as e:
-        print "Unable to open file"  # Does not exist OR no read permissions
+        print "Unable to open data.json file"  # Does not exist OR no read permissions
         # todo end the program is there isnt an internet
 
 
@@ -77,7 +77,7 @@ def get_preferences():
             var.preferences = json.load(f)
             update_font_size()
     except IOError as e:
-        print "Unable to open file"  # Does not exist OR no read permissions
+        print "Unable to open Preferences file"  # Does not exist OR no read permissions
         # Preferences Default
         # If preferences were never created, create the preference file
 

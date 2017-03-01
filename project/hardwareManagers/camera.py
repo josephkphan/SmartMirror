@@ -60,16 +60,18 @@ class Camera:
             _, self.thresh1 = cv2.threshold(self.blurred, 180, 255,         # Regular Threshold
                                             cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
-        (version, _, _) = cv2.__version__.split('.')                        # parse to get opencv version
+        # (version, _, _) = cv2.__version__.split('.')                        # parse to get opencv version
 
         cv2.imshow('Threshold', self.thresh1) # display black and white threshold to screen
 
-        if version is '3':
-            self.image, self.contours, self.hierarchy = cv2.findContours(self.thresh1.copy(),
-                                                                         cv2.RETR_TREE,
-                                                                         cv2.CHAIN_APPROX_NONE)  # detect contours
-        elif version is '2':
-            self.contours, self.hierarchy = cv2.findContours(self.thresh1.copy(), cv2.RETR_TREE,
+        # if version is '3':
+        #     self.image, self.contours, self.hierarchy = cv2.findContours(self.thresh1.copy(),
+        #                                                                  cv2.RETR_TREE,
+        #                                                                  cv2.CHAIN_APPROX_NONE)  # detect contours
+        # elif version is '2':
+        #     self.contours, self.hierarchy = cv2.findContours(self.thresh1.copy(), cv2.RETR_TREE,
+        #                                                      cv2.CHAIN_APPROX_NONE)  # count contours
+        self.contours, self.hierarchy = cv2.findContours(self.thresh1.copy(), cv2.RETR_TREE,
                                                              cv2.CHAIN_APPROX_NONE)  # count contours
 
         # ---------------------- Getting Countours from images ------------------------ #

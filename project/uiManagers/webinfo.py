@@ -26,7 +26,7 @@ class WebInfo:
     # Updates the information for Weather, and Newsheadlines
     def update(self):
         weather_obj, location_obj, feed = None, None, None
-
+        lon, lat = None, None
         # Gets IP information
         temp_ip = self.get_ip()
         print temp_ip
@@ -44,8 +44,10 @@ class WebInfo:
             except Exception as e:
                 traceback.print_exc()
                 print "Error: %s. Cannot get news." % e
+                if 'news_headlines' not in var.saved_data:
+                    exit()
 
-            # Gets weather information
+            # Gets Location information
             try:
                 # Get location from web
                 location_req_url = "http://freegeoip.net/json/%s" % temp_ip
@@ -58,18 +60,32 @@ class WebInfo:
                 print lat
                 print lon
 
+            except Exception as e:
+                traceback.print_exc()
+                print "Error: %s. Cannot get Location, Using old location." % e
+                if 'location' not in var.saved_data:
+                    exit()
+                location_obj = var.saved_data['location']
+                lat = location_obj['latitude']
+                lon = location_obj['longitude']
+
+            try:
                 # get weather
+                print 'lat' + str(lat)
+                print 'long' + str(lon)
+                print 'token!:' + str(self.key)
                 weather_req_url = "https://api.darksky.net/forecast/%s/%s,%s" % (self.key, lat, lon)
                 r = requests.get(weather_req_url)
                 print '---------------------------------------'
                 print r
+
                 weather_obj = json.loads(r.text)
                 print '--------------------------------------'
                 print weather_obj
-                 
             except Exception as e:
                 traceback.print_exc()
                 print "Error: %s. Cannot get weather." % e
+                if 'weather' not in var.saved_data:
+                    exit()
 
         varLoader.update_data(weather_obj, location_obj, feed)
-
