@@ -30,7 +30,7 @@ class Camera:
         # Initializing Threshold related Variables
         self.grey, self.value, self.blurred, self.image, self.thresh1 = None, None, None, None, None,
         # Initialing variables related to contours
-        self.contours, self.hierarchy,self.cnt, self.drawing, self.hull = None, None, None, None, None
+        self.contours, self.hierarchy, self.cnt, self.drawing, self.hull = None, None, None, None, None
         # Initializing coordinates from defect points
         self.x, self.y, self.w, self.h = None, None, None, None
         # Initializing defects
@@ -44,25 +44,25 @@ class Camera:
     def update_values(self):
 
         # --------------------------- Set up Camera and Thresholds --------------------------- #
-        self.ret, self.img = self.cap.read()        # gets frame of camera feed
-        self.img = cv2.flip(self.img, 1)            # flips the images because it comes out initially mirrored
-        cv2.rectangle(self.img, (300, 300), (100, 100), (0, 255, 0), 0)     # draw the rectangle to show detection
-        self.crop_img = self.img[100:300, 100:300]                          # crop frame range, takes a small square)
-        self.grey = cv2.cvtColor(self.crop_img, cv2.COLOR_BGR2GRAY)         # turns image into greyscale
+        self.ret, self.img = self.cap.read()  # gets frame of camera feed
+        self.img = cv2.flip(self.img, 1)  # flips the images because it comes out initially mirrored
+        cv2.rectangle(self.img, (300, 300), (100, 100), (0, 255, 0), 0)  # draw the rectangle to show detection
+        self.crop_img = self.img[100:300, 100:300]  # crop frame range, takes a small square)
+        self.grey = cv2.cvtColor(self.crop_img, cv2.COLOR_BGR2GRAY)  # turns image into greyscale
 
         # todo PlAY AROUND WITH THIS to make better. Possibly change t if its dark or light background
-        self.value = (35, 35)                                               # value for blur
-        self.blurred = cv2.GaussianBlur(self.grey, self.value, 6)           # removes noise from image
-        if self.bool_light:                                                 # Means background is a light color
-            _, self.thresh1 = cv2.threshold(self.blurred, 180, 255,         # Inverse Threshold
+        self.value = (35, 35)  # value for blur
+        self.blurred = cv2.GaussianBlur(self.grey, self.value, 6)  # removes noise from image
+        if self.bool_light:  # Means background is a light color
+            _, self.thresh1 = cv2.threshold(self.blurred, 180, 255,  # Inverse Threshold
                                             cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
         else:
-            _, self.thresh1 = cv2.threshold(self.blurred, 180, 255,         # Regular Threshold
+            _, self.thresh1 = cv2.threshold(self.blurred, 180, 255,  # Regular Threshold
                                             cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
         # (version, _, _) = cv2.__version__.split('.')                        # parse to get opencv version
 
-        cv2.imshow('Threshold', self.thresh1) # display black and white threshold to screen
+        cv2.imshow('Threshold', self.thresh1)  # display black and white threshold to screen
 
         # if version is '3':
         #     self.image, self.contours, self.hierarchy = cv2.findContours(self.thresh1.copy(),
@@ -72,7 +72,7 @@ class Camera:
         #     self.contours, self.hierarchy = cv2.findContours(self.thresh1.copy(), cv2.RETR_TREE,
         #                                                      cv2.CHAIN_APPROX_NONE)  # count contours
         self.contours, self.hierarchy = cv2.findContours(self.thresh1.copy(), cv2.RETR_TREE,
-                                                             cv2.CHAIN_APPROX_NONE)  # count contours
+                                                         cv2.CHAIN_APPROX_NONE)  # count contours
 
         # ---------------------- Getting Countours from images ------------------------ #
 
