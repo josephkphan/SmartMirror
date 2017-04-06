@@ -40,9 +40,12 @@ os.system("sudo apt-get install python-feedparser")
 # Install requests
 os.system("sudo apt-get install python-requests")
 
-# Install Google Client Services
-os.system("pip install --upgrade google-api-python-client")
+# Install simple json
+os.system("sudo apt-get install python-simplejson")
 
+
+# Install Google Client Services
+# os.system("pip install --upgrade google-api-python-client")
 
 
 # Install RPI.GPIO
