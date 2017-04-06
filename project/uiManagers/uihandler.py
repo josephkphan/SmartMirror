@@ -13,6 +13,7 @@ from weatherpagewidgets.currentweather import *
 from settingwidgets.colorsettings import *
 from settingwidgets.fontsettings import *
 from settingwidgets.updatenow import *
+from plannerwidgets.todolist import *
 from project.resources import zone, pagegraph, var, varLoader
 from project.resources.page import *
 
@@ -72,8 +73,9 @@ class UIManager:
 
         self.container = Frame(self.right_top, bg=background_color)
 
-        # ----------------Initializing widgets------------------ #
 
+
+        # ---------------------------------- Initializing Widgets ----------------------------------- #
         # General Widgets
         self.return_button = ReturnButton(self.left_top)
 
@@ -94,10 +96,14 @@ class UIManager:
 
         # News Page Widgets
         self.news_headlines = News(self.bottom_frame, var.saved_data['news_number_of_headlines'])
-        # Setting Widgets
+
+        # Settings Page Widgets
         self.settings_font = FontSettings(self.left_top)
         self.settings_color_scheme = ColorSettings(self.left_top)
         self.settings_update_now = UpdateNow(self.left_top, self.web_info_update, self.update_all_widgets_content)
+
+        # To Do List Page Widgets
+        self.planner_todolist = ToDoList(self.right_top)
 
         # Creating the Cursor window
         self.canvas = Canvas(self.left_top, width=camera_width + tk_cursor_diameter,
@@ -124,8 +130,9 @@ class UIManager:
         self.current_page = Page.main
         self.open_main_page()
 
-    # ---------------------------------- Key Binding Functions----------------------------------- #
 
+
+    # ---------------------------------- Key Binding Functions ----------------------------------- #
     def toggle_fullscreen(self, event=None):
         self.camera_selection_mode = not self.camera_selection_mode  # Just toggling the boolean
         self.tk.attributes("-fullscreen", self.camera_selection_mode)
@@ -142,8 +149,9 @@ class UIManager:
         else:
             self.change_page(Page.main)
 
-    # ------------------------ Used for Manual Mode ------------------------- #
 
+
+    # ---------------------------------- Manual Mode Functions ----------------------------------- #
     def left_click(self, event=None):
         print "LEFT CLICK HAPPENED"
         self.directional_click(self.key_left)
@@ -197,8 +205,9 @@ class UIManager:
         print  "toggling select mode for camera"
         self.camera_select_mode = not self.camera_select_mode
 
-        # ---------------------------------- Main Page ----------------------------------- #
 
+
+    # ---------------------------------- UI Functions ----------------------------------- #
     def open_main_page(self):
         self.main_weather.pack(side=TOP, anchor=W, padx=50, pady=50)
         self.main_clock.pack(side=RIGHT, anchor=N, padx=50, pady=50)
@@ -213,8 +222,9 @@ class UIManager:
         self.main_settings.pack_forget()
         # self.canvas.pack_forget()
 
-    # --------------------------------- News Page ------------------------------------ #
 
+
+    # ---------------------------------- News Page Functions ----------------------------------- #
     def open_news_page(self):
         self.return_button.pack(side=TOP, anchor=NW, padx=15, pady=15)
         self.news_headlines.pack(side=BOTTOM, anchor=S, padx=50, pady=50)
@@ -223,16 +233,18 @@ class UIManager:
         self.news_headlines.pack_forget()
         self.return_button.pack_forget()
 
-    # --------------------------------- Planner Page ------------------------------------ #
 
+
+    # ---------------------------------- Planner Page Functions----------------------------------- #
     def open_planner_page(self):
         self.return_button.pack(side=TOP, anchor=NW, padx=15, pady=15)
 
     def close_planner_page(self):
         self.return_button.pack_forget()
 
-    # ---------------------------------- Weather Page ----------------------------------- #
 
+
+    # ---------------------------------- Weather Page Functions----------------------------------- #
     def open_weather_page(self):
         self.return_button.pack(side=TOP, anchor=NW, padx=15, pady=15)
         for i in range(0, 24):
@@ -253,7 +265,9 @@ class UIManager:
             self.weather_hourly[i].pack_forget()
         self.container.pack_forget()
 
-    # ---------------------------------- Settings Page ----------------------------------- #
+
+
+    # ---------------------------------- Settings Page Functions ----------------------------------- #
     def open_settings_page(self):
         self.return_button.pack(side=TOP, anchor=W, padx=15, pady=15)
         self.settings_update_now.pack(side=TOP, anchor=W, padx=50, pady=15)
@@ -261,14 +275,25 @@ class UIManager:
         self.settings_font.pack(side=TOP, anchor=W, padx=50, pady=15)
 
     def close_settings_page(self):
-        # Return Button
         self.return_button.pack_forget()
         self.settings_color_scheme.pack_forget()
         self.settings_font.pack_forget()
         self.settings_update_now.pack_forget()
 
-    # --------    -------------------------- UPDATING UIMANAGER - ----------------------------------  #
 
+
+    # ---------------------------------- Planner Page Functions ----------------------------------- #
+    def open_planner_page(self):
+        self.return_button.pack(side=TOP, anchor=W, padx=15, pady=15)
+        self.planner_todolist.pack(side=TOP, anchor=W, padx=50, pady=50)
+
+    def close_planner_page(self):
+        self.return_button.pack_forget()
+        self.planner_todolist.pack_forget()
+
+
+
+    # ---------------------------------- UIManager Updating Functions ----------------------------------- #
     def update_all(self, cursor):
         self.update_web_info()
         self.get_current_zone_from_cursor(cursor)
@@ -299,8 +324,9 @@ class UIManager:
         elif (joystick_state == 'toggled'):
             self.toggle_power()
 
-    # --------------------------------- Updating Web Info ------------------------------------- #
 
+
+    # ---------------------------------- Web Info Updating Functions ----------------------------------- #
     def update_web_info(self):
         last_update_time = (time.time() - var.saved_data['last_updated']) / 60
         # print last_update_time
@@ -315,32 +341,40 @@ class UIManager:
         self.web_info.update()
 
     def update_all_widgets_content(self, event=None):  # todo IMPLEMENT THIS IN
-        # Weather Page
-        for i in range(0, 7):
-            self.weather_daily[i].update_now(i)  # NOTE THIS ONLY UPDATES IMAGE COLORS AND TEXT CONTENT
-        for i in range(0, 24):
-            self.weather_hourly[i].update_now(i)
-        self.weather_current.update_now()
-        # News Page
-        self.news_headlines.update_now()
         # Main Page
         self.main_news.update_now()
         self.main_weather.update_now()
         self.settings_update_now.update_now()
         self.return_button.update_now()
 
+        # Weather Page
+        for i in range(0, 7):
+            self.weather_daily[i].update_now(i)  # NOTE THIS ONLY UPDATES IMAGE COLORS AND TEXT CONTENT
+        for i in range(0, 24):
+            self.weather_hourly[i].update_now(i)
+        self.weather_current.update_now()
+
+        # News Page
+        self.news_headlines.update_now()
+
+        # To Do List Page
+        self.planner_todolist.update_now()
+
     def update_all_widgets_everything(self, event=None):  # updates font, content, and image colors
         self.update_all_widgets_content()
         self.main_settings.update_now()
         self.main_clock.update_font_size()
 
-    # --------------------------------- Updating Tk ------------------------------------- #
 
+
+    # ---------------------------------- TKinter Updating Functions ----------------------------------- #
     def update_tk(self):
         self.tk.update_idletasks()
         self.tk.update()
 
-    # --------------------------------- Updating Zones ------------------------------------- #
+
+
+    # ---------------------------------- UI Zones Updating Functions ----------------------------------- #
     def get_current_zone_from_cursor(self, cursor):
         self.current_zone = self.cursor_handler.update_cursor(cursor, self.current_page)
 
@@ -359,10 +393,9 @@ class UIManager:
         elif self.current_page == Page.planner:
             self.update_zone_planner_page()
 
-    # ----------------------- Helper Zone Methods ----------------------- #
 
-    # --------- Main Page Zone Helpers --------- #
 
+    # ---------------------------------- Main Page Zone Helper Functions ----------------------------------- #
     # Updates all 4 zones on the main page
     def update_zone_main_page(self):
         self.main_page_all_off()
@@ -386,8 +419,9 @@ class UIManager:
         self.main_clock.change_color_all(var.selected_off)
         self.main_settings.change_color_setting(var.selected_off)
 
-    # --------- Weather Page Zone Helpers --------- #
 
+
+    # ---------------------------------- Weather Page Zone Helper Functions ----------------------------------- #
     # Updates all 4 zones on the weather page
     def update_zone_weather_page(self):
         self.weather_page_all_off()
@@ -412,8 +446,9 @@ class UIManager:
         for i in range(0, 24):
             self.weather_hourly[i].change_color_all(var.selected_off)
 
-    # --------- News Page Zone Helpers --------- #
 
+
+    # ---------------------------------- News Page Zone Helper Functions ----------------------------------- #
     # Updates all zones on the news page
     def update_zone_news_page(self):
         self.news_page_all_off()
@@ -427,7 +462,9 @@ class UIManager:
         self.return_button.change_color_all(var.selected_off)
         self.news_headlines.change_color_all(var.selected_off)
 
-    # --------- Planner Page Zone Helpers --------- #
+
+
+    # ---------------------------------- Planner Page Zone Helper Functions ----------------------------------- #
     def update_zone_planner_page(self):
         self.planner_page_all_off()
         # Return Button Selected
@@ -437,8 +474,9 @@ class UIManager:
     def planner_page_all_off(self):
         self.return_button.change_color_all(var.selected_off)
 
-    # --------- Settings Page Zone Helpers --------- #
 
+
+    # ---------------------------------- Settings Page Zone Helper Functions ----------------------------------- #
     # Updates all zones on the weather page
     def update_zone_settings_page(self):
         # Return Button Selected
@@ -480,11 +518,14 @@ class UIManager:
         self.settings_font.change_all_label_colors(var.selected_off)
         self.settings_update_now.change_color_update_now(var.selected_off)
 
-    # -------------------------------- Updating Pages ------------------------------------#
 
+
+    # -------------------------------- Updating Current Pages ------------------------------------#
     def update_page(self, cur_zone):
         if cur_zone is not None:  # need this or it'll change page like crazy
             self.change_page(self.find_page_to_change_to())
+
+
 
     # ---------------------------------- HELPER ----------------------------------- #
     def find_page_to_change_to(self):

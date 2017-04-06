@@ -32,6 +32,7 @@ class NewsPage(Enum):
 class PlannerPage(Enum):
     none = 0
     returnButton = 1
+    todolist = 2
 
 
 # Includes the possible zones that could be selected on the settings page
