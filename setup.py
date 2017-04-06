@@ -52,7 +52,7 @@ os.system("sudo apt-get install python-simplejson")
 # .... TODO FINISH LATER     https://goo.gl/QpUyRZ
 
 # Install openCV
-# .... TODO FINISH LATER
+os.system("sudo apt-get install python-opencv")
 
 
 # ------------------- WHAT EVERY USER NEEDS TO DO --------------------- #
