@@ -1,9 +1,10 @@
 import urllib2
 import time
 
+# User Stock Follow Interests
 stocksToPull = "AAPL", "GOOG", "AMZN", "EBAY"
 
-
+# Method to grab data and write data to file.
 def pullData(stock):
     try:
         fileLine = stock + '.txt'
@@ -21,10 +22,9 @@ def pullData(stock):
 
         print 'Pulled', stock
         time.sleep(1)
-
     except Exception, e:
-        print 'main loop', str(e)
-
+        print 'Stocks Error', str(e)
+        print 'in Stock' + stock
 
 for eachStock in stocksToPull:
     pullData(eachStock)
