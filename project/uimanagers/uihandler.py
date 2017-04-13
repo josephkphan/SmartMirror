@@ -16,6 +16,7 @@ from settingwidgets.updatenow import *
 from plannerwidgets.todolist import *
 from project.resources import zone
 from uisetup.keyboardsetup import *
+from uisetup.widgetswitcher import *
 
 
 # File Name: UI Handler:
@@ -42,6 +43,9 @@ class UIManager:
         self.camera_selection_mode = False
 
         self.keyboard = KeyboardSetUp(self)
+
+        # Initialize Widget Switcher #TODO move this shit
+        self.widget_switcher = WidgetSwitcher(self)
 
         # FIRST TIME OPENING MIRROR
         if not var.saved_data:
@@ -118,81 +122,7 @@ class UIManager:
         # Setting initial zone and page data
         self.current_zone = zone.MainPage.none  # Starts off on main page
         self.current_page = Page.main
-        self.open_main_page()
-
-    # ---------------------------------- UI Functions ----------------------------------- #
-    def open_main_page(self):
-        self.main_weather.pack(side=TOP, anchor=W, padx=50, pady=50)
-        self.main_clock.pack(side=RIGHT, anchor=N, padx=50, pady=50)
-        self.main_news.pack(side=LEFT, anchor=S, padx=50, pady=50)
-        self.main_settings.pack(side=RIGHT, anchor=S, padx=50, pady=50)
-        # self.canvas.pack(side=TOP, anchor=W, padx=50)
-
-    def close_main_page(self):
-        self.main_weather.pack_forget()
-        self.main_clock.pack_forget()
-        self.main_news.pack_forget()
-        self.main_settings.pack_forget()
-        # self.canvas.pack_forget()
-
-    # ---------------------------------- News Page Functions ----------------------------------- #
-    def open_news_page(self):
-        self.return_button.pack(side=TOP, anchor=NW, padx=15, pady=15)
-        self.news_headlines.pack(side=BOTTOM, anchor=S, padx=50, pady=50)
-
-    def close_news_page(self):
-        self.news_headlines.pack_forget()
-        self.return_button.pack_forget()
-
-    # ---------------------------------- Planner Page Functions----------------------------------- #
-    def open_planner_page(self):
-        self.return_button.pack(side=TOP, anchor=NW, padx=15, pady=15)
-
-    def close_planner_page(self):
-        self.return_button.pack_forget()
-
-    # ---------------------------------- Weather Page Functions----------------------------------- #
-    def open_weather_page(self):
-        self.return_button.pack(side=TOP, anchor=NW, padx=15, pady=15)
-        for i in range(0, 24):
-            self.weather_hourly[i].pack(side=TOP, anchor=W, padx=5, pady=5)
-        self.weather_current.pack(side=TOP, anchor=N, padx=50, pady=50)
-
-        self.container.pack(side=TOP, anchor=N)
-        for i in range(0, 7):
-            self.weather_daily[i].pack(side=LEFT, anchor=N, padx=0, pady=0)
-
-    def close_weather_page(self):
-        self.return_button.pack_forget()
-        self.weather_current.pack_forget()
-        for i in range(0, 7):
-            self.weather_daily[i].pack_forget()
-
-        for i in range(0, 24):
-            self.weather_hourly[i].pack_forget()
-        self.container.pack_forget()
-
-    # ---------------------------------- Settings Page Functions ----------------------------------- #
-    def open_settings_page(self):
-        self.return_button.pack(side=TOP, anchor=W, padx=15, pady=15)
-        self.settings_update_now.pack(side=TOP, anchor=W, padx=50, pady=15)
-        self.settings_color_scheme.pack(side=TOP, anchor=W, padx=50, pady=15)
-        self.settings_font.pack(side=TOP, anchor=W, padx=50, pady=15)
-
-    def close_settings_page(self):
-        self.return_button.pack_forget()
-        self.settings_color_scheme.pack_forget()
-        self.settings_font.pack_forget()
-        self.settings_update_now.pack_forget()
-
-    # ---------------------------------- Planner Page Functions ----------------------------------- #
-    def open_planner_page(self):
-        self.return_button.pack(side=TOP, anchor=W, padx=15, pady=15)
-        self.planner_todolist.pack(side=TOP, anchor=W, padx=50, pady=50)
-
-    def close_planner_page(self):
-        self.return_button.pack_forget()
-        self.planner_todolist.pack_forget()
+        self.widget_switcher.open_main_page()
 
     # ---------------------------------- UIManager Updating Functions ----------------------------------- #
     def update_all(self, cursor):
@@ -458,53 +388,53 @@ class UIManager:
             if new_page == Page.main:
                 # Switching from Weather
                 if self.current_page == Page.weather:
-                    self.close_weather_page()  # todo remove previous page if weather, news, etc
+                    self.widget_switcher.close_weather_page()  # todo remove previous page if weather, news, etc
                 # Switching from Settings
                 elif self.current_page == Page.settings:
-                    self.close_settings_page()
+                    self.widget_switcher.close_settings_page()
                 elif self.current_page == Page.news:
-                    self.close_news_page()
+                    self.widget_switcher.close_news_page()
                 elif self.current_page == Page.planner:
-                    self.close_planner_page()
+                    self.widget_switcher.close_planner_page()
                 self.current_page = Page.main
-                self.open_main_page()
+                self.widget_switcher.open_main_page()
                 self.current_zone = zone.MainPage.none
 
             # ----------Switching from Main Page --------- #
 
             # Switching to Weather
             elif new_page == Page.weather:  # BLANK PAGE
-                self.close_main_page()
+                self.widget_switcher.close_main_page()
                 self.current_page = Page.weather
-                self.open_weather_page()
+                self.widget_switcher.open_weather_page()
                 self.current_zone = zone.WeatherPage.none
             # Switching to Settings
             elif new_page == Page.settings:
-                self.close_main_page()
+                self.widget_switcher.close_main_page()
                 self.current_page = Page.settings
-                self.open_settings_page()
+                self.widget_switcher.open_settings_page()
                 self.current_zone = zone.SettingsPage.none
             # Switching to News
             elif new_page == Page.news:
-                self.close_main_page()
+                self.widget_switcher.close_main_page()
                 self.current_page = Page.news
-                self.open_news_page()
+                self.widget_switcher.open_news_page()
                 self.current_zone = zone.NewsPage.none
             elif new_page == Page.planner:
-                self.close_main_page()
+                self.widget_switcher.close_main_page()
                 self.current_page = Page.planner
-                self.open_planner_page()
+                self.widget_switcher.open_planner_page()
                 self.current_zone = zone.PlannerPage.none
 
             elif new_page == Page.blank:
                 if self.current_page == Page.main:
-                    self.close_main_page()
+                    self.widget_switcher.close_main_page()
                 elif self.current_page == Page.weather:
-                    self.close_weather_page()
+                    self.widget_switcher.close_weather_page()
                 elif self.current_page == Page.settings:
-                    self.close_settings_page()
+                    self.widget_switcher.close_settings_page()
                 elif self.current_page == Page.planner:
-                    self.close_planner_page()
+                    self.widget_switcher.close_planner_page()
                 elif self.current_page == Page.news:
-                    self.close_news_page()
+                    self.widget_switcher.close_news_page()
                 self.current_page = Page.blank
