@@ -17,6 +17,7 @@ from plannerwidgets.todolist import *
 from project.resources import zone
 from uisetup.keyboardsetup import *
 from uisetup.widgetswitcher import *
+from uisetup.widgetcoloring import *
 
 
 # File Name: UI Handler:
@@ -46,6 +47,8 @@ class UIManager:
 
         # Initialize Widget Switcher #TODO move this shit
         self.widget_switcher = WidgetSwitcher(self)
+
+        self.widget_coloring = WidgetColoring(self)
 
         # FIRST TIME OPENING MIRROR
         if not var.saved_data:
@@ -142,18 +145,18 @@ class UIManager:
         self.update_tk()
 
     def update_all_joystick(self, joystick_state):
-        if (joystick_state == 'up'):
-            self.directional_click(self.key_up)
-        elif (joystick_state == 'down'):
-            self.directional_click(self.key_down)
-        elif (joystick_state == 'left'):
-            self.directional_click(self.key_left)
-        elif (joystick_state == 'right'):
-            self.directional_click(self.key_right)
-        elif (joystick_state == 'pressed'):
-            self.enter_click()
-        elif (joystick_state == 'toggled'):
-            self.toggle_power()
+        if joystick_state == 'up':
+            self.keyboard.directional_click(self.key_up)
+        elif joystick_state == 'down':
+            self.keyboard.directional_click(self.key_down)
+        elif joystick_state == 'left':
+            self.keyboard.directional_click(self.key_left)
+        elif joystick_state == 'right':
+            self.keyboard.directional_click(self.key_right)
+        elif joystick_state == 'pressed':
+            self.keyboard.enter_click()
+        elif joystick_state == 'toggled':
+            self.keyboard.toggle_power()
 
     # ---------------------------------- Web Info Updating Functions ----------------------------------- #
     def update_web_info(self):
@@ -206,132 +209,18 @@ class UIManager:
     # Updates specific page's zones based on current location
     def update_zone(self):
         if self.current_page == Page.main:
-            self.update_zone_main_page()
+            self.widget_coloring.update_zone_main_page()
         # Updating zones for Weather Page
         elif self.current_page == Page.weather:
-            self.update_zone_weather_page()
+            self.widget_coloring.update_zone_weather_page()
         # Updating Zones for Settings Page
         elif self.current_page == Page.settings:
-            self.update_zone_settings_page()
+            self.widget_coloring.update_zone_settings_page()
         elif self.current_page == Page.news:
-            self.update_zone_news_page()
+            self.widget_coloring.update_zone_news_page()
         elif self.current_page == Page.planner:
-            self.update_zone_planner_page()
+            self.widget_coloring.update_zone_planner_page()
 
-    # ---------------------------------- Main Page Zone Helper Functions ----------------------------------- #
-    # Updates all 4 zones on the main page
-    def update_zone_main_page(self):
-        self.main_page_all_off()
-        # Weather Zone Selected
-        if self.current_zone == zone.MainPage.weather:
-            self.main_weather.change_color_all(var.selected_on)
-        # News Zone Selected
-        elif self.current_zone == zone.MainPage.news:
-            self.main_news.change_color_all(var.selected_on)
-        # Clock Zone Selected
-        elif self.current_zone == zone.MainPage.clock:
-            self.main_clock.change_color_all(var.selected_on)
-        # Settings Zone Selected
-        elif self.current_zone == zone.MainPage.settings:
-            self.main_settings.change_color_setting(var.selected_on)
-
-    # De-selects all 4 zones on the main page
-    def main_page_all_off(self):
-        self.main_weather.change_color_all(var.selected_off)
-        self.main_news.change_color_all(var.selected_off)
-        self.main_clock.change_color_all(var.selected_off)
-        self.main_settings.change_color_setting(var.selected_off)
-
-    # ---------------------------------- Weather Page Zone Helper Functions ----------------------------------- #
-    # Updates all 4 zones on the weather page
-    def update_zone_weather_page(self):
-        self.weather_page_all_off()
-        # Return Button Selected
-        if self.current_zone == zone.WeatherPage.returnButton:
-            self.return_button.change_color_all(var.selected_on)
-        elif self.current_zone == zone.WeatherPage.hourly_weather:
-            for i in range(0, 24):
-                self.weather_hourly[i].change_color_all(var.selected_on)
-        elif self.current_zone == zone.WeatherPage.current_weather:
-            self.weather_current.change_color_all(var.selected_on)
-        elif self.current_zone == zone.WeatherPage.daily_weather:
-            for i in range(0, 7):
-                self.weather_daily[i].change_color_all(var.selected_on)
-
-    # De-selects all 4 zones on the weather page
-    def weather_page_all_off(self):
-        self.return_button.change_color_all(var.selected_off)
-        for i in range(0, 7):
-            self.weather_daily[i].change_color_all(var.selected_off)
-        self.weather_current.change_color_all(var.selected_off)
-        for i in range(0, 24):
-            self.weather_hourly[i].change_color_all(var.selected_off)
-
-    # ---------------------------------- News Page Zone Helper Functions ----------------------------------- #
-    # Updates all zones on the news page
-    def update_zone_news_page(self):
-        self.news_page_all_off()
-        # Return Button Selected
-        if self.current_zone == zone.NewsPage.returnButton:
-            self.return_button.change_color_all(var.selected_on)
-        elif self.current_zone == zone.NewsPage.headlines:
-            self.news_headlines.change_color_all(var.selected_on)
-
-    def news_page_all_off(self):
-        self.return_button.change_color_all(var.selected_off)
-        self.news_headlines.change_color_all(var.selected_off)
-
-    # ---------------------------------- Planner Page Zone Helper Functions ----------------------------------- #
-    def update_zone_planner_page(self):
-        self.planner_page_all_off()
-        # Return Button Selected
-        if self.current_zone == zone.PlannerPage.returnButton:
-            self.return_button.change_color_all(var.selected_on)
-
-    def planner_page_all_off(self):
-        self.return_button.change_color_all(var.selected_off)
-
-    # ---------------------------------- Settings Page Zone Helper Functions ----------------------------------- #
-    # Updates all zones on the weather page
-    def update_zone_settings_page(self):
-        # Return Button Selected
-        self.settings_page_all_off()
-        if self.current_zone == zone.SettingsPage.returnButton:
-            self.return_button.change_color_all(var.selected_on)
-        # Update now Setting
-        elif self.current_zone == zone.SettingsPage.update_now:
-            self.settings_update_now.change_color_update_now(var.selected_on)
-        # Color Scheme Settings
-        elif self.current_zone == zone.SettingsPage.blue:
-            self.settings_color_scheme.change_color_blue(var.selected_on)
-        elif self.current_zone == zone.SettingsPage.green:
-            self.settings_color_scheme.change_color_green(var.selected_on)
-        elif self.current_zone == zone.SettingsPage.orange:
-            self.settings_color_scheme.change_color_orange(var.selected_on)
-        elif self.current_zone == zone.SettingsPage.pink:
-            self.settings_color_scheme.change_color_pink(var.selected_on)
-        elif self.current_zone == zone.SettingsPage.purple:
-            self.settings_color_scheme.change_color_purple(var.selected_on)
-        elif self.current_zone == zone.SettingsPage.red:
-            self.settings_color_scheme.change_color_red(var.selected_on)
-        elif self.current_zone == zone.SettingsPage.yellow:
-            self.settings_color_scheme.change_color_yellow(var.selected_on)
-
-        # Font Settings
-        elif self.current_zone == zone.SettingsPage.small:
-            self.settings_font.change_color_small(var.selected_on)
-        elif self.current_zone == zone.SettingsPage.medium:
-            self.settings_font.change_color_medium(var.selected_on)
-        elif self.current_zone == zone.SettingsPage.large:
-            self.settings_font.change_color_large(var.selected_on)
-
-    # De-selects all zones on the settings page
-    def settings_page_all_off(self):
-        self.return_button.change_color_all(var.selected_off)
-        # self.main_page_settings.change_all_label_colors(var.selected_off)
-        self.settings_color_scheme.change_all_label_colors(var.selected_off)
-        self.settings_font.change_all_label_colors(var.selected_off)
-        self.settings_update_now.change_color_update_now(var.selected_off)
 
     # -------------------------------- Updating Current Pages ------------------------------------#
     def update_page(self, cur_zone):
