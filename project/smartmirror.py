@@ -1,10 +1,10 @@
 import sys
 
 sys.path.append("../..")
-from project.hardwareManagers.camera import *
-from project.hardwareManagers.powerswitch import *
-# from project.hardwareManagers.ultrasoundhandler import *
-from project.uiManagers.uihandler import *
+from project.hardwaremanagers.camera import *
+from project.hardwaremanagers.powerswitch import *
+# from project.hardwaremanagers.ultrasoundhandler import *
+from project.uimanagers.uihandler import *
 from project.resources import var
 
 # ultra_sound_handler = UltraSoundHandler()

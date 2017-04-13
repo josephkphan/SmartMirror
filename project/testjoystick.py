@@ -1,9 +1,9 @@
 import sys
 import time
-from hardwareManagers.joystick.joystickhandler import *
+from hardwaremanagers.joystick.joystickhandler import *
 
 sys.path.append("../")
-from project.uiManagers.uihandler import *
+from project.uimanagers.uihandler import *
 
 ui_manager = UIManager()
 joystick_manager = JoystickHandler()

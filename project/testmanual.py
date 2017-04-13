@@ -1,7 +1,7 @@
 import sys
 
 sys.path.append("../")
-from project.uiManagers.uihandler import *
+from project.uimanagers.uihandler import *
 
 ui_manager = UIManager()
 while True:

@@ -1,4 +1,4 @@
-import varLoader
+import varloader
 import coordcreator
 
 wall_light_color = True
@@ -112,18 +112,18 @@ update_time = 30  # in minutes
 # -------------------- Saved Data -------------------- #
 
 saved_data = {}
-varLoader.get_saved_data()
+varloader.get_saved_data()
 
 # -------------------- Settings ----------------------- #
 preferences = {}
-varLoader.get_preferences()
+varloader.get_preferences()
 
 # ------------------- Other Data ---------------------- #
 
 other_data = {}
-varLoader.get_other()
+varloader.get_other()
 selected_on = color_hex_codes[preferences['color']]
-varLoader.update_font_size()
+varloader.update_font_size()
 
 print selected_on
 print other_data

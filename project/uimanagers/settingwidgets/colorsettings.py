@@ -1,7 +1,7 @@
 from Tkinter import *
 from PIL import Image, ImageTk
-from project.resources import var, zone, varLoader
-from project.uiManagers.settingwidgets import checkbox
+from project.resources import var, zone, varloader
+from project.uimanagers.settingwidgets import checkbox
 
 
 class ColorSettings(Frame):
@@ -116,25 +116,25 @@ class ColorSettings(Frame):
         print zone_to_change
 
         if zone_to_change == zone.SettingsPage.blue:
-            varLoader.change_color_scheme('blue')
+            varloader.change_color_scheme('blue')
 
         elif zone_to_change == zone.SettingsPage.green:
-            varLoader.change_color_scheme('green')
+            varloader.change_color_scheme('green')
 
         elif zone_to_change == zone.SettingsPage.orange:
-            varLoader.change_color_scheme('orange')
+            varloader.change_color_scheme('orange')
 
         elif zone_to_change == zone.SettingsPage.pink:
-            varLoader.change_color_scheme('pink')
+            varloader.change_color_scheme('pink')
 
         elif zone_to_change == zone.SettingsPage.purple:
-            varLoader.change_color_scheme('purple')
+            varloader.change_color_scheme('purple')
 
         elif zone_to_change == zone.SettingsPage.red:
-            varLoader.change_color_scheme('red')
+            varloader.change_color_scheme('red')
 
         elif zone_to_change == zone.SettingsPage.yellow:
-            varLoader.change_color_scheme('yellow')
+            varloader.change_color_scheme('yellow')
 
         self.update_all_label_check_boxes()
         self.update_all_box_images()

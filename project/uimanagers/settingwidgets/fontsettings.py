@@ -1,7 +1,7 @@
 from Tkinter import *
 from PIL import Image, ImageTk
-from project.resources import var, zone, varLoader
-from project.uiManagers.settingwidgets import checkbox
+from project.resources import var, zone, varloader
+from project.uimanagers.settingwidgets import checkbox
 
 
 class FontSettings(Frame):
@@ -71,13 +71,13 @@ class FontSettings(Frame):
         print "~~~~~~~ INSIDE CHANGE A SETTING"
         print zone_to_change
         if zone_to_change == zone.SettingsPage.small:
-            varLoader.change_font_size('small')
+            varloader.change_font_size('small')
 
         elif zone_to_change == zone.SettingsPage.medium:
-            varLoader.change_font_size('medium')
+            varloader.change_font_size('medium')
 
         elif zone_to_change == zone.SettingsPage.large:
-            varLoader.change_font_size('large')
+            varloader.change_font_size('large')
 
         self.update_all_label_font_sizes()
         return_button.update_font_size()

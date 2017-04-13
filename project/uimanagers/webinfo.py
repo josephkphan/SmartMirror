@@ -1,4 +1,4 @@
-from project.resources import varLoader, var
+from project.resources import varloader, var
 import json
 import feedparser
 import requests
@@ -88,4 +88,4 @@ class WebInfo:
                 if 'weather' not in var.saved_data:
                     exit()
 
-        varLoader.update_data(weather_obj, location_obj, feed)
+        varloader.update_data(weather_obj, location_obj, feed)

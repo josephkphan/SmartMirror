@@ -5,7 +5,7 @@ from selectionhandler import *
 from mainpagewidgets.news import *
 from mainpagewidgets.clock import *
 from mainpagewidgets.weather import *
-from generalwidgets.returnButton import *
+from generalwidgets.returnbutton import *
 from generalwidgets.settingsbutton import *
 from weatherpagewidgets.dailyweather import *
 from weatherpagewidgets.hourlyweather import *
@@ -14,7 +14,7 @@ from settingwidgets.colorsettings import *
 from settingwidgets.fontsettings import *
 from settingwidgets.updatenow import *
 from plannerwidgets.todolist import *
-from project.resources import zone, pagegraph, var, varLoader
+from project.resources import zone, pagegraph, var, varloader
 from project.resources.page import *
 
 
@@ -198,7 +198,7 @@ class UIManager:
 
     def toggle_manual_mode(self, event=None):
         print "Enter CONTROL HAPPENED"
-        varLoader.change_other_data('manual_mode', not var.other_data['manual_mode'])
+        varloader.change_other_data('manual_mode', not var.other_data['manual_mode'])
         # todo FINISH THIS
 
     def toggle_select_mode_for_camera(self, event=None):

@@ -1,7 +1,7 @@
 from Tkinter import *
 from PIL import Image, ImageTk
-from project.resources import var, zone, varLoader
-from project.uiManagers.settingwidgets import checkbox
+from project.resources import var, zone, varloader
+from project.uimanagers.settingwidgets import checkbox
 
 
 class MainPageSettings(Frame):
@@ -93,23 +93,23 @@ class MainPageSettings(Frame):
 
     def change_a_setting(self, zone_to_change):
         if zone_to_change == zone.SettingsPage.main_page_weather:
-            varLoader.change_main_page_top(self.key_weather)
+            varloader.change_main_page_top(self.key_weather)
             self.update_top_label_check_boxes()
 
         elif zone_to_change == zone.SettingsPage.main_page_time:
-            varLoader.change_main_page_top(self.key_time)
+            varloader.change_main_page_top(self.key_time)
             self.update_top_label_check_boxes()
 
         elif zone_to_change == zone.SettingsPage.main_page_news:
-            varLoader.change_main_page_bottom( self.key_news)
+            varloader.change_main_page_bottom(self.key_news)
             self.update_bottom_label_check_boxes()
 
         elif zone_to_change == zone.SettingsPage.main_page_sports:
-            varLoader.change_main_page_bottom( self.key_sports)
+            varloader.change_main_page_bottom(self.key_sports)
             self.update_bottom_label_check_boxes()
 
         elif zone_to_change == zone.SettingsPage.main_page_stocks:
-            varLoader.change_main_page_bottom(self.key_stocks)
+            varloader.change_main_page_bottom(self.key_stocks)
             self.update_bottom_label_check_boxes()
 
     def update_top_label_check_boxes(self):
