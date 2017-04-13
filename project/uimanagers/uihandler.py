@@ -14,8 +14,7 @@ from settingwidgets.colorsettings import *
 from settingwidgets.fontsettings import *
 from settingwidgets.updatenow import *
 from plannerwidgets.todolist import *
-from project.resources import zone, pagegraph, var, varloader
-from project.resources.page import *
+from project.resources import zone
 from uisetup.keyboardsetup import *
 
 
@@ -43,14 +42,6 @@ class UIManager:
         self.camera_selection_mode = False
 
         self.keyboard = KeyboardSetUp(self)
-
-        self.tk.bind("<Left>", self.left_click)
-        self.tk.bind("<Right>", self.right_click)
-        self.tk.bind("<Up>", self.up_click)
-        self.tk.bind("<Down>", self.down_click)
-        self.tk.bind("<BackSpace>", self.enter_click)
-        self.tk.bind("<Control_L>", self.toggle_manual_mode)
-        self.tk.bind("<Shift_L>", self.toggle_select_mode_for_camera)
 
         # FIRST TIME OPENING MIRROR
         if not var.saved_data:
@@ -128,60 +119,6 @@ class UIManager:
         self.current_zone = zone.MainPage.none  # Starts off on main page
         self.current_page = Page.main
         self.open_main_page()
-
-    # ---------------------------------- Manual Mode Functions ----------------------------------- #
-    def left_click(self, event=None):
-        print "LEFT CLICK HAPPENED"
-        self.directional_click(self.key_left)
-        return "break"
-
-    def right_click(self, event=None):
-        print "RIGHT CLICK HAPPENED"
-        self.directional_click(self.key_right)
-        return "break"
-
-    def up_click(self, event=None):
-        print "UP CLICK HAPPENED"
-        self.directional_click(self.key_up)
-        return "break"
-
-    def down_click(self, event=None):
-        print "DOWN CLICK HAPPENED"
-        self.directional_click(self.key_down)
-        return "break"
-
-    def directional_click(self, key_click):
-        if self.current_page == Page.main:
-            self.current_zone = pagegraph.Main[self.current_zone][key_click]
-        elif self.current_page == Page.weather:
-            self.current_zone = pagegraph.Weather[self.current_zone][key_click]
-        elif self.current_page == Page.settings:
-            self.current_zone = pagegraph.Settings[self.current_zone][key_click]
-        elif self.current_page == Page.news:
-            self.current_zone = pagegraph.News[self.current_zone][key_click]
-        elif self.current_page == Page.planner:
-            self.current_zone = pagegraph.Planner[self.current_zone][key_click]
-        return "break"
-
-    def enter_click(self, event=None):
-        print "Enter CLICK HAPPENED"
-        self.change_page(self.find_page_to_change_to())
-        if self.current_page == Page.settings:
-            # self.main_page_settings.change_a_setting(self.current_zone)
-            self.settings_color_scheme.change_a_setting(self.current_zone, self.settings_font)
-            self.settings_font.change_a_setting(self.current_zone, self.return_button, self.settings_color_scheme)
-            self.settings_update_now.update_smart_mirror(self.current_zone)
-            self.update_all_widgets_everything()
-        return "break"
-
-    def toggle_manual_mode(self, event=None):
-        print "Enter CONTROL HAPPENED"
-        varloader.change_other_data('manual_mode', not var.other_data['manual_mode'])
-        # todo FINISH THIS
-
-    def toggle_select_mode_for_camera(self, event=None):
-        print  "toggling select mode for camera"
-        self.camera_select_mode = not self.camera_select_mode
 
     # ---------------------------------- UI Functions ----------------------------------- #
     def open_main_page(self):
