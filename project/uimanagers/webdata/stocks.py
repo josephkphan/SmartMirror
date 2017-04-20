@@ -1,5 +1,6 @@
 import urllib2
 import time
+from project.resources import varloader, var
 
 # User Stock Follow Interests
 stocksToPull = "AAPL", "GOOG", "AMZN", "EBAY"

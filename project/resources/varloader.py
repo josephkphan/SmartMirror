@@ -69,6 +69,24 @@ def update_preferences():
     json.dump(var.preferences, out_file, indent=4)
     out_file.close()
 
+def get_api_tokens():
+    try:
+        with open('key.json') as f:
+            var.api_tokens = json.load(f)
+    except IOError as e:
+        exit("no keys found")
+
+
+def update_api_tokens(weather_key, distance_matrix_key, geocode_key):
+    if weather_key is not None:
+        var.api_tokens['dark_sky_weather'] = weather_key
+    if distance_matrix_key is not None:
+        var.api_tokens['google_distance_matrix'] = distance_matrix_key
+    if geocode_key is not None:
+        var.api_tokens['google_geocode'] = geocode_key
+    out_file = open("key.json", "w")
+    json.dump(var.api_tokens, out_file, indent=4)
+    out_file.close()
 
 # Gets Preferences from file
 def get_preferences():

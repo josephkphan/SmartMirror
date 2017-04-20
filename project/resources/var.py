@@ -67,11 +67,11 @@ font_sizes = None
 # -------------------- For Web Parsing -------------------- #
 
 ip = '<IP>'
-country_code = 'us'  # todo read this from file
-f = open('key.txt', 'r')
-weather_api_token = f.read()
-print 'TOKEN:'+str(weather_api_token)
-f.close()
+country_code = 'us'
+
+api_tokens = {}
+varloader.get_api_tokens()
+
 
 # -------------------- Window Sizing -------------------- #
 

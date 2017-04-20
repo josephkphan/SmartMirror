@@ -9,7 +9,7 @@ import pprint
 # used to gather information from the web.
 class WebInfo:
     def __init__(self):
-        self.key = var.weather_api_token
+        self.key = var.api_tokens['dark_sky_weather']
 
     @staticmethod
     def get_ip():

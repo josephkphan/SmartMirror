@@ -24,7 +24,8 @@ from uisetup.widgetcoloring import *
 # Purpose: Handles all TKinter widgets and displays them appropriately based on the given inputs from the hardware
 class UIManager:
     def __init__(self):
-
+        # initializing Keys
+        self.key_up, self.key_down, self.key_left, self.key_right = 0, 1, 2, 3  # todo move to var constant file
         # Handlers
         self.cursor_handler = CursorHandler()
         self.web_info = WebInfo()
@@ -32,9 +33,6 @@ class UIManager:
 
         # TK
         self.tk = Tk()
-
-        # initializing Keys
-        self.key_up, self.key_down, self.key_left, self.key_right = 0, 1, 2, 3
 
         # camera select mode
         self.camera_select_mode = False
@@ -220,7 +218,6 @@ class UIManager:
             self.widget_coloring.update_zone_news_page()
         elif self.current_page == Page.planner:
             self.widget_coloring.update_zone_planner_page()
-
 
     # -------------------------------- Updating Current Pages ------------------------------------#
     def update_page(self, cur_zone):
