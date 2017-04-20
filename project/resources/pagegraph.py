@@ -37,8 +37,9 @@ News = {
 
 # Time PageGraph
 Planner = {
-    PlannerPage.none: [PlannerPage.returnButton, PlannerPage.none, PlannerPage.none, PlannerPage.returnButton],
-    PlannerPage.returnButton: [PlannerPage.returnButton, PlannerPage.none, PlannerPage.returnButton, PlannerPage.returnButton]
+    PlannerPage.none: [PlannerPage.returnButton, PlannerPage.returnButton, PlannerPage.returnButton, PlannerPage.returnButton],
+    PlannerPage.returnButton: [PlannerPage.returnButton, PlannerPage.returnButton, PlannerPage.returnButton, PlannerPage.todolist],
+    PlannerPage.todolist:[PlannerPage.todolist, PlannerPage.todolist, PlannerPage.returnButton, PlannerPage.todolist]
 }
 
 # Settings Page Graph
@@ -68,3 +69,4 @@ Settings = {
 
 
 }
+

@@ -73,6 +73,7 @@ class WidgetColoring:
         # Return Button Selected
         if self.ui_handler.current_zone == zone.PlannerPage.returnButton:
             self.ui_handler.return_button.change_color_all(var.selected_on)
+            # TODO: Add a change_color_all for the todolist
 
     def planner_page_all_off(self):
         self.ui_handler.return_button.change_color_all(var.selected_off)
