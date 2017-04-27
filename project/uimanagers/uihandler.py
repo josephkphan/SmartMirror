@@ -49,7 +49,7 @@ class UIManager:
         self.widget_coloring = WidgetColoring(self)
 
         # FIRST TIME OPENING MIRROR
-        if not var.saved_data:
+        if not var.weather_data or not var.news_data or not var.last_updated:
             self.web_info.update()  # todo if this fails, exit program sicne you dont have any data
 
         # Creating Frames
@@ -90,7 +90,7 @@ class UIManager:
             self.weather_daily[i] = DailyWeather(self.container, i)
 
         # News Page Widgets
-        self.news_headlines = News(self.bottom_frame, var.saved_data['news_number_of_headlines'])
+        self.news_headlines = News(self.bottom_frame, var.news_data['number_of_headlines'])
 
         # Settings Page Widgets
         self.settings_font = FontSettings(self.left_top)
@@ -158,7 +158,7 @@ class UIManager:
 
     # ---------------------------------- Web Info Updating Functions ----------------------------------- #
     def update_web_info(self):
-        last_update_time = (time.time() - var.saved_data['last_updated']) / 60
+        last_update_time = (time.time() - var.last_updated) / 60
         # print last_update_time
         if last_update_time >= var.update_time and self.current_page == Page.main:  # todo only update on main page??
             # Means its been 10 minutes since it last updated

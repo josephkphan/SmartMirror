@@ -93,10 +93,10 @@ class News(Frame):
             widget.destroy()
         self.title_label.config(font=(var.font_style,  var.font_sizes['title']))    # for updating font size
 
-        headlines = var.saved_data['news_headlines']
+        headlines = var.news_data['headlines']
         # links = var.saved_data['news_links']  # todo make clickable later link should open new window?
-        if var.saved_data['news_number_of_headlines'] < self.num_headlines:
-            self.num_headlines = var.saved_data['news_number_of_headlines']
+        if var.news_data['number_of_headlines'] < self.num_headlines:
+            self.num_headlines = var.news_data['number_of_headlines']
 
         for i in range(0,self.num_headlines):
             self.headline[i] = NewsHeadline(self.headlines_container, headlines[str(i)])

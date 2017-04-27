@@ -19,7 +19,7 @@ class LastUpdatedLabel(Frame):
         self.last_update.config(foreground="white")
 
     def update(self):
-        last_update_time = time.time() - saved_data['last_updated']
+        last_update_time = time.time() - last_updated
         print last_update_time
         self.last_update.config(text=str(last_update_time))
         #self.last_update.after(100000, self.update())  # todo find out how long this is

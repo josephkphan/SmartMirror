@@ -57,11 +57,11 @@ class CurrentWeather(Frame):
 
     def update_now(self):
         # Gets Location Information
-        location_obj = var.saved_data['location']
+        location_obj = var.location_data
         location = "%s, %s" % (location_obj['city'], location_obj['region_code'])
 
         # Gets Weather Information
-        weather_obj = var.saved_data['weather']
+        weather_obj = var.weather_data
         icon_id = weather_obj['daily']['data'][0]['icon']
         icon = None
         degree_sign = u'\N{DEGREE SIGN}'

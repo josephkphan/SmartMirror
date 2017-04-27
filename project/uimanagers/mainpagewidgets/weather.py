@@ -42,11 +42,11 @@ class Weather(Frame):
         print "UPDATING WEATHER INFO ON SCREEN"
 
         # Getting location related data
-        location_obj = var.saved_data['location']
+        location_obj = var.location_data
         location = "%s, %s" % (location_obj['city'], location_obj['region_code'])
 
         # Getting weather related data
-        weather_obj = var.saved_data['weather']
+        weather_obj = var.weather_data
         degree_sign = u'\N{DEGREE SIGN}'
         temperature = "%s%s" % (str(int(weather_obj['currently']['temperature'])), degree_sign)
         currently = weather_obj['currently']['summary']

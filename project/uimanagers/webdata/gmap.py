@@ -2,58 +2,52 @@ import simplejson
 import urllib
 from project.resources import varloader, var
 
-class GMap:
 
-    # Api Keys
-    key_distance_matrix = var.api_tokens['google_distance_matrix']
-    key_geocode = var.api_tokens['google_geocode']
+def get_travel_time():
 
-    # Origin Location
-    origin_street_address = '1600+Amphitheatre+Parkway'
-    origin_city_address = 'Mountain+View'
-    origin_state_address = 'CA'
-
-    # Destination Location
-    destination_street_address = '500+El+Camino+Real'
-    destination_city_address = 'Santa+Clara'
-    destination_state_address = 'CA'
+    # getting necessary data
+    origin = var.gmap['origin']
+    destination = var.gmap['destination']
+    gmap_settings = var.gmap['settings']
 
     # Getting Cords for Origin Location
-    origin_address = origin_state_address + ',+' + origin_city_address + ',+' + origin_state_address
-    url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + origin_address + '&key=' + key_geocode
+    origin_address = origin['state_address'] + ',+' + origin['city_address'] + ',+' + origin['state_address']
+    url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + origin_address + '&key=' + var.api_tokens[
+        'google_geocode']
     result = simplejson.load(urllib.urlopen(url))
     print result
     origin_location = result['results'][0]['geometry']['location']
     print origin_location
 
     # Getting Coords for Destination Location
-    destination_address = destination_state_address + ',+' + destination_city_address + ',+' + destination_state_address
-    url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + destination_address + '&key=' + key_geocode
+    destination_address = destination['state_address'] + ',+' + destination['city_address'] + ',+' + destination[
+        'state_address']
+    url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + destination_address + '&key=' + \
+          var.api_tokens['google_geocode']
     result = simplejson.load(urllib.urlopen(url))
     print result
     destination_location = result['results'][0]['geometry']['location']
     print destination_location
 
     # Personal Settings for Origin to Destination
-    mode = 'driving'
     origins = str(origin_location['lat']) + ',' + str(origin_location['lng'])
     destinations = str(destination_location['lat']) + ',' + str(destination_location['lng'])
-    is_avoid_tolls = False
-    transit_mode = 'bus'
 
     # Getting google map time to get from origin to destination
+    print var.api_tokens['google_distance_matrix']
     url = 'https://maps.googleapis.com/maps/api/distancematrix/json?' + \
           'origins=' + origins + \
           '&destinations=' + destinations + \
           '&departure_time=now' + \
-          '&mode=' + mode + \
+          '&mode=' + gmap_settings['mode'] + \
           '&language=fr-FR' + \
-          '&key=' + key_distance_matrix
+          '&key=' + var.api_tokens['google_distance_matrix']
     # Checks for case that it was Transit
-    if mode == 'transit':
-        url = url + '&transit_mode' + transit_mode
+    if gmap_settings['mode'] == 'transit':
+        url = url + '&transit_mode' + gmap_settings['transit_mode']
+
     # Checks for case that it was avoid tolls
-    if is_avoid_tolls:
+    if gmap_settings['avoid_tolls']:
         url += '&avoid=tolls'
 
     # Display Results
@@ -61,9 +55,10 @@ class GMap:
     print result
     time_to_location = result['rows'][0]['elements'][0]['duration_in_traffic']['text']
     print time_to_location
+    var.gmap_travel_time = time_to_location
 
     # Now Checking Local drive time
-    if is_avoid_tolls:
+    if gmap_settings['avoid_tolls']:
         url += '|highways'
     else:
         url += '&avoid=highways'
@@ -73,3 +68,4 @@ class GMap:
     print result
     time_to_location_locally = result['rows'][0]['elements'][0]['duration_in_traffic']['text']
     print time_to_location_locally
+    var.gmap_travel_time_local = time_to_location_locally

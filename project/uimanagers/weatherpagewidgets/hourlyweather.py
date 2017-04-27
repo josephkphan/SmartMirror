@@ -42,7 +42,7 @@ class HourlyWeather(Frame):
     def update_now(self, hour):
 
         # Gathering Data for hourly weather
-        weather_obj = var.saved_data['weather']
+        weather_obj = var.weather_data
         temperature = str(int(weather_obj['hourly']['data'][hour]['apparentTemperature'])) +  u'\N{DEGREE SIGN}'
         time_txt = self.convert_epoch_time_to_datetime(weather_obj['hourly']['data'][hour]['time'])
         time_txt = self.get_time_from_datetime(time_txt)

@@ -1,9 +1,11 @@
 import varloader
 import coordcreator
 
+# Whether background color (for hand gesture) is light color or dark color
 wall_light_color = True
 
-# -------------------- Coloring ------------------------ #
+# ------------------------------------------------   CONSTANTS  ------------------------------------------------ #
+# -------------------- Color, Font Type, Background Color ------------------------ #
 selected_off = 'white'
 background_color = 'black'
 font_style = 'Helvetica'
@@ -19,6 +21,7 @@ color_hex_codes = {
 
 }
 
+# ------------------ Font Sizes ----------------- #
 font_size_large = {
     'giant': 102,
     'bigger': 80,
@@ -26,11 +29,11 @@ font_size_large = {
     'title': 38,
     'text': 28,
     'small': 18,
-    'large_icon' : (125,125),
-    'medium_icon': (65,65),
+    'large_icon': (125, 125),
+    'medium_icon': (65, 65),
     'small_medium_icon': (50, 50),
-    'small_icon':(35,35),
-    'news_length':70
+    'small_icon': (35, 35),
+    'news_length': 70
 }
 
 font_size_medium = {
@@ -40,10 +43,10 @@ font_size_medium = {
     'title': 28,
     'text': 18,
     'small': 14,
-    'large_icon' : (100,100),
-    'medium_icon': (50,50),
-    'small_medium_icon':(40,40),
-    'small_icon':(25,25),
+    'large_icon': (100, 100),
+    'medium_icon': (50, 50),
+    'small_medium_icon': (40, 40),
+    'small_icon': (25, 25),
     'news_length': 100
 }
 
@@ -54,24 +57,18 @@ font_size_small = {
     'title': 20,
     'text': 14,
     'small': 10,
-    'large_icon' : (75,75),
-    'medium_icon': (40,40),
+    'large_icon': (75, 75),
+    'medium_icon': (40, 40),
     'small_medium_icon': (30, 30),
-    'small_icon':(20,20),
-    'news_length':140
+    'small_icon': (20, 20),
+    'news_length': 140
 }
 
-# todo ADD ICON SIZES
+# ------------------- Selection Time Constants ----------------------#
+selection_time = 2.5  # in seconds (hover with hand gesture for 2.5 seconds
+update_time = 30  # in minutes (auto update every 30 minutes)
 
 font_sizes = None
-# -------------------- For Web Parsing -------------------- #
-
-ip = '<IP>'
-country_code = 'us'
-
-api_tokens = {}
-varloader.get_api_tokens()
-
 
 # -------------------- Window Sizing -------------------- #
 
@@ -96,6 +93,14 @@ tk_cursor_outline_thickness = tk_cursor_diameter / 10
 
 # Four Corners
 
+# -------------------- For Web Parsing -------------------- #
+
+ip = '<IP>'
+country_code = 'us'
+api_tokens = varloader.get_data_from_json_file('key.json')
+
+# --------------- Setting Hand Gesture Areas --------------- #
+
 bottom_left_rectangle = coordcreator.get_polygon_coord(0, camera_height / 2, camera_width / 2, camera_height / 2)
 
 bottom_right_rectangle = coordcreator.get_polygon_coord(camera_width / 2, camera_height / 2, camera_width / 2,
@@ -105,25 +110,34 @@ top_left_rectangle = coordcreator.get_polygon_coord(0, 0, camera_width / 2, came
 
 top_right_rectangle = coordcreator.get_polygon_coord(camera_width / 2, 0, camera_width / 2, camera_height / 2)
 
-# ------------------- Selection Constants ----------------------#
-selection_time = 2.5  # in seconds
-update_time = 30  # in minutes
+# --------------------------------------- Loading Data From Files ----------------------------------------------- #
 
-# -------------------- Saved Data -------------------- #
+# Loading up Data
 
-saved_data = {}
-varloader.get_saved_data()
+weather_data =  varloader.get_data_from_json_file('weather.json')
+news_data =  varloader.get_data_from_json_file('news.json')
+last_updated = varloader.get_data_from_json_file('last_updated.json')
+location_data =  varloader.get_data_from_json_file('location.json')
 
-# -------------------- Settings ----------------------- #
-preferences = {}
-varloader.get_preferences()
+# Loading up Preferences
+preferences = varloader.get_data_from_json_file('preferences.json')
 
-# ------------------- Other Data ---------------------- #
-
-other_data = {}
-varloader.get_other()
-selected_on = color_hex_codes[preferences['color']]
+# Loading Up Font Size
 varloader.update_font_size()
+
+# Loading Up Other Data (manual mode / last update time)
+other_data = varloader.get_data_from_json_file('other.json')
+
+# Loading Up Color Scheme
+selected_on = color_hex_codes[preferences['color']]
+
+# Loading Up Stock List
+stocks = varloader.get_data_from_json_file('stocks.json')
+
+# Loading Up Google Map Settings
+gmap = varloader.get_data_from_json_file('gmap.json')
+gmap_travel_time = None
+gmap_travel_time_local = None
 
 print selected_on
 print other_data

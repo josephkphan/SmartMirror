@@ -45,7 +45,7 @@ class DailyWeather(Frame):
 
     def update_now(self, day):
         # Gathering Daily weather data
-        weather_obj = var.saved_data['weather']
+        weather_obj = var.weather_data
         max_temperature_txt = str(int(weather_obj['daily']['data'][day]['temperatureMax']))
         min_temperature_txt = str(int(weather_obj['daily']['data'][day]['temperatureMin']))
         sunset_time = weather_obj['daily']['data'][day]['sunsetTime']

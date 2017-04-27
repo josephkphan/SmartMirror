@@ -67,7 +67,7 @@ class Clock(Frame):
             self.date_label.config(text=date)
 
         # if last update time changed, update it
-        last_update_time = math.floor(time.time() - var.saved_data['last_updated']) / 60
+        last_update_time = math.floor(time.time() - var.last_updated) / 60
         if int(last_update_time) == 0:
             last_update = 'Just Updated'  # todo CHECK after update it doesnt show just updated
             if self.last_update_text != last_update:
