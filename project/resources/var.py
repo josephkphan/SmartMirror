@@ -64,6 +64,17 @@ font_size_small = {
     'news_length': 140
 }
 
+file_paths = {
+    'location': 'location.json',
+    'weather': 'weather.json',
+    'gmap': 'gmap.json',
+    'last_updated': 'last_updated.json',
+    'news': 'news.json',
+    'other': 'other.json',
+    'preferences': 'preferences.json',
+    'stocks': 'stocks.json'
+}
+
 # ------------------- Selection Time Constants ----------------------#
 selection_time = 2.5  # in seconds (hover with hand gesture for 2.5 seconds
 update_time = 30  # in minutes (auto update every 30 minutes)
@@ -114,28 +125,28 @@ top_right_rectangle = coordcreator.get_polygon_coord(camera_width / 2, 0, camera
 
 # Loading up Data
 
-weather_data = varloader.get_data_from_json_file('weather.json')
-news_data = varloader.get_data_from_json_file('news.json')
-last_updated = varloader.get_data_from_json_file('last_updated.json')
-location_data = varloader.get_data_from_json_file('location.json')
+weather_data = varloader.get_data_from_json_file(file_paths['weather'])
+news_data = varloader.get_data_from_json_file(file_paths['news'])
+last_updated = varloader.get_data_from_json_file(file_paths['last_updated'])
+location_data = varloader.get_data_from_json_file(file_paths['location'])
 
 # Loading up Preferences
-preferences = varloader.get_data_from_json_file('preferences.json')
+preferences = varloader.get_data_from_json_file(file_paths['preferences'])
 
 # Loading Up Font Size
 varloader.update_font_size()
 
 # Loading Up Other Data (manual mode / last update time)
-other_data = varloader.get_data_from_json_file('other.json')
+other_data = varloader.get_data_from_json_file(file_paths['other'])
 
 # Loading Up Color Scheme
 selected_on = color_hex_codes[preferences['color']]
 
 # Loading Up Stock List
-stocks = varloader.get_data_from_json_file('stocks.json')
+stocks = varloader.get_data_from_json_file(file_paths['stocks'])
 
 # Loading Up Google Map Settings
-gmap = varloader.get_data_from_json_file('gmap.json')
+gmap = varloader.get_data_from_json_file(file_paths['gmap'])
 gmap_travel_time = None
 gmap_travel_time_local = None
 

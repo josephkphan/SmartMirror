@@ -3,6 +3,7 @@ import json
 import feedparser
 import requests
 import traceback
+import time
 from project.uimanagers.webdata import gmap, stocks
 import pprint
 
@@ -36,7 +37,8 @@ class WebInfo:
             self.update_location()
         self.update_weather()
         self.update_news()
-        varloader.update_last_updated_variable()
+        var.last_updated = time.time()
+        varloader.save_data_to_json_file(var.last_updated, var.file_paths['last_updated'])
         if var.weather_data is None or var.news_data is None:
             print "No instance of weather or news data. Quitting mirror"
             exit()
@@ -57,7 +59,9 @@ class WebInfo:
             lon = location_obj['longitude']
             print lat
             print lon
-            varloader.update_location(location_obj)  # Save to File
+            if location_obj is not None:
+                var.location_data = location_obj
+                varloader.save_data_to_json_file(var.location_data, var.file_paths['location'])  # Save to File
 
         except Exception as e:
             traceback.print_exc()
@@ -82,7 +86,9 @@ class WebInfo:
                 weather_obj = json.loads(r.text)
                 print '--------------------------------------'
                 print weather_obj
-                varloader.update_weather(weather_obj)  # Save to File
+                if weather_obj is not None:
+                    var.weather_data = weather_obj
+                    varloader.save_data_to_json_file(var.weather_data,var.file_paths['weather'])
             except Exception as e:
                 traceback.print_exc()
                 print "Error: %s. Cannot get weather." % e
@@ -97,7 +103,21 @@ class WebInfo:
             else:
                 headlines_url = "https://news.google.com/news?ned=%s&output=rss" % var.country_code
             feed = feedparser.parse(headlines_url)
-            varloader.update_news_headlines(feed)  # Save to File
+            if feed is not None:
+                headlines = {}  # Taking out only the headlines and links to those headlines
+                links = {}
+                # Converting data to Json
+                print feed.entries[0].keys()
+                counter = 0
+                for entry in feed.entries:
+                    headlines[str(counter)] = entry.title
+                    links[str(counter)] = entry.links
+                    counter += 1
+                var.news_data['headlines'] = headlines
+                var.news_data['links'] = links
+                var.news_data['number_of_headlines'] = counter
+
+                varloader.save_data_to_json_file(var.news_data, var.file_paths['news'])
             print [field for field in feed]
             print (entry for entry in feed['entries'])
         except Exception as e:
