@@ -114,10 +114,10 @@ top_right_rectangle = coordcreator.get_polygon_coord(camera_width / 2, 0, camera
 
 # Loading up Data
 
-weather_data =  varloader.get_data_from_json_file('weather.json')
-news_data =  varloader.get_data_from_json_file('news.json')
+weather_data = varloader.get_data_from_json_file('weather.json')
+news_data = varloader.get_data_from_json_file('news.json')
 last_updated = varloader.get_data_from_json_file('last_updated.json')
-location_data =  varloader.get_data_from_json_file('location.json')
+location_data = varloader.get_data_from_json_file('location.json')
 
 # Loading up Preferences
 preferences = varloader.get_data_from_json_file('preferences.json')

@@ -9,7 +9,6 @@ import pprint
 
 # used to gather information from the web.
 class WebInfo:
-
     def update_gmap(self):
         gmap.get_travel_time()
 
@@ -29,13 +28,18 @@ class WebInfo:
             return None
 
     def update(self):
-        # self.update_gmap()
-        # self.update_stocks()
-        if not any(var.location_data):
+        if var.gmap is not None:
+            self.update_gmap()
+        if var.stocks is not None:
+            self.update_stocks()
+        if var.location_data is None:
             self.update_location()
         self.update_weather()
         self.update_news()
         varloader.update_last_updated_variable()
+        if var.weather_data is None or var.news_data is None:
+            print "No instance of weather or news data. Quitting mirror"
+            exit()
 
     def update_location(self):
 
@@ -78,7 +82,7 @@ class WebInfo:
                 weather_obj = json.loads(r.text)
                 print '--------------------------------------'
                 print weather_obj
-                varloader.update_weather(weather_obj)       #Save to File
+                varloader.update_weather(weather_obj)  # Save to File
             except Exception as e:
                 traceback.print_exc()
                 print "Error: %s. Cannot get weather." % e
@@ -93,7 +97,7 @@ class WebInfo:
             else:
                 headlines_url = "https://news.google.com/news?ned=%s&output=rss" % var.country_code
             feed = feedparser.parse(headlines_url)
-            varloader.update_news_headlines(feed)       # Save to File
+            varloader.update_news_headlines(feed)  # Save to File
             print [field for field in feed]
             print (entry for entry in feed['entries'])
         except Exception as e:
