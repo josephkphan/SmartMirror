@@ -38,6 +38,9 @@ class WebInfo:
         self.update_weather()
         self.update_news()
         varloader.update_last_updated_variable()
+        if var.weather_data is None or var.news_data is None:
+            print "No instance of weather or news data. Quitting mirror"
+            exit()
 
     def update_location(self):
 
