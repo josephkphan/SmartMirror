@@ -1,5 +1,5 @@
 from Tkinter import *
-from project.resources import imagecolor, var
+from project.resources import imagecolor, var, zone
 
 
 class ToDoList(Frame):
@@ -44,5 +44,20 @@ class ToDoList(Frame):
         if self.color_all != mode:
             self.color_all = mode
             self.to_do_title_label.config(foreground=self.color_all)
-            for item in self.to_do_list:
-                item.config(foreground=self.color_all)
+            # for item in self.to_do_list:
+            #     item.config(foreground=self.color_all)
+
+    def change_color_todolist(self, mode, current_zone):
+        if self.color_all != mode:
+            self.color_all = mode
+            if current_zone == zone.PlannerPage.todo0:
+                self.to_do_list[0].config(foreground=self.color_all)
+            if current_zone == zone.PlannerPage.todo1:
+                self.to_do_list[1].config(foreground=self.color_all)
+            if current_zone == zone.PlannerPage.todo2:
+                self.to_do_list[2].config(foreground=self.color_all)
+            if current_zone == zone.PlannerPage.todo3:
+                self.to_do_list[3].config(foreground=self.color_all)
+            if current_zone == zone.PlannerPage.todo4:
+                self.to_do_list[4].config(foreground=self.color_all)
+

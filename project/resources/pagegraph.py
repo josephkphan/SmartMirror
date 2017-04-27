@@ -39,7 +39,12 @@ News = {
 Planner = {
     PlannerPage.none: [PlannerPage.returnButton, PlannerPage.returnButton, PlannerPage.returnButton, PlannerPage.returnButton],
     PlannerPage.returnButton: [PlannerPage.returnButton, PlannerPage.returnButton, PlannerPage.returnButton, PlannerPage.todolist],
-    PlannerPage.todolist:[PlannerPage.todolist, PlannerPage.todolist, PlannerPage.returnButton, PlannerPage.todolist]
+    PlannerPage.todolist:[PlannerPage.todolist, PlannerPage.todo0, PlannerPage.returnButton, PlannerPage.todolist],
+    PlannerPage.todo0:[PlannerPage.todolist, PlannerPage.todo1, PlannerPage.returnButton, PlannerPage.todo0],
+    PlannerPage.todo1:[PlannerPage.todo0, PlannerPage.todo2, PlannerPage.returnButton, PlannerPage.todo1],
+    PlannerPage.todo2:[PlannerPage.todo1, PlannerPage.todo3, PlannerPage.returnButton, PlannerPage.todo2],
+    PlannerPage.todo3:[PlannerPage.todo2, PlannerPage.todo4, PlannerPage.returnButton, PlannerPage.todo3],
+    PlannerPage.todo4:[PlannerPage.todo3, PlannerPage.todo4, PlannerPage.returnButton, PlannerPage.todo4]
 }
 
 # Settings Page Graph

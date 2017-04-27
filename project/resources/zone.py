@@ -33,11 +33,11 @@ class PlannerPage(Enum):
     none = 0
     returnButton = 1
     todolist = 2
-    # todo0 = 3
-    # todo1 = 4
-    # todo2 = 5
-    # todo3 = 6
-    # todo4 = 7
+    todo0 = 3
+    todo1 = 4
+    todo2 = 5
+    todo3 = 6
+    todo4 = 7
 
 
 # Includes the possible zones that could be selected on the settings page

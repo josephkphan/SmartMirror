@@ -75,10 +75,22 @@ class WidgetColoring:
             self.ui_handler.return_button.change_color_all(var.selected_on)
         elif self.ui_handler.current_zone == zone.PlannerPage.todolist:
             self.ui_handler.planner_todolist.change_color_all(var.selected_on)
+        elif self.ui_handler.current_zone == zone.PlannerPage.todo0:
+            self.ui_handler.planner_todolist.change_color_todolist(var.selected_on, zone.PlannerPage.todo0)
+        elif self.ui_handler.current_zone == zone.PlannerPage.todo1:
+            self.ui_handler.planner_todolist.change_color_todolist(var.selected_on, zone.PlannerPage.todo1)
+        elif self.ui_handler.current_zone == zone.PlannerPage.todo2:
+            self.ui_handler.planner_todolist.change_color_todolist(var.selected_on, zone.PlannerPage.todo2)
+
 
     def planner_page_all_off(self):
         self.ui_handler.return_button.change_color_all(var.selected_off)
         self.ui_handler.planner_todolist.change_color_all(var.selected_off)
+        self.ui_handler.planner_todolist.change_color_todolist(var.selected_off, zone.PlannerPage.todo0)
+        self.ui_handler.planner_todolist.change_color_todolist(var.selected_off, zone.PlannerPage.todo1)
+        self.ui_handler.planner_todolist.change_color_todolist(var.selected_off, zone.PlannerPage.todo2)
+        self.ui_handler.planner_todolist.change_color_todolist(var.selected_off, zone.PlannerPage.todo3)
+        self.ui_handler.planner_todolist.change_color_todolist(var.selected_off, zone.PlannerPage.todo4)
 
     # ---------------------------------- Settings Page Zone Helper Functions ----------------------------------- #
     # Updates all zones on the weather page
