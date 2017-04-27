@@ -29,9 +29,11 @@ class WebInfo:
             return None
 
     def update(self):
-        self.update_gmap()
-        self.update_stocks()
-        if not any(var.location_data):
+        if var.gmap is not None:
+            self.update_gmap()
+        if var.stocks is not None:
+            self.update_stocks()
+        if var.location_data is None:
             self.update_location()
         self.update_weather()
         self.update_news()
