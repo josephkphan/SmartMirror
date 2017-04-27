@@ -29,18 +29,13 @@ class WebInfo:
             return None
 
     def update(self):
-        if var.gmap is not None:
-            self.update_gmap()
-        if var.stocks is not None:
-            self.update_stocks()
-        if var.location_data is None:
+        # self.update_gmap()
+        # self.update_stocks()
+        if not any(var.location_data):
             self.update_location()
         self.update_weather()
         self.update_news()
         varloader.update_last_updated_variable()
-        if var.weather_data is None or var.news_data is None:
-            print "No instance of weather or news data. Quitting mirror"
-            exit()
 
     def update_location(self):
 
