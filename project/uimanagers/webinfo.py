@@ -4,7 +4,7 @@ import feedparser
 import requests
 import traceback
 import time
-from project.uimanagers.webdata import gmap, stocks
+from project.uimanagers.webdata import gmap, gstocks
 import pprint
 
 
@@ -14,7 +14,7 @@ class WebInfo:
         gmap.get_travel_time()
 
     def update_stocks(self):
-        stocks.get_stocks_data()
+        gstocks.get_stocks_data()
 
     @staticmethod
     def get_ip():
@@ -33,8 +33,7 @@ class WebInfo:
             self.update_gmap()
         if var.stocks is not None:
             self.update_stocks()
-        if var.location_data is None:
-            self.update_location()
+        self.update_location()
         self.update_weather()
         self.update_news()
         var.last_updated = time.time()

@@ -65,14 +65,17 @@ font_size_small = {
 }
 
 file_paths = {
-    'location': 'location.json',
-    'weather': 'weather.json',
-    'gmap': 'gmap.json',
-    'last_updated': 'last_updated.json',
-    'news': 'news.json',
-    'other': 'other.json',
-    'preferences': 'preferences.json',
-    'stocks': 'stocks.json'
+    'location': 'data/info/location.json',
+    'weather': 'data/info/weather.json',
+    'gmap': 'data/info/gmap.json',
+    'travel_data' : 'data/info/travel_data.json',
+    'last_updated': 'data/info/last_updated.json',
+    'news': 'data/info/news.json',
+    'other': 'data/info/other.json',
+    'preferences': 'data/info/preferences.json',
+    'stocks': 'data/info/stocks.json',
+    'stock_data' : 'data/info/stock_data.json',
+    'key':'data/key/key.json'
 }
 
 # ------------------- Selection Time Constants ----------------------#
@@ -108,7 +111,7 @@ tk_cursor_outline_thickness = tk_cursor_diameter / 10
 
 ip = '<IP>'
 country_code = 'us'
-api_tokens = varloader.get_data_from_json_file('key.json')
+api_tokens = varloader.get_data_from_json_file(file_paths['key'])
 
 # --------------- Setting Hand Gesture Areas --------------- #
 
@@ -145,10 +148,13 @@ selected_on = color_hex_codes[preferences['color']]
 # Loading Up Stock List
 stocks = varloader.get_data_from_json_file(file_paths['stocks'])
 
+stock_data = varloader.get_data_from_json_file(file_paths['stock_data'])
+
 # Loading Up Google Map Settings
 gmap = varloader.get_data_from_json_file(file_paths['gmap'])
-gmap_travel_time = None
-gmap_travel_time_local = None
+
+travel_data = varloader.get_data_from_json_file(file_paths['travel_data'])
+
 
 print selected_on
 print other_data

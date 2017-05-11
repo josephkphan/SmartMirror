@@ -55,7 +55,7 @@ def get_travel_time():
     print result
     time_to_location = result['rows'][0]['elements'][0]['duration_in_traffic']['text']
     print time_to_location
-    var.gmap_travel_time = time_to_location
+    var.travel_data['main'] = time_to_location
 
     # Now Checking Local drive time
     if gmap_settings['avoid_tolls']:
@@ -68,4 +68,5 @@ def get_travel_time():
     print result
     time_to_location_locally = result['rows'][0]['elements'][0]['duration_in_traffic']['text']
     print time_to_location_locally
-    var.gmap_travel_time_local = time_to_location_locally
+    var.travel_data['backup'] = time_to_location_locally
+    varloader.save_data_to_json_file(var.travel_data, var.file_paths['travel_data'])

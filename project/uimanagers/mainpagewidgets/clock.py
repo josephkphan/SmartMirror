@@ -25,7 +25,13 @@ class Clock(Frame):
         self.time_text = ''
         self.day_text = ''
         self.date_text = ''
+        self.travel_time_text = ''
         self.last_update_text = ''
+
+        # initialize last updated label
+        self.last_update_label = Label(self, text=self.last_update_text, font=(font_style,  font_sizes['small']), fg=selected_off,
+                                       bg=background_color)
+        self.last_update_label.pack(side=TOP, anchor=E)
 
         # initialize time label
         self.time_label = Label(self, text=self.time_text, font=(font_style, font_sizes['big']),
@@ -41,10 +47,13 @@ class Clock(Frame):
         self.date_label = Label(self, text=self.date_text, font=(font_style,  font_sizes['text']), fg=selected_off, bg=background_color)
         self.date_label.pack(side=TOP, anchor=E)
 
-        # initialize last updated label
-        self.last_update_label = Label(self, text=self.last_update_text, font=(font_style,  font_sizes['small']), fg=selected_off,
+        # initialize travel time label
+        if var.travel_data['enabled']:
+            self.travel_time_text = 'Time to Work: '+ var.travel_data['main']     # todo Main or Backup travel data time??
+            self.travel_time_label = Label(self, text=self.travel_time_text, font=(font_style,  font_sizes['text']), fg=selected_off,
                                        bg=background_color)
-        self.last_update_label.pack(side=TOP, anchor=E)
+            self.travel_time_label.pack(side=TOP, anchor=E)
+
 
         self.tick()  # Similar to an update
 
@@ -79,6 +88,11 @@ class Clock(Frame):
                 self.last_update_text = last_update
                 self.last_update_label.config(text=self.last_update_text)
 
+         # initialize travel time label
+        if var.travel_data['enabled'] and self.travel_time_text != var.travel_data['main']:
+            self.travel_time_text = 'Time to Work: '+ var.travel_data['main']
+            self.travel_time_label.config(text=self.travel_time_text)
+
         # calls itself every 200 milliseconds to update the time display as needed
         # could use >200 ms, but display gets jerky
         self.update()
@@ -93,6 +107,7 @@ class Clock(Frame):
             self.date_label.config(foreground=self.color_all)
             self.day_label.config(foreground=self.color_all)
             self.last_update_label.config(foreground=self.color_all)
+            self.travel_time_label.config(foreground=self.color_all)
 
     # ---------------------- Update Label ---------------------- #
     def change_update_label_to_updating(self):
@@ -104,5 +119,6 @@ class Clock(Frame):
         self.day_label.config(font=(var.font_style, var.font_sizes['text']))
         self.last_update_label.config(font=(var.font_style, var.font_sizes['small']))
         self.time_label.config(font=(var.font_style, var.font_sizes['big']))
+        self.travel_time_label.config(font=(var.font_style, var.font_sizes['text']))
 
 
