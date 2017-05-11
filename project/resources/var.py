@@ -27,6 +27,7 @@ font_size_large = {
     'bigger': 80,
     'big': 50,
     'title': 38,
+    'big_text': 33,
     'text': 28,
     'small': 18,
     'large_icon': (125, 125),
@@ -41,6 +42,7 @@ font_size_medium = {
     'bigger': 70,
     'big': 40,
     'title': 28,
+    'big_text': 23,
     'text': 18,
     'small': 14,
     'large_icon': (100, 100),
@@ -55,6 +57,7 @@ font_size_small = {
     'bigger': 48,
     'big': 32,
     'title': 20,
+    'big_text': 17,
     'text': 14,
     'small': 10,
     'large_icon': (75, 75),
@@ -146,7 +149,7 @@ other_data = varloader.get_data_from_json_file(file_paths['other'])
 selected_on = color_hex_codes[preferences['color']]
 
 # Loading Up Stock List
-stocks = varloader.get_data_from_json_file(file_paths['stocks'])
+stocks_list = varloader.get_data_from_json_file(file_paths['stocks'])
 
 stock_data = varloader.get_data_from_json_file(file_paths['stock_data'])
 

@@ -27,6 +27,7 @@ class NewsPage(Enum):
     none = 0
     returnButton = 1
     headlines = 2
+    stocks = 3
 
 
 class PlannerPage(Enum):

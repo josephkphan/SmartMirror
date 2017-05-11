@@ -14,7 +14,7 @@ from settingwidgets.colorsettings import *
 from settingwidgets.fontsettings import *
 from settingwidgets.updatenow import *
 from plannerwidgets.todolist import *
-from project.resources import zone
+from newswidgets.stock import *
 from uisetup.keyboardsetup import *
 from uisetup.widgetswitcher import *
 from uisetup.widgetcoloring import *
@@ -91,6 +91,10 @@ class UIManager:
 
         # News Page Widgets
         self.news_headlines = News(self.bottom_frame, var.news_data['number_of_headlines'])
+        self.stocks = {}
+        for i in range(0,len(var.stocks_list)):
+            self.stocks[i] = Stock(self.top_frame, var.stocks_list[i])
+
 
         # Settings Page Widgets
         self.settings_font = FontSettings(self.left_top)
@@ -186,6 +190,8 @@ class UIManager:
 
         # News Page
         self.news_headlines.update_now()
+        for i in range(0,len(var.stocks_list)):
+            self.stocks[i].update_now()
 
         # To Do List Page
         self.planner_todolist.update_now()

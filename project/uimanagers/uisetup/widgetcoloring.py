@@ -62,10 +62,15 @@ class WidgetColoring:
             self.ui_handler.return_button.change_color_all(var.selected_on)
         elif self.ui_handler.current_zone == zone.NewsPage.headlines:
             self.ui_handler.news_headlines.change_color_all(var.selected_on)
+        elif self.ui_handler.current_zone == zone.NewsPage.stocks:
+            for i in range(0, len(var.stocks_list)):
+                self.ui_handler.stocks[i].change_color_all(var.selected_on)
 
     def news_page_all_off(self):
         self.ui_handler.return_button.change_color_all(var.selected_off)
         self.ui_handler.news_headlines.change_color_all(var.selected_off)
+        for i in range(0, len(var.stocks_list)):
+                self.ui_handler.stocks[i].change_color_all(var.selected_off)
 
     # ---------------------------------- Planner Page Zone Helper Functions ----------------------------------- #
     def update_zone_planner_page(self):

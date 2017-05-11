@@ -30,9 +30,11 @@ Weather = {
 
 # News PageGraph
 News = {
-    NewsPage.none: [NewsPage.returnButton, NewsPage.none, NewsPage.none, NewsPage.returnButton],
-    NewsPage.returnButton: [NewsPage.returnButton, NewsPage.headlines, NewsPage.returnButton, NewsPage.returnButton],
-    NewsPage.headlines:[NewsPage.returnButton, NewsPage.headlines, NewsPage.headlines, NewsPage.headlines]
+    NewsPage.none: [NewsPage.headlines, NewsPage.stocks, NewsPage.returnButton, NewsPage.stocks],
+    NewsPage.returnButton: [NewsPage.returnButton, NewsPage.stocks, NewsPage.returnButton, NewsPage.stocks],
+    NewsPage.headlines:[NewsPage.stocks, NewsPage.headlines, NewsPage.headlines, NewsPage.headlines],
+    NewsPage.stocks:[NewsPage.returnButton, NewsPage.headlines, NewsPage.returnButton, NewsPage.stocks]
+
 }
 
 # Time PageGraph

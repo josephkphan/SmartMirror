@@ -4,7 +4,7 @@ from project.resources import  var
 
 
 def get_stocks_data():
-    for stock in var.stocks:
+    for stock in var.stocks_list:
         try:
             print stock
             fileLine = stock + '.txt'

@@ -5,7 +5,7 @@ from project.resources import var, varloader
 
 def get_stocks_data():
     try:
-        for stock in var.stocks:
+        for stock in var.stocks_list:
             data = json.dumps(getQuotes(str(stock)), indent=2)
             data = json.loads(data)[0]
             print data
@@ -16,5 +16,6 @@ def get_stocks_data():
         print 'Stocks Error', str(e)
     varloader.save_data_to_json_file(var.stock_data, var.file_paths['stock_data'])
 
+#sudo apt install python-pip
 # pip install demjson
 # sudo pip install googlefinance
