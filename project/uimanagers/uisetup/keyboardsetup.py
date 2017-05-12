@@ -17,6 +17,7 @@ class KeyboardSetUp:
         self.ui_handler.tk.bind("<Control_L>", self.toggle_manual_mode)
         self.ui_handler.tk.bind("<Shift_L>", self.toggle_select_mode_for_camera)
 
+
         # ---------------------------------- Key Binding Functions ----------------------------------- #
 
     def toggle_fullscreen(self, event=None):
@@ -33,7 +34,7 @@ class KeyboardSetUp:
         if self.ui_handler.current_page != Page.blank:
             self.ui_handler.change_page(Page.blank)
         else:
-            self.ui_handler.change_page(Page.main)
+            self.ui_handler.change_page(Page.startup)
 
     # ---------------------------------- Manual Mode Functions ----------------------------------- #
     def left_click(self, event=None):

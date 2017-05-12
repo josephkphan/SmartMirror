@@ -38,6 +38,14 @@ class PlannerPage(Enum):
     eventlist_left = 3
     eventlist_right = 4
 
+
+class StartUpPage(Enum):
+    none = 0
+
+
+class UpdatePage(Enum):
+    none = 0
+
     # todo0 = 10
     # todo1 = 11
     # todo2 = 12
@@ -54,7 +62,6 @@ class PlannerPage(Enum):
     # event7 = 27
     # event8 = 28
     # event9 = 29
-
 
 
 # Includes the possible zones that could be selected on the settings page

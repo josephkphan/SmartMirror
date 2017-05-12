@@ -6,6 +6,18 @@ class WidgetSwitcher:
     def __init__(self, ui_handler):
         self.ui_handler = ui_handler
 
+    def open_startup_page(self):
+        self.ui_handler.start_up.pack(side=BOTTOM, anchor=S, padx=0, pady=0)
+
+    def close_startup_page(self):
+        self.ui_handler.start_up.pack_forget()
+
+    def open_power_off_page(self):
+        self.ui_handler.power_off.pack(side=BOTTOM, anchor=S, padx=200, pady=150)
+
+    def close_power_off_page(self):
+        self.ui_handler.power_off.pack_forget()
+
     # ---------------------------------- UI Functions ----------------------------------- #
     def open_main_page(self):
         self.ui_handler.main_weather.pack(side=TOP, anchor=W, padx=50, pady=50)

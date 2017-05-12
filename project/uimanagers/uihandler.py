@@ -15,6 +15,8 @@ from settingwidgets.fontsettings import *
 from settingwidgets.updatenow import *
 from plannerwidgets.todolist import *
 from plannerwidgets.eventlist import *
+from transitionwidgets.startuptext import *
+from transitionwidgets.powerofftext import *
 from newswidgets.stock import *
 from uisetup.keyboardsetup import *
 from uisetup.widgetswitcher import *
@@ -24,13 +26,15 @@ from uisetup.widgetcoloring import *
 # File Name: UI Handler:
 # Purpose: Handles all TKinter widgets and displays them appropriately based on the given inputs from the hardware
 class UIManager:
-    def __init__(self):
+    def __init__(self, controller):
         # initializing Keys
         self.key_up, self.key_down, self.key_left, self.key_right = 0, 1, 2, 3  # todo move to var constant file
         # Handlers
         self.cursor_handler = CursorHandler()
         self.web_info = WebInfo()
         self.selection_handler = SelectionHandler()
+
+        self.controller = controller
 
         # TK
         self.tk = Tk()
@@ -48,10 +52,6 @@ class UIManager:
         self.widget_switcher = WidgetSwitcher(self)
 
         self.widget_coloring = WidgetColoring(self)
-
-        # FIRST TIME OPENING MIRROR
-        if not var.weather_data or not var.news_data or not var.last_updated:
-            self.web_info.update()  # todo if this fails, exit program sicne you dont have any data
 
         # Creating Frames
         self.top_frame = Frame(self.tk, background='black')
@@ -71,7 +71,27 @@ class UIManager:
 
         self.container = Frame(self.right_top, bg=background_color)
 
+        self.camera_selection_mode = not self.camera_selection_mode  # Just toggling the boolean
+        self.tk.attributes("-fullscreen", self.camera_selection_mode)
+
+        self.update_tk()
+
+        # Initializing Start up and update Page - Needs to be here
+        self.start_up = StartUpText(self.top_frame)
+        self.power_off = PowerOffText(self.right_top)
+
+        self.current_zone = zone.StartUpPage.none
+        self.current_page = Page.startup
+        self.widget_switcher.open_startup_page()
+
+        self.update_tk()
+
         # ---------------------------------- Initializing Widgets ----------------------------------- #
+
+        # FIRST TIME OPENING MIRROR
+        if not var.weather_data or not var.news_data or not var.last_updated:
+            self.web_info.update()  # todo if this fails, exit program sicne you dont have any data
+
         # General Widgets
         self.return_button = ReturnButton(self.left_top)
 
@@ -96,7 +116,6 @@ class UIManager:
         for i in range(0,len(var.stocks_list)):
             self.stocks[i] = Stock(self.right_top, var.stocks_list[i])
 
-
         # Settings Page Widgets
         self.settings_font = FontSettings(self.left_top)
         self.settings_color_scheme = ColorSettings(self.left_top)
@@ -114,9 +133,6 @@ class UIManager:
         self.cursor = self.canvas.create_oval(0, 0, tk_cursor_diameter, tk_cursor_diameter,
                                               fill="blue", outline="#DDD", width=tk_cursor_outline_thickness)
 
-        # todo make a bunch of premade lines and turn them on or off depending on which page it's on
-        # @thomas Nguyen
-
         # Vertical line
         self.line1 = self.canvas.create_line((camera_width / 2 + tk_cursor_diameter / 2, 0),
                                              (camera_width / 2 + tk_cursor_diameter / 2,
@@ -125,13 +141,24 @@ class UIManager:
         self.line2 = self.canvas.create_line((0, camera_height / 2 + tk_cursor_diameter / 2),
                                              (camera_width + tk_cursor_diameter,
                                               camera_height / 2 + tk_cursor_diameter / 2), fill="green")
+        self.on_startup()
 
+    # ---------------------------------- UIManager Updating Functions ----------------------------------- #
+    def on_startup(self):
         # Setting initial zone and page data
+        last_update_time = (time.time() - var.last_updated) / 60
+        # print last_update_time
+        if not(last_update_time >= var.update_time and self.current_page == Page.main):
+            time.sleep(3)
+        else:
+            self.web_info_update()
+            self.update_all_widgets_content()
+
+        self.widget_switcher.close_startup_page()
         self.current_zone = zone.MainPage.none  # Starts off on main page
         self.current_page = Page.main
         self.widget_switcher.open_main_page()
 
-    # ---------------------------------- UIManager Updating Functions ----------------------------------- #
     def update_all(self, cursor):
         self.update_web_info()
         self.get_current_zone_from_cursor(cursor)
@@ -279,6 +306,14 @@ class UIManager:
 
     def change_page(self, new_page):
         if new_page is not None:  # safety check for manual mode
+            if new_page == Page.startup:
+                self.update_tk()
+                self.current_page = Page.startup
+                self.widget_switcher.open_startup_page()
+                self.current_zone = zone.StartUpPage.none
+                self.update_tk()
+                self.on_startup()
+
             # Switching to Main Page
             if new_page == Page.main:
                 # Switching from Weather
@@ -333,3 +368,9 @@ class UIManager:
                 elif self.current_page == Page.news:
                     self.widget_switcher.close_news_page()
                 self.current_page = Page.blank
+                self.widget_switcher.open_power_off_page()
+                self.update_tk()
+                time.sleep(3)
+                self.widget_switcher.close_power_off_page()
+                self.controller.is_mirror_on = False
+
