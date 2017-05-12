@@ -78,7 +78,7 @@ class UIManager:
 
         # Initializing Start up and update Page - Needs to be here
         self.start_up = StartUpText(self.top_frame)
-        self.power_off = PowerOffText(self.right_top)
+        self.power_off = PowerOffText(self.top_frame)
 
         self.current_zone = zone.StartUpPage.none
         self.current_page = Page.startup
@@ -368,6 +368,10 @@ class UIManager:
                 elif self.current_page == Page.news:
                     self.widget_switcher.close_news_page()
                 self.current_page = Page.blank
+                self.right_top.pack_forget()
+                self.left_top.pack_forget()
+                self.right_bottom.pack_forget()
+                self.left_bottom.pack_forget()
                 self.widget_switcher.open_power_off_page()
                 self.update_tk()
                 time.sleep(3)

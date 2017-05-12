@@ -13,7 +13,7 @@ class WidgetSwitcher:
         self.ui_handler.start_up.pack_forget()
 
     def open_power_off_page(self):
-        self.ui_handler.power_off.pack(side=BOTTOM, anchor=S, padx=200, pady=150)
+        self.ui_handler.power_off.pack(side=BOTTOM, anchor=S, padx=0, pady=0)
 
     def close_power_off_page(self):
         self.ui_handler.power_off.pack_forget()
