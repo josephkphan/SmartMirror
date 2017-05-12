@@ -84,7 +84,7 @@ class WidgetSwitcher:
     def open_planner_page(self):
         self.ui_handler.return_button.pack(side=TOP, anchor=W, padx=15, pady=15)
         self.ui_handler.planner_todolist.pack(side=TOP, anchor=W, padx=50, pady=50)
-        self.ui_handler.planner_event_list.pack(side=BOTTOM, anchor=W, padx=15, pady=50)
+        self.ui_handler.planner_event_list.pack(side=BOTTOM, anchor=W, padx=15, pady=100)
 
     def close_planner_page(self):
         self.ui_handler.return_button.pack_forget()
