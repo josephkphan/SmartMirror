@@ -27,31 +27,33 @@ class NewsPage(Enum):
     none = 0
     returnButton = 1
     headlines = 2
-    stocks = 3
+    stocks_top = 3
+    stocks_bottom = 4
 
 
 class PlannerPage(Enum):
     none = 0
     returnButton = 1
     todolist = 2
-    eventlist = 3
+    eventlist_left = 3
+    eventlist_right = 4
 
-    todo0 = 10
-    todo1 = 11
-    todo2 = 12
-    todo3 = 13
-    todo4 = 14
-
-    event0 = 20
-    event1 = 21
-    event2 = 22
-    event3 = 23
-    event4 = 24
-    event5 = 25
-    event6 = 26
-    event7 = 27
-    event8 = 28
-    event9 = 29
+    # todo0 = 10
+    # todo1 = 11
+    # todo2 = 12
+    # todo3 = 13
+    # todo4 = 14
+    #
+    # event0 = 20
+    # event1 = 21
+    # event2 = 22
+    # event3 = 23
+    # event4 = 24
+    # event5 = 25
+    # event6 = 26
+    # event7 = 27
+    # event8 = 28
+    # event9 = 29
 
 
 

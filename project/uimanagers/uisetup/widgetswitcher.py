@@ -24,9 +24,9 @@ class WidgetSwitcher:
     # ---------------------------------- News Page Functions ----------------------------------- #
     def open_news_page(self):
         self.ui_handler.return_button.pack(side=TOP, anchor=NW, padx=15, pady=15)
-        self.ui_handler.news_headlines.pack(side=BOTTOM, anchor=S, padx=50, pady=50)
+        self.ui_handler.news_headlines.pack(side=BOTTOM, anchor=W, padx=50, pady=100)
         for i in range(0, len(var.stocks_list)):
-            self.ui_handler.stocks[i].pack(side=RIGHT, anchor=E, padx=50, pady=15)
+            self.ui_handler.stocks[i].pack(side=TOP, anchor=E, padx=25, pady=15)
 
     def close_news_page(self):
         self.ui_handler.news_headlines.pack_forget()

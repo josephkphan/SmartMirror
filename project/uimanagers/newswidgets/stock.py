@@ -24,7 +24,7 @@ class Stock(Frame):
                                       bg=background_color)
         self.stock_name_label.config(text=self.stock_name_text)
         self.stock_name_label.pack(side=TOP, anchor=N)
-        self.stock_price_label = Label(self.stock_frame, font=(font_style, font_sizes['big_text']), fg=selected_off,
+        self.stock_price_label = Label(self.stock_frame, font=(font_style, font_sizes['text']), fg=selected_off,
                                        bg=background_color)
         self.stock_price_label.pack(side=TOP, anchor=N)
         self.update_now()
@@ -47,4 +47,4 @@ class Stock(Frame):
 
     def update_font_size(self):
         self.stock_name_label.config(font=(var.font_style, var.font_sizes['big_text']))
-        self.stock_price_label.config(font=(var.font_style, var.font_sizes['big_text']))
+        self.stock_price_label.config(font=(var.font_style, var.font_sizes['text']))

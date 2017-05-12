@@ -62,7 +62,7 @@ class WidgetColoring:
             self.ui_handler.return_button.change_color_all(var.selected_on)
         elif self.ui_handler.current_zone == zone.NewsPage.headlines:
             self.ui_handler.news_headlines.change_color_all(var.selected_on)
-        elif self.ui_handler.current_zone == zone.NewsPage.stocks:
+        elif self.ui_handler.current_zone == zone.NewsPage.stocks_bottom or self.ui_handler.current_zone == zone.NewsPage.stocks_top:
             for i in range(0, len(var.stocks_list)):
                 self.ui_handler.stocks[i].change_color_all(var.selected_on)
 
@@ -79,20 +79,21 @@ class WidgetColoring:
         if self.ui_handler.current_zone == zone.PlannerPage.returnButton:
             self.ui_handler.return_button.change_color_all(var.selected_on)
         elif self.ui_handler.current_zone == zone.PlannerPage.todolist:
-            self.ui_handler.planner_todolist.change_color_todolist(var.selected_on, self.ui_handler.current_zone) # TODO FIX THIS PIECE OF SHIT
-        elif self.ui_handler.current_zone == zone.PlannerPage.todo0:
-            self.ui_handler.planner_todolist.change_color_todolist(var.selected_on, zone.PlannerPage.todo0)
-        elif self.ui_handler.current_zone == zone.PlannerPage.todo1:
-            self.ui_handler.planner_todolist.change_color_todolist(var.selected_on, zone.PlannerPage.todo1)
-        elif self.ui_handler.current_zone == zone.PlannerPage.todo2:
-            self.ui_handler.planner_todolist.change_color_todolist(var.selected_on, zone.PlannerPage.todo2)
-        elif self.ui_handler.current_zone == zone.PlannerPage.todo3:
-            self.ui_handler.planner_todolist.change_color_todolist(var.selected_on, zone.PlannerPage.todo3)
-        elif self.ui_handler.current_zone == zone.PlannerPage.todo4:
-            self.ui_handler.planner_todolist.change_color_todolist(var.selected_on, zone.PlannerPage.todo4)
+            self.ui_handler.planner_todolist.change_color_all(var.selected_on)
+        #     self.ui_handler.planner_todolist.change_color_todolist(var.selected_on, self.ui_handler.current_zone) # TODO FIX THIS PIECE OF SHIT
+        # elif self.ui_handler.current_zone == zone.PlannerPage.todo0:
+        #     self.ui_handler.planner_todolist.change_color_todolist(var.selected_on, zone.PlannerPage.todo0)
+        # elif self.ui_handler.current_zone == zone.PlannerPage.todo1:
+        #     self.ui_handler.planner_todolist.change_color_todolist(var.selected_on, zone.PlannerPage.todo1)
+        # elif self.ui_handler.current_zone == zone.PlannerPage.todo2:
+        #     self.ui_handler.planner_todolist.change_color_todolist(var.selected_on, zone.PlannerPage.todo2)
+        # elif self.ui_handler.current_zone == zone.PlannerPage.todo3:
+        #     self.ui_handler.planner_todolist.change_color_todolist(var.selected_on, zone.PlannerPage.todo3)
+        # elif self.ui_handler.current_zone == zone.PlannerPage.todo4:
+        #     self.ui_handler.planner_todolist.change_color_todolist(var.selected_on, zone.PlannerPage.todo4)
 
-        elif self.ui_handler.current_zone == zone.PlannerPage.eventlist: # todo FINISH COLORING FOR PLANNER PAGE
-            self.ui_handler.planner_todolist.change_color_todolist(var.selected_on, zone.PlannerPage.todo4)
+        elif self.ui_handler.current_zone == zone.PlannerPage.eventlist_left or self.ui_handler.current_zone == zone.PlannerPage.eventlist_right:
+            self.ui_handler.planner_event_list.change_color_all(var.selected_on)
 
 
     def planner_page_all_off(self):

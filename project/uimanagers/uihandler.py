@@ -94,7 +94,7 @@ class UIManager:
         self.news_headlines = News(self.bottom_frame, var.news_data['number_of_headlines'])
         self.stocks = {}
         for i in range(0,len(var.stocks_list)):
-            self.stocks[i] = Stock(self.top_frame, var.stocks_list[i])
+            self.stocks[i] = Stock(self.right_top, var.stocks_list[i])
 
 
         # Settings Page Widgets

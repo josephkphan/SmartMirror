@@ -16,8 +16,8 @@ Main = {
 
 # Weather Page Graph
 Weather = {
-    WeatherPage.none: [WeatherPage.returnButton, WeatherPage.returnButton, WeatherPage.returnButton,
-                       WeatherPage.returnButton],
+    WeatherPage.none: [WeatherPage.returnButton, WeatherPage.hourly_weather, WeatherPage.hourly_weather,
+                       WeatherPage.current_weather],
     WeatherPage.returnButton: [WeatherPage.returnButton, WeatherPage.hourly_weather, WeatherPage.returnButton,
                                WeatherPage.current_weather],
     WeatherPage.hourly_weather: [WeatherPage.returnButton, WeatherPage.hourly_weather, WeatherPage.hourly_weather,
@@ -30,35 +30,38 @@ Weather = {
 
 # News PageGraph
 News = {
-    NewsPage.none: [NewsPage.headlines, NewsPage.stocks, NewsPage.returnButton, NewsPage.stocks],
-    NewsPage.returnButton: [NewsPage.returnButton, NewsPage.stocks, NewsPage.returnButton, NewsPage.stocks],
-    NewsPage.headlines:[NewsPage.stocks, NewsPage.headlines, NewsPage.headlines, NewsPage.headlines],
-    NewsPage.stocks:[NewsPage.returnButton, NewsPage.headlines, NewsPage.returnButton, NewsPage.stocks]
-
+    NewsPage.none: [NewsPage.returnButton, NewsPage.headlines, NewsPage.returnButton, NewsPage.stocks_top],
+    NewsPage.returnButton: [NewsPage.returnButton, NewsPage.headlines, NewsPage.returnButton, NewsPage.stocks_top],
+    NewsPage.headlines:[NewsPage.returnButton, NewsPage.headlines, NewsPage.headlines, NewsPage.stocks_bottom],
+    NewsPage.stocks_bottom:[NewsPage.stocks_top, NewsPage.stocks_bottom, NewsPage.headlines, NewsPage.stocks_bottom],
+    NewsPage.stocks_top:[NewsPage.stocks_top, NewsPage.stocks_bottom, NewsPage.returnButton, NewsPage.stocks_top]
 }
 
 # Time PageGraph
 Planner = {
-    PlannerPage.none: [PlannerPage.returnButton, PlannerPage.returnButton, PlannerPage.returnButton, PlannerPage.returnButton],
-    PlannerPage.returnButton: [PlannerPage.returnButton, PlannerPage.eventlist, PlannerPage.returnButton, PlannerPage.todolist],
-    PlannerPage.todolist:[PlannerPage.todolist, PlannerPage.todo0, PlannerPage.returnButton, PlannerPage.todolist],
-    PlannerPage.todo0:[PlannerPage.todolist, PlannerPage.todo1, PlannerPage.returnButton, PlannerPage.todo0],
-    PlannerPage.todo1:[PlannerPage.todo0, PlannerPage.todo2, PlannerPage.returnButton, PlannerPage.todo1],
-    PlannerPage.todo2:[PlannerPage.todo1, PlannerPage.todo3, PlannerPage.returnButton, PlannerPage.todo2],
-    PlannerPage.todo3:[PlannerPage.todo2, PlannerPage.todo4, PlannerPage.returnButton, PlannerPage.todo3],
-    PlannerPage.todo4:[PlannerPage.todo3, PlannerPage.todo4, PlannerPage.returnButton, PlannerPage.todo4],
+    PlannerPage.none: [PlannerPage.returnButton, PlannerPage.eventlist_left, PlannerPage.returnButton, PlannerPage.todolist],
+    PlannerPage.returnButton: [PlannerPage.returnButton, PlannerPage.eventlist_left, PlannerPage.returnButton, PlannerPage.todolist],
+    PlannerPage.todolist:[PlannerPage.todolist, PlannerPage.eventlist_right, PlannerPage.returnButton, PlannerPage.todolist],
+    PlannerPage.eventlist_left:[PlannerPage.returnButton, PlannerPage.eventlist_left, PlannerPage.eventlist_left, PlannerPage.eventlist_right],
+    PlannerPage.eventlist_right:[PlannerPage.todolist, PlannerPage.eventlist_right, PlannerPage.eventlist_left, PlannerPage.eventlist_right]
 
-    PlannerPage.eventlist:[PlannerPage.returnButton, PlannerPage.event0, PlannerPage.eventlist, PlannerPage.eventlist],
-    PlannerPage.event0:[PlannerPage.eventlist, PlannerPage.event1, PlannerPage.event0, PlannerPage.event0],
-    PlannerPage.event1:[PlannerPage.event0, PlannerPage.event2, PlannerPage.event1, PlannerPage.event1],
-    PlannerPage.event2:[PlannerPage.event1, PlannerPage.event3, PlannerPage.event2, PlannerPage.event2],
-    PlannerPage.event3:[PlannerPage.event2, PlannerPage.event4, PlannerPage.event3, PlannerPage.event3],
-    PlannerPage.event4:[PlannerPage.event3, PlannerPage.event5, PlannerPage.event4, PlannerPage.event4],
-    PlannerPage.event5:[PlannerPage.event4, PlannerPage.event6, PlannerPage.event5, PlannerPage.event5],
-    PlannerPage.event6:[PlannerPage.event5, PlannerPage.event7, PlannerPage.event6, PlannerPage.event6],
-    PlannerPage.event7:[PlannerPage.event6, PlannerPage.event8, PlannerPage.event7, PlannerPage.event7],
-    PlannerPage.event8:[PlannerPage.event7, PlannerPage.event9, PlannerPage.event8, PlannerPage.event8],
-    PlannerPage.event9:[PlannerPage.event8, PlannerPage.event9, PlannerPage.event9, PlannerPage.event9],
+
+    # PlannerPage.todolist:[PlannerPage.todolist, PlannerPage.todo0, PlannerPage.returnButton, PlannerPage.todolist],
+    # PlannerPage.todo0:[PlannerPage.todolist, PlannerPage.todo1, PlannerPage.returnButton, PlannerPage.todo0],
+    # PlannerPage.todo1:[PlannerPage.todo0, PlannerPage.todo2, PlannerPage.returnButton, PlannerPage.todo1],
+    # PlannerPage.todo2:[PlannerPage.todo1, PlannerPage.todo3, PlannerPage.returnButton, PlannerPage.todo2],
+    # PlannerPage.todo3:[PlannerPage.todo2, PlannerPage.todo4, PlannerPage.returnButton, PlannerPage.todo3],
+    # PlannerPage.todo4:[PlannerPage.todo3, PlannerPage.todo4, PlannerPage.returnButton, PlannerPage.todo4],
+    #
+    # PlannerPage.event1:[PlannerPage.event0, PlannerPage.event2, PlannerPage.event1, PlannerPage.event1],
+    # PlannerPage.event2:[PlannerPage.event1, PlannerPage.event3, PlannerPage.event2, PlannerPage.event2],
+    # PlannerPage.event3:[PlannerPage.event2, PlannerPage.event4, PlannerPage.event3, PlannerPage.event3],
+    # PlannerPage.event4:[PlannerPage.event3, PlannerPage.event5, PlannerPage.event4, PlannerPage.event4],
+    # PlannerPage.event5:[PlannerPage.event4, PlannerPage.event6, PlannerPage.event5, PlannerPage.event5],
+    # PlannerPage.event6:[PlannerPage.event5, PlannerPage.event7, PlannerPage.event6, PlannerPage.event6],
+    # PlannerPage.event7:[PlannerPage.event6, PlannerPage.event8, PlannerPage.event7, PlannerPage.event7],
+    # PlannerPage.event8:[PlannerPage.event7, PlannerPage.event9, PlannerPage.event8, PlannerPage.event8],
+    # PlannerPage.event9:[PlannerPage.event8, PlannerPage.event9, PlannerPage.event9, PlannerPage.event9],
 
 }
 
