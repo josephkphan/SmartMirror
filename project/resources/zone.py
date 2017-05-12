@@ -34,11 +34,25 @@ class PlannerPage(Enum):
     none = 0
     returnButton = 1
     todolist = 2
-    todo0 = 3
-    todo1 = 4
-    todo2 = 5
-    todo3 = 6
-    todo4 = 7
+    eventlist = 3
+
+    todo0 = 10
+    todo1 = 11
+    todo2 = 12
+    todo3 = 13
+    todo4 = 14
+
+    event0 = 20
+    event1 = 21
+    event2 = 22
+    event3 = 23
+    event4 = 24
+    event5 = 25
+    event6 = 26
+    event7 = 27
+    event8 = 28
+    event9 = 29
+
 
 
 # Includes the possible zones that could be selected on the settings page

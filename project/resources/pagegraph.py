@@ -40,13 +40,26 @@ News = {
 # Time PageGraph
 Planner = {
     PlannerPage.none: [PlannerPage.returnButton, PlannerPage.returnButton, PlannerPage.returnButton, PlannerPage.returnButton],
-    PlannerPage.returnButton: [PlannerPage.returnButton, PlannerPage.returnButton, PlannerPage.returnButton, PlannerPage.todolist],
+    PlannerPage.returnButton: [PlannerPage.returnButton, PlannerPage.eventlist, PlannerPage.returnButton, PlannerPage.todolist],
     PlannerPage.todolist:[PlannerPage.todolist, PlannerPage.todo0, PlannerPage.returnButton, PlannerPage.todolist],
     PlannerPage.todo0:[PlannerPage.todolist, PlannerPage.todo1, PlannerPage.returnButton, PlannerPage.todo0],
     PlannerPage.todo1:[PlannerPage.todo0, PlannerPage.todo2, PlannerPage.returnButton, PlannerPage.todo1],
     PlannerPage.todo2:[PlannerPage.todo1, PlannerPage.todo3, PlannerPage.returnButton, PlannerPage.todo2],
     PlannerPage.todo3:[PlannerPage.todo2, PlannerPage.todo4, PlannerPage.returnButton, PlannerPage.todo3],
-    PlannerPage.todo4:[PlannerPage.todo3, PlannerPage.todo4, PlannerPage.returnButton, PlannerPage.todo4]
+    PlannerPage.todo4:[PlannerPage.todo3, PlannerPage.todo4, PlannerPage.returnButton, PlannerPage.todo4],
+
+    PlannerPage.eventlist:[PlannerPage.returnButton, PlannerPage.event0, PlannerPage.eventlist, PlannerPage.eventlist],
+    PlannerPage.event0:[PlannerPage.eventlist, PlannerPage.event1, PlannerPage.event0, PlannerPage.event0],
+    PlannerPage.event1:[PlannerPage.event0, PlannerPage.event2, PlannerPage.event1, PlannerPage.event1],
+    PlannerPage.event2:[PlannerPage.event1, PlannerPage.event3, PlannerPage.event2, PlannerPage.event2],
+    PlannerPage.event3:[PlannerPage.event2, PlannerPage.event4, PlannerPage.event3, PlannerPage.event3],
+    PlannerPage.event4:[PlannerPage.event3, PlannerPage.event5, PlannerPage.event4, PlannerPage.event4],
+    PlannerPage.event5:[PlannerPage.event4, PlannerPage.event6, PlannerPage.event5, PlannerPage.event5],
+    PlannerPage.event6:[PlannerPage.event5, PlannerPage.event7, PlannerPage.event6, PlannerPage.event6],
+    PlannerPage.event7:[PlannerPage.event6, PlannerPage.event8, PlannerPage.event7, PlannerPage.event7],
+    PlannerPage.event8:[PlannerPage.event7, PlannerPage.event9, PlannerPage.event8, PlannerPage.event8],
+    PlannerPage.event9:[PlannerPage.event8, PlannerPage.event9, PlannerPage.event9, PlannerPage.event9],
+
 }
 
 # Settings Page Graph

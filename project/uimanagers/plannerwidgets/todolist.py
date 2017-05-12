@@ -12,32 +12,36 @@ class ToDoList(Frame):
         self.container = Frame(self, bg=background_color)
         self.container.pack(side=TOP)
 
-        # Initializing text (raw values) for labels (values to be displayed)
-        self.to_do_title_text = ''
-        self.to_do_text = ''
-
         # Initializing a color boolean for all labels
         self.color_all = selected_off
 
         # TODO: Create a json for all todo items
         # Initialize to do JSON data
-        self.to_do_list_string = ["Clean the house", "Work on smart mirror", "Wash my clothes", "Buy a Car", "Get your shit together"]
         self.to_do_list = []
 
         # Initializing Labels
         self.to_do_title_label = Label(self.container, text="To Do List", font=(font_style, font_sizes['big']),
                                        fg=selected_off, bg=background_color)
         self.to_do_title_label.pack(side=TOP, anchor=N)
-        for item in self.to_do_list_string:
-            print (item)
-            self.to_do_label = Label(self.container, text=item, font=(font_style, font_sizes['text']),
-                                     fg=selected_off, bg=background_color)
-            self.to_do_label.pack(side=TOP, anchor=N)
-            self.to_do_list.append(self.to_do_label)
+        self.update_now()
 
     def update_now(self):
+        to_do_list_string = var.to_do_list
+
+        for i in range(0, len(self.to_do_list)):
+            self.to_do_list[i].pack_forget()
+        selected_off = var.selected_off
+        background_color = var.background_color
+        font_style = var.font_style
+        font_sizes = var.font_sizes
+
+        for item in to_do_list_string:
+            print (item)
+            to_do_label = Label(self.container, text=item, font=(font_style, font_sizes['text']),
+                                     fg=selected_off, bg=background_color)
+            to_do_label.pack(side=TOP, anchor=N)
+            self.to_do_list.append(to_do_label)
         self.update_font_size()
-        #TODO: Remake the todo list based on online updates
 
     def change_color_all(self, mode):
         if self.color_all != mode:

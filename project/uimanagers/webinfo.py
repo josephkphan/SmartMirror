@@ -4,17 +4,12 @@ import feedparser
 import requests
 import traceback
 import time
-from project.uimanagers.webdata import gmap, gstocks
+from project.uimanagers.webdata import gmap, gstocks, gcalendar
 import pprint
 
 
 # used to gather information from the web.
 class WebInfo:
-    def update_gmap(self):
-        gmap.get_travel_time()
-
-    def update_stocks(self):
-        gstocks.get_stocks_data()
 
     @staticmethod
     def get_ip():
@@ -30,9 +25,10 @@ class WebInfo:
 
     def update(self):
         if var.gmap is not None:
-            self.update_gmap()
+            gmap.get_travel_time()
         if var.stocks_list is not None:
-            self.update_stocks()
+            gstocks.get_stocks_data()
+        gcalendar.get_calendar_events()     #todo Check if this is enabled? Create a Boolean to enable?? UNCOMMENT
         self.update_location()
         self.update_weather()
         self.update_news()

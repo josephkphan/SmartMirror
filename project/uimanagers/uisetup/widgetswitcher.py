@@ -9,7 +9,7 @@ class WidgetSwitcher:
     # ---------------------------------- UI Functions ----------------------------------- #
     def open_main_page(self):
         self.ui_handler.main_weather.pack(side=TOP, anchor=W, padx=50, pady=50)
-        self.ui_handler.main_clock.pack(side=RIGHT, anchor=N, padx=50, pady=50)
+        self.ui_handler.main_clock.pack(side=RIGHT, anchor=N, padx=50, pady=25)
         self.ui_handler.main_news.pack(side=LEFT, anchor=S, padx=50, pady=50)
         self.ui_handler.main_settings.pack(side=RIGHT, anchor=S, padx=50, pady=50)
         # self.ui_handler.canvas.pack(side=TOP, anchor=W, padx=50)
@@ -33,13 +33,6 @@ class WidgetSwitcher:
         self.ui_handler.return_button.pack_forget()
         for i in range(0, len(var.stocks_list)):
             self.ui_handler.stocks[i].pack_forget()
-
-    # ---------------------------------- Planner Page Functions----------------------------------- #
-    def open_planner_page(self):
-        self.ui_handler.return_button.pack(side=TOP, anchor=NW, padx=15, pady=15)
-
-    def close_planner_page(self):
-        self.ui_handler.return_button.pack_forget()
 
     # ---------------------------------- Weather Page Functions----------------------------------- #
     def open_weather_page(self):
@@ -79,7 +72,9 @@ class WidgetSwitcher:
     def open_planner_page(self):
         self.ui_handler.return_button.pack(side=TOP, anchor=W, padx=15, pady=15)
         self.ui_handler.planner_todolist.pack(side=TOP, anchor=W, padx=50, pady=50)
+        self.ui_handler.planner_event_list.pack(side=BOTTOM, anchor=W, padx=15, pady=50)
 
     def close_planner_page(self):
         self.ui_handler.return_button.pack_forget()
         self.ui_handler.planner_todolist.pack_forget()
+        self.ui_handler.planner_event_list.pack_forget()

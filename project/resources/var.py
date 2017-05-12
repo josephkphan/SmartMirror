@@ -78,7 +78,10 @@ file_paths = {
     'preferences': 'data/info/preferences.json',
     'stocks': 'data/info/stocks.json',
     'stock_data' : 'data/info/stock_data.json',
-    'key':'data/key/key.json'
+    'key':'data/key/key.json',
+    'gcalendar_key': 'data/key/client_secret.json',
+    'calendar_data': 'data/info/calendar_data.json',
+    'to_do_list':'data/info/to_do_list.json',
 }
 
 # ------------------- Selection Time Constants ----------------------#
@@ -158,6 +161,9 @@ gmap = varloader.get_data_from_json_file(file_paths['gmap'])
 
 travel_data = varloader.get_data_from_json_file(file_paths['travel_data'])
 
+calendar_data = varloader.get_data_from_json_file(file_paths['calendar_data'])
+
+to_do_list = varloader.get_data_from_json_file(file_paths['to_do_list'])
 
 print selected_on
 print other_data

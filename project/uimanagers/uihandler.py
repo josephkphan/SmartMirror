@@ -14,6 +14,7 @@ from settingwidgets.colorsettings import *
 from settingwidgets.fontsettings import *
 from settingwidgets.updatenow import *
 from plannerwidgets.todolist import *
+from plannerwidgets.eventlist import *
 from newswidgets.stock import *
 from uisetup.keyboardsetup import *
 from uisetup.widgetswitcher import *
@@ -103,6 +104,7 @@ class UIManager:
 
         # To Do List Page Widgets
         self.planner_todolist = ToDoList(self.right_top)
+        self.planner_event_list = EventList(self.bottom_frame)
 
         # Creating the Cursor window
         self.canvas = Canvas(self.left_top, width=camera_width + tk_cursor_diameter,
@@ -195,6 +197,7 @@ class UIManager:
 
         # To Do List Page
         self.planner_todolist.update_now()
+        self.planner_event_list.update_now()
 
     def update_all_widgets_everything(self, event=None):  # updates font, content, and image colors
         self.update_all_widgets_content()
