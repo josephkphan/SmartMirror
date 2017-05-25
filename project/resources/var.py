@@ -86,7 +86,7 @@ file_paths = {
 
 # ------------------- Selection Time Constants ----------------------#
 selection_time = 2.5  # in seconds (hover with hand gesture for 2.5 seconds
-update_time = 30  # in minutes (auto update every 30 minutes)
+update_time = 15  # in minutes (auto update every 30 minutes)
 
 font_sizes = None
 
@@ -169,3 +169,6 @@ print selected_on
 print other_data
 
 # ---------------------- Images ----------------------- #
+
+is_updating = False
+update_completed = False

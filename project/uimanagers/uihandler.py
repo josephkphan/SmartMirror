@@ -26,7 +26,7 @@ from uisetup.widgetcoloring import *
 # File Name: UI Handler:
 # Purpose: Handles all TKinter widgets and displays them appropriately based on the given inputs from the hardware
 class UIManager:
-    def __init__(self, controller):
+    def __init__(self, controller, start_full_screen):
         # initializing Keys
         self.key_up, self.key_down, self.key_left, self.key_right = 0, 1, 2, 3  # todo move to var constant file
         # Handlers
@@ -71,8 +71,9 @@ class UIManager:
 
         self.container = Frame(self.right_top, bg=background_color)
 
-        self.camera_selection_mode = not self.camera_selection_mode  # Just toggling the boolean
-        self.tk.attributes("-fullscreen", self.camera_selection_mode)
+        if start_full_screen:
+            self.camera_selection_mode = not self.camera_selection_mode  # Just toggling the boolean
+            self.tk.attributes("-fullscreen", self.camera_selection_mode)  #todo turn this back on to start FullScreen
 
         self.update_tk()
 
@@ -90,7 +91,7 @@ class UIManager:
 
         # FIRST TIME OPENING MIRROR
         if not var.weather_data or not var.news_data or not var.last_updated:
-            self.web_info.update()  # todo if this fails, exit program sicne you dont have any data
+            self.web_info.thread_update()  # todo if this fails, exit program sicne you dont have any data
 
         # General Widgets
         self.return_button = ReturnButton(self.left_top)
@@ -172,6 +173,7 @@ class UIManager:
 
     def update_all_manually(self):
         self.update_web_info()
+        self.check_if_web_info_update_thread_is_complete()
         self.update_zone()
         self.update_tk()
 
@@ -198,10 +200,17 @@ class UIManager:
             print "UPDATING WEB INFO. REQUESTING FROM WEB"
             self.main_clock.change_update_label_to_updating()
             self.web_info_update()
-            self.update_all_widgets_content()
 
     def web_info_update(self):
-        self.web_info.update()
+        self.web_info.thread_update()
+
+    def check_if_web_info_update_thread_is_complete(self):
+        if var.is_updating and var.update_completed:
+
+            self.update_all_widgets_content()
+            var.is_updating = False
+            var.update_completed = False
+
 
     def update_all_widgets_content(self, event=None):  # todo IMPLEMENT THIS IN
         # Main Page

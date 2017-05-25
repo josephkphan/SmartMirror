@@ -11,7 +11,7 @@ class StartUpText(Frame):
         Frame.__init__(self, parent, bg=background_color)
         self.container = Frame(self, bg=background_color)
         self.container.pack(side=TOP)
-        string = 'Good Morning\nGood Looking'
+        string = 'Hey There\nGood Looking'
         self.start_up_label = Label(self.container, text=string,
                                     font=(font_style, font_sizes['big_text']), fg=selected_off,bg=background_color)
         self.start_up_label.pack(side=BOTTOM, anchor=S)

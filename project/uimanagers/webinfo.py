@@ -7,10 +7,23 @@ import time
 from project.uimanagers.webdata import gmap, gstocks, gcalendar
 import pprint
 
+import threading
+
+
+class DataGatheringThread(threading.Thread):
+    def __init__(self, runnable):
+        threading.Thread.__init__(self)
+        self.runnable = runnable
+
+    def run(self):
+        print '-----Starting Thread to Gather Data--------'
+        self.runnable()
+        var.update_completed = True
+        print '-----Thread FINISHED to Gather Data--------'
+
 
 # used to gather information from the web.
 class WebInfo:
-
     @staticmethod
     def get_ip():
         try:
@@ -23,15 +36,22 @@ class WebInfo:
             print "Error: %s. Cannot get ip." % e
             return None
 
+    def thread_update(self):
+        if not var.is_updating:  # Makes sure only one thread is happening at once
+            var.is_updating = True
+            thread = DataGatheringThread(self.update)
+            thread.start()
+
     def update(self):
         if var.gmap is not None:
             gmap.get_travel_time()
         if var.stocks_list is not None:
             gstocks.get_stocks_data()
-        gcalendar.get_calendar_events()     #todo Check if this is enabled? Create a Boolean to enable?? UNCOMMENT
+        gcalendar.get_calendar_events()  # todo Check if this is enabled? Create a Boolean to enable?? UNCOMMENT
         self.update_location()
         self.update_weather()
         self.update_news()
+        print 'UPDATING TIME BITCHES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
         var.last_updated = time.time()
         varloader.save_data_to_json_file(var.last_updated, var.file_paths['last_updated'])
         if var.weather_data is None or var.news_data is None:
@@ -83,7 +103,7 @@ class WebInfo:
                 print weather_obj
                 if weather_obj is not None:
                     var.weather_data = weather_obj
-                    varloader.save_data_to_json_file(var.weather_data,var.file_paths['weather'])
+                    varloader.save_data_to_json_file(var.weather_data, var.file_paths['weather'])
             except Exception as e:
                 traceback.print_exc()
                 print "Error: %s. Cannot get weather." % e
