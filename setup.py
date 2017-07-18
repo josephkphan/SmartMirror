@@ -54,6 +54,15 @@ os.system("sudo apt-get install python-simplejson")
 # Install openCV
 os.system("sudo apt-get install python-opencv")
 
+# Install Google Api Client (for calendar)
+os.system("sudo pip install --upgrade google-api-python-client")
+
+os.system("sudo apt install python-pip")
+
+os.system("pip install demjson")
+
+os.system("sudo pip install googlefinance")
+
 
 # ------------------- WHAT EVERY USER NEEDS TO DO --------------------- #
 # Register for a Weather API Key at https://darksky.net/dev/ and store the key 
