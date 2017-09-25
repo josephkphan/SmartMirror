@@ -5,7 +5,6 @@ import requests
 import traceback
 import time
 from project.uimanagers.webdata import gmap, gstocks, gcalendar
-import pprint
 
 import threading
 

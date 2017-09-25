@@ -27,9 +27,9 @@ class ToDoList(Frame):
 
     def update_now(self):
         to_do_list_string = var.to_do_list
-
-        for i in range(0, len(self.to_do_list)):
-            self.to_do_list[i].pack_forget()
+        if self.to_do_list:
+            for i in range(0, len(self.to_do_list)):
+                self.to_do_list[i].pack_forget()
         selected_off = var.selected_off
         background_color = var.background_color
         font_style = var.font_style

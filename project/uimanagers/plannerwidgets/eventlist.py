@@ -34,9 +34,10 @@ class EventList(Frame):
         background_color = var.background_color
         font_style = var.font_style
         font_sizes = var.font_sizes
-        for i in range(0, len(self.event_labels)):
-            for j in range(0, 5):
-                self.event_labels[i][j].pack_forget()
+        if self.event_labels:
+            for i in range(0, len(self.event_labels)):
+                for j in range(0, 5):
+                    self.event_labels[i][j].pack_forget()
         self.event_labels = []
 
         self.bottom.pack_forget()
@@ -45,33 +46,34 @@ class EventList(Frame):
 
         events = var.calendar_data
         print events
-        for i in range(0, len(events)):
-            event = events[str(i)]
-            print '------------------------'
-            print event
-            event_container = Frame(self.bottom, bg=background_color)
-            event_container.pack(side=LEFT, padx=25)
-            event_summary_label = Label(event_container, text=event['summary'], font=(font_style, font_sizes['text']),
-                                        fg=selected_off, bg=background_color)
-            event_description_label = Label(event_container, text=event['description'],
-                                            font=(font_style, font_sizes['small']),
+        if events:
+            for i in range(0, len(events)):
+                event = events[str(i)]
+                print '------------------------'
+                print event
+                event_container = Frame(self.bottom, bg=background_color)
+                event_container.pack(side=LEFT, padx=25)
+                event_summary_label = Label(event_container, text=event['summary'], font=(font_style, font_sizes['text']),
                                             fg=selected_off, bg=background_color)
-            event_date_label = Label(event_container, text=event['date'], font=(font_style, font_sizes['small']),
-                                     fg=selected_off, bg=background_color)
-            event_time_label = Label(event_container, text=event['start_time'], font=(font_style, font_sizes['small']),
-                                     fg=selected_off, bg=background_color)
-            event_location_label = Label(event_container, text=event['location'],
-                                         font=(font_style, font_sizes['small']),
+                event_description_label = Label(event_container, text=event['description'],
+                                                font=(font_style, font_sizes['small']),
+                                                fg=selected_off, bg=background_color)
+                event_date_label = Label(event_container, text=event['date'], font=(font_style, font_sizes['small']),
                                          fg=selected_off, bg=background_color)
-            event_summary_label.pack(side=TOP, anchor=N)
-            event_description_label.pack(side=TOP, anchor=N)
-            event_date_label.pack(side=TOP, anchor=N)
-            event_time_label.pack(side=TOP, anchor=N)
-            event_location_label.pack(side=TOP, anchor=N)
+                event_time_label = Label(event_container, text=event['start_time'], font=(font_style, font_sizes['small']),
+                                         fg=selected_off, bg=background_color)
+                event_location_label = Label(event_container, text=event['location'],
+                                             font=(font_style, font_sizes['small']),
+                                             fg=selected_off, bg=background_color)
+                event_summary_label.pack(side=TOP, anchor=N)
+                event_description_label.pack(side=TOP, anchor=N)
+                event_date_label.pack(side=TOP, anchor=N)
+                event_time_label.pack(side=TOP, anchor=N)
+                event_location_label.pack(side=TOP, anchor=N)
 
-            single_event_labels = [event_summary_label, event_description_label, event_date_label, event_time_label,
-                                   event_location_label]
-            self.event_labels.append(single_event_labels)
+                single_event_labels = [event_summary_label, event_description_label, event_date_label, event_time_label,
+                                       event_location_label]
+                self.event_labels.append(single_event_labels)
 
         self.update_font_size()
 

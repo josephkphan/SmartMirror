@@ -73,7 +73,7 @@ class UIManager:
 
         if start_full_screen:
             self.camera_selection_mode = not self.camera_selection_mode  # Just toggling the boolean
-            self.tk.attributes("-fullscreen", self.camera_selection_mode)  #todo turn this back on to start FullScreen
+            # self.tk.attributes("-fullscreen", self.camera_selection_mode)  #todo turn this back on to start FullScreen
 
         self.update_tk()
 
@@ -197,7 +197,7 @@ class UIManager:
         # print last_update_time
         if last_update_time >= var.update_time and self.current_page == Page.main:  # todo only update on main page??
             # Means its been 10 minutes since it last updated
-            print "UPDATING WEB INFO. REQUESTING FROM WEB"
+            # print "UPDATING WEB INFO. REQUESTING FROM WEB"
             self.main_clock.change_update_label_to_updating()
             self.web_info_update()
 

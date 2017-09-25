@@ -51,7 +51,6 @@ class UpdateNow(Frame):
         self.check_last_update()
 
     def check_last_update(self):
-        print "heree"
         # if last update time changed, update it
         last_update_time = math.floor(time.time() - var.last_updated) / 60
         if int(last_update_time) == 0:

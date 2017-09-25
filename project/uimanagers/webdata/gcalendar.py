@@ -46,6 +46,8 @@ def get_credentials(flags):
     return credentials
 
 
+
+
 def get_calendar_events():
     """Shows basic usage of the Google Calendar API.
 
@@ -88,14 +90,34 @@ def get_calendar_events():
         if 'location' in event:
             location_string = event['location']
         if 'start' in event:
-            date_time_string = event['start'].get('dateTime')
+            date_time_string = event['start']['date']
 
         event_data = {}
-        event_data['summary'] = summary_string
-        event_data['description'] = re.sub('\n', '', description_string)
-        event_data['location'] = location_string.split(',')[0]
-        event_data['date'] = date_time_string[0:10]
-        event_data['start_time'] = date_time_string[11:16]
+        try:
+            event_data['summary'] = summary_string
+        except Exception as e:
+            print(e)
+
+        try:
+            event_data['description'] = re.sub('\n', '', description_string)
+        except Exception as e:
+            print(e)
+
+        try:
+            event_data['location'] = location_string.split(',')[0]
+        except Exception as e:
+            print(e)
+
+        try:
+            event_data['date'] = date_time_string[0:10]
+        except Exception as e:
+            print(e)
+
+        try:
+            event_data['start_time'] = date_time_string[11:16]
+        except Exception as e:
+            print(e)
+
         var.calendar_data[str(counter)] = event_data
         counter += 1
     varloader.save_data_to_json_file(var.calendar_data, var.file_paths['calendar_data'])

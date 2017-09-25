@@ -71,17 +71,17 @@ file_paths = {
     'location': 'data/info/location.json',
     'weather': 'data/info/weather.json',
     'gmap': 'data/info/gmap.json',
-    'travel_data' : 'data/info/travel_data.json',
+    'travel_data': 'data/info/travel_data.json',
     'last_updated': 'data/info/last_updated.json',
     'news': 'data/info/news.json',
     'other': 'data/info/other.json',
     'preferences': 'data/info/preferences.json',
     'stocks': 'data/info/stocks.json',
-    'stock_data' : 'data/info/stock_data.json',
-    'key':'data/key/key.json',
+    'stock_data': 'data/info/stock_data.json',
+    'key': 'data/key/key.json',
     'gcalendar_key': 'data/key/client_secret.json',
     'calendar_data': 'data/info/calendar_data.json',
-    'to_do_list':'data/info/to_do_list.json',
+    'to_do_list': 'data/info/to_do_list.json',
 }
 
 # ------------------- Selection Time Constants ----------------------#
@@ -163,7 +163,9 @@ travel_data = varloader.get_data_from_json_file(file_paths['travel_data'])
 
 calendar_data = varloader.get_data_from_json_file(file_paths['calendar_data'])
 
-to_do_list = varloader.get_data_from_json_file(file_paths['to_do_list'])
+# to_do_list = varloader.get_data_from_json_file(file_paths['to_do_list'])
+to_do_list = ['item1:...', 'item2:...', 'item3:...']
+varloader.save_data_to_json_file(to_do_list, file_paths['to_do_list'])
 
 print selected_on
 print other_data
