@@ -26,7 +26,7 @@ from uisetup.widgetcoloring import *
 # File Name: UI Handler:
 # Purpose: Handles all TKinter widgets and displays them appropriately based on the given inputs from the hardware
 class UIManager:
-    def __init__(self, controller, start_full_screen):
+    def __init__(self, is_mirror_on,  start_full_screen):
         # initializing Keys
         self.key_up, self.key_down, self.key_left, self.key_right = 0, 1, 2, 3  # todo move to var constant file
         # Handlers
@@ -34,7 +34,7 @@ class UIManager:
         self.web_info = WebInfo()
         self.selection_handler = SelectionHandler()
 
-        self.controller = controller
+        self.is_mirror_on = is_mirror_on
 
         # TK
         self.tk = Tk()
@@ -385,5 +385,5 @@ class UIManager:
                 self.update_tk()
                 time.sleep(3)
                 self.widget_switcher.close_power_off_page()
-                self.controller.is_mirror_on = False
+                self.is_mirror_on = False
 

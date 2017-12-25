@@ -1,74 +1,106 @@
 import socket
 import threading
+import schedule
+import time
+import sys
+
+sys.path.append("../")
+
+from project.uimanagers.uihandler import *
+from project.customthreads.serverthread import *
+from project.datastructures.queue import *
 
 
-class SocketThread(threading.Thread):
-    def __init__(self, conn, runnable):
-        threading.Thread.__init__(self)
-        self.runnable = runnable
-        self.conn = conn
-
-
-    def run(self):
-        self.runnable(self.conn)
-
-def handle_socket_connection(conn):
+def handle_socket_connection(conn, direction_queue, update_queue ):
+    '''
+    This is a runnable used by the SocketThread. Upon accepting socket connection. It will spawn the 
+    SocketThread that will run this function. This function parses all the messages through this connection
+    and will add it to the respective queue for the GUI -- if valid
+    '''
     while True:
         try:
-            #conn.settimeout(5)
-            message = conn.recv(1024).decode()         # receive data stream. it won't accept data packet greater than 1024 bytes
-            if message == 'left':
-                print 'left'
-            elif message == 'up':
-                print 'up'
-            elif message == 'down':
-                print 'down'
-            elif message == 'right':
-                print 'right'
-            elif message == 'data updated':
-                print 'data updated'
-            elif message == 'data updated':
-                print 'data updated'
-            else:
-                print 'message error!: ', message
-                break;
+            # receive data stream. it won't accept data packet greater than 1024 bytes
+            message = conn.recv(1024).decode()  
+            direction_queue.enqueue(message)
+
+            # Checks for messages related to directions
+            if 'direction' in message:
+                # NOTE: This check does not check the full string. 
+                if 'right' in message or 'left' in message or 'up' in message or 'down' in message:
+                    direction_queue.enqueue(message)
+                else:
+                    print 'Invalid Direction Message'    
             
-            response='ack'
-            # conn.send(response.encode())
+            # Check for update related messages
+            elif 'data updated' in message:
+                update_queue.enqueue('item')
+            
+            # Error handling for messages in incorrect format
+            else:
+                # NOTE: This will break out of the loop and result in ending the client connection
+                print 'message error!: ', message
+                break 
+
+            # Send an Ack for every correct response
+            response = 'ack'
+            conn.send(response.encode())
+        
+        # Exception Handling for anything else...
         except Exception as e:
             print e
             break
-    conn.close()  # close the connection
+    conn.close()  # NOTE: Will only close connection from error or break
 
-def gui_server():
-    host = socket.gethostname()  # get the hostname
-    port = 5000  # initiate port no above 1024
 
-    print host
-    server_socket = socket.socket()  # get instance
-    server_socket.bind((host, port))  # bind host address and port together
-    server_socket.listen(10)  # configure how many client the server can listen simultaneously
+def gui_server(direction_queue, update_queue):
+    '''
+    This is the runnable used by Server Thread. It sets up the server socket. 
+    Note: There is a max number of connections allowed. 
+    '''
 
-    
-   
+    # Gather Data on the machine and create the server Socket 
+    host = socket.gethostname()  
+    port = 5000 
+    server_socket = socket.socket() 
+    server_socket.bind((host, port)) 
+
+    # This configure how many client the server can listen simultaneously
+    server_socket.listen(10) 
+
+    # Server Socket is created. Now listen for any connections. Upon new connections, create a socket-parser thread
     while True:
-        conn, address = server_socket.accept()  # accept new connection
+        conn, address = server_socket.accept()
         print("Connection from: " + str(address))
-        thread = SocketThread(conn,handle_socket_connection)
+        thread = SocketThread(conn, direction_queue, update_queue, handle_socket_connection)
         thread.start()
-        
-        
 
 
-
-def client_message(host,port,message):
-    host = socket.gethostname()  # as both code is running on same pc
-    port = 5000  # socket server port number
-    client_socket = socket.socket()  # instantiate
-    client_socket.connect((host, port))  # connect to the server
-    client_socket.send(message)
-    client_socket.close()  # close the connection
+def gui_application(ui_manager, direction_queue, update_queue):
+    '''
+    This is the function that creates and update the Mirror GUI 
+    Note: This function HAS to be run in the main thread (due to TKInter limitations)
+    '''
+    while True:
+       #time.sleep(.5)
+        print direction_queue.to_list()
+        ui_manager.update_all_manually()
 
 
 if __name__ == '__main__':
-    gui_server()
+    ui_manager = UIManager(True, True)
+    direction_queue = Queue()
+    update_queue = Queue()
+    thread1 = ServerThread(direction_queue, update_queue, gui_server)
+    thread1.start()
+    gui_application(ui_manager, direction_queue, update_queue)
+
+
+
+
+# def client_message(host, port, message):
+#     host = socket.gethostname()  # as both code is running on same pc
+#     port = 5000  # socket server port number
+#     client_socket = socket.socket()  # instantiate
+#     client_socket.connect((host, port))  # connect to the server
+#     client_socket.send(message)
+#     client_socket.close()  # close the connection
