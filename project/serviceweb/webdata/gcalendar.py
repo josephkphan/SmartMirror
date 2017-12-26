@@ -77,7 +77,6 @@ def get_calendar_events():
     for event in events:
         print(event)
         start = event['start'].get('dateTime', event['start'].get('date'))
-        print(start)
 
         summary_string = '--no title--'
         description_string = '--no description--'
@@ -90,7 +89,8 @@ def get_calendar_events():
         if 'location' in event:
             location_string = event['location']
         if 'start' in event:
-            date_time_string = event['start']['date']
+            # date_time_string = event['start']['date']  # this was legacy?
+            date_time_string = str(start)
 
         event_data = {}
         try:

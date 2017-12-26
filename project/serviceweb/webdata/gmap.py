@@ -1,6 +1,9 @@
 import simplejson
 import urllib
-from project.resources import varloader, var
+
+import sys
+
+from project.resources import var, varloader
 
 
 def get_travel_time():

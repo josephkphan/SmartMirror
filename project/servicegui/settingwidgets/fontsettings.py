@@ -1,7 +1,7 @@
 from Tkinter import *
 from PIL import Image, ImageTk
 from project.resources import var, zone, varloader
-from project.uimanagers.settingwidgets import checkbox
+from project.servicegui.settingwidgets import checkbox
 
 
 class FontSettings(Frame):

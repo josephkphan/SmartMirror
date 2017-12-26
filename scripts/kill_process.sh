@@ -1,5 +1,7 @@
-echo "sudo netstat -tulpn | grep 5000"
-output="$( sudo netstat -tulpn | grep 5000 )"
+
+# takes port as command line argument
+echo "sudo netstat -tulpn | grep $1"
+output="$( sudo netstat -tulpn | grep $1 )"
 
 echo "${output}"
 process_id="$( echo "$output" | sed -n 's/.*LISTEN      \(.*\)\/python.*/\1/p' )"

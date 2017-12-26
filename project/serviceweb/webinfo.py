@@ -1,10 +1,11 @@
-from project.resources import varloader, var
+
 import json
 import feedparser
 import requests
 import traceback
 import time
-from project.uimanagers.webdata import gmap, gstocks, gcalendar
+from project.serviceweb.webdata import gmap, gstocks, gcalendar
+from project.resources import var, varloader
 
 import threading
 

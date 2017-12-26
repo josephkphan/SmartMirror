@@ -1,12 +1,10 @@
 import socket
-import threading
-import schedule
 import time
 import sys
 
 sys.path.append("../")
 
-from project.uimanagers.uihandler import *
+from project.servicegui.uihandler import *
 from project.customthreads.serverthread import *
 from project.datastructures.queue import *
 

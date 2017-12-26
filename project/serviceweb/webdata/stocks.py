@@ -1,6 +1,6 @@
 import urllib2
 import time
-from project.resources import  var
+from project.resources import var, varloader
 
 
 def get_stocks_data():
