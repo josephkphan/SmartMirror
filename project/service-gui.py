@@ -71,7 +71,7 @@ def gui_server(direction_queue, update_queue):
     while True:
         conn, address = server_socket.accept()
         print("Connection from: " + str(address))
-        thread = SocketThread(conn, direction_queue, update_queue, handle_socket_connection)
+        thread = GuiSocketThread(conn, direction_queue, update_queue, handle_socket_connection)
         thread.start()
 
 
@@ -97,7 +97,7 @@ if __name__ == '__main__':
     ui_manager = UIManager(True, True)
     direction_queue = Queue()
     update_queue = Queue()
-    thread1 = ServerThread(direction_queue, update_queue, gui_server)
+    thread1 = GuiServerThread(direction_queue, update_queue, gui_server)
     thread1.start()
     gui_application(ui_manager, direction_queue, update_queue)
 

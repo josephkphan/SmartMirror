@@ -5,7 +5,7 @@ import time, math
 
 
 class UpdateNow(Frame):
-    def __init__(self,parent,web_info_update, tkinter_update):
+    def __init__(self,parent, tkinter_update):
         # keep an instance of the constant variables in var file
         # (just so you don't need to continually say var._____)
         selected_off = var.selected_off
@@ -13,7 +13,6 @@ class UpdateNow(Frame):
         font_style = var.font_style
         font_sizes = var.font_sizes
         Frame.__init__(self,parent, bg=background_color)
-        self.web_info_update = web_info_update
         self.tkinter_update = tkinter_update
 
         # to keep track of current color
@@ -107,5 +106,4 @@ class UpdateNow(Frame):
         if current_zone == zone.SettingsPage.update_now:
             self.last_update_text = 'Updating...'
             self.last_update_label.config(text=self.last_update_text)       # Todo THIS DOESNT WORK -- FIX IT
-            self.web_info_update()
             self.tkinter_update()

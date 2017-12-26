@@ -31,7 +31,6 @@ class UIManager:
         self.key_up, self.key_down, self.key_left, self.key_right = 0, 1, 2, 3  # todo move to var constant file
         # Handlers
         self.cursor_handler = CursorHandler()
-        self.web_info = WebInfo()
         self.selection_handler = SelectionHandler()
 
         self.is_mirror_on = is_mirror_on
@@ -89,10 +88,6 @@ class UIManager:
 
         # ---------------------------------- Initializing Widgets ----------------------------------- #
 
-        # FIRST TIME OPENING MIRROR
-        if not var.weather_data or not var.news_data or not var.last_updated:
-            self.web_info.thread_update()  # todo if this fails, exit program sicne you dont have any data
-
         # General Widgets
         self.return_button = ReturnButton(self.left_top)
 
@@ -120,7 +115,7 @@ class UIManager:
         # Settings Page Widgets
         self.settings_font = FontSettings(self.left_top)
         self.settings_color_scheme = ColorSettings(self.left_top)
-        self.settings_update_now = UpdateNow(self.left_top, self.web_info_update, self.update_all_widgets_content)
+        self.settings_update_now = UpdateNow(self.left_top, self.update_all_widgets_content)
 
         # To Do List Page Widgets
         self.planner_todolist = ToDoList(self.right_top)
@@ -151,9 +146,6 @@ class UIManager:
         # print last_update_time
         if not(last_update_time >= var.update_time and self.current_page == Page.main):
             time.sleep(3)
-        else:
-            self.web_info_update()
-            self.update_all_widgets_content()
 
         self.widget_switcher.close_startup_page()
         self.current_zone = zone.MainPage.none  # Starts off on main page
@@ -161,7 +153,6 @@ class UIManager:
         self.widget_switcher.open_main_page()
 
     def update_all(self, cursor):
-        self.update_web_info()
         self.get_current_zone_from_cursor(cursor)
         self.update_zone()
         diff_x = cursor[0] - self.circle_coord[0]
@@ -175,8 +166,6 @@ class UIManager:
         if event:
             print 'GUI EVENT RECEIVED: ',event[0]
             self.update_event(event[0])
-        self.update_web_info()
-        self.check_if_web_info_update_thread_is_complete()
         self.update_zone()
         self.update_tk()
 
@@ -194,25 +183,6 @@ class UIManager:
         elif event == 'event_toggled':
             self.keyboard.toggle_power()
 
-    # ---------------------------------- Web Info Updating Functions ----------------------------------- #
-    def update_web_info(self):
-        last_update_time = (time.time() - var.last_updated) / 60
-        # print last_update_time
-        if last_update_time >= var.update_time and self.current_page == Page.main:  # todo only update on main page??
-            # Means its been 10 minutes since it last updated
-            # print "UPDATING WEB INFO. REQUESTING FROM WEB"
-            self.main_clock.change_update_label_to_updating()
-            self.web_info_update()
-
-    def web_info_update(self):
-        self.web_info.thread_update()
-
-    def check_if_web_info_update_thread_is_complete(self):
-        if var.is_updating and var.update_completed:
-
-            self.update_all_widgets_content()
-            var.is_updating = False
-            var.update_completed = False
 
 
     def update_all_widgets_content(self, event=None):  # todo IMPLEMENT THIS IN
