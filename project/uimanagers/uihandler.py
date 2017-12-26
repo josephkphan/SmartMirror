@@ -171,24 +171,27 @@ class UIManager:
         self.update_page(self.selection_handler.update(self.current_zone, self.camera_select_mode))
         self.update_tk()
 
-    def update_all_manually(self):
+    def update_all_manually(self, *event):
+        if event:
+            print 'GUI EVENT RECEIVED: ',event[0]
+            self.update_event(event[0])
         self.update_web_info()
         self.check_if_web_info_update_thread_is_complete()
         self.update_zone()
         self.update_tk()
 
-    def update_all_joystick(self, joystick_state):
-        if joystick_state == 'up':
+    def update_event(self, event):
+        if event == 'direction_up':
             self.keyboard.directional_click(self.key_up)
-        elif joystick_state == 'down':
+        elif event == 'direction_down':
             self.keyboard.directional_click(self.key_down)
-        elif joystick_state == 'left':
+        elif event == 'direction_left':
             self.keyboard.directional_click(self.key_left)
-        elif joystick_state == 'right':
+        elif event == 'direction_right':
             self.keyboard.directional_click(self.key_right)
-        elif joystick_state == 'pressed':
+        elif event == 'event_pressed':
             self.keyboard.enter_click()
-        elif joystick_state == 'toggled':
+        elif event == 'event_toggled':
             self.keyboard.toggle_power()
 
     # ---------------------------------- Web Info Updating Functions ----------------------------------- #

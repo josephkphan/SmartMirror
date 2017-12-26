@@ -11,7 +11,7 @@ from project.customthreads.serverthread import *
 from project.datastructures.queue import *
 
 
-def handle_socket_connection(conn, direction_queue, update_queue ):
+def handle_socket_connection(conn, direction_queue, update_queue):
     '''
     This is a runnable used by the SocketThread. Upon accepting socket connection. It will spawn the 
     SocketThread that will run this function. This function parses all the messages through this connection
@@ -20,7 +20,7 @@ def handle_socket_connection(conn, direction_queue, update_queue ):
     while True:
         try:
             # receive data stream. it won't accept data packet greater than 1024 bytes
-            message = conn.recv(1024).decode()  
+            message = conn.recv(1024).decode()
             direction_queue.enqueue(message)
 
             # Checks for messages related to directions
@@ -29,22 +29,22 @@ def handle_socket_connection(conn, direction_queue, update_queue ):
                 if 'right' in message or 'left' in message or 'up' in message or 'down' in message:
                     direction_queue.enqueue(message)
                 else:
-                    print 'Invalid Direction Message'    
-            
-            # Check for update related messages
+                    print 'Invalid Direction Message'
+
+                    # Check for update related messages
             elif 'data updated' in message:
                 update_queue.enqueue('item')
-            
+
             # Error handling for messages in incorrect format
             else:
                 # NOTE: This will break out of the loop and result in ending the client connection
                 print 'message error!: ', message
-                break 
+                break
 
-            # Send an Ack for every correct response
+                # Send an Ack for every correct response
             response = 'ack'
             conn.send(response.encode())
-        
+
         # Exception Handling for anything else...
         except Exception as e:
             print e
@@ -59,13 +59,13 @@ def gui_server(direction_queue, update_queue):
     '''
 
     # Gather Data on the machine and create the server Socket 
-    host = socket.gethostname()  
-    port = 5000 
-    server_socket = socket.socket() 
-    server_socket.bind((host, port)) 
+    host = socket.gethostname()
+    port = 5000
+    server_socket = socket.socket()
+    server_socket.bind((host, port))
 
     # This configure how many client the server can listen simultaneously
-    server_socket.listen(10) 
+    server_socket.listen(10)
 
     # Server Socket is created. Now listen for any connections. Upon new connections, create a socket-parser thread
     while True:
@@ -81,9 +81,16 @@ def gui_application(ui_manager, direction_queue, update_queue):
     Note: This function HAS to be run in the main thread (due to TKInter limitations)
     '''
     while True:
-       #time.sleep(.5)
-        print direction_queue.to_list()
-        ui_manager.update_all_manually()
+        # time.sleep(.5)
+        if not update_queue.is_empty():
+            print 'Update Queue: ', update_queue.to_list()
+            ui_manager.update_all_manually(update_queue.dequeue())            
+        elif not direction_queue.is_empty():
+            print 'Direction Queue: ',direction_queue.to_list()
+            ui_manager.update_all_manually(direction_queue.dequeue()) 
+        else: 
+            ui_manager.update_all_manually() 
+
 
 
 if __name__ == '__main__':
@@ -97,10 +104,10 @@ if __name__ == '__main__':
 
 
 
-# def client_message(host, port, message):
-#     host = socket.gethostname()  # as both code is running on same pc
-#     port = 5000  # socket server port number
-#     client_socket = socket.socket()  # instantiate
-#     client_socket.connect((host, port))  # connect to the server
-#     client_socket.send(message)
-#     client_socket.close()  # close the connection
+    # def client_message(host, port, message):
+    #     host = socket.gethostname()  # as both code is running on same pc
+    #     port = 5000  # socket server port number
+    #     client_socket = socket.socket()  # instantiate
+    #     client_socket.connect((host, port))  # connect to the server
+    #     client_socket.send(message)
+    #     client_socket.close()  # close the connection
