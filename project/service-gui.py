@@ -11,12 +11,14 @@ from project.customthreads.serverthread import *
 from project.datastructures.queue import *
 
 
-def handle_socket_connection(conn, direction_queue, update_queue):
+def handle_socket_connection(conn, shared_thread_vars):
     '''
     This is a runnable used by the SocketThread. Upon accepting socket connection. It will spawn the 
     SocketThread that will run this function. This function parses all the messages through this connection
     and will add it to the respective queue for the GUI -- if valid
     '''
+    direction_queue = shared_thread_vars[0]
+    update_queue = shared_thread_vars[1]
     while True:
         try:
             # receive data stream. it won't accept data packet greater than 1024 bytes
@@ -52,12 +54,13 @@ def handle_socket_connection(conn, direction_queue, update_queue):
     conn.close()  # NOTE: Will only close connection from error or break
 
 
-def gui_server(direction_queue, update_queue):
+def gui_server(shared_thread_vars):
     '''
     This is the runnable used by Server Thread. It sets up the server socket. 
     Note: There is a max number of connections allowed. 
     '''
-
+    direction_queue = shared_thread_vars[0]
+    update_queue = shared_thread_vars[1]
     # Gather Data on the machine and create the server Socket 
     host = socket.gethostname()
     port = 5000
@@ -71,7 +74,7 @@ def gui_server(direction_queue, update_queue):
     while True:
         conn, address = server_socket.accept()
         print("Connection from: " + str(address))
-        thread = GuiSocketThread(conn, direction_queue, update_queue, handle_socket_connection)
+        thread = SocketThread(handle_socket_connection, conn, direction_queue, update_queue)
         thread.start()
 
 
@@ -97,7 +100,7 @@ if __name__ == '__main__':
     ui_manager = UIManager(True, True)
     direction_queue = Queue()
     update_queue = Queue()
-    thread1 = GuiServerThread(direction_queue, update_queue, gui_server)
+    thread1 = ServerThread(gui_server, direction_queue, update_queue)
     thread1.start()
     gui_application(ui_manager, direction_queue, update_queue)
 

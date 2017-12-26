@@ -8,7 +8,6 @@ sys.path.append("../")
 
 from project.uimanagers.webinfo import *
 from project.customthreads.serverthread import *
-from project.datastructures.queue import *
 
 
 def handle_socket_connection(conn, web_info, last_update_info):
