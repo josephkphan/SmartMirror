@@ -18,7 +18,6 @@ color_hex_codes = {
     'purple': '#c932ef',
     'red': '#ef1f1f',
     'yellow': '#ffff00'
-
 }
 
 # ------------------ Font Sizes ----------------- #
@@ -85,13 +84,12 @@ file_paths = {
 }
 
 # ------------------- Selection Time Constants ----------------------#
-selection_time = 2.5  # in seconds (hover with hand gesture for 2.5 seconds
+selection_time = 2.5  # in seconds (hover with hand gesture for 2.5 seconds)
 update_time = 15  # in minutes (auto update every 30 minutes)
 
 font_sizes = None
 
 # -------------------- Window Sizing -------------------- #
-
 camera_width = 200
 camera_height = 200
 tk_cursor_diameter = 25
@@ -114,26 +112,19 @@ tk_cursor_outline_thickness = tk_cursor_diameter / 10
 # Four Corners
 
 # -------------------- For Web Parsing -------------------- #
-
 ip = '<IP>'
 country_code = 'us'
 api_tokens = varloader.get_data_from_json_file(file_paths['key'])
 
 # --------------- Setting Hand Gesture Areas --------------- #
-
 bottom_left_rectangle = coordcreator.get_polygon_coord(0, camera_height / 2, camera_width / 2, camera_height / 2)
-
 bottom_right_rectangle = coordcreator.get_polygon_coord(camera_width / 2, camera_height / 2, camera_width / 2,
                                                         camera_height / 2)
-
 top_left_rectangle = coordcreator.get_polygon_coord(0, 0, camera_width / 2, camera_height / 2)
-
 top_right_rectangle = coordcreator.get_polygon_coord(camera_width / 2, 0, camera_width / 2, camera_height / 2)
 
 # --------------------------------------- Loading Data From Files ----------------------------------------------- #
-
 # Loading up Data
-
 weather_data = varloader.get_data_from_json_file(file_paths['weather'])
 news_data = varloader.get_data_from_json_file(file_paths['news'])
 last_updated = varloader.get_data_from_json_file(file_paths['last_updated'])
@@ -153,24 +144,21 @@ selected_on = color_hex_codes[preferences['color']]
 
 # Loading Up Stock List
 stocks_list = varloader.get_data_from_json_file(file_paths['stocks'])
-
 stock_data = varloader.get_data_from_json_file(file_paths['stock_data'])
 
-# Loading Up Google Map Settings
-gmap = varloader.get_data_from_json_file(file_paths['gmap'])
-
-travel_data = varloader.get_data_from_json_file(file_paths['travel_data'])
-
-calendar_data = varloader.get_data_from_json_file(file_paths['calendar_data'])
-
+# Loading Up To Do List
 # to_do_list = varloader.get_data_from_json_file(file_paths['to_do_list'])
 to_do_list = ['item1:...', 'item2:...', 'item3:...']
 varloader.save_data_to_json_file(to_do_list, file_paths['to_do_list'])
+
+# Loading Up Google Map Settings
+gmap = varloader.get_data_from_json_file(file_paths['gmap'])
+travel_data = varloader.get_data_from_json_file(file_paths['travel_data'])
+calendar_data = varloader.get_data_from_json_file(file_paths['calendar_data'])
 
 print selected_on
 print other_data
 
 # ---------------------- Images ----------------------- #
-
 is_updating = False
 update_completed = False
