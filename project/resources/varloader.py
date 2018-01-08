@@ -3,15 +3,13 @@ import json
 
 
 # ----------------------- Saved Web Data ----------------------- #
-
 def save_data_to_json_file(data,file_path):
     out_file = open(file_path, "w")
     json.dump(data, out_file, indent=4)
     out_file.close()
 
+
 # ----------------------- Preferences ----------------------- #
-
-
 def change_main_page_top(new_widget):
     if not var.preferences[new_widget]:
         var.preferences['weather'], var.preferences['time'] = var.preferences['time'], var.preferences['weather']
@@ -53,8 +51,6 @@ def update_font_size():
 
 
 # ------------------------ Other Data -------------------------- #
-
-
 def change_other_data(key, val):
     var.other_data[key] = val
     save_data_to_json_file(var.other_data, var.file_paths['other'])

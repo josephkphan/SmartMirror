@@ -1,9 +1,58 @@
 import requests
 
+# Python only searches current directory, the entry-point script is running from, and sys.path which includes
+# locations such as the package installation directory
+import sys
+sys.path.insert(0, '/Users/thomasnguyen/Library/Mobile Documents/com~apple~CloudDocs/Santa Clara University/Smart Mirror/SmartMirror')
+from project.resources import varloader
+
+
+# -------------------- File Paths of Preferences To Be Updated -------------------- #
+file_paths = {
+    'location': '../project/data/info/location.json',
+    'weather': '../project/data/info/weather.json',
+    'gmap': '../project/data/info/gmap.json',
+    'travel_data': '../project/data/info/travel_data.json',
+    'last_updated': '../project/data/info/last_updated.json',
+    'news': '../project/data/info/news.json',
+    'other': '../project/data/info/other.json',
+    'preferences': '../project/data/info/preferences.json',
+    'stocks': '../project/data/info/stocks.json',
+    'stock_data': '../project/data/info/stock_data.json',
+    'key': '../project/data/key/key.json',
+    'gcalendar_key': '../project/data/key/client_secret.json',
+    'calendar_data': '../project/data/info/calendar_data.json',
+    'to_do_list': '../project/data/info/to_do_list.json',
+}
+
+
+# -------------------- Get Updates From the Web Server -------------------- #
 payload = {'username': 'test', 'mirrorID': 'test'} # TODO: mirrorID & gpg key
 r = requests.get('http://localhost:3000/api/get_user_settings', params=payload)
-r.json();
-print r.text;
+r.json()
+print r.text
+
+
+# -------------------- Mirror Settings -------------------- #
+mirror_preferences = varloader.get_data_from_json_file(file_paths['preferences'])
+if mirror_preferences['color'] != r['color']:
+    varloader.change_color_scheme(r['color'])
+    print 'Changed color scheme to' + r['color']
+if mirror_preferences['font_size_current'] != r['fontSize']:
+    varloader.change_font_size(r['fontSize'])
+    print 'Changed font size to' + r['fontSize']
+
+
+# -------------------- Stocks -------------------- #
+mirror_stocks = varloader.get_data_from_json_file(file_paths['to_do_list'])
+
+
+# -------------------- To Do List -------------------- #
+mirror_to_do_list = varloader.get_data_from_json_file(file_paths['stocks'])
+
+
+# -------------------- Maps Settings -------------------- #
+mirror_map = varloader.get_data_from_json_file(file_paths['gmap'])
 
 
 # // General Information
@@ -51,5 +100,3 @@ print r.text;
 # // Mirror Settings
 # color: String, --> preferences[]
 # fontSize: String --> preferences[]
-
-
