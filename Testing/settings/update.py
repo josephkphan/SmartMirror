@@ -1,10 +1,13 @@
 import requests
 
+# NOTE: To run this program, the shell must currently be in the 'project' directory
+
+
 # Python only searches current directory, the entry-point script is running from, and sys.path which includes
 # locations such as the package installation directory
 import sys
 sys.path.insert(0, '/Users/thomasnguyen/Library/Mobile Documents/com~apple~CloudDocs/Santa Clara University/Smart Mirror/SmartMirror')
-from project.resources import varloader
+from project.resources import var, varloader
 
 
 # -------------------- File Paths of Preferences To Be Updated -------------------- #
@@ -29,18 +32,18 @@ file_paths = {
 # -------------------- Get Updates From the Web Server -------------------- #
 payload = {'username': 'test', 'mirrorID': 'test'} # TODO: mirrorID & gpg key
 r = requests.get('http://localhost:3000/api/get_user_settings', params=payload)
-r.json()
 print r.text
+web_server_response = r.json()
 
 
 # -------------------- Mirror Settings -------------------- #
 mirror_preferences = varloader.get_data_from_json_file(file_paths['preferences'])
-if mirror_preferences['color'] != r['color']:
-    varloader.change_color_scheme(r['color'])
-    print 'Changed color scheme to' + r['color']
-if mirror_preferences['font_size_current'] != r['fontSize']:
-    varloader.change_font_size(r['fontSize'])
-    print 'Changed font size to' + r['fontSize']
+if mirror_preferences['color'] != web_server_response['color']:
+    varloader.change_color_scheme(web_server_response['color'])
+    print 'Changed color scheme to ' + web_server_response['color']
+if mirror_preferences['font_size_current'] != web_server_response['fontSize']:
+    varloader.change_font_size(web_server_response['fontSize'])
+    print 'Changed font size to ' + web_server_response['fontSize']
 
 
 # -------------------- Stocks -------------------- #
@@ -53,6 +56,11 @@ mirror_to_do_list = varloader.get_data_from_json_file(file_paths['stocks'])
 
 # -------------------- Maps Settings -------------------- #
 mirror_map = varloader.get_data_from_json_file(file_paths['gmap'])
+
+
+# -------------------- API Keys -------------------- #
+mirror_map = varloader.get_data_from_json_file(file_paths['key'])
+
 
 
 # // General Information

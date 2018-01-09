@@ -9,7 +9,7 @@ def save_data_to_json_file(data,file_path):
     out_file.close()
 
 
-# ----------------------- Preferences ----------------------- #
+# ----------------------- Mirror User Interface ----------------------- #
 def change_main_page_top(new_widget):
     if not var.preferences[new_widget]:
         var.preferences['weather'], var.preferences['time'] = var.preferences['time'], var.preferences['weather']
@@ -33,6 +33,7 @@ def change_color_scheme(new_color):
     save_data_to_json_file(var.preferences,var.file_paths['preferences'])
 
 
+# ----------------------- Preferences ----------------------- #
 def change_font_size(new_size):
     var.preferences[var.preferences['font_size_current']] = False  # turns old color off
     var.preferences[new_size] = True  # Turns new color on
@@ -50,12 +51,25 @@ def update_font_size():
         var.font_sizes = var.font_size_large
 
 
+# ----------------------- Stocks ----------------------- #
+
+
+# ----------------------- To Do List ----------------------- #
+
+
+# ----------------------- Maps Settings ----------------------- #
+
+
+# -------------------- API Keys -------------------- #
+
+
 # ------------------------ Other Data -------------------------- #
 def change_other_data(key, val):
     var.other_data[key] = val
     save_data_to_json_file(var.other_data, var.file_paths['other'])
 
 
+# ------------------------ Miscellaneous Functions -------------------------- #
 def get_data_from_json_file(file_name):
     try:
         with open(file_name) as f:
