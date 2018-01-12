@@ -47,11 +47,29 @@ if mirror_preferences['font_size_current'] != web_server_response['fontSize']:
 
 
 # -------------------- Stocks -------------------- #
-mirror_stocks = varloader.get_data_from_json_file(file_paths['to_do_list'])
+# Parse response from web server and make it into a JSON
+stocks_string = web_server_response['stocks'].split("////")
+web_server_stocks = []
+for item in stocks_string:
+    web_server_stocks += item
+
+# Check to see if they differ, if so, save to JSON
+mirror_to_do_list = varloader.get_data_from_json_file(file_paths['stocks'])
+if mirror_to_do_list != web_server_stocks:
+    varloader.update_stocks(web_server_stocks)
 
 
 # -------------------- To Do List -------------------- #
-mirror_to_do_list = varloader.get_data_from_json_file(file_paths['stocks'])
+# Parse response from web server and make it into a JSON
+stocks_string = web_server_response['to_do_list'].split("////")
+web_server_stocks = []
+for item in stocks_string:
+    web_server_stocks += item
+
+# Check to see if they differ, if so, save to JSON
+mirror_to_do_list = varloader.get_data_from_json_file(file_paths['to_do_list'])
+if mirror_to_do_list != web_server_stocks:
+    varloader.update_to_do_list(web_server_stocks)
 
 
 # -------------------- Maps Settings -------------------- #
@@ -64,7 +82,7 @@ mirror_map = varloader.get_data_from_json_file(file_paths['key'])
 
 
 # // General Information
-# username: String,
+# username: String, -->
 # password: String,
 # email: String,
 # name: String, -->

@@ -25,6 +25,7 @@ def change_main_page_bottom(new_widget):
     save_data_to_json_file(var.preferences,var.file_paths['preferences'])
 
 
+# ----------------------- Preferences ----------------------- #
 def change_color_scheme(new_color):
     var.preferences[var.preferences['color']] = False  # turns old color off
     var.preferences[new_color] = True  # Turns new color on
@@ -33,7 +34,6 @@ def change_color_scheme(new_color):
     save_data_to_json_file(var.preferences,var.file_paths['preferences'])
 
 
-# ----------------------- Preferences ----------------------- #
 def change_font_size(new_size):
     var.preferences[var.preferences['font_size_current']] = False  # turns old color off
     var.preferences[new_size] = True  # Turns new color on
@@ -52,10 +52,13 @@ def update_font_size():
 
 
 # ----------------------- Stocks ----------------------- #
+def update_stocks(new_stocks):
+    save_data_to_json_file(new_stocks,var.file_paths['stocks'])
 
 
 # ----------------------- To Do List ----------------------- #
-
+def update_to_do_list(new_to_do_list):
+    save_data_to_json_file(new_to_do_list,var.file_paths['to_do_list'])
 
 # ----------------------- Maps Settings ----------------------- #
 
