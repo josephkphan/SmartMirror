@@ -17,8 +17,6 @@ def change_main_page_top(new_widget):
 
 
 def change_main_page_bottom(new_widget):
-    print 'HEREEEEEEE'
-    print new_widget
     var.preferences[var.preferences['show_this_on_bottom_of_main_page']] = False  # turns old color off
     var.preferences[new_widget] = True  # Turns new color on
     var.preferences['show_this_on_bottom_of_main_page'] = new_widget  # updates new color
@@ -60,10 +58,20 @@ def update_stocks(new_stocks):
 def update_to_do_list(new_to_do_list):
     save_data_to_json_file(new_to_do_list,var.file_paths['to_do_list'])
 
+
 # ----------------------- Maps Settings ----------------------- #
+def update_maps(new_maps):
+    save_data_to_json_file(new_maps,var.file_paths['gmap'])
 
 
 # -------------------- API Keys -------------------- #
+def update_keys(new_keys):
+    save_data_to_json_file(new_keys,var.file_paths['key'])
+
+
+# -------------------- User Profile -------------------- #
+def update_profile(new_profile_data):
+    save_data_to_json_file(new_profile_data,var.file_paths['profile'])
 
 
 # ------------------------ Other Data -------------------------- #
@@ -78,7 +86,7 @@ def get_data_from_json_file(file_name):
         with open(file_name) as f:
             return json.load(f)
     except IOError as e:
-        print 'could not read ' + file_name
+        print 'ERROR: Could not read ' + file_name
         if file_name == 'other.json':
             var.other_data['manual_mode'] = True
             save_data_to_json_file(var.other_data, var.file_paths['other'])

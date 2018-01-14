@@ -1,4 +1,5 @@
 import requests
+import json
 
 # NOTE: To run this program, the shell must currently be in the 'project' directory
 
@@ -26,13 +27,13 @@ file_paths = {
     'gcalendar_key': '../project/data/key/client_secret.json',
     'calendar_data': '../project/data/info/calendar_data.json',
     'to_do_list': '../project/data/info/to_do_list.json',
+    'profile': '../project/data/info/profile.json'
 }
 
 
 # -------------------- Get Updates From the Web Server -------------------- #
 payload = {'username': 'test', 'mirrorID': 'test'} # TODO: mirrorID & gpg key
 r = requests.get('http://localhost:3000/api/get_user_settings', params=payload)
-print r.text
 web_server_response = r.json()
 
 
@@ -40,10 +41,8 @@ web_server_response = r.json()
 mirror_preferences = varloader.get_data_from_json_file(file_paths['preferences'])
 if mirror_preferences['color'] != web_server_response['color']:
     varloader.change_color_scheme(web_server_response['color'])
-    print 'Changed color scheme to ' + web_server_response['color']
 if mirror_preferences['font_size_current'] != web_server_response['fontSize']:
     varloader.change_font_size(web_server_response['fontSize'])
-    print 'Changed font size to ' + web_server_response['fontSize']
 
 
 # -------------------- Stocks -------------------- #
@@ -61,68 +60,75 @@ if mirror_to_do_list != web_server_stocks:
 
 # -------------------- To Do List -------------------- #
 # Parse response from web server and make it into a JSON
-stocks_string = web_server_response['to_do_list'].split("////")
-web_server_stocks = []
-for item in stocks_string:
-    web_server_stocks += item
+to_do_list_string = web_server_response['to_do_list'].split("////")
+web_server_to_do_list = []
+for item in to_do_list_string:
+    web_server_to_do_list += item
 
 # Check to see if they differ, if so, save to JSON
 mirror_to_do_list = varloader.get_data_from_json_file(file_paths['to_do_list'])
-if mirror_to_do_list != web_server_stocks:
-    varloader.update_to_do_list(web_server_stocks)
+if mirror_to_do_list != web_server_to_do_list:
+    varloader.update_to_do_list(web_server_to_do_list)
 
 
 # -------------------- Maps Settings -------------------- #
+# Parse response from web server and make it into a JSON
+web_server_maps = {
+    "origin": {
+        "city_address": web_server_response['maps_origin_city_address'],
+        "street_address": web_server_response['maps_origin_street_address'],
+        "state_address": web_server_response['maps_origin_state_address']
+    },
+    "destination": {
+        "city_address": web_server_response['maps_destination_city_address'],
+        "street_address": web_server_response['maps_destination_street_address'],
+        "state_address": web_server_response['maps_destination_state_address']
+    },
+    "settings": {
+        "avoid_tolls": web_server_response['maps_settings_avoid_tolls'],
+        "mode": web_server_response['maps_settings_mode'],
+        "transit_mode": web_server_response['maps_settings_transit_mode']
+    }
+}
+
+web_server_maps_string = json.dumps(web_server_maps)
+web_server_maps_json = json.loads(web_server_maps_string)
+
+# Check to see if they differ, if so, save to JSON
 mirror_map = varloader.get_data_from_json_file(file_paths['gmap'])
+if mirror_map != web_server_maps_json:
+    varloader.update_maps(web_server_maps_json)
 
 
 # -------------------- API Keys -------------------- #
-mirror_map = varloader.get_data_from_json_file(file_paths['key'])
+# Parse response from web server and make it into a JSON
+web_server_keys = {
+    "google_distance_matrix": web_server_response['google_distance_matrix_key'],
+    "google_geocode": web_server_response['google_geocode_key'],
+    "dark_sky_weather": web_server_response['dark_sky_weather_key'],
+}
+
+web_server_keys_string = json.dumps(web_server_keys)
+web_server_keys_json = json.loads(web_server_keys_string)
+
+# Check to see if they differ, if so, save to JSON
+mirror_keys = varloader.get_data_from_json_file(file_paths['key'])
+if mirror_keys != web_server_keys_json:
+    varloader.update_keys(web_server_keys_json)
 
 
+# -------------------- User Profile -------------------- #
+# Parse response from web server and make it into a JSON
+web_server_profile = {
+    "username": web_server_response['username'],
+    "name": web_server_response['name'],
+    "mirrorID": web_server_response['mirrorID']
+}
 
-# // General Information
-# username: String, -->
-# password: String,
-# email: String,
-# name: String, -->
-# mirrorID: String, -->
-# about_me: String,
-#
-# // Api Keys
-# google_distance_matrix_key: String, --> api_tokens[]
-# google_geocode_key: String, --> api_tokens[]
-# dark_sky_weather_key: String, --> api_tokens[]
-#
-# // Facebook and Google Authentication
-# facebook: {
-#     id: String,
-#     token: String,
-#     name: String
-# },
-# google: {
-#     id: String,
-#     token: String,
-#     name: String
-# },
-#
-# // Mirror Widget Information
-# to_do_list: String, --> to_do_list[]
-# stocks: String, --> stocks_list[]
-#
-# maps_origin_street_address: String, --> gmap[]
-# maps_origin_city_address: String, --> gmap[]
-# maps_origin_state_address: String, --> gmap[]
-# maps_origin_country_address: String, --> gmap[]
-#
-# maps_destination_street_address: String, --> gmap[]
-# maps_destination_city_address: String, --> gmap[]
-# maps_destination_state_address: String, --> gmap[]
-#
-# maps_settings_avoid_tolls: Boolean, --> gmap[]
-# maps_settings_mode: String, --> gmap[]
-# maps_settings_transit_mode: String, --> gmap[]
-#
-# // Mirror Settings
-# color: String, --> preferences[]
-# fontSize: String --> preferences[]
+web_server_profile_string = json.dumps(web_server_profile)
+web_server_profile_json = json.loads(web_server_profile_string)
+
+# Check to see if they differ, if so, save to JSON
+mirror_profile = varloader.get_data_from_json_file(file_paths['profile'])
+if mirror_profile != web_server_profile_json:
+    varloader.update_profile(web_server_profile_json)

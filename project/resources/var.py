@@ -81,6 +81,7 @@ file_paths = {
     'gcalendar_key': 'data/key/client_secret.json',
     'calendar_data': 'data/info/calendar_data.json',
     'to_do_list': 'data/info/to_do_list.json',
+    'profile': 'data/info/profile.json'
 }
 
 # ------------------- Selection Time Constants ----------------------#
