@@ -16,7 +16,8 @@ def handle_socket_connection(conn, shared_thread_vars):
     and will add it to the respective queue for the GUI -- if valid
     '''
     direction_queue = shared_thread_vars[0]
-    update_queue = shared_thread_vars[1]
+    event_queue = shared_thread_vars[1]
+    coordinate_queue = shared_thread_vars[2]
     while True:
         try:
             # receive data stream. it won't accept data packet greater than 1024 bytes
@@ -24,7 +25,7 @@ def handle_socket_connection(conn, shared_thread_vars):
             direction_queue.enqueue(message)
 
             # Checks for messages related to directions
-            if 'direction' in message:
+            if 'direction_' in message:
                 # NOTE: This check does not check the full string. 
                 if 'right' in message or 'left' in message or 'up' in message or 'down' in message:
                     direction_queue.enqueue(message)
@@ -32,8 +33,11 @@ def handle_socket_connection(conn, shared_thread_vars):
                     print 'Invalid Direction Message'
 
                     # Check for update related messages
-            elif 'data updated' in message:
-                update_queue.enqueue('item')
+            elif 'event_' in message:
+                event_queue.enqueue(message)
+
+            elif 'coordinate_' in message:
+                coordinate_queue.enqueue(message)
 
             # Error handling for messages in incorrect format
             else:
@@ -58,7 +62,8 @@ def gui_server(shared_thread_vars):
     Note: There is a max number of connections allowed. 
     '''
     direction_queue = shared_thread_vars[0]
-    update_queue = shared_thread_vars[1]
+    event_queue = shared_thread_vars[1]
+    coordinate_queue = shared_thread_vars[2]
     # Gather Data on the machine and create the server Socket 
     host = socket.gethostname()
     port = 5000
@@ -72,20 +77,20 @@ def gui_server(shared_thread_vars):
     while True:
         conn, address = server_socket.accept()
         print("Connection from: " + str(address))
-        thread = SocketThread(handle_socket_connection, conn, direction_queue, update_queue)
+        thread = SocketThread(handle_socket_connection, conn, direction_queue, event_queue, coordinate_queue)
         thread.start()
 
 
-def gui_application(ui_manager, direction_queue, update_queue):
+def gui_application(ui_manager, direction_queue, event_queue, coordinate_queue):
     '''
     This is the function that creates and update the Mirror GUI 
     Note: This function HAS to be run in the main thread (due to TKInter limitations)
     '''
     while True:
         # time.sleep(.5)
-        if not update_queue.is_empty():
-            print 'Update Queue: ', update_queue.to_list()
-            ui_manager.update_all_manually(update_queue.dequeue())            
+        if not event_queue.is_empty():
+            print 'Update Queue: ', event_queue.to_list()
+            ui_manager.update_all_manually(event_queue.dequeue())            
         elif not direction_queue.is_empty():
             print 'Direction Queue: ',direction_queue.to_list()
             ui_manager.update_all_manually(direction_queue.dequeue()) 
@@ -97,10 +102,11 @@ def gui_application(ui_manager, direction_queue, update_queue):
 if __name__ == '__main__':
     ui_manager = UIManager(True, True)
     direction_queue = Queue()
-    update_queue = Queue()
-    thread1 = ServerThread(gui_server, direction_queue, update_queue)
+    event_queue = Queue()
+    coordinate_queue = Queue()
+    thread1 = ServerThread(gui_server, direction_queue, event_queue, coordinate_queue)
     thread1.start()
-    gui_application(ui_manager, direction_queue, update_queue)
+    gui_application(ui_manager, direction_queue, event_queue, coordinate_queue)
 
 
 

@@ -169,6 +169,14 @@ class UIManager:
         self.update_tk()
 
     def update_event(self, event):
+        if 'direction' in event:
+            self.handle_direction(event)
+        elif 'event' in event:
+            self.handle_event(event)
+        elif 'coordinate' in event:
+            self.handle_coordinate(event)
+
+    def handle_direction(self,event):
         if event == 'direction_up':
             self.keyboard.directional_click(self.key_up)
         elif event == 'direction_down':
@@ -181,6 +189,24 @@ class UIManager:
             self.keyboard.enter_click()
         elif event == 'event_toggled':
             self.keyboard.toggle_power()
+    
+    def handle_event(self,event):
+        if event == 'event_pressed':
+            self.keyboard.enter_click()
+        elif event == 'event_toggled':
+            self.keyboard.toggle_power()
+
+    def handle_coordinate(self,event):
+        cursor = event.split('_')[1]
+        cursor = parse_tuple(cursor)
+        self.get_current_zone_from_cursor(cursor)
+        self.update_zone()
+        diff_x = cursor[0] - self.circle_coord[0]
+        diff_y = cursor[1] - self.circle_coord[1]
+        # self.canvas.move(self.cursor, diff_x, diff_y)
+        # self.circle_coord = cursor
+        # self.update_page(self.selection_handler.update(self.current_zone, self.camera_select_mode))
+        self.update_tk()
 
 
 
@@ -359,3 +385,12 @@ class UIManager:
                 self.widget_switcher.close_power_off_page()
                 self.is_mirror_on = False
 
+
+def parse_tuple(string):
+    try:
+        s = eval(str(string))
+        if type(s) == tuple:
+            return s
+        return
+    except:
+        return

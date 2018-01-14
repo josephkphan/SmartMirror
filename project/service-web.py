@@ -70,6 +70,17 @@ def web_info_server(shared_thread_vars):
         thread.start()
 
 
+def send_message(message):
+    try:
+        host = socket.gethostname()  # as both code is running on same pc
+        port = 5000  # socket server port number
+        client_socket = socket.socket()  # instantiate
+        client_socket.connect((host, port))  # connect to the server
+        client_socket.send(message)
+        client_socket.close()  # close the connection
+    except  Exception as e:
+        print e
+
 def web_cron(web_info, last_update_info):
     '''
     This is the function that creates and update the Mirror GUI 
@@ -80,7 +91,7 @@ def web_cron(web_info, last_update_info):
         if var.is_updating and var.update_completed:
             print 'Sending Finish Message to GUI'
             #TODO: Send client message ... What happens if it fails??
-            web_data_updated_message('event_updated_now')
+            send_message('event_updated_now')
             var.is_updating = False
             var.update_completed = False
         
@@ -90,7 +101,7 @@ def web_cron(web_info, last_update_info):
             if last_update_time >= var.update_time:
                 print 'update now'
                 web_info.thread_update()
-                web_data_updated_message('event_updating_data')
+                send_message('event_updating_data')
             else:
                 time.sleep(.5)
         # Check if last update Info >10min AND if it is currently updating or not
@@ -108,12 +119,5 @@ if __name__ == '__main__':
 
 
 
-def web_data_updated_message(message):
-    host = socket.gethostname()  # as both code is running on same pc
-    port = 5000  # socket server port number
-    client_socket = socket.socket()  # instantiate
-    client_socket.connect((host, port))  # connect to the server
-    client_socket.send(message)
-    client_socket.close()  # close the connection
 
 

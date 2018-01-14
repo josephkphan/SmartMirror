@@ -59,6 +59,16 @@ def camera_server(shared_thread_vars):
         thread = SocketThread(handle_socket_connection, conn, camera, camera_mode)
         thread.start()
 
+def send_message(message):
+    try:
+        host = socket.gethostname()  # as both code is running on same pc
+        port = 5000  # socket server port number
+        client_socket = socket.socket()  # instantiate
+        client_socket.connect((host, port))  # connect to the server
+        client_socket.send(message)
+        client_socket.close()  # close the connection
+    except  Exception as e:
+        print e
 
 def camera_cron(camera, camera_mode):
     '''
@@ -66,14 +76,19 @@ def camera_cron(camera, camera_mode):
     Note: This function HAS to be run in the main thread (due to TKInter limitations)
     '''
     while True:
-        camera.turn_on()
-        camera.update_values()
-        cursor_location = camera.get_cursor()
-        print cursor_location
-        k = cv2.waitKey(10)
-        if k == 27:  # Esc key breaks out of program
-            exit()             # break out of program
-        #time.sleep(.5)
+        try:
+            camera.turn_on()
+            camera.update_values()
+            cursor_location = camera.get_cursor()
+            print cursor_location
+            message = 'coordinate_' + str(cursor_location)
+            send_message(message)
+            k = cv2.waitKey(10)
+            if k == 27:  # Esc key breaks out of program
+                exit()             # break out of program
+            #time.sleep(.5)
+        except Exception as e:
+            print e
 
 
 
@@ -85,13 +100,5 @@ if __name__ == '__main__':
     camera_cron(camera, camera_mode)
 
 
-
-def web_data_updated_message(message):
-    host = socket.gethostname()  # as both code is running on same pc
-    port = 5000  # socket server port number
-    client_socket = socket.socket()  # instantiate
-    client_socket.connect((host, port))  # connect to the server
-    client_socket.send(message)
-    client_socket.close()  # close the connection
 
 
