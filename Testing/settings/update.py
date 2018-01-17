@@ -37,6 +37,8 @@ r = requests.get('http://localhost:3000/api/get_user_settings', params=payload)
 web_server_response = r.json()
 
 
+# TODO: IF web account does not yet exist ... return
+
 # -------------------- Mirror Settings -------------------- #
 mirror_preferences = varloader.get_data_from_json_file(file_paths['preferences'])
 if mirror_preferences['color'] != web_server_response['color']:
@@ -53,8 +55,8 @@ for item in stocks_string:
     web_server_stocks += item
 
 # Check to see if they differ, if so, save to JSON
-mirror_to_do_list = varloader.get_data_from_json_file(file_paths['stocks'])
-if mirror_to_do_list != web_server_stocks:
+mirror_stocks = varloader.get_data_from_json_file(file_paths['stocks'])
+if mirror_stocks != web_server_stocks:
     varloader.update_stocks(web_server_stocks)
 
 
