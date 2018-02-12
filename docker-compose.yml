@@ -1,0 +1,14 @@
+version: '2'
+services:
+  servicegui:
+    container_name: servicegui
+    image: josephkphan/smartmirror/servicegui
+    # restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 50m
+    ports:
+      - "5000:5000"
+    volumes:
+      - /Users/josephphan/Desktop/SchoolWork/SmartMirror/project/data:/usr/src/app/data

@@ -1,3 +1,4 @@
+ls
 import PCF8591 as ADC
 import time
 
@@ -12,6 +13,7 @@ class JoystickHandler:
     def get_direction(self):
         state = ['home', 'up', 'down', 'left', 'right', 'pressed']
         i = 0
+        print ADC.read(0)
         if ADC.read(0) <= 5:
             i = 1 # Up
         if ADC.read(0) >= 250:

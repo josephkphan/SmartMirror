@@ -1,4 +1,4 @@
-from project.resources.zone import *
+from resources.zone import *
 
 # This file contains Graphs used for the manual mode to know which zone to switch to given a
 # up down left right Command

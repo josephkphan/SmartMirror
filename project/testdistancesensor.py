@@ -3,7 +3,7 @@
 # sys.path.append("../..")
 # from project.hardwaremanagers.camera import *
 # from project.hardwaremanagers.powerswitch import *
-from hardwaremanagers.ultrasoundhandler import *
+from serviceultrasound.ultrasoundhandler import *
 # from project.uimanagers.uihandler import *
 # from project.resources import var
 

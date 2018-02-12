@@ -1,0 +1,14 @@
+{
+    "blue": true, 
+    "pink": false, 
+    "medium": false, 
+    "color": "blue", 
+    "yellow": false, 
+    "large": true, 
+    "purple": false, 
+    "green": false, 
+    "red": false, 
+    "orange": false, 
+    "small": false, 
+    "font_size_current": "large"
+}

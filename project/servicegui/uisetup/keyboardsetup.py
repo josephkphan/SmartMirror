@@ -1,5 +1,5 @@
-from project.resources import pagegraph, var, varloader
-from project.resources.page import *
+from resources import pagegraph, var, varloader
+from resources.page import *
 
 
 class KeyboardSetUp:

@@ -1,5 +1,5 @@
 from Tkinter import *
-from project.resources import var
+from resources import var
 
 
 class StartUpText(Frame):

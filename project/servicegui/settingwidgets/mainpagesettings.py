@@ -1,7 +1,7 @@
 from Tkinter import *
 from PIL import Image, ImageTk
-from project.resources import var, zone, varloader
-from project.uimanagers.settingwidgets import checkbox
+from resources import var, zone, varloader
+from uimanagers.settingwidgets import checkbox
 
 
 class MainPageSettings(Frame):

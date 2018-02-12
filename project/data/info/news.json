@@ -1,0 +1,87 @@
+{
+    "headlines": {
+        "1": "Trump Is Said to Pick Voter ID Advocate for Election Fraud Panel - New York Times", 
+        "0": "New acting FBI director contradicts White House on Comey - CNN", 
+        "3": "Mormon church to pull thousands of teens from Boy Scouts of America - Fox News", 
+        "2": "Jefferson Davis disappears as New Orleans removes tribute to 'lost cause of the Confederacy' - Washington Post", 
+        "5": "Meet the next Windows 10: The Fall Creators Update connects across devices - PCWorld", 
+        "4": "Behind Trump's 'prime the pump' gaffe is a bunch of real news - Washington Post", 
+        "7": "'I didn't come here to defend the president tonight.' Republican who rescued health-care bill faces voters. - Washington Post", 
+        "6": "Poll: Just 21 percent approve of House's Obamacare repeal bill - Politico", 
+        "9": "Source: NFL denies Gordon's reinstatement bid - ESPN", 
+        "8": "Microsoft's new mobile app enables Windows developers to test on iOS - PCWorld"
+    }, 
+    "number_of_headlines": 10, 
+    "links": {
+        "1": [
+            {
+                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNGutgvyHr376TVoQOSansB3sJL8nw&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779489843205&ei=QqkUWcCRD9aKhAH6iKrADw&url=https://www.nytimes.com/2017/05/11/us/politics/trump-voter-fraud.html", 
+                "type": "text/html", 
+                "rel": "alternate"
+            }
+        ], 
+        "0": [
+            {
+                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNHAyYQ5EuPY6JuBpL64GztcRtgP-w&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779487345800&ei=QqkUWcCRD9aKhAH6iKrADw&url=http://www.cnn.com/2017/05/11/politics/andrew-mccabe-hearing-senate-intelligence-committee/", 
+                "type": "text/html", 
+                "rel": "alternate"
+            }
+        ], 
+        "3": [
+            {
+                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNGiqbhP72bfUpAh6bSpQpdwvR4QLQ&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779490719473&ei=QqkUWcCRD9aKhAH6iKrADw&url=http://www.foxnews.com/us/2017/05/11/mormon-church-to-pull-thousands-teens-from-boy-scouts-america.html", 
+                "type": "text/html", 
+                "rel": "alternate"
+            }
+        ], 
+        "2": [
+            {
+                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNFzMiRBGI3ixRQ2XbGlXnVrdLovlw&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779488197191&ei=QqkUWcCRD9aKhAH6iKrADw&url=https://www.washingtonpost.com/news/post-nation/wp/2017/05/11/jefferson-davis-disappears-as-new-orleans-removes-another-tribute-to-the-lost-cause-of-the-confederacy/", 
+                "type": "text/html", 
+                "rel": "alternate"
+            }
+        ], 
+        "5": [
+            {
+                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNF2U53VfGdZG1vSYQAEMZ-awd-0Yw&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779490722521&ei=QqkUWcCRD9aKhAH6iKrADw&url=http://www.pcworld.com/article/3195758/windows/meet-the-next-windows-10-the-fall-creators-update-connects-across-devices.html", 
+                "type": "text/html", 
+                "rel": "alternate"
+            }
+        ], 
+        "4": [
+            {
+                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNGFkf5kEM2Tzj0G-0r1bTk9K7iLLA&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779490663099&ei=QqkUWcCRD9aKhAH6iKrADw&url=https://www.washingtonpost.com/news/wonk/wp/2017/05/11/behind-trumps-prime-the-pump-gaffe-is-a-bunch-of-real-news/", 
+                "type": "text/html", 
+                "rel": "alternate"
+            }
+        ], 
+        "7": [
+            {
+                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNF2r66sw7vPdcnmyBJYjAxq81w3BQ&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779489997238&ei=QqkUWcCRD9aKhAH6iKrADw&url=https://www.washingtonpost.com/news/powerpost/wp/2017/05/10/i-didnt-come-here-to-defend-the-president-tonight-republican-who-rescued-health-care-bill-faces-voters/", 
+                "type": "text/html", 
+                "rel": "alternate"
+            }
+        ], 
+        "6": [
+            {
+                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNF-jQ_MeDHkZbEH49ep84iTTw-NEA&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779489893837&ei=QqkUWcCRD9aKhAH6iKrADw&url=http://www.politico.com/story/2017/05/11/poll-obamacare-repeal-bill-popularity-238272", 
+                "type": "text/html", 
+                "rel": "alternate"
+            }
+        ], 
+        "9": [
+            {
+                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNFH87ya2kGtyjnXp8F1NjZ05r2UXw&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779490867221&ei=QqkUWcCRD9aKhAH6iKrADw&url=http://www.espn.com/nfl/story/_/id/19358244/nfl-denies-josh-gordon-reinstatement-bid", 
+                "type": "text/html", 
+                "rel": "alternate"
+            }
+        ], 
+        "8": [
+            {
+                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNFD2h0UHvEMTFsYWHG5fwqFiOO09A&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779486366434&ei=QqkUWcCRD9aKhAH6iKrADw&url=http://www.pcworld.com/article/3196202/application-development/microsofts-new-mobile-app-enables-windows-developers-to-test-on-ios.html", 
+                "type": "text/html", 
+                "rel": "alternate"
+            }
+        ]
+    }
+}

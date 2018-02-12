@@ -1,5 +1,5 @@
 from Tkinter import *
-from project.resources import var, zone
+from resources import var, zone
 class WidgetColoring:
      # ---------------------------------- Main Page Zone Helper Functions ----------------------------------- #
     # Updates all 4 zones on the main page

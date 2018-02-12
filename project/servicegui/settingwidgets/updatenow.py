@@ -1,6 +1,6 @@
 from Tkinter import *
 from PIL import Image, ImageTk
-from project.resources import var, imagecolor, zone
+from resources import var, imagecolor, zone
 import time, math
 
 

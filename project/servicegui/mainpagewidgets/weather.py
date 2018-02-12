@@ -1,6 +1,6 @@
 from Tkinter import *
 from PIL import Image, ImageTk
-from project.resources import var, lookup, imagecolor
+from resources import var, lookup, imagecolor
 
 
 class Weather(Frame):

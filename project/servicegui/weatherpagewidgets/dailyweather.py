@@ -1,6 +1,6 @@
 from Tkinter import *
 from PIL import Image, ImageTk
-from project.resources import lookup, var, imagecolor
+from resources import lookup, var, imagecolor
 from datetime import date
 
 

@@ -1,5 +1,5 @@
 from Tkinter import *
-from project.resources import imagecolor, var, zone
+from resources import imagecolor, var, zone
 
 
 class ToDoList(Frame):
