@@ -1,5 +1,5 @@
 {
-    "enabled": true, 
-    "main": "17 minutes", 
-    "backup": "20 minutes"
+    "backup": "20 minutes", 
+    "main": "16 minutes", 
+    "enabled": true
 }

@@ -1,0 +1,23 @@
+{
+    "1": {
+        "date": "2018-06-24", 
+        "start_time": "13:30", 
+        "location": "Orlando MCO", 
+        "description": "To see detailed information for automatically created events like this one, use the official Google Calendar app. https://g.co/calendarThis event was created from an email you received in Gmail. https://mail.google.com/mail?extsrc=cal&plid=ACUX6DNxEPdcs1r5OXKYIk-BRGBe2rsSez7vzyc", 
+        "summary": "Flight to Dallas (WN 5113)"
+    }, 
+    "0": {
+        "date": "2018-06-18", 
+        "start_time": "12:05", 
+        "location": "San Jose SJC", 
+        "description": "To see detailed information for automatically created events like this one, use the official Google Calendar app. https://g.co/calendarThis event was created from an email you received in Gmail. https://mail.google.com/mail?extsrc=cal&plid=ACUX6DNxEPdcs1r5OXKYIk-BRGBe2rsSez7vzyc", 
+        "summary": "Flight to Orlando (WN 2016)"
+    }, 
+    "2": {
+        "date": "2018-06-24", 
+        "start_time": "18:20", 
+        "location": "Dallas DAL", 
+        "description": "To see detailed information for automatically created events like this one, use the official Google Calendar app. https://g.co/calendarThis event was created from an email you received in Gmail. https://mail.google.com/mail?extsrc=cal&plid=ACUX6DNxEPdcs1r5OXKYIk-BRGBe2rsSez7vzyc", 
+        "summary": "Flight to San Jose (WN 3815)"
+    }
+}
