@@ -8,17 +8,49 @@ Our smart mirror will be used to convenience people during their morning routine
 ### Features
 - Hand recognition technology for hands free use
 - Automatically turns on when you approach the mirror
-- Personalized widgets for the time, weather, and news
-- Customizable locations and coloring of the weidgets
+- Personalized widgets for the time, weather, and news, calendar, todolist
+- Customizable font sizing and coloring of the widgets
 
 ### Technologies
+- Docker
 - Python
-- OpenCV Library
 - TKinter
+- OpenCV Library
 - Raspberry Pi
-- Google Finance
+- Google & Darksky APIs 
 
-### Example
+### Running on Mac
+- Install XQuartz: This is to allow the container to access your display to open a GUI. 
+``` 
+brew cask install xquartz
+open -a XQuartz
+```
+![Setup 1](./screenshots/setup1.png)
+In the XQuartz preferences, go to the “Security” tab and make sure you’ve got “Allow connections from network clients" checked. Then Restart your mac for the settings to apply.
+
+- Install Docker
+```
+brew cask install docker
+```
+
+- Start the application 
+```
+docker-compose up -d
+```
+
+
+### Running on Ubuntu
+- Install Docker
+```
+sudo apt-get update
+sudo apt-get install docker-ce
+```
+- Start the application
+```
+docker-compose up -d
+```
+
+### Application Screenshots
 ![Screenshot 1](./screenshots/screenshot1.png)
 ![Screenshot 2](./screenshots/screenshot2.png)
 ![Screenshot 3](./screenshots/screenshot3.png)
