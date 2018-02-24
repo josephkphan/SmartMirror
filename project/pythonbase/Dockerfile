@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM python:2
 
-RUN apk update && \
-    apk add python py-pip
+# Adding Basic Debugging tools
+RUN apt-get update; apt-get -y install vim telnet curl 

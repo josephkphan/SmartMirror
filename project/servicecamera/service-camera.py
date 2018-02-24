@@ -2,11 +2,8 @@ import socket
 import time
 import sys
 
-sys.path.append("../")
-
-from project.serviceweb.webinfo import *
-from project.customthreads.serverthread import *
-from project.servicecamera.camera import *
+from customthreads.serverthread import *
+from camera import *
 
 
 def handle_socket_connection(conn, shared_thread_vars):
@@ -61,7 +58,7 @@ def camera_server(shared_thread_vars):
 
 def send_message(message):
     try:
-        host = socket.gethostname()  # as both code is running on same pc
+        host = "servicegui"  # as both code is running on same pc
         port = 5000  # socket server port number
         client_socket = socket.socket()  # instantiate
         client_socket.connect((host, port))  # connect to the server

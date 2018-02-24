@@ -1,14 +1,14 @@
 {
-    "blue": false, 
+    "blue": true, 
     "pink": false, 
     "medium": false, 
-    "color": "yellow", 
-    "yellow": true, 
+    "color": "blue", 
+    "yellow": false, 
     "large": false, 
     "purple": false, 
     "green": false, 
-    "red": false, 
+    "font_size_current": "small", 
     "orange": false, 
     "small": true, 
-    "font_size_current": "small"
+    "red": false
 }
