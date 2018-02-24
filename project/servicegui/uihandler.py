@@ -1,4 +1,4 @@
-from project.resources import var
+from resources import var
 from cursorhandler import *
 from selectionhandler import *
 from mainpagewidgets.news import *

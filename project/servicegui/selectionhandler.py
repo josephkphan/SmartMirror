@@ -1,4 +1,4 @@
-from project.resources.var import *
+from resources.var import *
 import time
 
 

@@ -1,6 +1,6 @@
-import Image
-from ImageColor import getcolor, getrgb
-from ImageOps import grayscale
+from PIL import Image
+from PIL import ImageColor
+from PIL import ImageOps
 
 
 def tint(src, tint='#ffffff'):
@@ -10,8 +10,8 @@ def tint(src, tint='#ffffff'):
         raise TypeError('Unsupported source image mode: {}'.format(src.mode))
     src.load()
 
-    tr, tg, tb = getrgb(tint)
-    tl = getcolor(tint, "L")  # tint color's overall luminosity
+    tr, tg, tb = ImageColor.getrgb(tint)
+    tl = ImageColor.getcolor(tint, "L")  # tint color's overall luminosity
     if not tl: tl = 1  # avoid division by zero
     tl = float(tl)  # compute luminosity preserving tint factors
     sr, sg, sb = map(lambda tv: tv / tl, (tr, tg, tb))  # per component adjustments
@@ -21,7 +21,7 @@ def tint(src, tint='#ffffff'):
     luts = (map(lambda lr: int(lr * sr + 0.5), range(256)) +
             map(lambda lg: int(lg * sg + 0.5), range(256)) +
             map(lambda lb: int(lb * sb + 0.5), range(256)))
-    l = grayscale(src)  # 8-bit luminosity version of whole image
+    l = ImageOps.grayscale(src)  # 8-bit luminosity version of whole image
     if Image.getmodebands(src.mode) < 4:
         merge_args = (src.mode, (l, l, l))  # for RGB verion of grayscale
     else:  # include copy of src image's alpha layer

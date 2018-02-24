@@ -1,5 +1,5 @@
 from Tkinter import *
-from project.resources import var, imagecolor
+from resources import var, imagecolor
 from PIL import Image, ImageTk
 
 # File Name: returnButton

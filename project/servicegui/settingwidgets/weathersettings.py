@@ -1,7 +1,7 @@
 from Tkinter import *
 from PIL import Image, ImageTk
-from project.resources import var
-from project.uimanagers.settingwidgets import checkbox
+from resources import var
+from uimanagers.settingwidgets import checkbox
 
 class WeatherSettings(Frame):
     def __init__(self, parent):

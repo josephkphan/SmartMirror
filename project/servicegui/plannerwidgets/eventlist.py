@@ -1,5 +1,5 @@
 from Tkinter import *
-from project.resources import var, zone
+from resources import var, zone
 
 
 class EventList(Frame):

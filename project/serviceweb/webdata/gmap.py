@@ -3,7 +3,7 @@ import urllib
 
 import sys
 
-from project.resources import var, varloader
+from resources import var, varloader
 
 
 def get_travel_time():

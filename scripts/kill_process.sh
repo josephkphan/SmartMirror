@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # takes port as command line argument
 echo "sudo netstat -tulpn | grep $1"
