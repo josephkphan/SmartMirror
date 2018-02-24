@@ -1,6 +1,6 @@
 from googlefinance import getQuotes
 import json
-from project.resources import var, varloader
+from resources import var, varloader
 
 
 def get_stocks_data():

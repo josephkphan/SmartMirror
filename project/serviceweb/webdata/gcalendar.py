@@ -6,7 +6,7 @@ from apiclient import discovery
 from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
-from project.resources import var, varloader
+from resources import var, varloader
 import datetime
 import re
 
@@ -26,12 +26,11 @@ def get_credentials(flags):
     CLIENT_SECRET_FILE = var.file_paths['gcalendar_key']
     APPLICATION_NAME = 'Google Calendar API Python Quickstart'
 
-    home_dir = os.path.expanduser('~')
+    home_dir = os.path.expanduser('/usr/src/app/data/')
     credential_dir = os.path.join(home_dir, '.credentials')
     if not os.path.exists(credential_dir):
         os.makedirs(credential_dir)
-    credential_path = os.path.join(credential_dir,
-                                   'calendar-python-quickstart.json')
+    credential_path = os.path.join(credential_dir, 'calendar-python-quickstart.json')
 
     store = Storage(credential_path)
     credentials = store.get()

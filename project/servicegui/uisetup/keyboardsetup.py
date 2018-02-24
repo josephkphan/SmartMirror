@@ -1,5 +1,6 @@
 from resources import pagegraph, var, varloader
 from resources.page import *
+import socket
 
 
 class KeyboardSetUp:
@@ -75,6 +76,8 @@ class KeyboardSetUp:
         self.ui_handler.change_page(self.ui_handler.find_page_to_change_to())
         if self.ui_handler.current_page == Page.settings:
             # self.main_page_settings.change_a_setting(self.current_zone)
+            print "Sending Update Message to ServiceWeb"
+            self.client_message("serviceweb", 5001,"event_update_now")
             self.ui_handler.settings_color_scheme.change_a_setting(self.ui_handler.current_zone,
                                                                   self.ui_handler.settings_font)
             self.ui_handler.settings_font.change_a_setting(self.ui_handler.current_zone, self.ui_handler.return_button,
@@ -91,3 +94,11 @@ class KeyboardSetUp:
     def toggle_select_mode_for_camera(self, event=None):
         print  "toggling select mode for camera"
         self.ui_handler.camera_select_mode = not self.ui_handler.camera_select_mode
+
+
+
+    def client_message(self, host, port, message):
+        client_socket = socket.socket()  # instantiate
+        client_socket.connect((host, port))  # connect to the server
+        client_socket.send(message)
+        client_socket.close()  # close the connection

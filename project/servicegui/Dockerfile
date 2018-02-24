@@ -17,4 +17,4 @@ RUN pip install shapely enum pillow
 #     apt-get install --yes --force-yes python-requests && \
 #     apt-get install --yes --force-yes python-simplejson 
 
-CMD [ "python", "./main.py" ]
+CMD [ "python", "./service-gui.py" ]

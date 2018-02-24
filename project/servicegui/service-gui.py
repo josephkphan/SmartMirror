@@ -6,10 +6,6 @@ from uihandler import *
 from customthreads.serverthread import *
 from datastructures.queue import *
 
-import matplotlib
-# Force matplotlib to not use any Xwindows backend.
-matplotlib.use('Agg')
-
 def handle_socket_connection(conn, shared_thread_vars):
     '''
     This is a runnable used by the SocketThread. Upon accepting socket connection. It will spawn the 

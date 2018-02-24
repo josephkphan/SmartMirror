@@ -4,8 +4,8 @@ import feedparser
 import requests
 import traceback
 import time
-from project.serviceweb.webdata import gmap, gstocks, gcalendar
-from project.resources import var, varloader
+from webdata import gmap, gstocks, gcalendar
+from resources import var, varloader
 
 import threading
 

@@ -1,84 +1,92 @@
 {
     "headlines": {
-        "1": "Trump Is Said to Pick Voter ID Advocate for Election Fraud Panel - New York Times", 
-        "0": "New acting FBI director contradicts White House on Comey - CNN", 
-        "3": "Mormon church to pull thousands of teens from Boy Scouts of America - Fox News", 
-        "2": "Jefferson Davis disappears as New Orleans removes tribute to 'lost cause of the Confederacy' - Washington Post", 
-        "5": "Meet the next Windows 10: The Fall Creators Update connects across devices - PCWorld", 
-        "4": "Behind Trump's 'prime the pump' gaffe is a bunch of real news - Washington Post", 
-        "7": "'I didn't come here to defend the president tonight.' Republican who rescued health-care bill faces voters. - Washington Post", 
-        "6": "Poll: Just 21 percent approve of House's Obamacare repeal bill - Politico", 
-        "9": "Source: NFL denies Gordon's reinstatement bid - ESPN", 
-        "8": "Microsoft's new mobile app enables Windows developers to test on iOS - PCWorld"
+        "10": "Hard-Line Supporter of Israel Offers to Pay for US Embassy in Jerusalem - New York Times", 
+        "1": "Inside the Manafort money machine: A decade of influence-peddling, lavish spending and alleged fraud - Chicago Tribune", 
+        "0": "This RSS feed URL is deprecated", 
+        "3": "Olympic Games didn't melt chill of White House view of North Korea - The Mercury News", 
+        "2": "Red flags. Warnings. Cries for help. How a system built to stop the Parkland school shooter repeatedly broke down - Washington Post", 
+        "5": "California couple faces new child abuse charges in torture case - USA TODAY", 
+        "4": "Top Justice Dept. official alerted White House 2 weeks ago to ongoing issues in Kushner's security clearance - Washington Post", 
+        "7": "White House locked down after vehicle hits security barrier - NBCNews.com", 
+        "6": "The unending campaign of Donald Trump - Washington Post", 
+        "9": "Ex-NFL player Jonathan Martin detained after disturbing post led to school closing - USA TODAY", 
+        "8": "These companies have cut ties with the NRA - CNNMoney"
     }, 
-    "number_of_headlines": 10, 
+    "number_of_headlines": 11, 
     "links": {
+        "10": [
+            {
+                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNGkyT8PJ5hJQIz2gidkuqp71sbg8g&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779810037711&ei=xAKRWrDyKIvGhgGXrbe4Bg&url=https://www.nytimes.com/2018/02/23/world/middleeast/trump-embassy-jerusalem-.html", 
+                "type": "text/html", 
+                "rel": "alternate"
+            }
+        ], 
         "1": [
             {
-                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNGutgvyHr376TVoQOSansB3sJL8nw&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779489843205&ei=QqkUWcCRD9aKhAH6iKrADw&url=https://www.nytimes.com/2017/05/11/us/politics/trump-voter-fraud.html", 
+                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNEXsItc5tlY91OZw78Bp_Xpf7vHxA&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779809193738&ei=xAKRWrDyKIvGhgGXrbe4Bg&url=http://www.chicagotribune.com/news/nationworld/politics/ct-inside-paul-manafort-money-machine-20180223-story.html", 
                 "type": "text/html", 
                 "rel": "alternate"
             }
         ], 
         "0": [
             {
-                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNHAyYQ5EuPY6JuBpL64GztcRtgP-w&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779487345800&ei=QqkUWcCRD9aKhAH6iKrADw&url=http://www.cnn.com/2017/05/11/politics/andrew-mccabe-hearing-senate-intelligence-committee/", 
+                "href": "https://news.google.com/news", 
                 "type": "text/html", 
                 "rel": "alternate"
             }
         ], 
         "3": [
             {
-                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNGiqbhP72bfUpAh6bSpQpdwvR4QLQ&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779490719473&ei=QqkUWcCRD9aKhAH6iKrADw&url=http://www.foxnews.com/us/2017/05/11/mormon-church-to-pull-thousands-teens-from-boy-scouts-america.html", 
+                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNG-xYcDLfv2RF0ty2IqeRyd3l3-GQ&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779810187569&ei=xAKRWrDyKIvGhgGXrbe4Bg&url=https://www.mercurynews.com/2018/02/23/olympic-games-didnt-melt-chill-of-white-house-view-of-north-korea/", 
                 "type": "text/html", 
                 "rel": "alternate"
             }
         ], 
         "2": [
             {
-                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNFzMiRBGI3ixRQ2XbGlXnVrdLovlw&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779488197191&ei=QqkUWcCRD9aKhAH6iKrADw&url=https://www.washingtonpost.com/news/post-nation/wp/2017/05/11/jefferson-davis-disappears-as-new-orleans-removes-another-tribute-to-the-lost-cause-of-the-confederacy/", 
+                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNG8yW8G2mo9yug5Kc_HCe7P3UA7Ow&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779810350804&ei=xAKRWrDyKIvGhgGXrbe4Bg&url=https://www.washingtonpost.com/national/red-flags-warnings-cries-for-help-how-a-system-built-to-stop-the-parkland-school-shooter-broke-down/2018/02/23/3ccff52c-18d9-11e8-b681-2d4d462a1921_story.html", 
                 "type": "text/html", 
                 "rel": "alternate"
             }
         ], 
         "5": [
             {
-                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNF2U53VfGdZG1vSYQAEMZ-awd-0Yw&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779490722521&ei=QqkUWcCRD9aKhAH6iKrADw&url=http://www.pcworld.com/article/3195758/windows/meet-the-next-windows-10-the-fall-creators-update-connects-across-devices.html", 
+                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNGMXYsA-OZhBpV6kFmvKbhDV5Ltfw&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779808967020&ei=xAKRWrDyKIvGhgGXrbe4Bg&url=https://www.usatoday.com/story/news/nation-now/2018/02/23/california-couple-child-abuse-torture-case/369438002/", 
                 "type": "text/html", 
                 "rel": "alternate"
             }
         ], 
         "4": [
             {
-                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNGFkf5kEM2Tzj0G-0r1bTk9K7iLLA&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779490663099&ei=QqkUWcCRD9aKhAH6iKrADw&url=https://www.washingtonpost.com/news/wonk/wp/2017/05/11/behind-trumps-prime-the-pump-gaffe-is-a-bunch-of-real-news/", 
+                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNF5sWAkT0H9OgvFB8fnJExQBiGqeA&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779807671315&ei=xAKRWrDyKIvGhgGXrbe4Bg&url=https://www.washingtonpost.com/politics/top-justice-dept-official-alerted-white-house-2-weeks-ago-to-ongoing-issues-in-kushners-security-clearance/2018/02/23/aa9b37c8-17f4-11e8-92c9-376b4fe57ff7_story.html", 
                 "type": "text/html", 
                 "rel": "alternate"
             }
         ], 
         "7": [
             {
-                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNF2r66sw7vPdcnmyBJYjAxq81w3BQ&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779489997238&ei=QqkUWcCRD9aKhAH6iKrADw&url=https://www.washingtonpost.com/news/powerpost/wp/2017/05/10/i-didnt-come-here-to-defend-the-president-tonight-republican-who-rescued-health-care-bill-faces-voters/", 
+                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNFJ0168fs1B686bW82vF7iBrVohXA&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779810495141&ei=xAKRWrDyKIvGhgGXrbe4Bg&url=https://www.nbcnews.com/news/us-news/white-house-lockdown-after-car-hits-security-barrier-n850741", 
                 "type": "text/html", 
                 "rel": "alternate"
             }
         ], 
         "6": [
             {
-                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNF-jQ_MeDHkZbEH49ep84iTTw-NEA&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779489893837&ei=QqkUWcCRD9aKhAH6iKrADw&url=http://www.politico.com/story/2017/05/11/poll-obamacare-repeal-bill-popularity-238272", 
+                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNHKqdS4cVXfvfG_HexeVdREDNDn-A&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779809659700&ei=xAKRWrDyKIvGhgGXrbe4Bg&url=https://www.washingtonpost.com/politics/the-unending-campaign-of-donald-trump/2018/02/23/041c4e32-18bc-11e8-92c9-376b4fe57ff7_story.html", 
                 "type": "text/html", 
                 "rel": "alternate"
             }
         ], 
         "9": [
             {
-                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNFH87ya2kGtyjnXp8F1NjZ05r2UXw&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779490867221&ei=QqkUWcCRD9aKhAH6iKrADw&url=http://www.espn.com/nfl/story/_/id/19358244/nfl-denies-josh-gordon-reinstatement-bid", 
+                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNEMnOxCk3cWd6WKJC2EwAlP4CgvRw&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779810267013&ei=xAKRWrDyKIvGhgGXrbe4Bg&url=https://www.usatoday.com/story/sports/nfl/2018/02/23/jonathan-martin-ex-nfl-threatening-instagram-high-school-closed/368203002/", 
                 "type": "text/html", 
                 "rel": "alternate"
             }
         ], 
         "8": [
             {
-                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNFD2h0UHvEMTFsYWHG5fwqFiOO09A&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779486366434&ei=QqkUWcCRD9aKhAH6iKrADw&url=http://www.pcworld.com/article/3196202/application-development/microsofts-new-mobile-app-enables-windows-developers-to-test-on-ios.html", 
+                "href": "http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNGNsS48-z-HG4jvnvoy2UmxCU0fYA&clid=c3a7d30bb8a4878e06b80cf16b898331&cid=52779810900692&ei=xAKRWrDyKIvGhgGXrbe4Bg&url=http://money.cnn.com/2018/02/23/news/companies/enterprise-nra-car-rental-discounts/index.html", 
                 "type": "text/html", 
                 "rel": "alternate"
             }
