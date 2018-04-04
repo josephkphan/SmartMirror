@@ -2,8 +2,7 @@ version: '2'
 services:
   servicegui:
     container_name: servicegui
-    image: josephkphan/smartmirror/servicegui
-    # restart: always
+    image: josephkphan/smartmirror-servicegui
     logging:
       driver: "json-file"
       options:
@@ -14,11 +13,13 @@ services:
       - ~/Desktop/SchoolWork/SmartMirror/project/data:/usr/src/app/data
       - /tmp/.X11-unix:/tmp/.X11-unix
     environment:
-      #- DISPLAY=unix:0
-      - DISPLAY=172.16.0.21:0
+      # NOTE: Change the IP Below to the ip you added via xhost
+      # Run Command: 
+      # ip=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}') && xhost + $ip
+      - DISPLAY=172.21.116.138:0
   serviceweb:
     container_name: serviceweb
-    image: josephkphan/smartmirror/serviceweb
+    image: josephkphan/smartmirror-serviceweb
     # restart: always
     logging:
       driver: "json-file"
