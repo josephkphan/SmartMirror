@@ -1,4 +1,4 @@
-FROM josephkphan/smartmirror/pythonbase
+FROM josephkphan/smartmirror-pythonbase
 
 WORKDIR /usr/src/app
 
