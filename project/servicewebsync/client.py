@@ -1,6 +1,8 @@
 import socket
 
-
+'''
+This program is used to communicate with the microservice running the GUI
+'''
 def client_program():
     host = "servicegui"  # as both code is running on same pc
     port = 5000  # socket server port number
