@@ -15,8 +15,10 @@ services:
     environment:
       # NOTE: Change the IP Below to the ip you added via xhost
       # Run Command: 
+      # open -a XQuartz 
       # ip=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}') && xhost + $ip
-      - DISPLAY=172.21.116.138:0
+      # xhost +local:docker
+      - DISPLAY=172.21.119.109:0
   serviceweb:
     container_name: serviceweb
     image: josephkphan/smartmirror-serviceweb
