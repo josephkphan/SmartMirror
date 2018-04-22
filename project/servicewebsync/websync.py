@@ -47,11 +47,12 @@ class WebSync:
                 functions can be called
         '''
         payload = {'username': 'test', 'mirrorID': 'test'}  # TODO: mirrorID & gpg key
-        r = requests.get('http://172.21.88.172:3000/api/get_user_settings', params=payload)  # TODO: IP of mac here
+        r = requests.get('http://172.21.114.79:3000/api/get_user_settings', params=payload)  # TODO: IP of mac here
         self.web_server_response = r.json()
         print "---------- Web Server Preferences ----------"
         print self.web_server_response
         # TODO: If web account does not yet exist, return an error
+        # TODO: Throw an error for the request instead of letting the program terminate
 
     def update_settings(self):
         '''

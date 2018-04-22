@@ -117,8 +117,3 @@ if __name__ == '__main__':
     thread1 = ServerThread(web_info_server, web_info, last_update_info)
     thread1.start()
     web_cron(web_info, last_update_info)
-
-
-
-
-
