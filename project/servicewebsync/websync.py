@@ -33,10 +33,23 @@ class WebSync:
         self.update_settings()
         self.update_stocks()
         self.update_todo_list()
-        self.update_maps()
-        self.update_keys()
-        self.update_profile()
+        # self.update_maps()
+        # self.update_keys()
+        # self.update_profile()
         print "Updated all preferences!"
+
+    def send_updates(self):
+        '''
+        This function sends a POST request to the web server to update the
+        web server about the mirror's current preferences.
+        '''
+        mirror_preferences = varloader.get_data_from_json_file(file_paths['preferences'])
+        payload = {'username': 'admin', 'mirrorID': 'admin'}
+        data = {
+            "color": mirror_preferences['color'],
+            "fontSize": mirror_preferences['font_size_current']
+        }
+        r = requests.post('http://mysmartmirror.herokuapp.com/api/update_user_settings', params=payload, data=data)
 
     def get_updates(self):
         '''
@@ -46,8 +59,8 @@ class WebSync:
         Note: This function must always be called before any other update
                 functions can be called
         '''
-        payload = {'username': 'test', 'mirrorID': 'test'}  # TODO: mirrorID & gpg key
-        r = requests.get('http://172.21.114.79:3000/api/get_user_settings', params=payload)  # TODO: IP of mac here
+        payload = {'username': 'admin', 'mirrorID': 'admin'}  # TODO: mirrorID & gpg key
+        r = requests.get('http://mysmartmirror.herokuapp.com/api/get_user_settings', params=payload)
         self.web_server_response = r.json()
         print "---------- Web Server Preferences ----------"
         print self.web_server_response
