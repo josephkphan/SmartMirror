@@ -1,7 +1,7 @@
 from Tkinter import *
 from PIL import Image, ImageTk
 from resources import var, imagecolor, zone
-import time, math
+import time, math, socket
 
 
 class UpdateNow(Frame):
@@ -84,6 +84,8 @@ class UpdateNow(Frame):
 
             #todo create a method that will change text to "just updated"
 
+            self.client_message("servicewebsync", 5002, "preferences_updated")
+
     def create_photo(self):
         self.image = self.image.resize(var.font_sizes['small_icon'], Image.ANTIALIAS)
         self.image = self.image.convert('RGB')
@@ -101,9 +103,16 @@ class UpdateNow(Frame):
         self.update_status_label.config(font=(var.font_style, var.font_sizes['text']))
         self.last_update_label.config(font=(var.font_style, var.font_sizes['text']))
         self.update_now_label.config(font=(var.font_style, var.font_sizes['text']))
+        self.client_message("servicewebsync", 5002, "preferences_updated")
 
     def update_smart_mirror(self, current_zone):
         if current_zone == zone.SettingsPage.update_now:
             self.last_update_text = 'Updating...'
             self.last_update_label.config(text=self.last_update_text)       # Todo THIS DOESNT WORK -- FIX IT
             self.tkinter_update()
+
+    def client_message(self, host, port, message):
+        client_socket = socket.socket()  # instantiate
+        client_socket.connect((host, port))  # connect to the server
+        client_socket.send(message)
+        client_socket.close()  # close the connection

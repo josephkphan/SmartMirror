@@ -6,6 +6,7 @@ import sys
 sys.path.append("../")
 
 from websync import *
+from customthreads.serverthread import *
 from resources import var, varloader
 
 
