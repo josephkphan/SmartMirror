@@ -97,6 +97,7 @@ class WebSync:
         '''
         # Parse response from web server and add it to a list of stocks
         stocks_string = self.web_server_response['stocks'].split("////")
+        stocks_string.replace('\'', '"')
 
         # Check to see if they differ, if so, save to JSON
         mirror_stocks = varloader.get_data_from_json_file(file_paths['stocks'])
@@ -109,6 +110,7 @@ class WebSync:
         '''
         # Parse response from web server and add it to a list of items
         to_do_list_string = self.web_server_response['to_do_list'].split("////")
+        to_do_list_string.replace('\'', '"')
 
         # Check to see if they differ, if so, save to JSON
         mirror_to_do_list = varloader.get_data_from_json_file(file_paths['to_do_list'])
