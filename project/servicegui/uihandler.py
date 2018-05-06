@@ -69,8 +69,10 @@ class UIManager:
 
         self.container = Frame(self.right_top, bg=background_color)
 
-        if start_full_screen:
-            self.camera_selection_mode = not self.camera_selection_mode  # Just toggling the boolean
+        self.tk.attributes("-fullscreen", True)  #todo turn this back on to start FullScreen
+
+        # if start_full_screen:
+        #     self.camera_selection_mode = not self.camera_selection_mode  # Just toggling the boolean
             # self.tk.attributes("-fullscreen", self.camera_selection_mode)  #todo turn this back on to start FullScreen
 
         self.update_tk()
@@ -195,6 +197,9 @@ class UIManager:
             self.keyboard.enter_click()
         elif event == 'event_toggled':
             self.keyboard.toggle_power()
+        elif event == 'event_updated_now':
+            self.update_all_widgets_everything()
+            self.update_tk()
 
     def handle_coordinate(self,event):
         cursor = event.split('_')[1]

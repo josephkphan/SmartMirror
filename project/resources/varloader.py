@@ -8,6 +8,11 @@ def save_data_to_json_file(data,file_path):
     json.dump(data, out_file, indent=4)
     out_file.close()
 
+def save_array_to_file(data,file_path):
+    text_file = open(file_path, "w+")
+    text_file.write(str(data))
+    text_file.close()
+
 
 # ----------------------- Mirror User Interface ----------------------- #
 def change_main_page_top(new_widget):
@@ -51,12 +56,12 @@ def update_font_size():
 
 # ----------------------- Stocks ----------------------- #
 def update_stocks(new_stocks):
-    save_data_to_json_file(new_stocks,var.file_paths['stocks'])
+    save_array_to_file(new_stocks,var.file_paths['stocks'])
 
 
 # ----------------------- To Do List ----------------------- #
 def update_to_do_list(new_to_do_list):
-    save_data_to_json_file(new_to_do_list,var.file_paths['to_do_list'])
+    save_array_to_file(new_to_do_list,var.file_paths['to_do_list'])
 
 
 # ----------------------- Maps Settings ----------------------- #

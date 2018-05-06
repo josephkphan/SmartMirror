@@ -2,7 +2,7 @@ version: '2'
 services:
   servicegui:
     container_name: servicegui
-    image: josephkphan/smartmirror-servicegui
+    image: josephkphan/smartmirror-servicegui:latest
     logging:
       driver: "json-file"
       options:
@@ -10,16 +10,16 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - ~/Desktop/SchoolWork/SmartMirror/project/data:/usr/src/app/data
+      - /Users/thomasnguyen/Documents/Programming/senior-design/SmartMirror/project/data:/usr/src/app/data
       - /tmp/.X11-unix:/tmp/.X11-unix
     environment:
       # NOTE: Change the IP Below to the ip you added via xhost
       # Run Command: 
       # ip=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}') && xhost + $ip
-      - DISPLAY=172.21.116.138:0
+      - DISPLAY=172.21.92.182:0
   serviceweb:
     container_name: serviceweb
-    image: josephkphan/smartmirror-serviceweb
+    image: josephkphan/smartmirror-serviceweb:latest
     # restart: always
     logging:
       driver: "json-file"
@@ -28,4 +28,15 @@ services:
     ports:
       - "5001:5001"
     volumes:
-      - /Users/josephphan/Desktop/SchoolWork/SmartMirror/project/data:/usr/src/app/data
+      - /Users/thomasnguyen/Documents/Programming/senior-design/SmartMirror/project/data:/usr/src/app/data
+  servicewebsync:
+    container_name: servicewebsync
+    image: josephkphan/smartmirror-servicewebsync:latest
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 50m
+    ports:
+      - "5002:5002"
+    volumes:
+      - /Users/thomasnguyen/Documents/Programming/senior-design/SmartMirror/project/data:/usr/src/app/data

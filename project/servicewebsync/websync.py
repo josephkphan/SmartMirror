@@ -1,5 +1,6 @@
 import requests
 import json
+import collections
 from resources import var, varloader
 
 
@@ -22,6 +23,19 @@ file_paths = {
     'profile': '/usr/src/app/data/info/profile.json'
 }
 
+def convert(data):
+    """
+    This takes a unicode dictionary as a parameter i.e. {u'key': u'value'},
+    This functional will encode it back to a normal looking dictionary (utf-8) and return the dictionary
+    """
+    if isinstance(data, basestring):
+        return str(data.encode('utf-8'))
+    elif isinstance(data, collections.Mapping):
+        return dict(map(convert, data.iteritems()))
+    elif isinstance(data, collections.Iterable):
+        return type(data)(map(convert, data))
+    else:
+        return data
 
 class WebSync:
     def __init__(self):
@@ -61,7 +75,7 @@ class WebSync:
         '''
         payload = {'username': 'admin', 'mirrorID': 'admin'}  # TODO: mirrorID & gpg key
         r = requests.get('http://mysmartmirror.herokuapp.com/api/get_user_settings', params=payload)
-        self.web_server_response = r.json()
+        self.web_server_response = convert(r.json())
         print "---------- Web Server Preferences ----------"
         print self.web_server_response
         # TODO: If web account does not yet exist, return an error
@@ -83,14 +97,11 @@ class WebSync:
         '''
         # Parse response from web server and add it to a list of stocks
         stocks_string = self.web_server_response['stocks'].split("////")
-        web_server_stocks = []
-        for item in stocks_string:
-            web_server_stocks += item
 
         # Check to see if they differ, if so, save to JSON
         mirror_stocks = varloader.get_data_from_json_file(file_paths['stocks'])
-        if mirror_stocks != web_server_stocks:
-            varloader.update_stocks(web_server_stocks)
+        if mirror_stocks != stocks_string:
+            varloader.update_stocks(stocks_string)
 
     def update_todo_list(self):
         '''
@@ -98,14 +109,11 @@ class WebSync:
         '''
         # Parse response from web server and add it to a list of items
         to_do_list_string = self.web_server_response['to_do_list'].split("////")
-        web_server_to_do_list = []
-        for item in to_do_list_string:
-            web_server_to_do_list += item
 
         # Check to see if they differ, if so, save to JSON
         mirror_to_do_list = varloader.get_data_from_json_file(file_paths['to_do_list'])
-        if mirror_to_do_list != web_server_to_do_list:
-            varloader.update_to_do_list(web_server_to_do_list)
+        if mirror_to_do_list != to_do_list_string:
+            varloader.update_to_do_list(to_do_list_string)
 
     def update_maps(self):
         '''

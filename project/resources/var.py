@@ -148,8 +148,8 @@ stocks_list = varloader.get_data_from_json_file(file_paths['stocks'])
 stock_data = varloader.get_data_from_json_file(file_paths['stock_data'])
 
 # Loading Up To Do List
-# to_do_list = varloader.get_data_from_json_file(file_paths['to_do_list'])
-to_do_list = ['item1:...', 'item2:...', 'item3:...']
+to_do_list = varloader.get_data_from_json_file(file_paths['to_do_list'])
+# to_do_list = ['item1:...', 'item2:...', 'item3:...']
 varloader.save_data_to_json_file(to_do_list, file_paths['to_do_list'])
 
 # Loading Up Google Map Settings

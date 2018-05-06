@@ -22,17 +22,8 @@ def handle_socket_connection(conn, shared_thread_vars):
         try:
             # Receive data stream (won't accept data packet > 1024 bytes)
             message = conn.recv(1024).decode()
-
-            # Checks for messages related to preferences
-            if 'preferences_updated' in message:
-                print 'Pushing Preference Updates to Web Server'
-                web_sync.send_updates()
-
-            # Error handling for messages in incorrect format
-            else:
-                # NOTE: This will break out of the loop and result in ending the client connection
-                print 'message error!: ', message
-                break
+            print 'Message Received: ',message
+            web_sync.send_updates()
 
             # Send an Ack for every correct response
             response = 'ack'
@@ -55,7 +46,7 @@ def web_sync_server(shared_thread_vars):
 
     # Gather Data on the machine and create the server Socket 
     host = socket.gethostname()
-    port = 5001
+    port = 5002
     server_socket = socket.socket()
     server_socket.bind((host, port))
 

@@ -84,6 +84,7 @@ class UpdateNow(Frame):
 
             #todo create a method that will change text to "just updated"
 
+            print "Sending Update Message to ServiceWebSync"
             self.client_message("servicewebsync", 5002, "preferences_updated")
 
     def create_photo(self):
@@ -103,6 +104,7 @@ class UpdateNow(Frame):
         self.update_status_label.config(font=(var.font_style, var.font_sizes['text']))
         self.last_update_label.config(font=(var.font_style, var.font_sizes['text']))
         self.update_now_label.config(font=(var.font_style, var.font_sizes['text']))
+        print "Sending Update Message to ServiceWebSync"
         self.client_message("servicewebsync", 5002, "preferences_updated")
 
     def update_smart_mirror(self, current_zone):

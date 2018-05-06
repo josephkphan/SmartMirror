@@ -1,9 +1,10 @@
-FROM josephkphan/smartmirror-pythonbase
+FROM josephkphan/smartmirror-rpipythonbase
 
 WORKDIR /usr/src/app
 
 COPY . .
 
+RUN apt-get install libgeos-dev python-pil python-imaging-tk
 RUN pip install shapely enum pillow 
 
 # RUN apt-get update && \ 
