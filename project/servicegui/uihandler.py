@@ -71,7 +71,7 @@ class UIManager:
 
         if start_full_screen:
             self.camera_selection_mode = not self.camera_selection_mode  # Just toggling the boolean
-            # self.tk.attributes("-fullscreen", self.camera_selection_mode)  #todo turn this back on to start FullScreen
+            self.tk.attributes("-fullscreen", self.camera_selection_mode)  #todo turn this back on to start FullScreen
 
         self.update_tk()
 
